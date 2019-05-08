@@ -15,8 +15,9 @@ public class Board extends PApplet {
 
 	// Game fields
 	private Player[] players = new Player[4];
-	private int numPlayers;
+	private int numPlayers, numTurns;
 	private Tile[][] tiles = new Tile[15][15];
+	private Rectangle endTurnBtn;
 
 	public Board() {
 		stage = menuPage;
@@ -70,6 +71,12 @@ public class Board extends PApplet {
 					input = JOptionPane.showInputDialog("Name for player " + (i + 1) + "?");
 					players[i] = new Player(i, 100, input);
 				}
+				
+				do {
+					input = JOptionPane.showInputDialog("How many turns should the game last?");
+				} while (!validIntegerInput(input));
+				numTurns = Integer.parseInt(input);
+				
 				stage = boardPage;
 			} else if (ruleBtn.isPointInside(mouseX, mouseY)) {
 				stage = rulePage;
