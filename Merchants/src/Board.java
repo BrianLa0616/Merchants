@@ -16,7 +16,7 @@ public class Board extends PApplet {
 	// Game fields
 	private Player[] players = new Player[4];
 	private int numPlayers;
-	private Tile[][] tiles = new Tile[10][10];
+	private Tile[][] tiles = new Tile[15][15];
 
 	public Board() {
 		stage = menuPage;
@@ -43,10 +43,10 @@ public class Board extends PApplet {
 			backBtn.draw(this);
 		} else if (stage == boardPage) {
 
-			for (int i = 0; i < 10; i++) {
-				for (int j = 0; j < 10; j++) {
-					line(100 * i, 0, 100 * i, 1000);
-					line(0, 100 * i, 1000, 100 * i);
+			for (int i = 0; i < 16; i++) {
+				for (int j = 0; j < 16; j++) {
+					line(60 * i, 0, 60 * i, 900);
+					line(0, 60 * i, 900, 60 * i);
 				}
 			}
 		} else if (stage == transPage) {
@@ -63,7 +63,7 @@ public class Board extends PApplet {
 				String input;
 				do {
 					input = JOptionPane.showInputDialog("How many players? 1-4 players");
-				} while (!validIntegerInput(input) || !(input.compareTo("0") > 0 && input.compareTo("5") < 0));
+				} while (!validIntegerInput(input) || !(input.compareTo("0") > 0 && input.compareTo("5") < 0 && input.length() == 1));
 				numPlayers = Integer.parseInt(input);
 
 				for (int i = 0; i < numPlayers; i++) {
