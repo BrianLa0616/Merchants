@@ -10,20 +10,18 @@ public class Board extends PApplet {
 	private static final int menuPage = 1, rulePage = 2, rulePage2 = 3, boardPage = 4, transPage = 5, endPage = 6;
 	private Rectangle backBtn;
 
-	// Menu fields
-	private Rectangle startBtn, ruleBtn;
+	private Rectangle nextStageBtn, ruleBtn;
 
 	// Game fields
 	private Player[] players = new Player[4];
 	private int numPlayers, numTurns;
 	private Tile[][] tiles = new Tile[15][15];
-	private Rectangle endTurnBtn;
 
 	public Board() {
 		stage = menuPage;
-		startBtn = new Rectangle(150, 150, 200, 75);
-		startBtn.setfill(0, 180, 255);
-		startBtn.setStroke(0, 180, 255);
+		nextStageBtn = new Rectangle(150, 150, 200, 75);
+		nextStageBtn.setfill(0, 180, 255);
+		nextStageBtn.setStroke(0, 180, 255);
 
 		ruleBtn = new Rectangle(150, 250, 200, 75);
 		ruleBtn.setfill(0, 180, 255);
@@ -36,7 +34,7 @@ public class Board extends PApplet {
 	public void draw() {
 		background(255);
 		if (stage == menuPage) {
-			startBtn.draw(this);
+			nextStageBtn.draw(this);
 			ruleBtn.draw(this);
 		} else if (stage == rulePage) {
 			backBtn.draw(this);
@@ -60,7 +58,7 @@ public class Board extends PApplet {
 
 	public void mousePressed() {
 		if (stage == menuPage) {
-			if (startBtn.isPointInside(mouseX, mouseY)) {
+			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
 				String input;
 				do {
 					input = JOptionPane.showInputDialog("How many players? 1-4 players");
