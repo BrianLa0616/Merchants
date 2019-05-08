@@ -1,4 +1,7 @@
 import processing.core.PApplet;
+
+import javax.swing.JOptionPane;
+
 import bla269.shapes.Rectangle;
 
 public class Board extends PApplet {
@@ -12,6 +15,7 @@ public class Board extends PApplet {
 
 	// Game fields
 	private Player[] players = new Player[4];
+	private int numPlayers;
 
 	public Board() {
 		stage = menuPage;
@@ -32,49 +36,48 @@ public class Board extends PApplet {
 		if (stage == menuPage) {
 			startBtn.draw(this);
 			ruleBtn.draw(this);
-		}
-		else if (stage == rulePage) {
+		} else if (stage == rulePage) {
 			backBtn.draw(this);
-		}
-		else if (stage == rulePage2) {
+		} else if (stage == rulePage2) {
 			backBtn.draw(this);
-		}
-		else if (stage == boardPage) {
+		} else if (stage == boardPage) {
 
-		}
-		else if (stage == transPage) {
-			
-		}
-		else if (stage == endPage) {
-			
+		} else if (stage == transPage) {
+
+		} else if (stage == endPage) {
+
 		}
 
 	}
 
 	public void mousePressed() {
 		if (stage == menuPage) {
-			if (ruleBtn.isPointInside(mouseX, mouseY)) {
+			if (startBtn.isPointInside(mouseX, mouseY)) {
+				String input;
+				input = JOptionPane.showInputDialog("How many players? 1-4 players");
+				numPlayers = Integer.parseInt(input);
+				for (int i = 0; i < numPlayers; i++) {
+					input = JOptionPane.showInputDialog("Name for player " + i + "?");
+					players[i] = new Player(i, 100, input);
+				}
+				stage = boardPage;
+			} else if (ruleBtn.isPointInside(mouseX, mouseY)) {
 				stage = rulePage;
 			}
-		}
-		else if (stage == rulePage) {
+		} else if (stage == rulePage) {
 			if (backBtn.isPointInside(mouseX, mouseY)) {
 				stage = menuPage;
 			}
-		}
-		else if (stage == rulePage2) {
+		} else if (stage == rulePage2) {
 			if (backBtn.isPointInside(mouseX, mouseY)) {
 				stage = boardPage;
 			}
-		}
-		else if (stage == boardPage) {
+		} else if (stage == boardPage) {
 
-		}
-		else if (stage == transPage) {
-			
-		}
-		else if (stage == endPage) {
-			
+		} else if (stage == transPage) {
+
+		} else if (stage == endPage) {
+
 		}
 	}
 
