@@ -16,6 +16,7 @@ public class Board extends PApplet {
 	// Game fields
 	private Player[] players = new Player[4];
 	private int numPlayers;
+	private Tile[][] tiles = new Tile[10][10];
 
 	public Board() {
 		stage = menuPage;
@@ -42,6 +43,12 @@ public class Board extends PApplet {
 			backBtn.draw(this);
 		} else if (stage == boardPage) {
 
+			for (int i = 0; i < 10; i++) {
+				for (int j = 0; j < 10; j++) {
+					line(100 * i, 0, 100 * i, 1000);
+					line(0, 100 * i, 1000, 100 * i);
+				}
+			}
 		} else if (stage == transPage) {
 
 		} else if (stage == endPage) {
@@ -54,10 +61,13 @@ public class Board extends PApplet {
 		if (stage == menuPage) {
 			if (startBtn.isPointInside(mouseX, mouseY)) {
 				String input;
-				input = JOptionPane.showInputDialog("How many players? 1-4 players");
+				do {
+					input = JOptionPane.showInputDialog("How many players? 1-4 players");
+				} while (!validIntegerInput(input) || !(input.compareTo("0") == 1 && input.compareTo("5") == -1));
 				numPlayers = Integer.parseInt(input);
+
 				for (int i = 0; i < numPlayers; i++) {
-					input = JOptionPane.showInputDialog("Name for player " + i + "?");
+					input = JOptionPane.showInputDialog("Name for player " + (i + 1) + "?");
 					players[i] = new Player(i, 100, input);
 				}
 				stage = boardPage;
@@ -79,6 +89,17 @@ public class Board extends PApplet {
 		} else if (stage == endPage) {
 
 		}
+	}
+
+	private boolean validIntegerInput(String x) {
+		if (x.length() == 0)
+			return false;
+		for (int i = 0; i < x.length(); i++) {
+			if (!(x.charAt(i) >= '0' && x.charAt(i) <= '9')) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
