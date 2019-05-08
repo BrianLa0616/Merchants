@@ -14,7 +14,7 @@ public class Board extends PApplet {
 
 	// Game fields
 	private Player[] players = new Player[4];
-	private int numPlayers, numTurns;
+	private int numPlayers, numTurns, curPlayer;
 	private Tile[][] tiles = new Tile[15][15];
 
 	public Board() {
@@ -41,7 +41,8 @@ public class Board extends PApplet {
 		} else if (stage == rulePage2) {
 			backBtn.draw(this);
 		} else if (stage == boardPage) {
-
+			nextStageBtn.draw(this);
+			ruleBtn.draw(this);
 			for (int i = 0; i < 16; i++) {
 				for (int j = 0; j < 16; j++) {
 					line(60 * i, 0, 60 * i, 900);
@@ -49,6 +50,7 @@ public class Board extends PApplet {
 				}
 			}
 		} else if (stage == transPage) {
+			nextStageBtn.draw(this);
 
 		} else if (stage == endPage) {
 
@@ -75,6 +77,9 @@ public class Board extends PApplet {
 				} while (!validIntegerInput(input));
 				numTurns = Integer.parseInt(input);
 				
+				nextStageBtn = new Rectangle(1000, 100, 50, 50);
+				ruleBtn = new Rectangle(1000, 200, 50, 50);
+				
 				stage = boardPage;
 			} else if (ruleBtn.isPointInside(mouseX, mouseY)) {
 				stage = rulePage;
@@ -88,9 +93,17 @@ public class Board extends PApplet {
 				stage = boardPage;
 			}
 		} else if (stage == boardPage) {
-
+			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
+				stage = transPage;
+			}
+			else if (ruleBtn.isPointInside(mouseX, mouseY)) {
+				stage = rulePage2;
+			}
 		} else if (stage == transPage) {
-
+			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
+				stage = boardPage;
+			}
+			
 		} else if (stage == endPage) {
 
 		}
