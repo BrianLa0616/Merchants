@@ -63,23 +63,26 @@ public class Board extends PApplet {
 			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
 				String input;
 				do {
-					input = JOptionPane.showInputDialog("How many players? 1-4 players");
-				} while (!validIntegerInput(input) || !(input.compareTo("0") > 0 && input.compareTo("5") < 0 && input.length() == 1));
+					input = JOptionPane.showInputDialog("Enter number of players. 1-4 players");
+				} while (!validIntegerInput(input)
+						|| !(input.compareTo("0") > 0 && input.compareTo("5") < 0 && input.length() == 1));
 				numPlayers = Integer.parseInt(input);
 
 				for (int i = 0; i < numPlayers; i++) {
-					input = JOptionPane.showInputDialog("Name for player " + (i + 1) + "?");
+					input = JOptionPane.showInputDialog("Enter the name for player " + (i + 1));
+
 					players[i] = new Player(i, 100, input);
+
 				}
-				
+
 				do {
 					input = JOptionPane.showInputDialog("How many turns should the game last?");
 				} while (!validIntegerInput(input));
 				numTurns = Integer.parseInt(input);
-				
+
 				nextStageBtn = new Rectangle(1000, 100, 50, 50);
 				ruleBtn = new Rectangle(1000, 200, 50, 50);
-				
+
 				stage = boardPage;
 			} else if (ruleBtn.isPointInside(mouseX, mouseY)) {
 				stage = rulePage;
@@ -95,15 +98,15 @@ public class Board extends PApplet {
 		} else if (stage == boardPage) {
 			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
 				stage = transPage;
-			}
-			else if (ruleBtn.isPointInside(mouseX, mouseY)) {
+			} else if (ruleBtn.isPointInside(mouseX, mouseY)) {
 				stage = rulePage2;
 			}
 		} else if (stage == transPage) {
 			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
+				String input;
 				stage = boardPage;
 			}
-			
+
 		} else if (stage == endPage) {
 
 		}
