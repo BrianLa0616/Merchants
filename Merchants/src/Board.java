@@ -63,7 +63,7 @@ public class Board extends PApplet {
 				String input;
 				do {
 					input = JOptionPane.showInputDialog("How many players? 1-4 players");
-				} while (!validIntegerInput(input) || !(input.compareTo("0") == 1 && input.compareTo("5") == -1));
+				} while (!validIntegerInput(input) || !(input.compareTo("0") > 0 && input.compareTo("5") < 0));
 				numPlayers = Integer.parseInt(input);
 
 				for (int i = 0; i < numPlayers; i++) {
