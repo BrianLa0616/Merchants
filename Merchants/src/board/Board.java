@@ -7,6 +7,13 @@ import javax.swing.JOptionPane;
 import bla269.shapes.Rectangle;
 import other.Player;
 
+/**
+ * 
+ * @author Brian
+ *
+ *         Represents the game board on which everything happens
+ *
+ */
 public class Board extends PApplet {
 
 	private int stage;
@@ -19,7 +26,7 @@ public class Board extends PApplet {
 	private Player[] players = new Player[4];
 	private int numPlayers, numTurns, curPlayer;
 	private Tile[][] tiles = new Tile[15][15];
-	
+
 	/**
 	 * Initiates buttons
 	 */
@@ -135,6 +142,7 @@ public class Board extends PApplet {
 
 	/**
 	 * Checks if String input is an integer
+	 * 
 	 * @param x String that represents input
 	 * @return true if it is an integer
 	 */
