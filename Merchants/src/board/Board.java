@@ -67,12 +67,19 @@ public class Board extends PApplet {
 				String input;
 				do {
 					input = JOptionPane.showInputDialog("Enter number of players. 1-4 players");
+					System.out.println(input);
+					if (input == null || input.equals("")) {
+						return;
+					}
 				} while (!validIntegerInput(input)
 						|| !(input.compareTo("0") > 0 && input.compareTo("5") < 0 && input.length() == 1));
 				numPlayers = Integer.parseInt(input);
 
 				for (int i = 0; i < numPlayers; i++) {
 					input = JOptionPane.showInputDialog("Enter the name for player " + (i + 1));
+					if (input == null || input.equals("")) {
+						return;
+					}
 
 					players[i] = new Player(i, 100, input, 0, 0); // TODO x and y
 
@@ -80,6 +87,9 @@ public class Board extends PApplet {
 
 				do {
 					input = JOptionPane.showInputDialog("How many turns should the game last?");
+					if (input == null || input.equals("")) {
+						return;
+					}
 				} while (!validIntegerInput(input));
 				numTurns = Integer.parseInt(input);
 
