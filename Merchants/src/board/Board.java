@@ -1,8 +1,10 @@
+package board;
 import processing.core.PApplet;
 
 import javax.swing.JOptionPane;
 
 import bla269.shapes.Rectangle;
+import other.Player;
 
 public class Board extends PApplet {
 

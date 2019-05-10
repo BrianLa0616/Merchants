@@ -1,7 +1,9 @@
+package running;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import board.Board;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 

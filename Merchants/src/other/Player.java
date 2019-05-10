@@ -1,5 +1,9 @@
+package other;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+
+import merchants.LandMerchant;
+import merchants.Merchant;
 
 public class Player {
 

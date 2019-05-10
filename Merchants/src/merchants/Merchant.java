@@ -1,4 +1,7 @@
+package merchants;
 import javax.swing.JOptionPane;
+
+import other.Player;
 
 public class Merchant {
 
