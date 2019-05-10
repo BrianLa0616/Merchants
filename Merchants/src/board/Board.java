@@ -1,4 +1,5 @@
 package board;
+
 import processing.core.PApplet;
 
 import javax.swing.JOptionPane;
@@ -73,7 +74,7 @@ public class Board extends PApplet {
 				for (int i = 0; i < numPlayers; i++) {
 					input = JOptionPane.showInputDialog("Enter the name for player " + (i + 1));
 
-					players[i] = new Player(i, 100, input);
+					players[i] = new Player(i, 100, input, 0, 0); // TODO x and y
 
 				}
 
