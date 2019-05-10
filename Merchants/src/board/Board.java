@@ -125,5 +125,4 @@ public class Board extends PApplet {
 		}
 		return true;
 	}
-
 }
