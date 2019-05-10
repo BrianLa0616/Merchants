@@ -1,10 +1,10 @@
 
-public class Checkpoint extends Tile{
+public class Checkpoint extends Tile {
 
 	private int owner;
-	public Checkpoint() {
-		super(0);
+
+	public Checkpoint(int x, int y, int type) {
+		super(x, y, type);
 	}
-	
-	
+
 }
