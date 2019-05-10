@@ -20,6 +20,7 @@ public class Board extends PApplet {
 	private int numPlayers, numTurns, curPlayer;
 	private Tile[][] tiles = new Tile[15][15];
 
+	
 	public Board() {
 		stage = menuPage;
 		nextStageBtn = new Rectangle(150, 150, 200, 75);
@@ -67,7 +68,6 @@ public class Board extends PApplet {
 				String input;
 				do {
 					input = JOptionPane.showInputDialog("Enter number of players. 1-4 players");
-					System.out.println(input);
 					if (input == null || input.equals("")) {
 						return;
 					}
