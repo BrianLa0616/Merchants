@@ -11,7 +11,7 @@ public class Player {
 	private int initX, initY;
 	private int id, balance;
 	private String name;
-	private int income;
+	private int income, auctionBonus;
 	private Merchant[] merchants;
 	private ArrayList<Point2D> territory;
 
@@ -22,6 +22,8 @@ public class Player {
 		this.setId(id);
 		this.setBalance(balance);
 		this.name = name;
+
+		auctionBonus = 0;
 
 		merchants = new Merchant[5];
 		for (int i = 0; i < merchants.length; i++) {
@@ -40,7 +42,7 @@ public class Player {
 	}
 
 	public void upgradeMerchant(int i, int type) {
-		//
+		// if auctionM then acutionBonus += something
 	}
 
 	public int getInitX() {

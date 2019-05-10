@@ -3,11 +3,12 @@ package merchants;
 import board.Tile;
 
 public class Merchant {
-	private int x, y;
+	private int x, y, speed;
 
 	public Merchant(int x, int y) {
 		this.x = x;
 		this.y = y;
+		speed = 2;
 	}
 
 	public int getX() {
@@ -26,7 +27,7 @@ public class Merchant {
 		this.y = y;
 	}
 
-	public void move() {
+	public void move(int distance) {
 		//
 	}
 
