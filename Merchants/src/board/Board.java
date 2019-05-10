@@ -139,13 +139,7 @@ public class Board extends PApplet {
 
 		}
 	}
-
-	/**
-	 * Checks if String input is an integer
-	 * 
-	 * @param x String that represents input
-	 * @return true if it is an integer
-	 */
+	
 	private boolean validIntegerInput(String x) {
 		if (x.length() == 0)
 			return false;
