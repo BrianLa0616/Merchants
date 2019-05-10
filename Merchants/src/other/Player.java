@@ -3,18 +3,40 @@ package other;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import merchants.AuctionMerchant;
+import merchants.InvisibleMerchant;
 import merchants.LandMerchant;
 import merchants.Merchant;
+import merchants.MoneyMerchant;
+import merchants.SpeedMerchant;
 
+/**
+ * 
+ * @author Eylam Tagor
+ * 
+ *         Represents one of the game's Players, and manages merchants,
+ *         territory and income.
+ *
+ */
 public class Player {
 
 	private int initX, initY;
 	private int id, balance;
 	private String name;
-	private int income, auctionBonus;
+	private int income, auctionBonus, landBonus;
 	private Merchant[] merchants;
 	private ArrayList<Point2D> territory;
 
+	/**
+	 * Creates a new Player object with 5 regular merchants and no territory.
+	 * 
+	 * @param id      the player's number in relation to other players
+	 * @param balance the player's starting balance, used to expand territory and
+	 *                upgrade merchants
+	 * @param name    the username of the player
+	 * @param initX   the player's initial starting location's x-coordinate
+	 * @param initY   the player's initial starting location's y-coordinate
+	 */
 	public Player(int id, int balance, String name, int initX, int initY) {
 		this.setInitX(initX);
 		this.setInitY(initY);
@@ -24,6 +46,7 @@ public class Player {
 		this.name = name;
 
 		auctionBonus = 0;
+		landBonus = 0;
 
 		merchants = new Merchant[5];
 		for (int i = 0; i < merchants.length; i++) {
@@ -41,8 +64,31 @@ public class Player {
 		return name;
 	}
 
-	public void upgradeMerchant(int i, int type) {
-		// if auctionM then acutionBonus += something
+	public void upgradeMerchant(int i, char type) {
+		switch (type) {
+		case 'a':
+			AuctionMerchant am = new AuctionMerchant(merchants[i].getX(), merchants[i].getY());
+			merchants[i] = am;
+			break;
+		case 's':
+			SpeedMerchant sm = new SpeedMerchant(merchants[i].getX(), merchants[i].getY());
+			merchants[i] = sm;
+			break;
+		case 'l':
+			LandMerchant lm = new LandMerchant(merchants[i].getX(), merchants[i].getY());
+			merchants[i] = lm;
+			break;
+		case 'i':
+			InvisibleMerchant im = new InvisibleMerchant(merchants[i].getX(), merchants[i].getY());
+			merchants[i] = im;
+			break;
+		case 'm':
+			MoneyMerchant mm = new MoneyMerchant(merchants[i].getX(), merchants[i].getY());
+			merchants[i] = mm;
+			break;
+		default:
+			break;
+		}
 	}
 
 	public int getInitX() {
@@ -87,5 +133,12 @@ public class Player {
 
 	public void setIncome(int income) {
 		this.income = income;
+	}
+
+	public void update() {
+		for (int i = 0; i < merchants.length; i++) {
+			if (merchants[i] instanceof MoneyMerchant)
+				income += 10;
+		}
 	}
 }

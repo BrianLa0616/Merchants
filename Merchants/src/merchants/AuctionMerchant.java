@@ -3,7 +3,7 @@ package merchants;
 public class AuctionMerchant extends Merchant {
 	private int x, y, price;
 
-	public AuctionMerchant(int x, int y, int price) {
+	public AuctionMerchant(int x, int y) {
 		super(x, y);
 	}
 
@@ -13,5 +13,9 @@ public class AuctionMerchant extends Merchant {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public int auction(int amount) {
+		return amount + 20;
 	}
 }

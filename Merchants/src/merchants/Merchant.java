@@ -27,12 +27,24 @@ public class Merchant {
 		this.y = y;
 	}
 
-	public void move(int distance) {
+	public void move(int direction) {
 		//
 	}
 
 	public boolean isAdjacent(Tile t) {
 		//
 		return false;
+	}
+
+	public void purchaseLand() {
+
+	}
+
+	public int proposeAuction(int amount) {
+		return amount;
+	}
+
+	public void goToCheckpt(int id) {
+
 	}
 }

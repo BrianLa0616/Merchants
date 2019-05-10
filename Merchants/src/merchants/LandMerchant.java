@@ -1,16 +1,10 @@
 package merchants;
 
-public class LandMerchant {
-	
-	private int x, y;
-	
-	public LandMerchant() {
-		//draw new merchant
-	}
+public class LandMerchant extends Merchant{
+	private 	
 	
 	public LandMerchant(int x, int y) {
-		this.x = x;
-		this.y = y;
+		super(x, y);
 	}
 	
 	public void power() {
