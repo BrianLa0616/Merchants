@@ -65,30 +65,30 @@ public class Player {
 	}
 
 	public void upgradeMerchant(int i, char type) {
-		switch (type) {
-		case 'a':
-			AuctionMerchant am = new AuctionMerchant(merchants[i].getX(), merchants[i].getY());
-			merchants[i] = am;
-			break;
-		case 's':
-			SpeedMerchant sm = new SpeedMerchant(merchants[i].getX(), merchants[i].getY());
-			merchants[i] = sm;
-			break;
-		case 'l':
-			LandMerchant lm = new LandMerchant(merchants[i].getX(), merchants[i].getY());
-			merchants[i] = lm;
-			break;
-		case 'i':
-			InvisibleMerchant im = new InvisibleMerchant(merchants[i].getX(), merchants[i].getY());
-			merchants[i] = im;
-			break;
-		case 'm':
-			MoneyMerchant mm = new MoneyMerchant(merchants[i].getX(), merchants[i].getY());
-			merchants[i] = mm;
-			break;
-		default:
-			break;
-		}
+//		switch (type) {
+//		case 'a':
+//			AuctionMerchant am = new AuctionMerchant(merchants[i].getX(), merchants[i].getY());
+//			merchants[i] = am;
+//			break;
+//		case 's':
+//			SpeedMerchant sm = new SpeedMerchant(merchants[i].getX(), merchants[i].getY());
+//			merchants[i] = sm;
+//			break;
+//		case 'l':
+//			LandMerchant lm = new LandMerchant(merchants[i].getX(), merchants[i].getY());
+//			merchants[i] = lm;
+//			break;
+//		case 'i':
+//			InvisibleMerchant im = new InvisibleMerchant(merchants[i].getX(), merchants[i].getY());
+//			merchants[i] = im;
+//			break;
+//		case 'm':
+//			MoneyMerchant mm = new MoneyMerchant(merchants[i].getX(), merchants[i].getY());
+//			merchants[i] = mm;
+//			break;
+//		default:
+//			break;
+//		}
 	}
 
 	public int getInitX() {
