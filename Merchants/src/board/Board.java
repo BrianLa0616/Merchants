@@ -19,8 +19,10 @@ public class Board extends PApplet {
 	private Player[] players = new Player[4];
 	private int numPlayers, numTurns, curPlayer;
 	private Tile[][] tiles = new Tile[15][15];
-
 	
+	/**
+	 * Initiates buttons
+	 */
 	public Board() {
 		stage = menuPage;
 		nextStageBtn = new Rectangle(150, 150, 200, 75);
@@ -35,6 +37,9 @@ public class Board extends PApplet {
 
 	}
 
+	/**
+	 * Draws the board
+	 */
 	public void draw() {
 		background(255);
 		if (stage == menuPage) {
@@ -62,6 +67,9 @@ public class Board extends PApplet {
 
 	}
 
+	/**
+	 * Checks for clicks and checks if it corresponds to a specific location
+	 */
 	public void mousePressed() {
 		if (stage == menuPage) {
 			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
@@ -125,6 +133,11 @@ public class Board extends PApplet {
 		}
 	}
 
+	/**
+	 * Checks if String input is an integer
+	 * @param x String that represents input
+	 * @return true if it is an integer
+	 */
 	private boolean validIntegerInput(String x) {
 		if (x.length() == 0)
 			return false;
