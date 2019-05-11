@@ -12,13 +12,14 @@ import processing.core.PApplet;
  *
  */
 public class Merchant {
-	
+
 	private int x, y, speed;
-	
+
 	private Color color;
 
 	/**
 	 * Constructs a new merchant at (x, y) with color c
+	 * 
 	 * @param x x coordinate of merchant
 	 * @param y y coordinate of merchant
 	 * @param c color of merchant
@@ -32,29 +33,33 @@ public class Merchant {
 
 	/**
 	 * Moves the merchant
-	 *   
-	 * @param direction of movement 
+	 * 
+	 * @param direction of movement
 	 */
 	public void move(int direction) {
-		
+
 	}
 
 	/**
 	 * Determines whether the merchant is next to a certain tile
 	 * 
-	 * @param t tile position being compared to 
+	 * @param t tile position being compared to
 	 * @return true if the merchant is adjacent next to the tile, false otherwise
 	 */
 	public boolean isAdjacent(Tile t) {
-		
+
 		return false;
 	}
 
 	/**
 	 * Purchases the land the merchant is currently on
+	 * 
+	 * @param amount of money the player currently has
+	 * @return new amount player has
 	 */
-	public void purchaseLand() {
+	public int purchaseLand(int amount) {
 
+		return amount - 30;
 	}
 
 	/**
@@ -66,7 +71,7 @@ public class Merchant {
 	public int proposeAuction(int amount) {
 		return amount;
 	}
-	
+
 	/**
 	 * Teleports the merchant to a checkpoint
 	 * 
@@ -75,18 +80,18 @@ public class Merchant {
 	public void goToCheckpt(int id) {
 
 	}
-	
+
 	/**
 	 * Draws a new merchant
 	 * 
 	 * @param p Marker to draw things
 	 */
-	public void draw(PApplet p)
-	{
+	public void draw(PApplet p) {
 		p.fill(color.getRed(), color.getGreen(), color.getBlue());
-		p.rect((x+0.25f)*Tile.TILE_SIZE, (y+0.25f)*Tile.TILE_SIZE, 0.5f*Tile.TILE_SIZE, 0.5f*Tile.TILE_SIZE);
+		p.rect((x + 0.25f) * Tile.TILE_SIZE, (y + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
+				0.5f * Tile.TILE_SIZE);
 	}
-	
+
 	/**
 	 * 
 	 * @return x coordinate of merchant
