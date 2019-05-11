@@ -39,5 +39,15 @@ public class SpeedMerchant extends Merchant {
 		this.price = price;
 	}
 
-}
+	/**
+	 * Ability of a Speed Merchant to move extra spaces
+	 * 
+	 * @param movement amount of leftover moves for speed merchant
+	 * @return new amount of leftover moves for speed merchant
+	 */
+	public int speed(int movement) {
+		return movement + 2;
 
+	}
+
+}
