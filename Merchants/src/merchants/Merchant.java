@@ -44,10 +44,18 @@ public class Merchant {
 	 * Determines whether the merchant is next to a certain tile
 	 * 
 	 * @param t tile position being compared to
-	 * @return true if the merchant is adjacent next to the tile, false otherwise
+	 * @return true if the merchant is adjacent to the specified tile, false otherwise
 	 */
 	public boolean isAdjacent(Tile t) {
-
+		if ((x + 1) == t.getX() && y == t.getY()) {
+			return true;
+		} else if (x == t.getX() && (y + 1) == t.getY()) {
+			return true;
+		} else if ((x - 1) == t.getX() && y == t.getY()) {
+			return true;
+		} else if (x == t.getX() && (y - 1) == t.getY()) {
+			return true;
+		}
 		return false;
 	}
 
