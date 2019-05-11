@@ -9,6 +9,7 @@ import java.awt.Color;
  */
 public class InvisibleMerchant extends Merchant {
 	private int x, y, price;
+	private int level;
 	private boolean visible;
 
 	/**
@@ -20,6 +21,7 @@ public class InvisibleMerchant extends Merchant {
 	 */
 	public InvisibleMerchant(int x, int y, Color c) {
 		super(x, y, c);
+		level = 1;
 	}
 
 	/**
@@ -46,5 +48,8 @@ public class InvisibleMerchant extends Merchant {
 	 */
 	public void setVisibility(boolean isVisible) {
 		visible = isVisible;
+		// as the level goes up, the invisible merchant can travel further into enemy
+		// territory while still being invisible to other players
 	}
+
 }

@@ -10,6 +10,7 @@ import java.awt.Color;
  */
 public class SpeedMerchant extends Merchant {
 	private int x, y, price;
+	private int level;
 
 	/**
 	 * Constructs a new Speed Merchant at (x, y) with Color c
@@ -39,5 +40,15 @@ public class SpeedMerchant extends Merchant {
 		this.price = price;
 	}
 
-}
+	/**
+	 * Ability of a Speed Merchant to move extra spaces
+	 * 
+	 * @param movement amount of leftover moves for speed merchant
+	 * @return new amount of leftover moves for speed merchant
+	 */
+	public int speed(int movement) {
+		return movement + 2;
 
+	}
+
+}

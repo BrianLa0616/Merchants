@@ -10,6 +10,7 @@ import java.awt.Color;
  */
 public class AuctionMerchant extends Merchant {
 	private int x, y, price;
+	private int level;
 
 	/**
 	 * Constructs a new Auction Merchant at (x, y) with color c
@@ -19,6 +20,7 @@ public class AuctionMerchant extends Merchant {
 	 */
 	public AuctionMerchant(int x, int y, Color c) {
 		super(x, y, c);
+		level = 1;
 	}
 
 	/**
@@ -39,12 +41,24 @@ public class AuctionMerchant extends Merchant {
 	}
 
 	/**
-	 * Ability of an Auction Merchant to add money to the player's bid without the player needing to pay the amount
+	 * Ability of an Auction Merchant to add money to the player's bid without the
+	 * player needing to pay the amount, additional amount added depends on the
+	 * merchant's level
 	 * 
 	 * @param amount player bids
 	 * @return new player bid after added money
 	 */
 	public int auction(int amount) {
-		return amount + 20;
+		if (level == 1) {
+			return amount + 15;
+		} else if (level == 2) {
+			return amount + 20;
+		} else if (level == 3) {
+			return amount + 25;
+		} else if (level == 4) {
+			return amount + 30;
+		}
+		return amount + 40;
 	}
+
 }
