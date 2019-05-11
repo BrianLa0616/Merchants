@@ -2,9 +2,12 @@ package board;
 
 import processing.core.PApplet;
 
+import java.awt.Color;
+
 import javax.swing.JOptionPane;
 
 import bla269.shapes.Rectangle;
+import merchants.Merchant;
 import other.Player;
 
 /**
@@ -61,8 +64,13 @@ public class Board extends PApplet {
 			ruleBtn.draw(this);
 			for (int i = 0; i < 16; i++) {
 				for (int j = 0; j < 16; j++) {
-					line(60 * i, 0, 60 * i, 900);
-					line(0, 60 * i, 900, 60 * i);
+					line(Tile.TILE_SIZE * i, 0, Tile.TILE_SIZE * i, 900);
+					line(0, Tile.TILE_SIZE * i, 900, Tile.TILE_SIZE * i);
+				}
+			}
+			for(Player p: players) {
+				for(Merchant m: p.getMerchants()) {
+					m.draw(this);
 				}
 			}
 		} else if (stage == transPage) {
@@ -96,7 +104,7 @@ public class Board extends PApplet {
 						return;
 					}
 
-					players[i] = new Player(i, 100, input, 0, 0); // TODO x and y
+					players[i] = new Player(i, 100, input, new Color((int) (Math.random()*256), (int) (Math.random()*256), (int) (Math.random()*256)), 0, 0); // TODO x and y
 
 				}
 

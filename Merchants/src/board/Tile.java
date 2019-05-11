@@ -9,6 +9,8 @@ package board;
  *
  */
 public class Tile {
+	
+	public static final int TILE_SIZE = 60;
 
 	private int x, y, type, cost, income, owner;
 
