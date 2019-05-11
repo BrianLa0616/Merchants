@@ -1,5 +1,6 @@
 package other;
 
+import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public class Player {
 	private int initX, initY;
 	private int id, balance;
 	private String name;
+	private final Color color;
 	private int income, auctionBonus, landBonus;
 	private Merchant[] merchants;
 	private ArrayList<Point2D> territory;
@@ -34,23 +36,25 @@ public class Player {
 	 * @param balance the player's starting balance, used to expand territory and
 	 *                upgrade merchants
 	 * @param name    the username of the player
+	 * @param color   the player's color
 	 * @param initX   the player's initial starting location's x-coordinate
 	 * @param initY   the player's initial starting location's y-coordinate
 	 */
-	public Player(int id, int balance, String name, int initX, int initY) {
+	public Player(int id, int balance, String name, Color color, int initX, int initY) {
 		this.setInitX(initX);
 		this.setInitY(initY);
 
 		this.setId(id);
 		this.setBalance(balance);
 		this.name = name;
+		this.color = color;
 
 		auctionBonus = 0;
 		landBonus = 0;
 
 		merchants = new Merchant[5];
 		for (int i = 0; i < merchants.length; i++) {
-			merchants[i] = new Merchant(initX, initY);
+			merchants[i] = new Merchant(initX, initY, color);
 		}
 
 		territory = new ArrayList<Point2D>();
@@ -62,6 +66,11 @@ public class Player {
 
 	public String getName() {
 		return name;
+	}
+	
+	public Color getColor()
+	{
+		return color;
 	}
 
 	public void upgradeMerchant(int i, char type) {
@@ -140,5 +149,9 @@ public class Player {
 			if (merchants[i] instanceof MoneyMerchant)
 				income += 10;
 		}
+	}
+	
+	public Merchant[] getMerchants() {
+		return merchants;
 	}
 }
