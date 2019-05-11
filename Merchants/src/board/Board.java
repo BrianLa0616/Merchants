@@ -25,6 +25,8 @@ public class Board extends PApplet {
 
 	private Rectangle nextStageBtn, ruleBtn;
 
+	private Merchant selected;
+
 	// Game fields
 	private Player[] players = new Player[4];
 	private int numPlayers, numTurns, curPlayer;
@@ -45,6 +47,15 @@ public class Board extends PApplet {
 
 		backBtn = new Rectangle(25, 400, 50, 50);
 
+		selected = null;
+
+		for(int i = 0; i < 15; i++)
+		{
+			for(int j = 0; j < 15; j++)
+			{
+				tiles[i][j] = new Tile(i, j, 0);
+			}
+		}
 	}
 
 	/**
@@ -62,10 +73,12 @@ public class Board extends PApplet {
 		} else if (stage == boardPage) {
 			nextStageBtn.draw(this);
 			ruleBtn.draw(this);
-			for (int i = 0; i < 16; i++) {
-				for (int j = 0; j < 16; j++) {
-					line(Tile.TILE_SIZE * i, 0, Tile.TILE_SIZE * i, 900);
-					line(0, Tile.TILE_SIZE * i, 900, Tile.TILE_SIZE * i);
+			noFill();
+			for (int i = 0; i < 15; i++) {
+				for (int j = 0; j < 15; j++) {
+					//line(Tile.TILE_SIZE * i, 0, Tile.TILE_SIZE * i, 900);
+					//line(0, Tile.TILE_SIZE * i, 900, Tile.TILE_SIZE * i);
+					tiles[i][j].draw(this);
 				}
 			}
 			for(Player p: players) {
@@ -137,6 +150,23 @@ public class Board extends PApplet {
 			} else if (ruleBtn.isPointInside(mouseX, mouseY)) {
 				stage = rulePage2;
 			}
+			else
+			{
+				int mx = mouseX/Tile.TILE_SIZE;
+				int my = mouseY/Tile.TILE_SIZE;
+				if(mx >= 0 && mx < tiles.length && my >= 0 && my < tiles[0].length)
+				{
+					if(selected == null)
+					{
+						selected = tiles[mx][my].getMerchant();
+						System.out.println("merchant seslected");
+					}
+					else
+					{
+						//see if you can move the merchant to this tile
+					}
+				}
+			}
 		} else if (stage == transPage) {
 			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
 				String input;
@@ -147,7 +177,7 @@ public class Board extends PApplet {
 
 		}
 	}
-	
+
 	private boolean validIntegerInput(String x) {
 		if (x.length() == 0)
 			return false;

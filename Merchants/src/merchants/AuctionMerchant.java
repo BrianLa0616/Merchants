@@ -1,32 +1,36 @@
 package merchants;
 
+import java.awt.Color;
+
 /**
- * merchant with auction discounts
+ * Represents an auction merchant
  * 
- * @author eylam
+ * @author Ansen
  *
  */
 public class AuctionMerchant extends Merchant {
 	private int x, y, price;
 
 	/**
+	 * Constructs a new Auction Merchant at (x, y) with color c
 	 * 
-	 * @param x  x vluw
-	 * @param yy value
+	 * @param x coordinate of auction merchant
+	 * @param y coordinate of auction merchant
 	 */
-	public AuctionMerchant(int x, int y) {
-		super(x, y);
+	public AuctionMerchant(int x, int y, Color c) {
+		super(x, y, c);
 	}
 
 	/**
 	 * 
-	 * @return rpcie to upgrade
+	 * @return price of an Auction Merchant
 	 */
 	public int getPrice() {
 		return price;
 	}
 
 	/**
+	 * Sets the price of an Auction Merchant
 	 * 
 	 * @param price to upgrade
 	 */
@@ -35,10 +39,10 @@ public class AuctionMerchant extends Merchant {
 	}
 
 	/**
-	 * apply discount
+	 * Ability of an Auction Merchant to add money to the player's bid without the player needing to pay the amount
 	 * 
-	 * @param amount sggestion
-	 * @return auction value
+	 * @param amount player bids
+	 * @return new player bid after added money
 	 */
 	public int auction(int amount) {
 		return amount + 20;

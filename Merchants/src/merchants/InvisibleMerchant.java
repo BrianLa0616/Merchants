@@ -1,39 +1,46 @@
 package merchants;
 
+import java.awt.Color;
+
 /**
+ * Represents an Invisible Merchant
  * 
- * @author eylam unseen by other players
+ * @author Ansen
  */
 public class InvisibleMerchant extends Merchant {
-	private int price;
+	private int x, y, price;
 	private boolean visible;
 
 	/**
+	 * Constructs a new Invisible Merchant at (x, y) with color c
 	 * 
-	 * @param x x value
-	 * @param y y value
+	 * @param x coordinate of the Invisible Merchant
+	 * @param y coordinate of the Invisible Merchant
+	 * @param c Color of the Invisible Merchant
 	 */
-	public InvisibleMerchant(int x, int y) {
-		super(x, y);
+	public InvisibleMerchant(int x, int y, Color c) {
+		super(x, y, c);
 	}
 
 	/**
 	 * 
-	 * @return cost to upgrade
+	 * @return cost of an Invisible Merchant
 	 */
 	public int getPrice() {
 		return price;
 	}
 
 	/**
+	 * Sets the price of an Invisible Merchant
 	 * 
-	 * @param price cost to upgrade
+	 * @param price cost to upgrade to an Invisible Merchant
 	 */
 	public void setPrice(int price) {
 		this.price = price;
 	}
 
 	/**
+	 * Whether or not the Invisible Merchant is visible or not to other players
 	 * 
 	 * @param isVisible to other players
 	 */

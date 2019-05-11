@@ -1,20 +1,43 @@
 package merchants;
 
+import java.awt.Color;
+
 /**
- * faster movement
+ * Represents a Speed Merchant
  * 
- * @author eylam
+ * @author Ansen
  *
  */
 public class SpeedMerchant extends Merchant {
+	private int x, y, price;
+
+	/**
+	 * Constructs a new Speed Merchant at (x, y) with Color c
+	 * 
+	 * @param x coordinate of the Speed Merchant
+	 * @param y coordinate of the Speed Merchant
+	 * @param c Color of the Speed Merchant
+	 */
+	public SpeedMerchant(int x, int y, Color c) {
+		super(x, y, c);
+	}
 
 	/**
 	 * 
-	 * @param x x value
-	 * @param y y value
+	 * @return price of a Speed Merchant
 	 */
-	public SpeedMerchant(int x, int y) {
-		super(x, y);
+	public int getPrice() {
+		return price;
+	}
+
+	/**
+	 * Sets the price of a Speed Merchant
+	 * 
+	 * @param price to upgrade
+	 */
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 }
+

@@ -1,5 +1,8 @@
 package board;
 
+import merchants.Merchant;
+import processing.core.PApplet;
+
 /**
  * 
  * @author Eylam
@@ -13,6 +16,7 @@ public class Tile {
 	public static final int TILE_SIZE = 60;
 
 	private int x, y, type, cost, income, owner;
+	private Merchant merchant;
 
 	/**
 	 * 
@@ -24,6 +28,7 @@ public class Tile {
 		this.setX(x);
 		this.setY(y);
 		this.setType(type);
+		merchant = null;
 	}
 
 	/**
@@ -54,6 +59,11 @@ public class Tile {
 	 */
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public void draw(PApplet p)
+	{
+		p.rect(x*Tile.TILE_SIZE, y*Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
 	}
 
 	/**
@@ -119,4 +129,14 @@ public class Tile {
 	public void setOwner(int owner) {
 		this.owner = owner;
 	}
+
+	public Merchant getMerchant() {
+		return merchant;
+	}
+
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
+	}
+	
+	
 }
