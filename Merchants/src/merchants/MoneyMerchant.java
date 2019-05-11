@@ -10,6 +10,7 @@ import java.awt.Color;
  */
 public class MoneyMerchant extends Merchant {
 	private int x, y, price;
+	private int level;
 
 	/**
 	 * Constructs a new Money Merchant at (x, y) with Color c
@@ -20,6 +21,7 @@ public class MoneyMerchant extends Merchant {
 	 */
 	public MoneyMerchant(int x, int y, Color c) {
 		super(x, y, c);
+		level = 1;
 	}
 
 	/**
@@ -40,12 +42,23 @@ public class MoneyMerchant extends Merchant {
 	}
 
 	/**
-	 * Ability of an Money Merchant to supply additional money to the player per their turn
+	 * Ability of an Money Merchant to supply additional money to the player per
+	 * their turn, the amount the player receives depends on the merchant's level
 	 * 
 	 * @param amount of money the player currently has
 	 * @return player's new total amount
 	 */
 	public int reduce(int amount) {
-		return amount + 10;
+		if (level == 1) {
+			return amount + 15;
+		} else if (level == 2) {
+			return amount + 20;
+		} else if (level == 3) {
+			return amount + 25;
+		} else if (level == 4) {
+			return amount + 30;
+		}
+		return amount + 40;
 	}
+
 }

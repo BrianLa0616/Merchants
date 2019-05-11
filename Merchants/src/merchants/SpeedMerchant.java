@@ -10,6 +10,7 @@ import java.awt.Color;
  */
 public class SpeedMerchant extends Merchant {
 	private int x, y, price;
+	private int level;
 
 	/**
 	 * Constructs a new Speed Merchant at (x, y) with Color c

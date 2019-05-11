@@ -159,7 +159,7 @@ public class Board extends PApplet {
 					if(selected == null)
 					{
 						selected = tiles[mx][my].getMerchant();
-						System.out.println("merchant seslected");
+						System.out.println("Merchant Selected");
 					}
 					else
 					{
