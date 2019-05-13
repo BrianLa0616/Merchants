@@ -40,7 +40,6 @@ public class Merchant {
 	 * @param dirX x direction that merchant is moving
 	 * @param dirY y direction that merchant is moving
 	 */
-
 	public void move(int dirX, int dirY) {
 		this.x += dirX;
 		this.y += dirY;
