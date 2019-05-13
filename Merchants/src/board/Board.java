@@ -99,6 +99,10 @@ public class Board extends PApplet {
 
 		} else if (stage == transPage) {
 			nextStageBtn.draw(this);
+			textSize(50);
+			fill(0);
+			
+			text("Player " + (curPlayer+1) + " turn: " + players.get(curPlayer).getName(), 50, 50);
 		} else if (stage == endPage) {
 
 		}
@@ -151,7 +155,7 @@ public class Board extends PApplet {
 				nextStageBtn = new Rectangle(1000, 100, 50, 50);
 				ruleBtn = new Rectangle(1000, 200, 50, 50);
 
-				stage = boardPage;
+				stage = transPage;
 			} else if (ruleBtn.isPointInside(mouseX, mouseY)) {
 				stage = rulePage;
 			}
@@ -165,6 +169,8 @@ public class Board extends PApplet {
 			}
 		} else if (stage == boardPage) {
 			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
+				curPlayer++;
+				curPlayer %= numPlayers;
 				stage = transPage;
 			} else if (ruleBtn.isPointInside(mouseX, mouseY)) {
 				stage = rulePage2;
