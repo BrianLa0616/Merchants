@@ -38,22 +38,21 @@ public class MoneyMerchant extends Merchant {
 
 	/**
 	 * Ability of an Money Merchant to supply additional money to the player per
-	 * their turn, the amount the player receives depends on the merchant's level
+	 * their turn, as the merchant's level rises, the amount the player receives
+	 * also rises
 	 * 
 	 * @param amount of money the player currently has
 	 * @return player's new total amount
 	 */
 	public int reduce(int amount) {
-		if (level == 1) {
+		if (level == 2) {
 			return amount + 15;
-		} else if (level == 2) {
-			return amount + 20;
 		} else if (level == 3) {
-			return amount + 25;
+			return amount + 20;
 		} else if (level == 4) {
-			return amount + 30;
+			return amount + 25;
 		}
-		return amount + 40;
+		return amount + 35;
 	}
 
 }
