@@ -49,16 +49,14 @@ public class AuctionMerchant extends Merchant {
 	 * @return new player bid after added money
 	 */
 	public int auction(int amount) {
-		if (level == 1) {
+		if (level == 2) {
 			return amount + 15;
-		} else if (level == 2) {
-			return amount + 20;
 		} else if (level == 3) {
-			return amount + 25;
+			return amount + 20;
 		} else if (level == 4) {
-			return amount + 30;
-		}
-		return amount + 40;
+			return amount + 25;
+		} 
+		return amount + 35;
 	}
 
 }

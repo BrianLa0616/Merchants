@@ -21,6 +21,7 @@ public class SpeedMerchant extends Merchant {
 	 */
 	public SpeedMerchant(int x, int y, Color c) {
 		super(x, y, c);
+		level = 1;
 	}
 
 	/**
@@ -41,14 +42,21 @@ public class SpeedMerchant extends Merchant {
 	}
 
 	/**
-	 * Ability of a Speed Merchant to move extra spaces
+	 * Ability of a Speed Merchant to move extra spaces, as the levels increase, the
+	 * Speed Merchant can move further
 	 * 
 	 * @param movement amount of leftover moves for speed merchant
 	 * @return new amount of leftover moves for speed merchant
 	 */
 	public int speed(int movement) {
-		return movement + 2;
-
+		if (level == 2) {
+			return movement + 1;
+		} else if (level == 3) {
+			return movement;
+		} else if (level == 4) {
+			return movement + 2;
+		}
+		return movement + 3;
 	}
 
 }
