@@ -9,7 +9,8 @@ import java.awt.Color;
  *
  */
 public class LandMerchant extends Merchant {
-	private int x, y, price, level;
+	private int x, y, price;
+	private int level;
 
 	/**
 	 * Constructs a new Land Merchant at (x, y) with Color c
@@ -36,12 +37,20 @@ public class LandMerchant extends Merchant {
 	}
 
 	/**
-	 * Ability of an Land Merchant to reduce the price of land
+	 * Ability of an Land Merchant to reduce the price of land, as the merchant's
+	 * level rises, the amount of money reduced from the land will also grow
 	 * 
 	 * @param cost of land
 	 * @return new price of land after reduction
 	 */
 	public int reduce(int cost) {
-		return cost - 20;
+		if (level == 2) {
+			return cost - 15;
+		} else if (level == 3) {
+			return cost - 20;
+		} else if (level == 4) {
+			return cost - 25;
+		}
+		return cost - 35;
 	}
 }

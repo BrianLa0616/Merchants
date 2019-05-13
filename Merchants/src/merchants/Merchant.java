@@ -2,6 +2,7 @@ package merchants;
 
 import java.awt.Color;
 
+import board.Checkpoint;
 import board.Tile;
 import processing.core.PApplet;
 
@@ -44,11 +45,13 @@ public class Merchant {
 	/**
 	 * Moves the merchant
 	 * 
-	 * @param direction of movement
+	 * @param dirX x direction that merchant is moving
+	 * @param dirY y direction that merchant is moving
 	 */
-	public void move(int x, int y) {
-		this.x += x;
-		this.y += y;
+	public void move(int dirX, int dirY) {
+		this.x += dirX;
+		this.y += dirY;
+
 	}
 
 	/**
@@ -97,8 +100,9 @@ public class Merchant {
 	 * 
 	 * @param id of checkpoint
 	 */
-	public void goToCheckpt(int id) {
-		
+	public void goToCheckpt(Checkpoint c) {
+		x = c.getX();
+		y = c.getY();
 
 	}
 

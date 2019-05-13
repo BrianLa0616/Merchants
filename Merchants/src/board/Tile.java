@@ -1,7 +1,5 @@
 package board;
 
-import java.awt.Color;
-
 import merchants.Merchant;
 import processing.core.PApplet;
 
@@ -19,7 +17,7 @@ public class Tile {
 
 	private int x, y, type, cost, income, owner;
 	private Merchant merchant;
-	private Color color;
+	private boolean covered;
 
 	/**
 	 * 
@@ -31,10 +29,8 @@ public class Tile {
 		this.x = x;
 		this.y = y;
 		this.type = type;
-
-		owner = -1;
-		color = new Color(255, 255, 255);
 		merchant = null;
+		covered = true;
 	}
 
 	/**
@@ -107,7 +103,7 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return the player who owns this tile. -1 if there is no owner
+	 * @return the player who owns this tile
 	 */
 	public int getOwner() {
 		return owner;
@@ -129,8 +125,12 @@ public class Tile {
 		this.merchant = merchant;
 	}
 
-	public void setFill(Color c) {
-		color = c;
+	public boolean isCovered() {
+		return covered;
+	}
+
+	public void uncover() {
+		covered = false;
 	}
 
 }

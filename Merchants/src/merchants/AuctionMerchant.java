@@ -37,23 +37,21 @@ public class AuctionMerchant extends Merchant {
 
 	/**
 	 * Ability of an Auction Merchant to add money to the player's bid without the
-	 * player needing to pay the amount, additional amount added depends on the
-	 * merchant's level
+	 * player needing to pay the amount, as the merchant's level rises, the
+	 * additional amount received will also rise merchant's level
 	 * 
 	 * @param amount player bids
 	 * @return new player bid after added money
 	 */
 	public int auction(int amount) {
-		if (level == 1) {
+		if (level == 2) {
 			return amount + 15;
-		} else if (level == 2) {
-			return amount + 20;
 		} else if (level == 3) {
-			return amount + 25;
+			return amount + 20;
 		} else if (level == 4) {
-			return amount + 30;
+			return amount + 25;
 		}
-		return amount + 40;
+		return amount + 35;
 	}
 
 }
