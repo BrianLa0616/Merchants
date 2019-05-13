@@ -9,8 +9,8 @@ import java.awt.Color;
  *
  */
 public class LandMerchant extends Merchant {
-	private int x, y, price;
-	
+	private int x, y, price, level;
+
 	/**
 	 * Constructs a new Land Merchant at (x, y) with Color c
 	 * 
@@ -20,6 +20,7 @@ public class LandMerchant extends Merchant {
 	 */
 	public LandMerchant(int x, int y, Color c) {
 		super(x, y, c);
+		level = 1;
 	}
 
 	/**
@@ -30,13 +31,8 @@ public class LandMerchant extends Merchant {
 		return price;
 	}
 
-	/**
-	 * Sets the price of a Land Merchant
-	 * 
-	 * @param price to upgrade
-	 */
-	public void setPrice(int price) {
-		this.price = price;
+	public void upgrade() {
+		level++;
 	}
 
 	/**

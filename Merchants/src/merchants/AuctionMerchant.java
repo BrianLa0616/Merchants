@@ -31,13 +31,8 @@ public class AuctionMerchant extends Merchant {
 		return price;
 	}
 
-	/**
-	 * Sets the price of an Auction Merchant
-	 * 
-	 * @param price to upgrade
-	 */
-	public void setPrice(int price) {
-		this.price = price;
+	public void upgrade() {
+		level++;
 	}
 
 	/**

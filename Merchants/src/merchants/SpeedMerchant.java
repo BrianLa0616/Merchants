@@ -31,13 +31,8 @@ public class SpeedMerchant extends Merchant {
 		return price;
 	}
 
-	/**
-	 * Sets the price of a Speed Merchant
-	 * 
-	 * @param price to upgrade
-	 */
-	public void setPrice(int price) {
-		this.price = price;
+	public void upgrade() {
+		level++;
 	}
 
 	/**
