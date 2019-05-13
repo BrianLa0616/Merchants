@@ -86,13 +86,13 @@ public class Board extends PApplet {
 			}
 
 			if (selected != null) {
-				for (int i = -1; i <= 1; i++) {
-					for (int j = -1; j <= 1; j++) {
-						int nx = selected.getX() + i;
-						int ny = selected.getY() + j;
-						if (inRange(nx, ny)) {
-							tiles[nx][ny].setFill(Color.yellow);
-						}
+				int[] dx = { 1, -1, 0, 0 };
+				int[] dy = { 0, 0, -1, 1 };
+				for (int i = 0; i < 4; i++) {
+					int nx = selected.getX() + dx[i];
+					int ny = selected.getY() + dy[i];
+					if (inRange(nx, ny)) {
+						tiles[nx][ny].setFill(Color.yellow);
 					}
 				}
 			}
@@ -177,11 +177,12 @@ public class Board extends PApplet {
 						selected = tiles[mx][my].getMerchant();
 					} else {
 
-						if (Math.abs(mx - selected.getX()) + Math.abs(my - selected.getY()) == 1) {
+						if (Math.abs(mx - selected.getX()) + Math.abs(my - selected.getY()) == 1
+								&& tiles[mx][my].getMerchant() == null) {
 							tiles[mx][my].setMerchant(selected);
 							tiles[selected.getX()][selected.getY()].setMerchant(null);
 							deselect();
-							
+
 							tiles[mx][my].getMerchant().setX(mx);
 							tiles[mx][my].getMerchant().setY(my);
 
@@ -189,7 +190,6 @@ public class Board extends PApplet {
 							deselect();
 						}
 
-						
 					}
 
 				}
@@ -218,7 +218,7 @@ public class Board extends PApplet {
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < 15 && y >= 0 && y < 15;
 	}
-	
+
 	private void deselect() {
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {

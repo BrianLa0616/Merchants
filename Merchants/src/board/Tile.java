@@ -1,5 +1,7 @@
 package board;
 
+import java.awt.Color;
+
 import merchants.Merchant;
 import processing.core.PApplet;
 
@@ -18,7 +20,7 @@ public class Tile {
 	private int x, y, type, cost, income, owner;
 	private Merchant merchant;
 	private boolean covered;
-
+	private Color color;
 	/**
 	 * 
 	 * @param x    the x-coordinate of the tile
@@ -30,7 +32,8 @@ public class Tile {
 		this.y = y;
 		this.type = type;
 		merchant = null;
-		covered = true;
+		covered = false;
+		color = Color.white;
 	}
 
 	/**
@@ -131,6 +134,10 @@ public class Tile {
 
 	public void uncover() {
 		covered = false;
+	}
+	
+	public void setFill(Color c) {
+		color = c;
 	}
 
 }
