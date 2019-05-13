@@ -163,6 +163,7 @@ public class Board extends PApplet {
 					}
 					else
 					{
+						
 						//see if you can move the merchant to this tile
 					}
 				}
