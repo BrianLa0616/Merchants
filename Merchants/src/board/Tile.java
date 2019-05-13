@@ -30,6 +30,7 @@ public class Tile {
 		this.y = y;
 		this.type = type;
 		merchant = null;
+		covered = true;
 	}
 
 	/**
@@ -125,6 +126,10 @@ public class Tile {
 
 	public boolean isCovered() {
 		return covered;
+	}
+
+	public void uncover() {
+		covered = false;
 	}
 
 }
