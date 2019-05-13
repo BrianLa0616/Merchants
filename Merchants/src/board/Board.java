@@ -20,12 +20,13 @@ import processing.core.PApplet;
 public class Board extends PApplet {
 
 	private int stage;
-	private static final int menuPage = 1, rulePage = 2, rulePage2 = 3, boardPage = 4, transPage = 5, endPage = 6;
+	private static final int menuPage = 1, rulePage = 2, rulePage2 = 3, boardPage = 4, transPage = 5, aucPage = 6,
+			endPage = 7;
 	private Rectangle backBtn;
-
 	private Rectangle nextStageBtn, ruleBtn;
-
 	private Merchant selected;
+
+	private ArrayList<Tile> auctionTiles;
 
 	// Game fields
 	private ArrayList<Player> players = new ArrayList<Player>();
@@ -55,6 +56,7 @@ public class Board extends PApplet {
 				tiles[i][j] = new Tile(i, j, 0);
 			}
 		}
+		auctionTiles = new ArrayList<Tile>();
 	}
 
 	/**
@@ -101,8 +103,16 @@ public class Board extends PApplet {
 			nextStageBtn.draw(this);
 			textSize(50);
 			fill(0);
-			
-			text("Player " + (curPlayer+1) + " turn: " + players.get(curPlayer).getName(), 50, 50);
+
+			text("Player " + (curPlayer + 1) + " turn: " + players.get(curPlayer).getName(), 50, 50);
+		} else if (stage == aucPage) {
+			textSize(50);
+			fill(0);
+
+			text("AUCTION", 50, 50);
+			for (int i = 0; i < auctionTiles.size(); i++) {
+
+			}
 		} else if (stage == endPage) {
 
 		}
@@ -171,7 +181,11 @@ public class Board extends PApplet {
 			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
 				curPlayer++;
 				curPlayer %= numPlayers;
-				stage = transPage;
+				if (curPlayer == 0 && auctionTiles.size() != 0) {
+					stage = aucPage;
+				} else {
+					stage = transPage;
+				}
 			} else if (ruleBtn.isPointInside(mouseX, mouseY)) {
 				stage = rulePage2;
 			} else {
@@ -205,6 +219,10 @@ public class Board extends PApplet {
 				stage = boardPage;
 			}
 
+		} else if (stage == aucPage) {
+			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
+				stage = boardPage;
+			}
 		} else if (stage == endPage) {
 
 		}
