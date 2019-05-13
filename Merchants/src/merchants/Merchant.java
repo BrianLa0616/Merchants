@@ -38,8 +38,9 @@ public class Merchant {
 	 * 
 	 * @param direction of movement
 	 */
-	public void move(int direction) {
-
+	public void move(int x, int y) {
+		this.x += x;
+		this.y += y;
 	}
 
 	/**

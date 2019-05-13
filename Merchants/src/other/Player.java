@@ -26,7 +26,7 @@ public class Player {
 	private String name;
 	private final Color color;
 	private int income, auctionBonus, landBonus;
-	private Merchant[] merchants;
+	private ArrayList<Merchant> merchants;
 	private ArrayList<Point2D> territory;
 
 	/**
@@ -52,10 +52,8 @@ public class Player {
 		auctionBonus = 0;
 		landBonus = 0;
 
-		merchants = new Merchant[5];
-		for (int i = 0; i < merchants.length; i++) {
-			merchants[i] = new Merchant(initX, initY, color);
-		}
+		merchants = new ArrayList<Merchant>();
+		merchants.add(new Merchant(initX, initY, color));
 
 		territory = new ArrayList<Point2D>();
 	}
@@ -145,13 +143,14 @@ public class Player {
 	}
 
 	public void update() {
-		for (int i = 0; i < merchants.length; i++) {
-			if (merchants[i] instanceof MoneyMerchant)
+		
+		for (int i = 0; i < merchants.size(); i++) {
+			if (merchants.get(i) instanceof MoneyMerchant)
 				income += 10;
 		}
 	}
 	
-	public Merchant[] getMerchants() {
+	public ArrayList<Merchant> getMerchants() {
 		return merchants;
 	}
 }
