@@ -17,6 +17,7 @@ public class Tile {
 
 	private int x, y, type, cost, income, owner;
 	private Merchant merchant;
+	private boolean covered;
 
 	/**
 	 * 
@@ -120,6 +121,10 @@ public class Tile {
 
 	public void setMerchant(Merchant merchant) {
 		this.merchant = merchant;
+	}
+
+	public boolean isCovered() {
+		return covered;
 	}
 
 }
