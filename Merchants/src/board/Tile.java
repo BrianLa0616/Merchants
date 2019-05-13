@@ -14,7 +14,7 @@ import processing.core.PApplet;
  *
  */
 public class Tile {
-	
+
 	public static final int TILE_SIZE = 60;
 
 	private int x, y, type, cost, income, owner;
@@ -31,9 +31,9 @@ public class Tile {
 		this.x = x;
 		this.y = y;
 		this.type = type;
-		
+
 		owner = -1;
-		color = new Color(255,255,255);
+		color = new Color(255, 255, 255);
 		merchant = null;
 	}
 
@@ -45,13 +45,6 @@ public class Tile {
 	}
 
 	/**
-	 * @param x the x-coordinate of the checkpoint
-	 */
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	/**
 	 * 
 	 * @return the y-coordinate of the tile
 	 */
@@ -59,17 +52,8 @@ public class Tile {
 		return y;
 	}
 
-	/**
-	 * 
-	 * @param y the y-coordinate of the tile
-	 */
-	public void setY(int y) {
-		this.y = y;
-	}
-	
-	public void draw(PApplet p)
-	{
-		p.rect(x*Tile.TILE_SIZE, y*Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+	public void draw(PApplet p) {
+		p.rect(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
 	}
 
 	/**
@@ -143,10 +127,9 @@ public class Tile {
 	public void setMerchant(Merchant merchant) {
 		this.merchant = merchant;
 	}
-	
+
 	public void setFill(Color c) {
 		color = c;
 	}
-	
-	
+
 }

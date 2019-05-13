@@ -32,13 +32,8 @@ public class InvisibleMerchant extends Merchant {
 		return price;
 	}
 
-	/**
-	 * Sets the price of an Invisible Merchant
-	 * 
-	 * @param price cost to upgrade to an Invisible Merchant
-	 */
-	public void setPrice(int price) {
-		this.price = price;
+	public void upgrade() {
+		level++;
 	}
 
 	/**

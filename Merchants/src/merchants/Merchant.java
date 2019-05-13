@@ -90,6 +90,7 @@ public class Merchant {
 	 * @param id of checkpoint
 	 */
 	public void goToCheckpt(int id) {
+		
 
 	}
 
