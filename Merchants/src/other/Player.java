@@ -40,7 +40,7 @@ public class Player {
 	 * @param initX   the player's initial starting location's x-coordinate
 	 * @param initY   the player's initial starting location's y-coordinate
 	 */
-	public Player(int id, int balance, String name, Color color, int initX, int initY) {
+	public Player(int id, int balance, String name, Color color, Merchant merchant) {
 		this.setInitX(initX);
 		this.setInitY(initY);
 
@@ -53,7 +53,8 @@ public class Player {
 		landBonus = 0;
 
 		merchants = new ArrayList<Merchant>();
-		merchants.add(new Merchant(initX, initY, color));
+		merchant.setColor(color);
+		merchants.add(merchant);
 
 		territory = new ArrayList<Point2D>();
 	}
@@ -65,9 +66,8 @@ public class Player {
 	public String getName() {
 		return name;
 	}
-	
-	public Color getColor()
-	{
+
+	public Color getColor() {
 		return color;
 	}
 
@@ -143,13 +143,13 @@ public class Player {
 	}
 
 	public void update() {
-		
+
 		for (int i = 0; i < merchants.size(); i++) {
 			if (merchants.get(i) instanceof MoneyMerchant)
 				income += 10;
 		}
 	}
-	
+
 	public ArrayList<Merchant> getMerchants() {
 		return merchants;
 	}

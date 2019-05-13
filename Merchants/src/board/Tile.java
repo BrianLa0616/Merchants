@@ -53,6 +53,7 @@ public class Tile {
 	}
 
 	public void draw(PApplet p) {
+		p.fill(color.getRGB());
 		p.rect(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
 	}
 

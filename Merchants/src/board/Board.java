@@ -48,6 +48,7 @@ public class Board extends PApplet {
 		backBtn = new Rectangle(25, 400, 50, 50);
 
 		selected = null;
+		curPlayer = 0;
 
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 15; j++) {
@@ -84,6 +85,18 @@ public class Board extends PApplet {
 				}
 			}
 
+			if (selected != null) {
+				for (int i = -1; i <= 1; i++) {
+					for (int j = -1; j <= 1; j++) {
+						int nx = selected.getX() + i;
+						int ny = selected.getY() + j;
+						if (inRange(nx, ny)) {
+							tiles[nx][ny].setFill(Color.yellow);
+						}
+					}
+				}
+			}
+
 		} else if (stage == transPage) {
 			nextStageBtn.draw(this);
 		} else if (stage == endPage) {
@@ -114,9 +127,17 @@ public class Board extends PApplet {
 						return;
 					}
 
-					players.add(new Player(i, 100, input, new Color((int) (Math.random() * 256),
-							(int) (Math.random() * 256), (int) (Math.random() * 256)), 0, 0)); // TODO x and y
+					int x, y;
 
+					do {
+						x = (int) (Math.random() * 15);
+						y = (int) (Math.random() * 15);
+					} while (tiles[x][y].getMerchant() != null);
+
+					players.add(new Player(i, 100, input, new Color((int) (Math.random() * 256),
+							(int) (Math.random() * 256), (int) (Math.random() * 256)), new Merchant(x, y)));
+
+					tiles[x][y].setMerchant(players.get(i).getMerchants().get(0));
 				}
 
 				do {
@@ -150,23 +171,31 @@ public class Board extends PApplet {
 			} else {
 				int mx = mouseX / Tile.TILE_SIZE;
 				int my = mouseY / Tile.TILE_SIZE;
-				if (mx >= 0 && mx < tiles.length && my >= 0 && my < tiles[0].length) {
+				if (inRange(mx, my)) {
+
 					if (selected == null) {
 						selected = tiles[mx][my].getMerchant();
-						System.out.println("Merchant Selected");
 					} else {
 
 						if (Math.abs(mx - selected.getX()) + Math.abs(my - selected.getY()) == 1) {
-							tiles[mx][my].setMerchant(null);
+							tiles[mx][my].setMerchant(selected);
+							tiles[selected.getX()][selected.getY()].setMerchant(null);
+							deselect();
+							
+							tiles[mx][my].getMerchant().setX(mx);
+							tiles[mx][my].getMerchant().setY(my);
+
+						} else {
+							deselect();
 						}
 
+						
 					}
 
 				}
 			}
 		} else if (stage == transPage) {
 			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
-				String input;
 				stage = boardPage;
 			}
 
@@ -188,5 +217,18 @@ public class Board extends PApplet {
 
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < 15 && y >= 0 && y < 15;
+	}
+	
+	private void deselect() {
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				int nx = selected.getX() + i;
+				int ny = selected.getY() + j;
+				if (inRange(nx, ny)) {
+					tiles[nx][ny].setFill(Color.white);
+				}
+			}
+		}
+		selected = null;
 	}
 }
