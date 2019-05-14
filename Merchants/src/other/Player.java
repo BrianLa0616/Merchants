@@ -24,7 +24,7 @@ public class Player {
 	private int initX, initY;
 	private int id, balance;
 	private String name;
-	private final Color color;
+	private Color color;
 	private int income, auctionBonus, landBonus;
 	private ArrayList<Merchant> merchants;
 	private ArrayList<Point2D> territory;
