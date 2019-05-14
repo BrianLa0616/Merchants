@@ -1,15 +1,11 @@
 package other;
 
 import java.awt.Color;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import merchants.AuctionMerchant;
-import merchants.InvisibleMerchant;
-import merchants.LandMerchant;
+import board.Tile;
 import merchants.Merchant;
 import merchants.MoneyMerchant;
-import merchants.SpeedMerchant;
 
 /**
  * 
@@ -21,13 +17,12 @@ import merchants.SpeedMerchant;
  */
 public class Player {
 
-	private int initX, initY;
 	private int id, balance;
 	private String name;
 	private final Color color;
 	private int income, auctionBonus, landBonus;
 	private ArrayList<Merchant> merchants;
-	private ArrayList<Point2D> territory;
+	private ArrayList<Tile> territory;
 
 	/**
 	 * Creates a new Player object with 5 regular merchants and no territory.
@@ -41,9 +36,6 @@ public class Player {
 	 * @param initY   the player's initial starting location's y-coordinate
 	 */
 	public Player(int id, int balance, String name, Color color, Merchant merchant) {
-		this.setInitX(initX);
-		this.setInitY(initY);
-
 		this.setId(id);
 		this.setBalance(balance);
 		this.name = name;
@@ -56,7 +48,7 @@ public class Player {
 		merchant.setColor(color);
 		merchants.add(merchant);
 
-		territory = new ArrayList<Point2D>();
+		territory = new ArrayList<Tile>();
 	}
 
 	public void increaseIncome(int x) {
@@ -98,22 +90,6 @@ public class Player {
 //		}
 	}
 
-	public int getInitX() {
-		return initX;
-	}
-
-	public void setInitX(int initX) {
-		this.initX = initX;
-	}
-
-	public int getInitY() {
-		return initY;
-	}
-
-	public void setInitY(int initY) {
-		this.initY = initY;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -130,7 +106,7 @@ public class Player {
 		this.balance = balance;
 	}
 
-	public ArrayList<Point2D> getTerritory() {
+	public ArrayList<Tile> getTerritory() {
 		return territory;
 	}
 
@@ -152,5 +128,9 @@ public class Player {
 
 	public ArrayList<Merchant> getMerchants() {
 		return merchants;
+	}
+	
+	public void addTerritory(Tile t) {
+		territory.add(t);
 	}
 }
