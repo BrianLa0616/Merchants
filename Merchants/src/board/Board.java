@@ -273,5 +273,20 @@ public class Board extends PApplet {
 				}
 			}
 		}
+		
+		ArrayList<Merchant> merchants = players.get(curPlayer).getMerchants();
+		for (int i = 0; i < merchants.size(); i++) {
+			for (int j = -1; j <= 1; j++) {
+				for (int k = -1; k <= 1; k++) {
+					int nx = merchants.get(i).getX() + j;
+					int ny = merchants.get(i).getY() + k;
+					if (inRange(nx, ny)) {
+						this.tiles[nx][ny].setFill(null);
+					}
+				}
+			}
+		}
+		
+		
 	}
 }
