@@ -21,6 +21,7 @@ public class Tile {
 	private Merchant merchant;
 	private boolean covered;
 	private Color color;
+
 	/**
 	 * 
 	 * @param x    the x-coordinate of the tile
@@ -33,7 +34,8 @@ public class Tile {
 		this.type = type;
 		merchant = null;
 		covered = false;
-		color = Color.white;
+		color = null;
+		owner = -1;
 	}
 
 	/**
@@ -52,8 +54,20 @@ public class Tile {
 	}
 
 	public void draw(PApplet p) {
-		p.fill(color.getRGB());
+
+		if (merchant != null) {
+			merchant.draw(p);
+		}
+		
+
+		if (color == null) {
+			p.noFill();
+		} else {
+			p.fill(color.getRGB());
+		}
+		
 		p.rect(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+
 	}
 
 	/**
@@ -135,7 +149,7 @@ public class Tile {
 	public void uncover() {
 		covered = false;
 	}
-	
+
 	public void setFill(Color c) {
 		color = c;
 	}

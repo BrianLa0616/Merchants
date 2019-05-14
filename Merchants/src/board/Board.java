@@ -20,12 +20,13 @@ import processing.core.PApplet;
 public class Board extends PApplet {
 
 	private int stage;
-	private static final int menuPage = 1, rulePage = 2, rulePage2 = 3, boardPage = 4, transPage = 5, endPage = 6;
+	private static final int menuPage = 1, rulePage = 2, rulePage2 = 3, boardPage = 4, transPage = 5, aucPage = 6,
+			endPage = 7;
 	private Rectangle backBtn;
-
 	private Rectangle nextStageBtn, ruleBtn;
-
 	private Merchant selected;
+
+	private ArrayList<Tile> auctionTiles;
 
 	// Game fields
 	private ArrayList<Player> players = new ArrayList<Player>();
@@ -50,11 +51,12 @@ public class Board extends PApplet {
 		selected = null;
 		curPlayer = 0;
 
-		for (int i = 0; i < 15; i++) {
-			for (int j = 0; j < 15; j++) {
+		for (int i = 0; i < tiles.length; i++) {
+			for (int j = 0; j < tiles[0].length; j++) {
 				tiles[i][j] = new Tile(i, j, 0);
 			}
 		}
+		auctionTiles = new ArrayList<Tile>();
 	}
 
 	/**
@@ -73,15 +75,9 @@ public class Board extends PApplet {
 			nextStageBtn.draw(this);
 			ruleBtn.draw(this);
 			noFill();
-			for (int i = 0; i < 15; i++) {
-				for (int j = 0; j < 15; j++) {
+			for (int i = 0; i < tiles.length; i++) {
+				for (int j = 0; j < tiles[0].length; j++) {
 					tiles[i][j].draw(this);
-				}
-			}
-
-			for (Player p : players) {
-				for (Merchant m : p.getMerchants()) {
-					m.draw(this);
 				}
 			}
 
@@ -99,6 +95,18 @@ public class Board extends PApplet {
 
 		} else if (stage == transPage) {
 			nextStageBtn.draw(this);
+			textSize(50);
+			fill(0);
+
+			text("Player " + (curPlayer + 1) + " turn: " + players.get(curPlayer).getName(), 50, 50);
+		} else if (stage == aucPage) {
+			textSize(50);
+			fill(0);
+
+			text("AUCTION", 50, 50);
+			for (int i = 0; i < auctionTiles.size(); i++) {
+
+			}
 		} else if (stage == endPage) {
 
 		}
@@ -130,14 +138,16 @@ public class Board extends PApplet {
 					int x, y;
 
 					do {
-						x = (int) (Math.random() * 15);
-						y = (int) (Math.random() * 15);
+						x = (int) (Math.random() * tiles.length);
+						y = (int) (Math.random() * tiles[0].length);
 					} while (tiles[x][y].getMerchant() != null);
 
 					players.add(new Player(i, 100, input, new Color((int) (Math.random() * 256),
 							(int) (Math.random() * 256), (int) (Math.random() * 256)), new Merchant(x, y)));
 
 					tiles[x][y].setMerchant(players.get(i).getMerchants().get(0));
+					tiles[x][y].setOwner(i);
+					players.get(i).addTerritory(tiles[x][y]);
 				}
 
 				do {
@@ -151,7 +161,7 @@ public class Board extends PApplet {
 				nextStageBtn = new Rectangle(1000, 100, 50, 50);
 				ruleBtn = new Rectangle(1000, 200, 50, 50);
 
-				stage = boardPage;
+				stage = transPage;
 			} else if (ruleBtn.isPointInside(mouseX, mouseY)) {
 				stage = rulePage;
 			}
@@ -165,7 +175,13 @@ public class Board extends PApplet {
 			}
 		} else if (stage == boardPage) {
 			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
-				stage = transPage;
+				curPlayer++;
+				curPlayer %= numPlayers;
+				if (curPlayer == 0 && auctionTiles.size() != 0) {
+					stage = aucPage;
+				} else {
+					stage = transPage;
+				}
 			} else if (ruleBtn.isPointInside(mouseX, mouseY)) {
 				stage = rulePage2;
 			} else {
@@ -196,9 +212,14 @@ public class Board extends PApplet {
 			}
 		} else if (stage == transPage) {
 			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
+				repaint();
 				stage = boardPage;
 			}
 
+		} else if (stage == aucPage) {
+			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
+				stage = transPage;
+			}
 		} else if (stage == endPage) {
 
 		}
@@ -216,7 +237,7 @@ public class Board extends PApplet {
 	}
 
 	private boolean inRange(int x, int y) {
-		return x >= 0 && x < 15 && y >= 0 && y < 15;
+		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}
 
 	private void deselect() {
@@ -225,10 +246,47 @@ public class Board extends PApplet {
 				int nx = selected.getX() + i;
 				int ny = selected.getY() + j;
 				if (inRange(nx, ny)) {
-					tiles[nx][ny].setFill(Color.white);
+					tiles[nx][ny].setFill(null);
 				}
 			}
 		}
 		selected = null;
+	}
+
+	private void repaint() {
+
+		for (int i = 0; i < tiles.length; i++) {
+			for (int j = 0; j < tiles[0].length; j++) {
+				tiles[i][j].setFill(Color.DARK_GRAY);
+			}
+		}
+		ArrayList<Tile> tiles = players.get(curPlayer).getTerritory();
+
+		for (int i = 0; i < tiles.size(); i++) {
+			for (int j = -1; j <= 1; j++) {
+				for (int k = -1; k <= 1; k++) {
+					int nx = tiles.get(i).getX() + j;
+					int ny = tiles.get(i).getY() + k;
+					if (inRange(nx, ny)) {
+						this.tiles[nx][ny].setFill(null);
+					}
+				}
+			}
+		}
+		
+		ArrayList<Merchant> merchants = players.get(curPlayer).getMerchants();
+		for (int i = 0; i < merchants.size(); i++) {
+			for (int j = -1; j <= 1; j++) {
+				for (int k = -1; k <= 1; k++) {
+					int nx = merchants.get(i).getX() + j;
+					int ny = merchants.get(i).getY() + k;
+					if (inRange(nx, ny)) {
+						this.tiles[nx][ny].setFill(null);
+					}
+				}
+			}
+		}
+		
+		
 	}
 }
