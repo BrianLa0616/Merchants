@@ -22,6 +22,7 @@ public class InvisibleMerchant extends Merchant {
 	public InvisibleMerchant(int x, int y, Color c) {
 		super(x, y, c);
 		level = 1;
+		visible = false;
 	}
 
 	/**
@@ -32,7 +33,11 @@ public class InvisibleMerchant extends Merchant {
 		return price;
 	}
 
+	/**
+	 * Upgrades the level of the merchant
+	 */
 	public void upgrade() {
+		if(level < 5)
 		level++;
 	}
 
@@ -43,6 +48,9 @@ public class InvisibleMerchant extends Merchant {
 	 */
 	public void setVisibility(boolean isVisible) {
 		visible = isVisible;
+		if(level == 1) {
+		
+		}
 		// as the level goes up, the invisible merchant can travel further into enemy
 		// territory while still being invisible to other players
 	}

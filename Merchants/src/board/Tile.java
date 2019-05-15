@@ -53,19 +53,23 @@ public class Tile {
 		return y;
 	}
 
+	/**
+	 * Draws the tiles
+	 * 
+	 * @param p marker used to draw the tiles
+	 */
 	public void draw(PApplet p) {
 
 		if (merchant != null) {
 			merchant.draw(p);
 		}
-		
 
 		if (color == null) {
 			p.noFill();
 		} else {
 			p.fill(color.getRGB());
 		}
-		
+
 		p.rect(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
 
 	}
@@ -127,6 +131,7 @@ public class Tile {
 	}
 
 	/**
+	 * Sets the owner of the tile
 	 * 
 	 * @param owner the player who owns this tile
 	 */
@@ -134,24 +139,64 @@ public class Tile {
 		this.owner = owner;
 	}
 
+	/**
+	 * 
+	 * @return the merchant
+	 */
 	public Merchant getMerchant() {
 		return merchant;
 	}
 
+	/**
+	 * Sets the merchant
+	 * 
+	 * @param merchant desired
+	 */
 	public void setMerchant(Merchant merchant) {
 		this.merchant = merchant;
 	}
 
+	/**
+	 * The player cannot see the contents of the land
+	 * 
+	 * @return covered land
+	 */
 	public boolean isCovered() {
 		return covered;
 	}
 
+	/**
+	 * Uncovers the land so the contents are visible to the player
+	 * 
+	 */
 	public void uncover() {
 		covered = false;
 	}
 
+	/**
+	 * Sets the color of the tile
+	 * 
+	 * @param c color of the tile
+	 */
 	public void setFill(Color c) {
 		color = c;
+	}
+
+	/**
+	 * 
+	 * @return color of the tile
+	 */
+	public Color getColor() {
+		return color;
+	}
+
+	/**
+	 * Sets the color of the tile
+	 * 
+	 * @param color of the tile
+	 */
+	public void setColor(Color color) {
+		this.color = color;
 	}
 
 }
