@@ -57,16 +57,13 @@ public class Player {
 		territory = new ArrayList<Tile>();
 	}
 
+	/**
+	 * Increases the income of the player
+	 * 
+	 * @param x amount desired to add to the player's current income
+	 */
 	public void increaseIncome(int x) {
 		setIncome(getIncome() + x);
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public Color getColor() {
-		return color;
 	}
 
 	public void upgradeMerchant(int i, char type) {
@@ -96,62 +93,128 @@ public class Player {
 //		}
 	}
 
+	/**
+	 * 
+	 * @return the name of the player
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * 
+	 * @return the color of the player
+	 */
+	public Color getColor() {
+		return color;
+	}
+
+	/**
+	 * 
+	 * @return the x-coordinate of the player's original spawn point
+	 */
 	public int getInitX() {
 		return initX;
 	}
 
+	/**
+	 * Sets the x-coordinate of the player's original spawn point
+	 * 
+	 * @param initX coordinate of original spawn point
+	 */
 	public void setInitX(int initX) {
 		this.initX = initX;
 	}
 
+	/**
+	 * 
+	 * @return the y-coordinate of the player's original spawn point
+	 */
 	public int getInitY() {
 		return initY;
 	}
 
+	/**
+	 * Sets the y-coordinate of the player's original spawn point
+	 * 
+	 * @param initY coordinate of original spawn point
+	 */
 	public void setInitY(int initY) {
 		this.initY = initY;
 	}
 
+	/**
+	 * 
+	 * @return player id
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the id of the player
+	 * 
+	 * @param id desired of player
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * 
+	 * @return player balance
+	 */
 	public int getBalance() {
 		return balance;
 	}
 
+	/**
+	 * Sets the balance of the player
+	 * 
+	 * @param balance desired for the player
+	 */
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
 
+	/**
+	 * 
+	 * @return territory that the player currently owns
+	 */
 	public ArrayList<Tile> getTerritory() {
 		return territory;
 	}
 
+	/**
+	 * 
+	 * @return current income of the player
+	 */
 	public int getIncome() {
 		return income;
 	}
 
+	/**
+	 * Sets the income of the player
+	 * 
+	 * @param income desired of the player
+	 */
 	public void setIncome(int income) {
 		this.income = income;
 	}
-
-	public void update() {
-
-		for (int i = 0; i < merchants.size(); i++) {
-			if (merchants.get(i) instanceof MoneyMerchant)
-				income += 10;
-		}
-	}
-
+	
+	/**
+	 * 
+	 * @return all merchants the player owns
+	 */
 	public ArrayList<Merchant> getMerchants() {
 		return merchants;
 	}
 
+	/**
+	 * Adds land to the player's territory
+	 * 
+	 * @param t Tile being added to the player's territory
+	 */
 	public void addTerritory(Tile t) {
 		territory.add(t);
 	}
@@ -181,6 +244,12 @@ public class Player {
 	}
 
 	// TODO check validity of purchase (if player owns that tile) in Board.java
+	/**
+	 * Buys and sets a checkpoint at the desired location
+	 * 
+	 * @param x coordinate of checkpoint
+	 * @param y coordinate of checkpoint
+	 */
 	public void purchaseCheckpoint(int x, int y) {
 		for (int i = 0; i < territory.size(); i++) {
 			if (territory.get(i).getX() == x && territory.get(i).getY() == y) {
