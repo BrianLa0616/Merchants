@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import board.Tile;
 import merchants.Merchant;
 import merchants.MoneyMerchant;
 
@@ -23,7 +24,7 @@ public class Player {
 	private Color color;
 	private int income, auctionBonus, landBonus;
 	private ArrayList<Merchant> merchants;
-	private ArrayList<Point2D> territory;
+	private ArrayList<Tile> territory;
 
 	/**
 	 * Creates a new Player object with 5 regular merchants and no territory.
@@ -52,7 +53,7 @@ public class Player {
 		merchant.setColor(color);
 		merchants.add(merchant);
 
-		territory = new ArrayList<Point2D>();
+		territory = new ArrayList<Tile>();
 	}
 
 	public void increaseIncome(int x) {
@@ -126,7 +127,7 @@ public class Player {
 		this.balance = balance;
 	}
 
-	public ArrayList<Point2D> getTerritory() {
+	public ArrayList<Tile> getTerritory() {
 		return territory;
 	}
 
@@ -153,7 +154,7 @@ public class Player {
 	public void addTerritory(Tile t) {
 		territory.add(t);
 	}
-	
+
 	/**
 	 * 
 	 * @return r value of RGB value
@@ -161,7 +162,7 @@ public class Player {
 	public int getR() {
 		return color.getRed();
 	}
-	
+
 	/**
 	 * 
 	 * @return g value of RGB value
@@ -169,7 +170,7 @@ public class Player {
 	public int getG() {
 		return color.getGreen();
 	}
-	
+
 	/**
 	 * 
 	 * @return b value of RGB value

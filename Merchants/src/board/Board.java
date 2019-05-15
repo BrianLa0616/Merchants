@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import bla269.shapes.Rectangle;
+import buttons.TextButton;
 import merchants.Merchant;
 import other.Player;
 import processing.core.PApplet;
@@ -22,8 +23,7 @@ public class Board extends PApplet {
 	private int stage;
 	private static final int menuPage = 1, rulePage = 2, rulePage2 = 3, boardPage = 4, transPage = 5, aucPage = 6,
 			endPage = 7;
-	private Rectangle backBtn;
-	private Rectangle nextStageBtn, ruleBtn;
+	private TextButton back, next, rule;
 	private Merchant selected;
 
 	private ArrayList<Tile> auctionTiles;
@@ -38,15 +38,10 @@ public class Board extends PApplet {
 	 */
 	public Board() {
 		stage = menuPage;
-		nextStageBtn = new Rectangle(150, 150, 200, 75);
-		nextStageBtn.setfill(0, 180, 255);
-		nextStageBtn.setStroke(0, 180, 255);
 
-		ruleBtn = new Rectangle(150, 250, 200, 75);
-		ruleBtn.setfill(0, 180, 255);
-		ruleBtn.setStroke(0, 180, 255);
-
-		backBtn = new Rectangle(25, 400, 50, 50);
+		back = new TextButton(25, 400, 50, 50, Color.BLACK, Color.WHITE, "BACK", 18);
+		next = new TextButton(150, 150, 200, 75, Color.WHITE, new Color(0, 180, 255), "NEXT", 18);
+		rule = new TextButton(150, 250, 200, 75, Color.WHITE, new Color(0, 180, 255), "RULE", 18);
 
 		selected = null;
 		curPlayer = 0;
@@ -65,15 +60,15 @@ public class Board extends PApplet {
 	public void draw() {
 		background(255);
 		if (stage == menuPage) {
-			nextStageBtn.draw(this);
-			ruleBtn.draw(this);
+			next.draw(this);
+			rule.draw(this);
 		} else if (stage == rulePage) {
-			backBtn.draw(this);
+			back.draw(this);
 		} else if (stage == rulePage2) {
-			backBtn.draw(this);
+			back.draw(this);
 		} else if (stage == boardPage) {
-			nextStageBtn.draw(this);
-			ruleBtn.draw(this);
+			next.draw(this);
+			rule.draw(this);
 			noFill();
 			for (int i = 0; i < tiles.length; i++) {
 				for (int j = 0; j < tiles[0].length; j++) {
@@ -94,7 +89,7 @@ public class Board extends PApplet {
 			}
 
 		} else if (stage == transPage) {
-			nextStageBtn.draw(this);
+			next.draw(this);
 			textSize(50);
 			fill(0);
 
@@ -118,7 +113,7 @@ public class Board extends PApplet {
 	 */
 	public void mousePressed() {
 		if (stage == menuPage) {
-			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
+			if (next.isPointInButton(mouseX, mouseY)) {
 				String input;
 				do {
 					input = JOptionPane.showInputDialog("Enter number of players. 1-4 players");
@@ -158,23 +153,23 @@ public class Board extends PApplet {
 				} while (!validIntegerInput(input));
 				numTurns = Integer.parseInt(input);
 
-				nextStageBtn = new Rectangle(1000, 100, 50, 50);
-				ruleBtn = new Rectangle(1000, 200, 50, 50);
+				next = new TextButton(1000, 100, 50, 50, Color.WHITE, new Color(0, 180, 255), "NEXT", 18);
+				rule = new TextButton(1000, 200, 50, 50, Color.WHITE, new Color(0, 180, 255), "RULE", 18);
 
 				stage = transPage;
-			} else if (ruleBtn.isPointInside(mouseX, mouseY)) {
+			} else if (rule.isPointInButton(mouseX, mouseY)) {
 				stage = rulePage;
 			}
 		} else if (stage == rulePage) {
-			if (backBtn.isPointInside(mouseX, mouseY)) {
+			if (back.isPointInButton(mouseX, mouseY)) {
 				stage = menuPage;
 			}
 		} else if (stage == rulePage2) {
-			if (backBtn.isPointInside(mouseX, mouseY)) {
+			if (back.isPointInButton(mouseX, mouseY)) {
 				stage = boardPage;
 			}
 		} else if (stage == boardPage) {
-			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
+			if (next.isPointInButton(mouseX, mouseY)) {
 				curPlayer++;
 				curPlayer %= numPlayers;
 				if (curPlayer == 0 && auctionTiles.size() != 0) {
@@ -182,7 +177,7 @@ public class Board extends PApplet {
 				} else {
 					stage = transPage;
 				}
-			} else if (ruleBtn.isPointInside(mouseX, mouseY)) {
+			} else if (rule.isPointInButton(mouseX, mouseY)) {
 				stage = rulePage2;
 			} else {
 				int mx = mouseX / Tile.TILE_SIZE;
@@ -211,13 +206,13 @@ public class Board extends PApplet {
 				}
 			}
 		} else if (stage == transPage) {
-			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
+			if (next.isPointInButton(mouseX, mouseY)) {
 				repaint();
 				stage = boardPage;
 			}
 
 		} else if (stage == aucPage) {
-			if (nextStageBtn.isPointInside(mouseX, mouseY)) {
+			if (next.isPointInButton(mouseX, mouseY)) {
 				stage = transPage;
 			}
 		} else if (stage == endPage) {
@@ -273,7 +268,7 @@ public class Board extends PApplet {
 				}
 			}
 		}
-		
+
 		ArrayList<Merchant> merchants = players.get(curPlayer).getMerchants();
 		for (int i = 0; i < merchants.size(); i++) {
 			for (int j = -1; j <= 1; j++) {
@@ -286,7 +281,6 @@ public class Board extends PApplet {
 				}
 			}
 		}
-		
-		
+
 	}
 }
