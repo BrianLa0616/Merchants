@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import board.Checkpoint;
 import board.Tile;
 import merchants.Merchant;
 import merchants.MoneyMerchant;
@@ -177,5 +178,18 @@ public class Player {
 	 */
 	public int getB() {
 		return color.getBlue();
+	}
+
+	// TODO check validity of purchase (if player owns that tile) in Board.java
+	public void purchaseCheckpoint(int x, int y) {
+		for (int i = 0; i < territory.size(); i++) {
+			if (territory.get(i).getX() == x && territory.get(i).getY() == y) {
+				int amplifier = 0;
+				for (Tile t : territory)
+					if (t instanceof Checkpoint)
+						amplifier++;
+				territory.set(i, new Checkpoint(x, y, territory.get(i).getType(), i, amplifier));
+			}
+		}
 	}
 }

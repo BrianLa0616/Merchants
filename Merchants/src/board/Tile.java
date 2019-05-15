@@ -198,7 +198,7 @@ public class Tile {
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	
+
 	/**
 	 * 
 	 * @return r value of RGB value
@@ -206,7 +206,7 @@ public class Tile {
 	public int getR() {
 		return color.getRed();
 	}
-	
+
 	/**
 	 * 
 	 * @return g value of RGB value
@@ -214,7 +214,7 @@ public class Tile {
 	public int getG() {
 		return color.getGreen();
 	}
-	
+
 	/**
 	 * 
 	 * @return b value of RGB value
