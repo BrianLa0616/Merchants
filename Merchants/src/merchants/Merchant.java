@@ -102,8 +102,11 @@ public class Merchant {
 	 * @return new amount player has
 	 */
 	public int purchaseLand(int amount) {
-
-		return amount - 30;
+		if (amount > 30) {
+			t.setColor(p.getColor());
+			return amount - 30;
+		}
+		return amount;
 	}
 
 	/**
@@ -139,17 +142,11 @@ public class Merchant {
 	}
 
 	/**
-	 * Levels up the merchant one level
-	 * 
-	 * @param currLevel current level of the merchant
-	 * @return the new level of the merchant unless the merchant is already at the
-	 *         maximum level (5)
+	 * Upgrades the level of the merchant, max level 5
 	 */
-	public int levelUp(int currLevel) {
-		if (level < 5) {
-			return level + 1;
-		}
-		return level;
+	public void upgrade() {
+		if (level < 5)
+			level++;
 	}
 
 	/**

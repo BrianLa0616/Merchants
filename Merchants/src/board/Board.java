@@ -26,7 +26,7 @@ public class Board extends PApplet {
 			four = new Color(0, 150, 0);
 	private TextButton back, next, rule;
 	private Merchant selected;
-
+	
 	private ArrayList<Tile> auctionTiles;
 
 	// Game fields
@@ -297,6 +297,7 @@ public class Board extends PApplet {
 		}
 
 	}
+	
 
 //	private void highlight(Merchant m) {
 //		highlight(m.getX(), m.getY(), m.getSpeed());
