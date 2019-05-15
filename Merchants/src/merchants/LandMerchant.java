@@ -32,10 +32,6 @@ public class LandMerchant extends Merchant {
 		return price;
 	}
 
-	public void upgrade() {
-		level++;
-	}
-
 	/**
 	 * Ability of an Land Merchant to reduce the price of land, as the merchant's
 	 * level rises, the amount of money reduced from the land will also grow

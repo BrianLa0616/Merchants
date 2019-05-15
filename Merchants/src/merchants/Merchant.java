@@ -32,7 +32,6 @@ public class Merchant {
 	 * @param x coordinate of merchant
 	 * @param y coordinate of merchant
 	 */
-
 	public Merchant(int x, int y) {
 		this.x = x;
 		this.y = y;
