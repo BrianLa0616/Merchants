@@ -109,7 +109,6 @@ public class Board extends PApplet {
 		} else if (stage == endPage) {
 
 		}
-
 	}
 
 	/**
