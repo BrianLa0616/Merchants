@@ -22,8 +22,8 @@ public class Board extends PApplet {
 	private int stage;
 	private static final int menuPage = 1, rulePage = 2, rulePage2 = 3, boardPage = 4, transPage = 5, aucPage = 6,
 			endPage = 7;
-	private final Color one = new Color(150, 0, 0), two = new Color(0, 0, 150), three = new Color(255, 255, 00),
-			four = new Color(0, 150, 0);
+	private final Color[] playerColors = { new Color(200, 0, 0), new Color(0, 0, 200), new Color(255, 255, 00),
+			new Color(0, 200, 0) };
 	private TextButton back, next, rule;
 	private Merchant selected;
 	
@@ -141,8 +141,7 @@ public class Board extends PApplet {
 						y = (int) (Math.random() * tiles[0].length);
 					} while (tiles[x][y].getMerchant() != null);
 
-					players.add(new Player(i, 100, input, new Color((int) (Math.random() * 256),
-							(int) (Math.random() * 256), (int) (Math.random() * 256)), new Merchant(x, y)));
+					players.add(new Player(i, 00, input, playerColors[i], new Merchant(x, y)));
 
 					tiles[x][y].setMerchant(players.get(i).getMerchants().get(0));
 					tiles[x][y].setOwner(i);
