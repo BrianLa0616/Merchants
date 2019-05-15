@@ -16,24 +16,36 @@ public class Merchant {
 
 	private int x, y, speed;
 	private int level;
+	private int r, g, b;
 
 	private Color color;
 
 	/**
-	 * Constructs a new merchant at (x, y) with color c
+	 * Constructs a new merchant
 	 * 
 	 * @param x x coordinate of merchant
 	 * @param y y coordinate of merchant
-	 * @param c color of merchant
 	 */
 	
 	public Merchant(int x, int y) {
 		this.x = x;
 		this.y = y;
-		color = new Color(255,255,255);
+		r = 255;
+		g = 255;
+		b = 255;
+		color = new Color(r, g, b);
 		speed = 2;
 		level = 0;
 	}
+	
+	
+	/**
+	 * Constructs a new merchant at (x, y) and Color c
+	 * 
+	 * @param x x coordinate of merchant
+	 * @param y y coordinate of merchant
+	 * @param c Color of the merchant
+	 */
 	public Merchant(int x, int y, Color c) {
 		this.x = x;
 		this.y = y;
@@ -215,4 +227,56 @@ public class Merchant {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	
+	/**
+	 * 
+	 * @return r value of RGB color of merchant
+	 */
+	public int getR() {
+		return r;
+	}
+
+	/**
+	 * Sets the r value of RGB color of merchant
+	 * 
+	 * @param r value of RGB 
+	 */
+	public void setR(int r) {
+		this.r = r;
+	}
+
+	/**
+	 * 
+	 * @return g value of RGB color of merchant
+	 */
+	public int getG() {
+		return g;
+	}
+
+	/**
+	 * Sets the g value of RGB color of merchant
+	 * 
+	 * @param g value of RGB color of merchant
+	 */
+	public void setG(int g) {
+		this.g = g;
+	}
+
+	/**
+	 * 
+	 * @return b value of RGB color of merchant
+	 */
+	public int getB() {
+		return b;
+	}
+
+	/**
+	 * Sets the b value of RGB color of merchant
+	 * 
+	 * @param b value of RGB color of merchant
+	 */
+	public void setB(int b) {
+		this.b = b;
+	}
+
 }
