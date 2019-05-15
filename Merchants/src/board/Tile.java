@@ -21,6 +21,7 @@ public class Tile {
 	private Merchant merchant;
 	private boolean covered;
 	private Color color;
+	
 
 	/**
 	 * 
