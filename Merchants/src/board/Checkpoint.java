@@ -9,8 +9,9 @@ package board;
  */
 public class Checkpoint extends Tile {
 
-	private int owner, id;
+	private int id;
 	private int x, y;
+	private int price;
 
 	/**
 	 * Creates a new Checkpoint object with the following parameters
@@ -19,8 +20,10 @@ public class Checkpoint extends Tile {
 	 * @param y    the y-coordinate of the checkpoint
 	 * @param type the tile type of the checkpoint
 	 */
-	public Checkpoint(int x, int y, int type) {
+	public Checkpoint(int x, int y, int type, int id, int price) {
 		super(x, y, type);
+		this.id = id; // index in player's checkpts array
+		this.price = 50 * price; // proportional with player's amount of checkpts
 	}
 
 	/**

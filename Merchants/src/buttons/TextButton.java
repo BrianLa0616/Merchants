@@ -5,8 +5,8 @@ import java.awt.Color;
 import processing.core.PApplet;
 
 /**
- * Subclass of Button. Represents an adjusted AyushTextButton with rounded
- * corners for the rectangle that is the button's clickable window.
+ * Subclass of Button. Represents an adjusted TextButton with rounded corners
+ * for the rectangle that is the button's clickable window.
  */
 public class TextButton extends Button {
 	private Color tcol, bcol;
@@ -14,7 +14,7 @@ public class TextButton extends Button {
 	private int size;
 
 	/**
-	 * Creates a new AyushTextButtonRounded object with the following parameters.
+	 * Creates a new TextButton object with the following parameters.
 	 * 
 	 * @param x      the x-coordinate of the button
 	 * @param y      the y-coordinate of the button
@@ -25,8 +25,7 @@ public class TextButton extends Button {
 	 * @param text   the text to be displayed inside the button
 	 * @param size   the font size of the text
 	 */
-	public TextButton(float x, float y, float width, float height, Color tcol, Color bcol, String text,
-			int size) {
+	public TextButton(float x, float y, float width, float height, Color tcol, Color bcol, String text, int size) {
 		super(x, y, width, height);
 
 		this.tcol = tcol;

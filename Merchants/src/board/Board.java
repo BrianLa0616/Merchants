@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import bla269.shapes.Rectangle;
 import buttons.TextButton;
 import merchants.Merchant;
 import other.Player;
@@ -86,6 +85,10 @@ public class Board extends PApplet {
 						tiles[nx][ny].setFill(Color.yellow);
 					}
 				}
+
+//				if (players.get(curPlayer).getMerchants().contains(selected)) // TODO
+//				highlight(selected);
+				selected.draw(this);
 			}
 
 		} else if (stage == transPage) {
@@ -186,8 +189,7 @@ public class Board extends PApplet {
 					if (selected == null) {
 						selected = tiles[mx][my].getMerchant();
 					} else {
-
-						if (Math.abs(mx - selected.getX()) + Math.abs(my - selected.getY()) == 1
+						if (Math.abs(mx - selected.getX()) + Math.abs(my - selected.getY()) <= 1
 								&& tiles[mx][my].getMerchant() == null) {
 							tiles[mx][my].setMerchant(selected);
 							tiles[selected.getX()][selected.getY()].setMerchant(null);
@@ -195,6 +197,14 @@ public class Board extends PApplet {
 
 							tiles[mx][my].getMerchant().setX(mx);
 							tiles[mx][my].getMerchant().setY(my);
+
+							for (int i = -1; i <= 1; i++) {
+								for (int j = -1; j <= 1; j++) {
+									int nx = mx + i;
+									int ny = my + j;
+									tiles[nx][ny].setColor(null);
+								}
+							}
 
 						} else {
 							deselect();
@@ -244,6 +254,9 @@ public class Board extends PApplet {
 				}
 			}
 		}
+
+//		unhighlight(selected);
+
 		selected = null;
 	}
 
@@ -282,4 +295,45 @@ public class Board extends PApplet {
 		}
 
 	}
+
+//	private void highlight(Merchant m) {
+//		highlight(m.getX(), m.getY(), m.getSpeed());
+//	}
+//
+//	public void unhighlight(Merchant m) {
+//		unhighlight(m.getX(), m.getY(), m.getSpeed());
+//	}
+
+//	// yay recursion
+//	private void highlight(int x, int y, int steps) {
+//		if (steps > 0) {
+//			highlight(x, y, steps - 1);
+//			if (inRange(x - 1, y))
+//				highlight(x - 1, y, steps - 1);
+//			if (inRange(x + 1, y))
+//				highlight(x + 1, y, steps - 1);
+//			if (inRange(x, y - 1))
+//				highlight(x, y - 1, steps - 1);
+//			if (inRange(x, y + 1))
+//				highlight(x, y + 1, steps - 1);
+//		} else
+//			tiles[x][y].setFill(Color.YELLOW);
+//	}
+//
+//	// yay more recursion
+//	private void unhighlight(int x, int y, int steps) {
+//		if (steps > 0) {
+//			unhighlight(x, y, steps - 1);
+//			if (inRange(x - 1, y))
+//				unhighlight(x - 1, y, steps - 1);
+//			if (inRange(x + 1, y))
+//				unhighlight(x + 1, y, steps - 1);
+//			if (inRange(x, y - 1))
+//				unhighlight(x, y - 1, steps - 1);
+//			if (inRange(x, y + 1))
+//				unhighlight(x, y + 1, steps - 1);
+//		} else
+//			tiles[x][y].setFill(null);
+//	}
+
 }
