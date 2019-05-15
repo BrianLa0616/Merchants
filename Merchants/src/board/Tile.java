@@ -198,5 +198,29 @@ public class Tile {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	
+	/**
+	 * 
+	 * @return r value of RGB value
+	 */
+	public int getR() {
+		return color.getRed();
+	}
+	
+	/**
+	 * 
+	 * @return g value of RGB value
+	 */
+	public int getG() {
+		return color.getGreen();
+	}
+	
+	/**
+	 * 
+	 * @return b value of RGB value
+	 */
+	public int getB() {
+		return color.getBlue();
+	}
 
 }
