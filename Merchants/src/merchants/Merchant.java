@@ -26,6 +26,14 @@ public class Merchant {
 	 * @param y y coordinate of merchant
 	 * @param c color of merchant
 	 */
+	
+	public Merchant(int x, int y) {
+		this.x = x;
+		this.y = y;
+		color = new Color(255,255,255);
+		speed = 2;
+		level = 0;
+	}
 	public Merchant(int x, int y, Color c) {
 		this.x = x;
 		this.y = y;

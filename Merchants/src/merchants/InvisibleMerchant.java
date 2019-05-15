@@ -32,13 +32,9 @@ public class InvisibleMerchant extends Merchant {
 		return price;
 	}
 
-	/**
-	 * Sets the price of an Invisible Merchant
-	 * 
-	 * @param price cost to upgrade to an Invisible Merchant
-	 */
-	public void setPrice(int price) {
-		this.price = price;
+	public void upgrade() {
+		if(level < 5)
+		level++;
 	}
 
 	/**
@@ -47,6 +43,7 @@ public class InvisibleMerchant extends Merchant {
 	 * @param isVisible to other players
 	 */
 	public void setVisibility(boolean isVisible) {
+		
 		visible = isVisible;
 		// as the level goes up, the invisible merchant can travel further into enemy
 		// territory while still being invisible to other players
