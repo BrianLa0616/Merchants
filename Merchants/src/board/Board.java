@@ -22,6 +22,8 @@ public class Board extends PApplet {
 	private int stage;
 	private static final int menuPage = 1, rulePage = 2, rulePage2 = 3, boardPage = 4, transPage = 5, aucPage = 6,
 			endPage = 7;
+	private final Color one = new Color(150, 0, 0), two = new Color(0, 0, 150), three = new Color(255, 255, 00),
+			four = new Color(0, 150, 0);
 	private TextButton back, next, rule;
 	private Merchant selected;
 
