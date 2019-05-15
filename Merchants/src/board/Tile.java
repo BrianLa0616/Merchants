@@ -22,7 +22,6 @@ public class Tile {
 	private boolean covered;
 	private Color color;
 
-
 	/**
 	 * 
 	 * @param x    the x-coordinate of the tile
@@ -64,14 +63,13 @@ public class Tile {
 		if (merchant != null) {
 			merchant.draw(p);
 		}
-		
 
 		if (color == null) {
 			p.noFill();
 		} else {
 			p.fill(color.getRGB());
 		}
-		
+
 		p.rect(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
 
 	}
@@ -166,7 +164,7 @@ public class Tile {
 	public boolean isCovered() {
 		return covered;
 	}
-	
+
 	/**
 	 * Uncovers the land so the contents are visible to the player
 	 * 
@@ -183,7 +181,7 @@ public class Tile {
 	public void setFill(Color c) {
 		color = c;
 	}
-	
+
 	/**
 	 * 
 	 * @return color of the tile
@@ -199,6 +197,30 @@ public class Tile {
 	 */
 	public void setColor(Color color) {
 		this.color = color;
+	}
+	
+	/**
+	 * 
+	 * @return r value of RGB value
+	 */
+	public int getR() {
+		return color.getRed();
+	}
+	
+	/**
+	 * 
+	 * @return g value of RGB value
+	 */
+	public int getG() {
+		return color.getGreen();
+	}
+	
+	/**
+	 * 
+	 * @return b value of RGB value
+	 */
+	public int getB() {
+		return color.getBlue();
 	}
 
 }

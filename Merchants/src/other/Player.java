@@ -133,4 +133,28 @@ public class Player {
 	public void addTerritory(Tile t) {
 		territory.add(t);
 	}
+	
+	/**
+	 * 
+	 * @return r value of RGB value
+	 */
+	public int getR() {
+		return color.getRed();
+	}
+	
+	/**
+	 * 
+	 * @return g value of RGB value
+	 */
+	public int getG() {
+		return color.getGreen();
+	}
+	
+	/**
+	 * 
+	 * @return b value of RGB value
+	 */
+	public int getB() {
+		return color.getBlue();
+	}
 }
