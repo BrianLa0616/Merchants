@@ -1,80 +1,127 @@
 package buttons;
 
+import java.awt.Color;
+
 import processing.core.PApplet;
 
 /**
- * Subclass of Button. Represents a button with text inside it, meant to be
- * clicked on
+ * Subclass of Button. Represents an adjusted AyushTextButton with rounded
+ * corners for the rectangle that is the button's clickable window.
  */
 public class TextButton extends Button {
-	private float textX, textY;
-	private int btnR, btnG, btnB, textR, textG, textB;
+	private Color tcol, bcol;
 	private String text;
+	private int size;
 
 	/**
-	 * Creates a new TextButton object with the following parameters
+	 * Creates a new AyushTextButtonRounded object with the following parameters.
 	 * 
 	 * @param x      the x-coordinate of the button
 	 * @param y      the y-coordinate of the button
 	 * @param width  the width of the button
 	 * @param height the height of the button
-	 * @param textX  the x-coordinate of the text
-	 * @param textY  the y-coordinate of the text
-	 * @param btnR   the red value of the button's color
-	 * @param btnG   the green value of the button's color
-	 * @param btnB   the blue value of the button's color
-	 * @param textR  the red value of the text's color
-	 * @param textG  the green value of the text's color
-	 * @param textB  the blue value of the text's color
-	 * @param text   the text to be displayed in the button
+	 * @param tcol   the color of the button's text
+	 * @param bcol   the colow of the button
+	 * @param text   the text to be displayed inside the button
+	 * @param size   the font size of the text
 	 */
-	public TextButton(float x, float y, float width, float height, float textX, float textY, int btnR, int btnG,
-			int btnB, int textR, int textG, int textB, String text) {
+	public TextButton(float x, float y, float width, float height, Color tcol, Color bcol, String text,
+			int size) {
 		super(x, y, width, height);
-		this.textX = textX;
-		this.textY = textY;
-		this.btnR = btnR;
-		this.btnG = btnG;
-		this.btnB = btnB;
-		this.textR = textR;
-		this.textG = textG;
-		this.textB = textB;
+
+		this.tcol = tcol;
+		this.bcol = bcol;
 		this.text = text;
+		this.size = size;
 	}
 
 	/**
-	 * Draws the button on a PApplet
+	 * Draws this button on a PApplet
 	 * 
 	 * @param p the PApplet onto which the button will be drawn
 	 */
 	public void draw(PApplet p) {
-		p.fill(btnR, btnG, btnB);
-		p.rect(x, y, width, height);
-		p.fill(textR, textG, textB);
-		p.text(text, textX, textY);
+		p.pushMatrix();
+		p.pushStyle();
+
+		p.fill(bcol.getRed(), bcol.getGreen(), bcol.getBlue());
+		p.rect(x, y, width, height, 25);
+		p.fill(tcol.getRed(), tcol.getGreen(), tcol.getBlue());
+		p.textSize(size);
+		p.textAlign(p.CENTER, p.CENTER);
+		p.text(text, x + width / 2, y + height / 2 - 10);
+		p.popMatrix();
+		p.popStyle();
 	}
 
 	/**
-	 * @param mouseX the x-coordinate of the button
-	 * @param mouseY the y-coordinate of the button
-	 * @return true if the point (mouseX, mouseY) is inside the button, otherwise
-	 *         false
+	 * Sets the color of the button's display text given RGB values
+	 * 
+	 * @param btnR the new red value of the color
+	 * @param btnG the new green value of the color
+	 * @param btnB the new blue value of the color
 	 */
-	public boolean isInBounds(int mouseX, int mouseY) {
-		return mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + height;
+	public void setTColor(int btnR, int btnG, int btnB) {
+		tcol = new Color(btnR, btnG, btnB);
+	}
+
+	/**
+	 * Sets the color of the button's display text given a Color object
+	 * 
+	 * @param newc the new color of the text
+	 */
+	public void setTColor(Color newc) {
+		tcol = newc;
+
 	}
 
 	/**
 	 * Sets the button's color given RGB values
 	 * 
-	 * @param btnR the new red of the color
-	 * @param btnG the new green of the color
-	 * @param btnB the new blue value of the color
+	 * @param r the new red value of the color
+	 * @param g the new green value of the color
+	 * @param b the new blue value of the color
 	 */
-	public void setColor(int btnR, int btnG, int btnB) {
-		this.btnR = btnR;
-		this.btnG = btnG;
-		this.btnB = btnB;
+	public void setBColor(int r, int g, int b) {
+		bcol = new Color(r, g, b);
 	}
 
+	/**
+	 * Sets the button's color given a Color object
+	 * 
+	 * @param newc the new color of the button
+	 */
+	public void setBColor(Color newc) {
+		bcol = newc;
+	}
+
+	/**
+	 * @return the font size of the button's display text
+	 */
+	public int getSize() {
+		return size;
+	}
+
+	/**
+	 * Sets the font size of the button's display text
+	 * 
+	 * @param size the new font size value
+	 */
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	/**
+	 * @return the color of the button
+	 */
+	public Color getBColor() {
+		return bcol;
+	}
+
+	/**
+	 * @return the color of the button's display text
+	 */
+	public String getText() {
+		return text;
+	}
 }
