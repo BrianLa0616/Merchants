@@ -43,7 +43,7 @@ public class InvisibleMerchant extends Merchant {
 	}
 
 	/**
-	 * Upgrades the level of the merchant
+	 * Upgrades the level of the merchant, max level 5
 	 */
 	public void upgrade() {
 		if (level < 5)

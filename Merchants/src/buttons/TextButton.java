@@ -21,7 +21,7 @@ public class TextButton extends Button {
 	 * @param width  the width of the button
 	 * @param height the height of the button
 	 * @param tcol   the color of the button's text
-	 * @param bcol   the colow of the button
+	 * @param bcol   the color of the button
 	 * @param text   the text to be displayed inside the button
 	 * @param size   the font size of the text
 	 */
