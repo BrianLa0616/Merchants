@@ -30,11 +30,16 @@ public class InvisibleMerchant extends Merchant {
 	}
 
 	/**
+	 * Draws the Invisible Merchant
 	 * 
-	 * @return cost of an Invisible Merchant
+	 * @param p marker used to draw
 	 */
-	public int getPrice() {
-		return price;
+	public void draw(PApplet p) {
+		if (visible == true) {
+			p.fill(getR(), getG(), getB());
+			p.rect((x + 0.25f) * Tile.TILE_SIZE, (y + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
+					0.5f * Tile.TILE_SIZE);
+		}
 	}
 
 	/**
@@ -46,7 +51,7 @@ public class InvisibleMerchant extends Merchant {
 	}
 
 	/**
-	 * Sets the Invisible Merchant visible
+	 * Sets the Invisible Merchant visible to all players
 	 * 
 	 * @param p Player that owns the Invisible Merchant
 	 */
@@ -57,11 +62,11 @@ public class InvisibleMerchant extends Merchant {
 	}
 
 	/**
-	 * Sets the Invisible Merchant invisible
+	 * Sets the Invisible Merchant invisible to other players
 	 * 
 	 * 
 	 */
-	public void isInvisible() {
+	public void isInvisible(Player p) {
 
 	}
 
@@ -80,11 +85,38 @@ public class InvisibleMerchant extends Merchant {
 					isVisible(p);
 					visible = true;
 				} else if (level == 2) {
+					if (getCount() > 1) {
+						isVisible(p);
+						visible = true;
+					}
 
+				} else if (level == 3) {
+					if (getCount() > 2) {
+						isVisible(p);
+						visible = true;
+					}
+				} else if (level == 4) {
+					if (getCount() > 3) {
+						isVisible(p);
+						visible = true;
+					}
+				} else if (level == 5) {
+					if (getCount() > 5) {
+						isVisible(p);
+						visible = true;
+					}
 				}
 
 			}
 		}
 
+	}
+
+	/**
+	 * 
+	 * @return cost of an Invisible Merchant
+	 */
+	public int getPrice() {
+		return price;
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import board.Checkpoint;
 import board.Tile;
+import other.Player;
 import processing.core.PApplet;
 
 /**
@@ -17,8 +18,12 @@ public class Merchant {
 	private int x, y, speed;
 	private int level;
 	private int r, g, b;
+	private int count;
 
 	private Color color;
+
+	private Tile t;
+	private Player p;
 
 	/**
 	 * Constructs a new merchant
@@ -26,7 +31,7 @@ public class Merchant {
 	 * @param x x coordinate of merchant
 	 * @param y y coordinate of merchant
 	 */
-	
+
 	public Merchant(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -36,9 +41,11 @@ public class Merchant {
 		color = new Color(r, g, b);
 		speed = 2;
 		level = 0;
+		t = null;
+		p = null;
+		count = 0;
 	}
-	
-	
+
 	/**
 	 * Constructs a new merchant at (x, y) and Color c
 	 * 
@@ -64,6 +71,8 @@ public class Merchant {
 		this.x += dirX;
 		this.y += dirY;
 
+		if (p.getR() != t.getR() || p.getG() != t.getG() || p.getB() != t.getB())
+			count++;
 	}
 
 	/**
@@ -227,7 +236,7 @@ public class Merchant {
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	
+
 	/**
 	 * 
 	 * @return r value of RGB color of merchant
@@ -239,7 +248,7 @@ public class Merchant {
 	/**
 	 * Sets the r value of RGB color of merchant
 	 * 
-	 * @param r value of RGB 
+	 * @param r value of RGB
 	 */
 	public void setR(int r) {
 		this.r = r;
@@ -277,6 +286,15 @@ public class Merchant {
 	 */
 	public void setB(int b) {
 		this.b = b;
+	}
+
+	/**
+	 * 
+	 * @return count, number of tiles merchant has moved in other players'
+	 *         territories
+	 */
+	public int getCount() {
+		return count;
 	}
 
 }
