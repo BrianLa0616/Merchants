@@ -1,5 +1,7 @@
 package board;
 
+import java.awt.Color;
+
 import merchants.Merchant;
 import processing.core.PApplet;
 
@@ -12,11 +14,13 @@ import processing.core.PApplet;
  *
  */
 public class Tile {
-	
+
 	public static final int TILE_SIZE = 60;
 
 	private int x, y, type, cost, income, owner;
 	private Merchant merchant;
+	private boolean covered;
+	private Color color;
 
 	/**
 	 * 
@@ -25,10 +29,13 @@ public class Tile {
 	 * @param type the type of the tile (land, sea, etc.)
 	 */
 	public Tile(int x, int y, int type) {
-		this.setX(x);
-		this.setY(y);
-		this.setType(type);
+		this.x = x;
+		this.y = y;
+		this.type = type;
 		merchant = null;
+		covered = false;
+		color = null;
+		owner = -1;
 	}
 
 	/**
@@ -39,13 +46,6 @@ public class Tile {
 	}
 
 	/**
-	 * @param x the x-coordinate of the checkpoint
-	 */
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	/**
 	 * 
 	 * @return the y-coordinate of the tile
 	 */
@@ -53,17 +53,21 @@ public class Tile {
 		return y;
 	}
 
-	/**
-	 * 
-	 * @param y the y-coordinate of the tile
-	 */
-	public void setY(int y) {
-		this.y = y;
-	}
-	
-	public void draw(PApplet p)
-	{
-		p.rect(x*Tile.TILE_SIZE, y*Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+	public void draw(PApplet p) {
+
+		if (merchant != null) {
+			merchant.draw(p);
+		}
+		
+
+		if (color == null) {
+			p.noFill();
+		} else {
+			p.fill(color.getRGB());
+		}
+		
+		p.rect(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+
 	}
 
 	/**
@@ -137,6 +141,17 @@ public class Tile {
 	public void setMerchant(Merchant merchant) {
 		this.merchant = merchant;
 	}
-	
-	
+
+	public boolean isCovered() {
+		return covered;
+	}
+
+	public void uncover() {
+		covered = false;
+	}
+
+	public void setFill(Color c) {
+		color = c;
+	}
+
 }
