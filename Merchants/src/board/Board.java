@@ -248,6 +248,12 @@ public class Board extends PApplet {
 		}
 	}
 
+	/**
+	 * Checks if the entered number is valid
+	 * 
+	 * @param x entered value
+	 * @return true if the input was valid, false otherwise
+	 */
 	private boolean validIntegerInput(String x) {
 		if (x.length() == 0)
 			return false;
@@ -259,10 +265,20 @@ public class Board extends PApplet {
 		return true;
 	}
 
+	/**
+	 * Checks if (x, y) is within the board
+	 * 
+	 * @param x coordinate of location
+	 * @param y coordinate of location
+	 * @return true if the specified location is within the board, false otherwise
+	 */
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}
 
+	/**
+	 * Deselects the merchant
+	 */
 	private void deselect() {
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
@@ -279,6 +295,9 @@ public class Board extends PApplet {
 		selected = null;
 	}
 
+	/**
+	 * Covers the area that the player is unable to see with Dark Gray
+	 */
 	private void repaint() {
 
 		for (int i = 0; i < tiles.length; i++) {
