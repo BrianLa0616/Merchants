@@ -103,7 +103,6 @@ public class Merchant {
 	public void goToCheckpt(Checkpoint c) {
 		x = c.getX();
 		y = c.getY();
-
 	}
 
 	/**
