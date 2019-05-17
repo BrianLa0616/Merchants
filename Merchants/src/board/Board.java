@@ -25,13 +25,14 @@ public class Board extends PApplet {
 			new Color(50, 255, 50) };
 	private final Color[] tileColors = { new Color(255, 50, 50), new Color(50, 50, 255), new Color(255, 255, 0),
 			new Color(50, 255, 50) };
-	
+
 	private int stage;
 
 	private TextButton back, next, rule;
 	private Merchant selected;
 
 	private ArrayList<Tile> auctionTiles;
+	private TextButton[] changeAuctionPrice;
 
 	// Game fields
 	private ArrayList<Player> players = new ArrayList<Player>();
@@ -57,6 +58,7 @@ public class Board extends PApplet {
 			}
 		}
 		auctionTiles = new ArrayList<Tile>();
+		changeAuctionPrice = new TextButton[4];
 	}
 
 	/**
@@ -122,9 +124,13 @@ public class Board extends PApplet {
 			fill(0);
 
 			text("AUCTION", 50, 50);
-			for (int i = 0; i < auctionTiles.size(); i++) {
+			Tile t = auctionTiles.get(0);
+			/*
+			 * for (int i = 0; i < t.getAuctioners().size(); i++) { changeAuctionPrice[i] =
+			 * new TextButton(125, 100*i, 50, 50, Color.BLACK, Color.WHITE, "CHANGE", 18); }
+			 */
+			next.draw(this);
 
-			}
 		} else if (stage == endPage) {
 
 		}
@@ -210,6 +216,10 @@ public class Board extends PApplet {
 					} else {
 						if (Math.abs(mx - selected.getX()) + Math.abs(my - selected.getY()) <= 1
 								&& tiles[mx][my].getMerchant() == null) {
+
+							// Check if moving or buying
+
+							// if moving
 							tiles[mx][my].setMerchant(selected);
 							tiles[selected.getX()][selected.getY()].setMerchant(null);
 							deselect();
@@ -226,6 +236,12 @@ public class Board extends PApplet {
 									}
 								}
 							}
+							
+							//if buying
+							/*
+							auctionTiles.add(tiles[mx][my]);
+							tiles[mx][my].addAuctioner(players.get(curPlayer));
+							*/
 
 						} else {
 							deselect();
@@ -243,7 +259,24 @@ public class Board extends PApplet {
 
 		} else if (stage == aucPage) {
 			if (next.isPointInButton(mouseX, mouseY)) {
-				stage = transPage;
+				if (auctionTiles.size() == 0) {
+					stage = transPage;
+				} else {
+
+					int winner = 0;
+					ArrayList<Player> auctioners = auctionTiles.get(0).getAuctioners();
+
+					/*
+					 * int max = -1; for (int i = 0; i < auctioners.size(); i++) { if
+					 * (auctioners.get(i).getAuctionPrice() > max) { winner =
+					 * auctioners.get(i).getId(); max = auctioners.get(i).getAuctionPrice(); } }
+					 */
+					winner = (int) (Math.random() * auctioners.size());
+
+					players.get(auctioners.get(winner).getId()).addTerritory(auctionTiles.get(0));
+					auctionTiles.get(0).setOwner(auctioners.get(winner).getId());
+					auctionTiles.remove(0);
+				}
 			}
 		} else if (stage == endPage) {
 
