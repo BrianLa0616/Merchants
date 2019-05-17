@@ -88,7 +88,7 @@ public class Board extends PApplet {
 				for (Merchant m : p.getMerchants())
 					m.draw(this);
 			}
-			
+
 			for (Tile[] ts : tiles) {
 				for (Tile t : ts) {
 //					if ()
@@ -307,6 +307,7 @@ public class Board extends PApplet {
 				tiles[i][j].setFill(Color.DARK_GRAY);
 			}
 		}
+
 		ArrayList<Tile> tiles = players.get(curPlayer).getTerritory();
 
 		for (int i = 0; i < tiles.size(); i++) {
