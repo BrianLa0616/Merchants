@@ -71,8 +71,9 @@ public class Merchant {
 		this.x += dirX;
 		this.y += dirY;
 
-		if (p.getR() != t.getR() || p.getG() != t.getG() || p.getB() != t.getB())
+		if (p.getR() != t.getR() || p.getG() != t.getG() || p.getB() != t.getB()) {
 			count++;
+		}
 	}
 
 	/**

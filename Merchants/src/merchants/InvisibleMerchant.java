@@ -43,14 +43,6 @@ public class InvisibleMerchant extends Merchant {
 	}
 
 	/**
-	 * Upgrades the level of the merchant, max level 5
-	 */
-	public void upgrade() {
-		if (level < 5)
-			level++;
-	}
-
-	/**
 	 * Sets the Invisible Merchant visible
 	 * 
 	 * @param p Player that owns the Invisible Merchant
