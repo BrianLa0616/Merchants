@@ -1,8 +1,10 @@
 package board;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import merchants.Merchant;
+import other.Player;
 import processing.core.PApplet;
 
 /**
@@ -21,6 +23,7 @@ public class Tile {
 	private Merchant merchant;
 	private boolean covered;
 	private Color color;
+	private ArrayList<Player> auctioners;
 
 	/**
 	 * 
@@ -36,6 +39,8 @@ public class Tile {
 		covered = false;
 		color = null;
 		owner = -1;
+		
+		auctioners = new ArrayList<Player>();
 	}
 
 	/**
@@ -74,6 +79,17 @@ public class Tile {
 
 	}
 
+	public void addAuctioner(Player p) {
+		auctioners.add(p);
+	}
+	
+	public void clearAuctioner() {
+		auctioners.clear();
+	}
+	
+	public ArrayList<Player> getAuctioners() {
+		return auctioners;
+	}
 	/**
 	 * 
 	 * @return the tile type
