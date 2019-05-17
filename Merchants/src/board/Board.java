@@ -19,13 +19,15 @@ import processing.core.PApplet;
  */
 public class Board extends PApplet {
 
-	private int stage;
 	private static final int menuPage = 1, rulePage = 2, rulePage2 = 3, boardPage = 4, transPage = 5, aucPage = 6,
 			endPage = 7;
 	private final Color[] playerColors = { new Color(200, 0, 0), new Color(0, 0, 200), new Color(200, 200, 50),
 			new Color(50, 255, 50) };
 	private final Color[] tileColors = { new Color(255, 50, 50), new Color(50, 50, 255), new Color(255, 255, 0),
 			new Color(50, 255, 50) };
+	
+	private int stage;
+
 	private TextButton back, next, rule;
 	private Merchant selected;
 

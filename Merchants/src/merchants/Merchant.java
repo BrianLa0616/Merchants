@@ -147,7 +147,16 @@ public class Merchant {
 		if (level < 5)
 			level++;
 	}
+	
+	
+	
+	
+	//_________________________________Basic setters and getters_________________________
 
+	
+	public void setTile(Tile t) {
+		this.t = t;
+	}
 	/**
 	 * 
 	 * @return x coordinate of merchant
@@ -285,15 +294,6 @@ public class Merchant {
 	 */
 	public void setB(int b) {
 		this.b = b;
-	}
-
-	/**
-	 * 
-	 * @return count, number of tiles merchant has moved in other players'
-	 *         territories
-	 */
-	public int getCount() {
-		return count;
 	}
 
 }
