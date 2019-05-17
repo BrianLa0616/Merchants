@@ -19,11 +19,15 @@ import processing.core.PApplet;
  */
 public class Board extends PApplet {
 
-	private int stage;
 	private static final int menuPage = 1, rulePage = 2, rulePage2 = 3, boardPage = 4, transPage = 5, aucPage = 6,
 			endPage = 7;
-	private final Color[] playerColors = { new Color(200, 0, 0), new Color(0, 0, 200), new Color(255, 255, 00),
-			new Color(0, 200, 0) };
+	private final Color[] playerColors = { new Color(200, 0, 0), new Color(0, 0, 200), new Color(200, 200, 50),
+			new Color(50, 255, 50) };
+	private final Color[] tileColors = { new Color(255, 50, 50), new Color(50, 50, 255), new Color(255, 255, 0),
+			new Color(50, 255, 50) };
+	
+	private int stage;
+
 	private TextButton back, next, rule;
 	private Merchant selected;
 
@@ -71,9 +75,23 @@ public class Board extends PApplet {
 			next.draw(this);
 			rule.draw(this);
 			noFill();
+
 			for (int i = 0; i < tiles.length; i++) {
 				for (int j = 0; j < tiles[0].length; j++) {
 					tiles[i][j].draw(this);
+				}
+			}
+
+			for (Player p : players) {
+				for (Tile t : p.getTerritory())
+					t.setFill(tileColors[players.indexOf(p)]);
+				for (Merchant m : p.getMerchants())
+					m.draw(this);
+			}
+
+			for (Tile[] ts : tiles) {
+				for (Tile t : ts) {
+//					if ()
 				}
 			}
 
@@ -203,7 +221,9 @@ public class Board extends PApplet {
 								for (int j = -1; j <= 1; j++) {
 									int nx = mx + i;
 									int ny = my + j;
-									tiles[nx][ny].setColor(null);
+									if (inRange(nx, ny)) {
+										tiles[nx][ny].setColor(null);
+									}
 								}
 							}
 
@@ -287,6 +307,7 @@ public class Board extends PApplet {
 				tiles[i][j].setFill(Color.DARK_GRAY);
 			}
 		}
+
 		ArrayList<Tile> tiles = players.get(curPlayer).getTerritory();
 
 		for (int i = 0; i < tiles.size(); i++) {

@@ -28,7 +28,7 @@ public class Player {
 	private ArrayList<Tile> territory;
 
 	/**
-	 * Creates a new Player object with 5 regular merchants and no territory.
+	 * Creates a new Player object with 1 regular merchant and 1 territory.
 	 * 
 	 * @param id      the player's number in relation to other players
 	 * @param balance the player's starting balance, used to expand territory and
@@ -39,11 +39,11 @@ public class Player {
 	 * @param initY   the player's initial starting location's y-coordinate
 	 */
 	public Player(int id, int balance, String name, Color color, Merchant merchant) {
-		this.setInitX(initX);
-		this.setInitY(initY);
+		this.initX = merchant.getX();
+		this.initY = merchant.getY();
 
-		this.setId(id);
-		this.setBalance(balance);
+		this.id = id;
+		this.balance = balance;
 		this.name = name;
 		this.color = color;
 
@@ -128,23 +128,6 @@ public class Player {
 
 	/**
 	 * 
-	 * @return the y-coordinate of the player's original spawn point
-	 */
-	public int getInitY() {
-		return initY;
-	}
-
-	/**
-	 * Sets the y-coordinate of the player's original spawn point
-	 * 
-	 * @param initY coordinate of original spawn point
-	 */
-	public void setInitY(int initY) {
-		this.initY = initY;
-	}
-
-	/**
-	 * 
 	 * @return player id
 	 */
 	public int getId() {
@@ -201,7 +184,7 @@ public class Player {
 	public void setIncome(int income) {
 		this.income = income;
 	}
-	
+
 	/**
 	 * 
 	 * @return all merchants the player owns
