@@ -32,10 +32,6 @@ public class SpeedMerchant extends Merchant {
 		return price;
 	}
 
-	public void upgrade() {
-		level++;
-	}
-
 	/**
 	 * Ability of a Speed Merchant to move extra spaces, as the level of the
 	 * merchant increases, the Speed Merchant can move further

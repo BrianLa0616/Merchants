@@ -32,10 +32,6 @@ public class MoneyMerchant extends Merchant {
 		return price;
 	}
 
-	public void upgrade() {
-		level++;
-	}
-
 	/**
 	 * Ability of an Money Merchant to supply additional money to the player per
 	 * their turn, as the merchant's level rises, the amount the player receives

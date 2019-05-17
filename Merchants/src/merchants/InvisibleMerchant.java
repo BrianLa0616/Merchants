@@ -2,6 +2,10 @@ package merchants;
 
 import java.awt.Color;
 
+import board.Tile;
+import other.Player;
+import processing.core.PApplet;
+
 /**
  * Represents an Invisible Merchant
  * 
@@ -22,6 +26,82 @@ public class InvisibleMerchant extends Merchant {
 	public InvisibleMerchant(int x, int y, Color c) {
 		super(x, y, c);
 		level = 1;
+		visible = false;
+	}
+
+	/**
+	 * Draws the Invisible Merchant
+	 * 
+	 * @param p marker used to draw
+	 */
+	public void draw(PApplet p) {
+		if (visible == true) {
+			p.fill(getR(), getG(), getB());
+			p.rect((x + 0.25f) * Tile.TILE_SIZE, (y + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
+					0.5f * Tile.TILE_SIZE);
+		}
+	}
+
+	/**
+	 * Upgrades the level of the merchant, max level 5
+	 */
+	public void upgrade() {
+		if (level < 5)
+			level++;
+	}
+
+	/**
+	 * Sets the Invisible Merchant visible
+	 * 
+	 * @param p Player that owns the Invisible Merchant
+	 */
+	public void setVisible(Player p) {
+		setR(p.getR());
+		setG(p.getG());
+		setB(p.getB());
+		visible = true;
+	}
+
+	/**
+	 * Whether or not the Invisible Merchant is visible or not to other players, as
+	 * the Invisible Merchant rises in levels, it will be able to go further into
+	 * other players' lands while still maintaining its invisibility
+	 * 
+	 * @param t Tile that the Invisible Merchant is currently on
+	 * @param p Player who owns the Invisible Merchant
+	 */
+	public void invisible(Player p, Tile t) {
+		if (x == t.getX() && y == t.getY()) {
+			if (p.getR() != t.getR() || p.getG() != t.getG() || p.getB() != t.getB()) {
+				if (level == 1) {
+					setVisible(p);
+					visible = true;
+				} else if (level == 2) {
+					if (getCount() > 1) {
+						setVisible(p);
+						visible = true;
+					}
+
+				} else if (level == 3) {
+					if (getCount() > 2) {
+						setVisible(p);
+						visible = true;
+					}
+				} else if (level == 4) {
+					if (getCount() > 3) {
+						setVisible(p);
+						visible = true;
+					}
+				} else if (level == 5) {
+					if (getCount() > 5) {
+						setVisible(p);
+						visible = true;
+					}
+				}
+
+			}
+		}
+
 	}
 
 	/**
@@ -31,20 +111,4 @@ public class InvisibleMerchant extends Merchant {
 	public int getPrice() {
 		return price;
 	}
-
-	public void upgrade() {
-		level++;
-	}
-
-	/**
-	 * Whether or not the Invisible Merchant is visible or not to other players
-	 * 
-	 * @param isVisible to other players
-	 */
-	public void setVisibility(boolean isVisible) {
-		visible = isVisible;
-		// as the level goes up, the invisible merchant can travel further into enemy
-		// territory while still being invisible to other players
-	}
-
 }

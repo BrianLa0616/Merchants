@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import board.Checkpoint;
 import board.Tile;
+import other.Player;
 import processing.core.PApplet;
 
 /**
@@ -16,24 +17,42 @@ public class Merchant {
 
 	private int x, y, speed;
 	private int level;
+	private int r, g, b;
+
+	private int count;
 
 	private Color color;
 
+	private Tile t;
+	private Player p;
+
 	/**
-	 * Constructs a new merchant at (x, y) with color c
+	 * Constructs a new merchant
 	 * 
-	 * @param x x coordinate of merchant
-	 * @param y y coordinate of merchant
-	 * @param c color of merchant
+	 * @param x coordinate of merchant
+	 * @param y coordinate of merchant
 	 */
-	
 	public Merchant(int x, int y) {
 		this.x = x;
 		this.y = y;
-		color = new Color(255,255,255);
+		r = 255;
+		g = 255;
+		b = 255;
+		color = new Color(r, g, b);
 		speed = 2;
 		level = 0;
+		t = null;
+		p = null;
+		count = 0;
 	}
+
+	/**
+	 * Constructs a new merchant at (x, y) and Color c
+	 * 
+	 * @param x coordinate of merchant
+	 * @param y coordinate of merchant
+	 * @param c Color of the merchant
+	 */
 	public Merchant(int x, int y, Color c) {
 		this.x = x;
 		this.y = y;
@@ -52,6 +71,8 @@ public class Merchant {
 		this.x += dirX;
 		this.y += dirY;
 
+		if (p.getR() != t.getR() || p.getG() != t.getG() || p.getB() != t.getB())
+			count++;
 	}
 
 	/**
@@ -81,8 +102,11 @@ public class Merchant {
 	 * @return new amount player has
 	 */
 	public int purchaseLand(int amount) {
-
-		return amount - 30;
+		if (amount > 30) {
+			t.setColor(p.getColor());
+			return amount - 30;
+		}
+		return amount;
 	}
 
 	/**
@@ -117,17 +141,11 @@ public class Merchant {
 	}
 
 	/**
-	 * Levels up the merchant one level
-	 * 
-	 * @param currLevel current level of the merchant
-	 * @return the new level of the merchant unless the merchant is already at the
-	 *         maximum level (5)
+	 * Upgrades the level of the merchant, max level 5
 	 */
-	public int levelUp(int currLevel) {
-		if (level < 5) {
-			return level + 1;
-		}
-		return level;
+	public void upgrade() {
+		if (level < 5)
+			level++;
 	}
 
 	/**
@@ -214,4 +232,68 @@ public class Merchant {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+
+	/**
+	 * 
+	 * @return r value of RGB color of merchant
+	 */
+	public int getR() {
+		return r;
+	}
+
+	/**
+	 * Sets the r value of RGB color of merchant
+	 * 
+	 * <<<<<<< HEAD
+	 * 
+	 * @param r value of RGB =======
+	 * @param r value of RGB >>>>>>> ansen's-work
+	 */
+	public void setR(int r) {
+		this.r = r;
+	}
+
+	/**
+	 * 
+	 * @return g value of RGB color of merchant
+	 */
+	public int getG() {
+		return g;
+	}
+
+	/**
+	 * Sets the g value of RGB color of merchant
+	 * 
+	 * @param g value of RGB color of merchant
+	 */
+	public void setG(int g) {
+		this.g = g;
+	}
+
+	/**
+	 * 
+	 * @return b value of RGB color of merchant
+	 */
+	public int getB() {
+		return b;
+	}
+
+	/**
+	 * Sets the b value of RGB color of merchant
+	 * 
+	 * @param b value of RGB color of merchant
+	 */
+	public void setB(int b) {
+		this.b = b;
+	}
+
+	/**
+	 * 
+	 * @return count, number of tiles merchant has moved in other players'
+	 *         territories
+	 */
+	public int getCount() {
+		return count;
+	}
+
 }

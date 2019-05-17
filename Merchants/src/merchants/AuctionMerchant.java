@@ -31,10 +31,6 @@ public class AuctionMerchant extends Merchant {
 		return price;
 	}
 
-	public void upgrade() {
-		level++;
-	}
-
 	/**
 	 * Ability of an Auction Merchant to add money to the player's bid without the
 	 * player needing to pay the amount, as the merchant's level rises, the
