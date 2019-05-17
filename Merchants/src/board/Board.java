@@ -59,6 +59,7 @@ public class Board extends PApplet {
 		}
 		auctionTiles = new ArrayList<Tile>();
 		changeAuctionPrice = new TextButton[4];
+
 	}
 
 	/**
@@ -85,10 +86,12 @@ public class Board extends PApplet {
 			}
 
 			for (Player p : players) {
-				for (Tile t : p.getTerritory())
+				for (Tile t : p.getTerritory()) {
 					t.setFill(tileColors[players.indexOf(p)]);
-				for (Merchant m : p.getMerchants())
+				}
+				for (Merchant m : p.getMerchants()) {
 					m.draw(this);
+				}
 			}
 
 			for (Tile[] ts : tiles) {
@@ -183,6 +186,9 @@ public class Board extends PApplet {
 				next = new TextButton(1000, 100, 50, 50, Color.WHITE, new Color(0, 180, 255), "NEXT", 18);
 				rule = new TextButton(1000, 200, 50, 50, Color.WHITE, new Color(0, 180, 255), "RULE", 18);
 
+				auctionTiles.add(tiles[0][0]);
+				tiles[0][0].addAuctioner(players.get(0));
+
 				stage = transPage;
 			} else if (rule.isPointInButton(mouseX, mouseY)) {
 				stage = rulePage;
@@ -236,12 +242,12 @@ public class Board extends PApplet {
 									}
 								}
 							}
-							
-							//if buying
+
+							// if buying
 							/*
-							auctionTiles.add(tiles[mx][my]);
-							tiles[mx][my].addAuctioner(players.get(curPlayer));
-							*/
+							 * auctionTiles.add(tiles[mx][my]);
+							 * tiles[mx][my].addAuctioner(players.get(curPlayer));
+							 */
 
 						} else {
 							deselect();
@@ -259,23 +265,25 @@ public class Board extends PApplet {
 
 		} else if (stage == aucPage) {
 			if (next.isPointInButton(mouseX, mouseY)) {
+
+				int winner = 0;
+				ArrayList<Player> auctioners = auctionTiles.get(0).getAuctioners();
+
+				/*
+				 * int max = -1; for (int i = 0; i < auctioners.size(); i++) { if
+				 * (auctioners.get(i).getAuctionPrice() > max) { winner =
+				 * auctioners.get(i).getId(); max = auctioners.get(i).getAuctionPrice(); } }
+				 */
+				winner = (int) (Math.random() * auctioners.size());
+
+				players.get(auctioners.get(winner).getId()).addTerritory(auctionTiles.get(0));
+				auctionTiles.get(0).setOwner(auctioners.get(winner).getId());
+				auctionTiles.remove(0);
+
+				System.out.println(players.get(0).getTerritory().size());
+
 				if (auctionTiles.size() == 0) {
 					stage = transPage;
-				} else {
-
-					int winner = 0;
-					ArrayList<Player> auctioners = auctionTiles.get(0).getAuctioners();
-
-					/*
-					 * int max = -1; for (int i = 0; i < auctioners.size(); i++) { if
-					 * (auctioners.get(i).getAuctionPrice() > max) { winner =
-					 * auctioners.get(i).getId(); max = auctioners.get(i).getAuctionPrice(); } }
-					 */
-					winner = (int) (Math.random() * auctioners.size());
-
-					players.get(auctioners.get(winner).getId()).addTerritory(auctionTiles.get(0));
-					auctionTiles.get(0).setOwner(auctioners.get(winner).getId());
-					auctionTiles.remove(0);
 				}
 			}
 		} else if (stage == endPage) {
