@@ -31,7 +31,7 @@ public class Board extends PApplet {
 	private int currCost;
 	private int waitFrame;
 
-	private TextButton back, next, rule;
+	private TextButton back, next, rule, withdraw, surrender;
 	private Merchant selected;
 
 	private ArrayList<Tile> auctionTiles;
@@ -54,6 +54,8 @@ public class Board extends PApplet {
 		back = new TextButton(25, 400, 50, 50, Color.BLACK, Color.WHITE, "BACK", 18);
 		next = new TextButton(150, 150, 200, 75, Color.WHITE, new Color(0, 180, 255), "NEXT", 18);
 		rule = new TextButton(150, 250, 200, 75, Color.WHITE, new Color(0, 180, 255), "RULE", 18);
+		surrender = new TextButton(960, 300, 100, 75, Color.WHITE, new Color(0, 180, 255), "SURRENDER", 18);
+		withdraw = new TextButton(550, 200, 200, 75, Color.WHITE, new Color(0, 180, 255), "WITHDRAW FROM AUCTION", 18);
 
 		selected = null;
 		curPlayer = 0;
@@ -88,7 +90,19 @@ public class Board extends PApplet {
 		} else if (stage == boardPage) {
 			next.draw(this);
 			rule.draw(this);
+			surrender.draw(this);
 			noFill();
+
+			//extra stuff 
+			if (withdraw.isPointInButton(mouseX, mouseY)) {
+
+				String output;
+				output = JOptionPane.showInputDialog("Type in 'YES' to Confirm Surrender ");
+
+				if (output.equals("YES")) {
+					players.remove(curPlayer);
+				}
+			}
 
 			for (int i = 0; i < tiles.length; i++) {
 				for (int j = 0; j < tiles[0].length; j++) {
@@ -134,6 +148,7 @@ public class Board extends PApplet {
 
 			text("Player " + (curPlayer + 1) + " turn: " + players.get(curPlayer).getName(), 50, 50);
 		} else if (stage == aucPage) {
+			withdraw.draw(this);
 			waitFrame++;
 			textSize(50);
 			fill(0);
@@ -151,8 +166,6 @@ public class Board extends PApplet {
 
 				for (int i = 0; i < t.getAuctioners().size(); i++) {
 					changeAuctionPrice[i] = new TextButton(125, 100 * i, 50, 50, Color.BLACK, Color.WHITE, "BID", 18);
-					changeAuctionPrice[i] = new TextButton(125, 800, 50, 50, Color.BLACK, Color.WHITE,
-							"Withdraw From Auction", 18);
 					do {
 						input = JOptionPane
 								.showInputDialog("Player " + players.get(i).getName() + "add money to the bid: ");
@@ -164,6 +177,9 @@ public class Board extends PApplet {
 					currCost = Integer.parseInt(input) + t.getCost();
 
 					auctionTurn = false;
+					if (withdraw.isPointInButton(mouseX, mouseY)) {
+						t.getAuctioners().remove(i);
+					}
 
 				}
 			}
@@ -172,7 +188,7 @@ public class Board extends PApplet {
 			next.draw(this);
 
 		} else if (stage == endPage) {
-			//show winner
+			// show winner
 			text("THANKS FOR PLAYING!!", 50, 50);
 		}
 	}
@@ -272,6 +288,7 @@ public class Board extends PApplet {
 								&& tiles[mx][my].getMerchant() == null) {
 
 							// Check if moving or buying
+							// Left click to move, right click to buy
 
 							if (mouseButton == LEFT) {
 
