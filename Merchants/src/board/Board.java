@@ -43,6 +43,7 @@ public class Board extends PApplet {
 	private Tile[][] tiles = new Tile[15][15];
 
 	private boolean auctionTurn;
+	private int playerBid;
 
 	/**
 	 * Initiates buttons
@@ -67,6 +68,7 @@ public class Board extends PApplet {
 
 		currCost = 0;
 		waitFrame = 0;
+		playerBid = 0;
 
 		auctionTurn = true;
 	}
@@ -138,29 +140,32 @@ public class Board extends PApplet {
 
 			text("AUCTION", 50, 50);
 			Tile t = auctionTiles.get(0);
-			text("Starting price: " + t.getCost(), 50, 110);
-			text("Current price: " + t.getCost(), 50, 150);
+			text("Starting price: " + t.getCost(), 50, 750);
+			text("Current price: " + currCost, 50, 850);
 			for (int i = 0; i < players.size(); i++) {
-				text(players.get(i).getName(), 50, 200 + 100 * i);
+				text(players.get(i).getName() + "'s bid: " + playerBid, 50, 200 + 100 * i);
 			}
 			String input;
-			//let first draw, than bid
-			if (auctionTurn && waitFrame == 1) {
+			// let first draw, than bid
+			if (auctionTurn && waitFrame == 2) {
 				for (int i = 0; i < t.getAuctioners().size(); i++) {
 					changeAuctionPrice[i] = new TextButton(125, 100 * i, 50, 50, Color.BLACK, Color.WHITE, "BID", 18);
+					changeAuctionPrice[i] = new TextButton(125, 800, 50, 50, Color.BLACK, Color.WHITE, "Withdraw From Auction", 18);
 					do {
-						input = JOptionPane.showInputDialog("Add money to the bid: ");
+						input = JOptionPane.showInputDialog("Player " + players.get(i).getName() + "add money to the bid: ");
 						if (input == null || input.equals("")) {
 							continue;
 						}
 						System.out.println(input + " " + validIntegerInput(input));
 					} while (!validIntegerInput(input));
+					playerBid = Integer.parseInt(input);
 					currCost = Integer.parseInt(input) + t.getCost();
 
 					auctionTurn = false;
 
 				}
 			}
+
 			waitFrame = 0;
 			next.draw(this);
 

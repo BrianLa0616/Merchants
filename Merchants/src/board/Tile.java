@@ -41,6 +41,7 @@ public class Tile {
 		covered = false;
 		color = null;
 		owner = -1;
+		cost = 30;
 
 		auctioners = new ArrayList<Player>();
 		isSelected = false;
