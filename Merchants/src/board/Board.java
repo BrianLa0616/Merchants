@@ -1,13 +1,13 @@
 package board;
 
 import java.awt.Color;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import buttons.TextButton;
 import merchants.Merchant;
+import merchants.SpeedMerchant;
 import other.Player;
 import processing.core.PApplet;
 
@@ -173,7 +173,8 @@ public class Board extends PApplet {
 			next.draw(this);
 
 		} else if (stage == endPage) {
-
+			//show winner
+			text("THANKS FOR PLAYING!!", 50, 50);
 		}
 	}
 
@@ -204,8 +205,10 @@ public class Board extends PApplet {
 					do {
 						x = (int) (Math.random() * tiles.length);
 						y = (int) (Math.random() * tiles[0].length);
+
 					} while (tiles[x][y].getMerchant() != null);
-					players.add(new Player(i, 100, input, playerColors[i], new Merchant(x, y)));
+					players.add(new Player(i, 100, input, tileColors[i], new Merchant(x, y),
+							new SpeedMerchant(x - 1, y, tileColors[i])));
 
 				}
 
@@ -230,6 +233,7 @@ public class Board extends PApplet {
 
 				next = new TextButton(1000, 100, 50, 50, Color.WHITE, new Color(0, 180, 255), "NEXT", 18);
 				rule = new TextButton(1000, 200, 50, 50, Color.WHITE, new Color(0, 180, 255), "RULE", 18);
+
 
 				stage = transPage;
 			} else if (rule.isPointInButton(mouseX, mouseY)) {

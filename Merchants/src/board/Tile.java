@@ -75,6 +75,7 @@ public class Tile {
 
 		if (isSelected) {
 			p.fill(Color.yellow.getRGB());
+		
 		} else {
 			if (color == null) {
 				p.noFill();
@@ -87,14 +88,25 @@ public class Tile {
 
 	}
 
+	/**
+	 * Adds a player to participate in an auction for this tile
+	 * 
+	 * @param p the player to be added to the auction
+	 */
 	public void addAuctioner(Player p) {
 		auctioners.add(p);
 	}
 
+	/**
+	 * Removes all participating players from an auction for this tile
+	 */
 	public void clearAuctioner() {
 		auctioners.clear();
 	}
 
+	/**
+	 * @return all players auctioning for this tile
+	 */
 	public ArrayList<Player> getAuctioners() {
 		return auctioners;
 	}
@@ -113,6 +125,7 @@ public class Tile {
 		return str;
 	}
 
+	
 	/**
 	 * 
 	 * @return the cost to purchase the tile
