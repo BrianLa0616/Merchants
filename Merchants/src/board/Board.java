@@ -288,12 +288,25 @@ public class Board extends PApplet {
 				int my = mouseY / Tile.TILE_SIZE;
 				if (inRange(mx, my)) {
 
+					for (int i = 0; i < players.size(); i++) {
+						if (tiles[players.get(i).getInitX()][players.get(i).getInitY()].getMerchant() == null
+								&& mx == players.get(i).getInitX() && my == players.get(i).getInitY()) {
+							int input = JOptionPane.showConfirmDialog(frame, "Would you like to buy a merchant?",
+									"Buy Merchant", JOptionPane.OK_CANCEL_OPTION, JOptionPane.OK_CANCEL_OPTION);
+							if (input == JOptionPane.OK_OPTION) {
+								Merchant newm = new Merchant(players.get(i).getInitX(), players.get(i).getInitY());
+								newm.setColor(playerColors[i]);
+								players.get(i).getMerchants().add(newm);
+							}
+						}
+					}
+
 					if (selected == null) {
 						selected = tiles[mx][my].getMerchant();
 						if (selected == null) {
 							JOptionPane.showMessageDialog(null, tiles[mx][my].getCharacteristics());
-
 						}
+
 					} else {
 						if (Math.abs(mx - selected.getX()) + Math.abs(my - selected.getY()) <= 1) {
 
