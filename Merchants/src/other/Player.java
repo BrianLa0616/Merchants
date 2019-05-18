@@ -244,7 +244,7 @@ public class Player {
 				for (Tile t : territory)
 					if (t instanceof Checkpoint)
 						amplifier++;
-				territory.set(i, new Checkpoint(x, y, territory.get(i).getType(), i, amplifier));
+				territory.set(i, new Checkpoint(x, y, 0, i, amplifier));
 			}
 		}
 	}

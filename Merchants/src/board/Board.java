@@ -60,7 +60,7 @@ public class Board extends PApplet {
 
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[0].length; j++) {
-				tiles[i][j] = new Tile(i, j, 0);
+				tiles[i][j] = new Tile(i, j, (int) (Math.random() * 10) + 10);
 			}
 		}
 		auctionTiles = new ArrayList<Tile>();
@@ -99,6 +99,7 @@ public class Board extends PApplet {
 			for (Player p : players) {
 				for (Tile t : p.getTerritory()) {
 					t.setFill(tileColors[players.indexOf(p)]);
+					t.setCover(false);
 				}
 				for (Merchant m : p.getMerchants()) {
 					m.draw(this);
@@ -151,9 +152,11 @@ public class Board extends PApplet {
 
 				for (int i = 0; i < t.getAuctioners().size(); i++) {
 					changeAuctionPrice[i] = new TextButton(125, 100 * i, 50, 50, Color.BLACK, Color.WHITE, "BID", 18);
-					changeAuctionPrice[i] = new TextButton(125, 800, 50, 50, Color.BLACK, Color.WHITE, "Withdraw From Auction", 18);
+					changeAuctionPrice[i] = new TextButton(125, 800, 50, 50, Color.BLACK, Color.WHITE,
+							"Withdraw From Auction", 18);
 					do {
-						input = JOptionPane.showInputDialog("Player " + players.get(i).getName() + "add money to the bid: ");
+						input = JOptionPane
+								.showInputDialog("Player " + players.get(i).getName() + "add money to the bid: ");
 						if (input == null || input.equals("")) {
 							continue;
 						}
@@ -201,12 +204,9 @@ public class Board extends PApplet {
 					do {
 						x = (int) (Math.random() * tiles.length);
 						y = (int) (Math.random() * tiles[0].length);
-						System.out.println("1");
 					} while (tiles[x][y].getMerchant() != null);
-					System.out.println("hello");
 					players.add(new Player(i, 100, input, playerColors[i], new Merchant(x, y)));
 
-					
 				}
 
 				do {
@@ -216,25 +216,21 @@ public class Board extends PApplet {
 						return;
 					}
 				} while (!validIntegerInput(input));
-				
+
 				numTurns = Integer.parseInt(input);
-				
+
 				for (int i = 0; i < players.size(); i++) {
 					int x = players.get(i).getMerchants().get(0).getX();
 					int y = players.get(i).getMerchants().get(0).getY();
-					
+
 					tiles[x][y].setMerchant(players.get(i).getMerchants().get(0));
 					tiles[x][y].setOwner(i);
 					players.get(i).addTerritory(tiles[x][y]);
 				}
-				
 
 				next = new TextButton(1000, 100, 50, 50, Color.WHITE, new Color(0, 180, 255), "NEXT", 18);
 				rule = new TextButton(1000, 200, 50, 50, Color.WHITE, new Color(0, 180, 255), "RULE", 18);
 
-				auctionTiles.add(tiles[0][0]);
-				tiles[0][0].addAuctioner(players.get(0));
-				
 				stage = transPage;
 			} else if (rule.isPointInButton(mouseX, mouseY)) {
 				stage = rulePage;
@@ -265,6 +261,10 @@ public class Board extends PApplet {
 
 					if (selected == null) {
 						selected = tiles[mx][my].getMerchant();
+						if (selected == null) {
+							JOptionPane.showMessageDialog(null, tiles[mx][my].getCharacteristics());
+
+						}
 					} else {
 						if (Math.abs(mx - selected.getX()) + Math.abs(my - selected.getY()) <= 1
 								&& tiles[mx][my].getMerchant() == null) {
@@ -331,7 +331,6 @@ public class Board extends PApplet {
 				auctionTiles.get(0).setOwner(auctioners.get(winner).getId());
 				auctionTiles.remove(0);
 
-
 				if (auctionTiles.size() == 0) {
 					stage = transPage;
 				}
@@ -396,6 +395,7 @@ public class Board extends PApplet {
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[0].length; j++) {
 				tiles[i][j].setFill(Color.DARK_GRAY);
+				tiles[i][j].setCover(true);
 			}
 		}
 
@@ -408,6 +408,7 @@ public class Board extends PApplet {
 					int ny = tiles.get(i).getY() + k;
 					if (inRange(nx, ny)) {
 						this.tiles[nx][ny].setFill(null);
+						this.tiles[nx][ny].setCover(false);
 					}
 				}
 			}
@@ -421,6 +422,8 @@ public class Board extends PApplet {
 					int ny = merchants.get(i).getY() + k;
 					if (inRange(nx, ny)) {
 						this.tiles[nx][ny].setFill(null);
+						this.tiles[nx][ny].setCover(false);
+
 					}
 				}
 			}

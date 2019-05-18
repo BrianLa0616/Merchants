@@ -19,7 +19,7 @@ public class Tile {
 
 	public static final int TILE_SIZE = 60;
 
-	private int x, y, type, cost, income, owner;
+	private int x, y, cost, income, owner;
 	private Merchant merchant;
 	private boolean covered;
 	private Color color;
@@ -31,12 +31,12 @@ public class Tile {
 	 * 
 	 * @param x    the x-coordinate of the tile
 	 * @param y    the y-coordinate of the tile
-	 * @param type the type of the tile (land, sea, etc.)
+	 * @param cost the type of the tile (land, sea, etc.)
 	 */
-	public Tile(int x, int y, int type) {
+	public Tile(int x, int y, int cost) {
 		this.x = x;
 		this.y = y;
-		this.type = type;
+		this.cost = cost;
 		merchant = null;
 		covered = false;
 		color = null;
@@ -73,12 +73,9 @@ public class Tile {
 			merchant.draw(p);
 		}
 
-		if(isSelected)
-		{
-			p.fill(255,255,0);
-		}
-		else
-		{
+		if (isSelected) {
+			p.fill(Color.yellow.getRGB());
+		} else {
 			if (color == null) {
 				p.noFill();
 			} else {
@@ -101,20 +98,19 @@ public class Tile {
 	public ArrayList<Player> getAuctioners() {
 		return auctioners;
 	}
-	/**
-	 * 
-	 * @return the tile type
-	 */
-	public int getType() {
-		return type;
-	}
-
-	/**
-	 * 
-	 * @param type the tile tpye
-	 */
-	public void setType(int type) {
-		this.type = type;
+	
+	public String getCharacteristics() {
+		String str = "";
+		if (covered) {
+			str = "Tile is covered. Characteristics are not accessible";
+		} else {
+			str = "Owner: " + (owner+1);
+			str += "\nCoordinates: " + x + ", " + y;
+			str += "\nCost: " + cost;
+		}
+		
+		
+		return str;
 	}
 
 	/**
@@ -196,8 +192,8 @@ public class Tile {
 	 * Uncovers the land so the contents are visible to the player
 	 * 
 	 */
-	public void uncover() {
-		covered = false;
+	public void setCover(boolean b) {
+		covered = b;
 	}
 
 	/**
@@ -250,8 +246,7 @@ public class Tile {
 		return color.getBlue();
 	}
 
-	public void setSelected(boolean selected)
-	{
+	public void setSelected(boolean selected) {
 		isSelected = selected;
 	}
 
