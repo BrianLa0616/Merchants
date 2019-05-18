@@ -148,6 +148,7 @@ public class Board extends PApplet {
 			String input;
 			// let first draw, than bid
 			if (auctionTurn && waitFrame == 2) {
+
 				for (int i = 0; i < t.getAuctioners().size(); i++) {
 					changeAuctionPrice[i] = new TextButton(125, 100 * i, 50, 50, Color.BLACK, Color.WHITE, "BID", 18);
 					changeAuctionPrice[i] = new TextButton(125, 800, 50, 50, Color.BLACK, Color.WHITE, "Withdraw From Auction", 18);
@@ -260,13 +261,6 @@ public class Board extends PApplet {
 
 							// Check if moving or buying
 
-							/*
-							 * String[] options = { "moving", "buying" };
-							 * 
-							 * int x = JOptionPane.showOptionDialog(null, "What do you want to do",
-							 * "Choose a move", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
-							 * null, options, 0);
-							 */
 							if (mouseButton == LEFT) {
 
 								tiles[mx][my].setMerchant(selected);
@@ -280,8 +274,8 @@ public class Board extends PApplet {
 									for (int j = -1; j <= 1; j++) {
 										int nx = mx + i;
 										int ny = my + j;
-										if (inRange(nx, ny) && Math.abs(i) + Math.abs(j) < 2) {
-											tiles[nx][ny].setFill(null);
+										if (inRange(nx, ny)) {
+											tiles[nx][ny].setColor(null);
 										}
 									}
 								}
@@ -302,7 +296,9 @@ public class Board extends PApplet {
 
 				}
 			}
-		} else if (stage == transPage) {
+		} else if (stage == transPage)
+
+		{
 			if (next.isPointInButton(mouseX, mouseY)) {
 				repaint();
 				stage = boardPage;
