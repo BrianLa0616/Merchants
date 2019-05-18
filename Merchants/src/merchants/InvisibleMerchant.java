@@ -63,6 +63,7 @@ public class InvisibleMerchant extends Merchant {
 	 * @param p Player who owns the Invisible Merchant
 	 */
 	public void invisible(Player p, Tile t) {
+		/*
 		if (x == t.getX() && y == t.getY()) {
 			if (p.getR() != t.getR() || p.getG() != t.getG() || p.getB() != t.getB()) {
 				if (level == 1) {
@@ -93,6 +94,7 @@ public class InvisibleMerchant extends Merchant {
 
 			}
 		}
+		*/
 
 	}
 
