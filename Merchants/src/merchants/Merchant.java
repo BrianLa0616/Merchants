@@ -124,7 +124,7 @@ public class Merchant {
 	/**
 	 * Teleports the merchant to a checkpoint
 	 * 
-	 * @param id of checkpoint
+	 * @param c id of checkpoint
 	 */
 	public void goToCheckpt(Checkpoint c) {
 		x = c.getX();
@@ -255,10 +255,7 @@ public class Merchant {
 	/**
 	 * Sets the r value of RGB color of merchant
 	 * 
-	 * <<<<<<< HEAD
-	 * 
-	 * @param r value of RGB =======
-	 * @param r value of RGB >>>>>>> ansen's-work
+	 * @param r r value of RGB
 	 */
 	public void setR(int r) {
 		this.r = r;

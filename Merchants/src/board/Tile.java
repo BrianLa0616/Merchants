@@ -110,7 +110,9 @@ public class Tile {
 	public ArrayList<Player> getAuctioners() {
 		return auctioners;
 	}
-	
+	/**
+	 * Returns characteristics of tile
+	 */
 	public String getCharacteristics() {
 		String str = "";
 		if (covered) {
@@ -265,6 +267,9 @@ public class Tile {
 		return color.getBlue();
 	}
 
+	/** Sets the state of tile
+	 * @param selected boolean that determines if the tile is selected
+	 */
 	public void setSelected(boolean selected) {
 		isSelected = selected;
 	}
