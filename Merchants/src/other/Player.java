@@ -38,7 +38,7 @@ public class Player {
 	 * @param initX   the player's initial starting location's x-coordinate
 	 * @param initY   the player's initial starting location's y-coordinate
 	 */
-	public Player(int id, int balance, String name, Color color, Merchant merchant) {
+	public Player(int id, int balance, String name, Color color, Merchant merchant, Merchant special) {
 		this.initX = merchant.getX();
 		this.initY = merchant.getY();
 
@@ -47,10 +47,11 @@ public class Player {
 		this.name = name;
 		this.color = color;
 
-
 		merchants = new ArrayList<Merchant>();
 		merchant.setColor(color);
 		merchants.add(merchant);
+		special.setColor(color);
+		merchants.add(special);
 
 		territory = new ArrayList<Tile>();
 	}
@@ -198,7 +199,7 @@ public class Player {
 	public void addTerritory(Tile t) {
 		territory.add(t);
 	}
-	
+
 	public int getAuctionPrice() {
 		return auctionPrice;
 	}
@@ -206,6 +207,7 @@ public class Player {
 	public void setAuctionPrice(int x) {
 		auctionPrice = x;
 	}
+
 	/**
 	 * 
 	 * @return r value of RGB value

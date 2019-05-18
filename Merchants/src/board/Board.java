@@ -1,13 +1,13 @@
 package board;
 
 import java.awt.Color;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import buttons.TextButton;
 import merchants.Merchant;
+import merchants.SpeedMerchant;
 import other.Player;
 import processing.core.PApplet;
 
@@ -159,7 +159,6 @@ public class Board extends PApplet {
 						if (input == null || input.equals("")) {
 							continue;
 						}
-						System.out.println(input + " " + validIntegerInput(input));
 					} while (!validIntegerInput(input));
 					playerBid = Integer.parseInt(input);
 					currCost = Integer.parseInt(input) + t.getCost();
@@ -188,7 +187,6 @@ public class Board extends PApplet {
 				do {
 					input = JOptionPane.showInputDialog("Enter number of players. 1-4 players");
 					if (input == null || input.equals("")) {
-						return;
 					}
 				} while (!validIntegerInput(input)
 						|| !(input.compareTo("0") > 0 && input.compareTo("5") < 0 && input.length() == 1));
@@ -197,6 +195,7 @@ public class Board extends PApplet {
 				for (int i = 0; i < numPlayers; i++) {
 					input = JOptionPane.showInputDialog("Enter the name for player " + (i + 1));
 					if (input == null || input.equals("")) {
+						players.clear();
 						return;
 					}
 
@@ -205,22 +204,32 @@ public class Board extends PApplet {
 					do {
 						x = (int) (Math.random() * tiles.length);
 						y = (int) (Math.random() * tiles[0].length);
+//						System.out.println("1");
 					} while (tiles[x][y].getMerchant() != null);
+//					System.out.println("hello");
+					players.add(new Player(i, 100, input, tileColors[i], new Merchant(x, y),
+							new SpeedMerchant(x - 1, y, tileColors[i])));
 
-					players.add(new Player(i, 00, input, playerColors[i], new Merchant(x, y)));
-
-					tiles[x][y].setMerchant(players.get(i).getMerchants().get(0));
-					tiles[x][y].setOwner(i);
-					players.get(i).addTerritory(tiles[x][y]);
 				}
 
 				do {
 					input = JOptionPane.showInputDialog("How many turns should the game last?");
 					if (input == null || input.equals("")) {
+						players.clear();
 						return;
 					}
 				} while (!validIntegerInput(input));
+
 				numTurns = Integer.parseInt(input);
+
+				for (int i = 0; i < players.size(); i++) {
+					int x = players.get(i).getMerchants().get(0).getX();
+					int y = players.get(i).getMerchants().get(0).getY();
+
+					tiles[x][y].setMerchant(players.get(i).getMerchants().get(0));
+					tiles[x][y].setOwner(i);
+					players.get(i).addTerritory(tiles[x][y]);
+				}
 
 				next = new TextButton(1000, 100, 50, 50, Color.WHITE, new Color(0, 180, 255), "NEXT", 18);
 				rule = new TextButton(1000, 200, 50, 50, Color.WHITE, new Color(0, 180, 255), "RULE", 18);
@@ -323,8 +332,6 @@ public class Board extends PApplet {
 				players.get(auctioners.get(winner).getId()).addTerritory(auctionTiles.get(0));
 				auctionTiles.get(0).setOwner(auctioners.get(winner).getId());
 				auctionTiles.remove(0);
-
-				System.out.println(players.get(0).getTerritory().size());
 
 				if (auctionTiles.size() == 0) {
 					stage = transPage;

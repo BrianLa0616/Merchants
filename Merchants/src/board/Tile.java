@@ -73,12 +73,9 @@ public class Tile {
 			merchant.draw(p);
 		}
 
-		if(isSelected)
-		{
-			p.fill(255,255,0);
-		}
-		else
-		{
+		if (isSelected) {
+			p.fill(255, 255, 0);
+		} else {
 			if (color == null) {
 				p.noFill();
 			} else {
@@ -90,17 +87,29 @@ public class Tile {
 
 	}
 
+	/**
+	 * Adds a player to participate in an auction for this tile
+	 * 
+	 * @param p the player to be added to the auction
+	 */
 	public void addAuctioner(Player p) {
 		auctioners.add(p);
 	}
 
+	/**
+	 * Removes all participating players from an auction for this tile
+	 */
 	public void clearAuctioner() {
 		auctioners.clear();
 	}
 
+	/**
+	 * @return all players auctioning for this tile
+	 */
 	public ArrayList<Player> getAuctioners() {
 		return auctioners;
 	}
+
 	/**
 	 * 
 	 * @return the tile type
@@ -250,8 +259,7 @@ public class Tile {
 		return color.getBlue();
 	}
 
-	public void setSelected(boolean selected)
-	{
+	public void setSelected(boolean selected) {
 		isSelected = selected;
 	}
 
