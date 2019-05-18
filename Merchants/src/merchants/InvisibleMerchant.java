@@ -43,14 +43,6 @@ public class InvisibleMerchant extends Merchant {
 	}
 
 	/**
-	 * Upgrades the level of the merchant, max level 5
-	 */
-	public void upgrade() {
-		if (level < 5)
-			level++;
-	}
-
-	/**
 	 * Sets the Invisible Merchant visible
 	 * 
 	 * @param p Player that owns the Invisible Merchant
@@ -71,30 +63,29 @@ public class InvisibleMerchant extends Merchant {
 	 * @param p Player who owns the Invisible Merchant
 	 */
 	public void invisible(Player p, Tile t) {
-		/*
 		if (x == t.getX() && y == t.getY()) {
 			if (p.getR() != t.getR() || p.getG() != t.getG() || p.getB() != t.getB()) {
 				if (level == 1) {
 					setVisible(p);
 					visible = true;
 				} else if (level == 2) {
-					if (getCount() > 1) {
+					if (getNumMovesInEnemyLand() > 1) {
 						setVisible(p);
 						visible = true;
 					}
 
 				} else if (level == 3) {
-					if (getCount() > 2) {
+					if (getNumMovesInEnemyLand() > 2) {
 						setVisible(p);
 						visible = true;
 					}
 				} else if (level == 4) {
-					if (getCount() > 3) {
+					if (getNumMovesInEnemyLand() > 3) {
 						setVisible(p);
 						visible = true;
 					}
 				} else if (level == 5) {
-					if (getCount() > 5) {
+					if (getNumMovesInEnemyLand() > 5) {
 						setVisible(p);
 						visible = true;
 					}
@@ -102,8 +93,6 @@ public class InvisibleMerchant extends Merchant {
 
 			}
 		}
-		*/
-
 	}
 
 	/**

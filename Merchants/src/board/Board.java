@@ -1,6 +1,7 @@
 package board;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -27,6 +28,8 @@ public class Board extends PApplet {
 			new Color(50, 255, 50) };
 
 	private int stage;
+	private int currCost;
+	private int waitFrame;
 
 	private TextButton back, next, rule;
 	private Merchant selected;
@@ -38,6 +41,8 @@ public class Board extends PApplet {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private int numPlayers, numTurns, curPlayer;
 	private Tile[][] tiles = new Tile[15][15];
+
+	private boolean auctionTurn;
 
 	/**
 	 * Initiates buttons
@@ -60,6 +65,10 @@ public class Board extends PApplet {
 		auctionTiles = new ArrayList<Tile>();
 		changeAuctionPrice = new TextButton[4];
 
+		currCost = 0;
+		waitFrame = 0;
+
+		auctionTurn = true;
 	}
 
 	/**
@@ -107,7 +116,7 @@ public class Board extends PApplet {
 					int nx = selected.getX() + dx[i];
 					int ny = selected.getY() + dy[i];
 					if (inRange(nx, ny)) {
-						tiles[nx][ny].setFill(Color.yellow);
+						tiles[nx][ny].setSelected(true);
 					}
 				}
 
@@ -123,15 +132,36 @@ public class Board extends PApplet {
 
 			text("Player " + (curPlayer + 1) + " turn: " + players.get(curPlayer).getName(), 50, 50);
 		} else if (stage == aucPage) {
+			waitFrame++;
 			textSize(50);
 			fill(0);
 
 			text("AUCTION", 50, 50);
 			Tile t = auctionTiles.get(0);
-			/*
-			 * for (int i = 0; i < t.getAuctioners().size(); i++) { changeAuctionPrice[i] =
-			 * new TextButton(125, 100*i, 50, 50, Color.BLACK, Color.WHITE, "CHANGE", 18); }
-			 */
+			text("Starting price: " + t.getCost(), 50, 110);
+			text("Current price: " + t.getCost(), 50, 150);
+			for (int i = 0; i < players.size(); i++) {
+				text(players.get(i).getName(), 50, 200 + 100 * i);
+			}
+			String input;
+			// let first draw, than bid
+			if (auctionTurn && waitFrame == 1) {
+				for (int i = 0; i < t.getAuctioners().size(); i++) {
+					changeAuctionPrice[i] = new TextButton(125, 100 * i, 50, 50, Color.BLACK, Color.WHITE, "BID", 18);
+					do {
+						input = JOptionPane.showInputDialog("Add money to the bid: ");
+						if (input == null || input.equals("")) {
+							continue;
+						}
+						System.out.println(input + " " + validIntegerInput(input));
+					} while (!validIntegerInput(input));
+					currCost = Integer.parseInt(input) + t.getCost();
+
+					auctionTurn = false;
+
+				}
+			}
+			waitFrame = 0;
 			next.draw(this);
 
 		} else if (stage == endPage) {
@@ -225,11 +255,7 @@ public class Board extends PApplet {
 
 							// Check if moving or buying
 
-							String[] options = { "moving", "buying" };
-
-							int x = JOptionPane.showOptionDialog(null, "What do you want to do", "Choose a move",
-									JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0);
-							if (x == 0) {
+							if (mouseButton == LEFT) {
 
 								tiles[mx][my].setMerchant(selected);
 								tiles[selected.getX()][selected.getY()].setMerchant(null);
@@ -237,7 +263,7 @@ public class Board extends PApplet {
 
 								tiles[mx][my].getMerchant().setX(mx);
 								tiles[mx][my].getMerchant().setY(my);
-								
+
 								for (int i = -1; i <= 1; i++) {
 									for (int j = -1; j <= 1; j++) {
 										int nx = mx + i;
@@ -247,13 +273,15 @@ public class Board extends PApplet {
 										}
 									}
 								}
-								
-							} else if (x == 1) {
+
+							} else if (mouseButton == RIGHT) {
 								deselect();
 								auctionTiles.add(tiles[mx][my]);
 								tiles[mx][my].addAuctioner(players.get(curPlayer));
-							}
 
+								stage = aucPage;
+
+							}
 						} else {
 							deselect();
 						}
@@ -262,7 +290,9 @@ public class Board extends PApplet {
 
 				}
 			}
-		} else if (stage == transPage) {
+		} else if (stage == transPage)
+
+		{
 			if (next.isPointInButton(mouseX, mouseY)) {
 				repaint();
 				stage = boardPage;
@@ -332,8 +362,8 @@ public class Board extends PApplet {
 			for (int j = -1; j <= 1; j++) {
 				int nx = selected.getX() + i;
 				int ny = selected.getY() + j;
-				if (inRange(nx, ny)) {
-					tiles[nx][ny].setFill(null);
+				if (inRange(nx, ny) && Math.abs(i) + Math.abs(j) < 2) {
+					tiles[nx][ny].setSelected(false);
 				}
 			}
 		}

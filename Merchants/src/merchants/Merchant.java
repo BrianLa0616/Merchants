@@ -19,7 +19,7 @@ public class Merchant {
 	private int level;
 	private int r, g, b;
 
-	private int count;
+	private int numMovesInEnemyLand;
 
 	private Color color;
 
@@ -43,7 +43,7 @@ public class Merchant {
 		level = 0;
 		t = null;
 		p = null;
-		count = 0;
+		numMovesInEnemyLand = 0;
 	}
 
 	/**
@@ -71,8 +71,10 @@ public class Merchant {
 		this.x += dirX;
 		this.y += dirY;
 
-		if (p.getR() != t.getR() || p.getG() != t.getG() || p.getB() != t.getB())
-			count++;
+		if (p.getR() != t.getR() || p.getG() != t.getG() || p.getB() != t.getB()) {
+			numMovesInEnemyLand++;
+		}
+		else numMovesInEnemyLand = 0;
 	}
 
 	/**
@@ -294,6 +296,10 @@ public class Merchant {
 	 */
 	public void setB(int b) {
 		this.b = b;
+	}
+	
+	protected int getNumMovesInEnemyLand() {
+		return numMovesInEnemyLand;
 	}
 
 }
