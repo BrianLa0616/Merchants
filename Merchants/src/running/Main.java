@@ -8,6 +8,11 @@ import board.Board;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
+/**
+ * @author Eylam, Brian, Ansen
+ *
+ *         Runs the program from its starting point
+ */
 public class Main {
 	public static void main(String args[]) {
 		Board drawing = new Board();

@@ -73,8 +73,8 @@ public class Merchant {
 
 		if (p.getR() != t.getR() || p.getG() != t.getG() || p.getB() != t.getB()) {
 			numMovesInEnemyLand++;
-		}
-		else numMovesInEnemyLand = 0;
+		} else
+			numMovesInEnemyLand = 0;
 	}
 
 	/**
@@ -149,16 +149,14 @@ public class Merchant {
 		if (level < 5)
 			level++;
 	}
-	
-	
-	
-	
-	//_________________________________Basic setters and getters_________________________
 
-	
+	// _________________________________Basic setters and
+	// getters_________________________
+
 	public void setTile(Tile t) {
 		this.t = t;
 	}
+
 	/**
 	 * 
 	 * @return x coordinate of merchant
@@ -294,7 +292,7 @@ public class Merchant {
 	public void setB(int b) {
 		this.b = b;
 	}
-	
+
 	protected int getNumMovesInEnemyLand() {
 		return numMovesInEnemyLand;
 	}

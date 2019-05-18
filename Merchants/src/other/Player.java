@@ -30,11 +30,11 @@ public class Player {
 	/**
 	 * Creates a new Player object with 1 regular merchant and 1 territory.
 	 * 
-	 * @param id      the player's number in relation to other players
-	 * @param balance the player's starting balance, used to expand territory and
-	 *                upgrade merchants
-	 * @param name    the username of the player
-	 * @param color   the player's color
+	 * @param id       the player's number in relation to other players
+	 * @param balance  the player's starting balance, used to expand territory and
+	 *                 upgrade merchants
+	 * @param name     the username of the player
+	 * @param color    the player's color
 	 * @param merchant starting merchant
 	 */
 	public Player(int id, int balance, String name, Color color, Merchant merchant) {
@@ -56,13 +56,13 @@ public class Player {
 	/**
 	 * Creates a new Player object with 1 regular merchant and 1 territory.
 	 * 
-	 * @param id      the player's number in relation to other players
-	 * @param balance the player's starting balance, used to expand territory and
-	 *                upgrade merchants
-	 * @param name    the username of the player
-	 * @param color   the player's color
+	 * @param id       the player's number in relation to other players
+	 * @param balance  the player's starting balance, used to expand territory and
+	 *                 upgrade merchants
+	 * @param name     the username of the player
+	 * @param color    the player's color
 	 * @param merchant starting merchant
-	 * @param special type of special merchant
+	 * @param special  type of special merchant
 	 */
 	public Player(int id, int balance, String name, Color color, Merchant merchant, Merchant special) {
 		this.initX = merchant.getX();

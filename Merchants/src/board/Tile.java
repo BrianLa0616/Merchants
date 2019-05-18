@@ -75,7 +75,7 @@ public class Tile {
 
 		if (isSelected) {
 			p.fill(Color.yellow.getRGB());
-		
+
 		} else {
 			if (color == null) {
 				p.noFill();
@@ -110,6 +110,7 @@ public class Tile {
 	public ArrayList<Player> getAuctioners() {
 		return auctioners;
 	}
+
 	/**
 	 * Returns characteristics of tile
 	 */
@@ -118,7 +119,7 @@ public class Tile {
 		if (covered) {
 			str = "Tile is covered. Characteristics are not accessible";
 		} else {
-			str = "Owner: " + (owner+1);
+			str = "Owner: " + (owner + 1);
 			str += "\nCoordinates: " + x + ", " + y;
 			str += "\nCost: " + cost;
 			str += "\nMerchant: ";
@@ -128,12 +129,10 @@ public class Tile {
 				str += "yes";
 			}
 		}
-		
-		
+
 		return str;
 	}
 
-	
 	/**
 	 * 
 	 * @return the cost to purchase the tile
@@ -267,7 +266,9 @@ public class Tile {
 		return color.getBlue();
 	}
 
-	/** Sets the state of tile
+	/**
+	 * Sets the state of tile
+	 * 
 	 * @param selected boolean that determines if the tile is selected
 	 */
 	public void setSelected(boolean selected) {

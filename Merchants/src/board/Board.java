@@ -93,7 +93,7 @@ public class Board extends PApplet {
 			surrender.draw(this);
 			noFill();
 
-			//extra stuff 
+			// extra stuff
 			if (withdraw.isPointInButton(mouseX, mouseY)) {
 
 				String output;
@@ -226,7 +226,7 @@ public class Board extends PApplet {
 					} while (tiles[x][y].getMerchant() != null);
 //					players.add(new Player(i, 100, input, tileColors[i], new Merchant(x, y),
 //							new SpeedMerchant(x - 1, y, tileColors[i])));
-					
+
 					players.add(new Player(i, 100, input, tileColors[i], new Merchant(x, y)));
 
 				}
@@ -245,17 +245,15 @@ public class Board extends PApplet {
 				for (int i = 0; i < players.size(); i++) {
 					int x = players.get(i).getMerchants().get(0).getX();
 					int y = players.get(i).getMerchants().get(0).getY();
-					
 
 					tiles[x][y].setMerchant(players.get(i).getMerchants().get(0));
 					tiles[x][y].setOwner(i);
 					players.get(i).addTerritory(tiles[x][y]);
-					
+
 					/*
-					tiles[x - 1][y].setMerchant(players.get(i).getMerchants().get(0));
-					tiles[x - 1][y].setOwner(i);
-					players.get(i).addTerritory(tiles[x - 1][y]);
-					*/
+					 * tiles[x - 1][y].setMerchant(players.get(i).getMerchants().get(0)); tiles[x -
+					 * 1][y].setOwner(i); players.get(i).addTerritory(tiles[x - 1][y]);
+					 */
 				}
 
 				// buttons
@@ -301,8 +299,7 @@ public class Board extends PApplet {
 
 							// Check if moving or buying
 							if (tiles[mx][my].getMerchant() == null && mouseButton == LEFT) {
-							// Left click to move, right click to buy
-
+								// Left click to move, right click to buy
 
 								tiles[mx][my].setMerchant(selected);
 								tiles[selected.getX()][selected.getY()].setMerchant(null);
@@ -311,7 +308,7 @@ public class Board extends PApplet {
 								tiles[mx][my].getMerchant().setX(mx);
 								tiles[mx][my].getMerchant().setY(my);
 
-								//uncovers
+								// uncovers
 								for (int i = -1; i <= 1; i++) {
 									for (int j = -1; j <= 1; j++) {
 										int nx = mx + i;
