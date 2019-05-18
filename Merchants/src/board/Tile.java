@@ -25,6 +25,8 @@ public class Tile {
 	private Color color;
 	private ArrayList<Player> auctioners;
 
+	private boolean isSelected;
+
 	/**
 	 * 
 	 * @param x    the x-coordinate of the tile
@@ -39,8 +41,9 @@ public class Tile {
 		covered = false;
 		color = null;
 		owner = -1;
-		
+
 		auctioners = new ArrayList<Player>();
+		isSelected = false;
 	}
 
 	/**
@@ -69,10 +72,17 @@ public class Tile {
 			merchant.draw(p);
 		}
 
-		if (color == null) {
-			p.noFill();
-		} else {
-			p.fill(color.getRGB());
+		if(isSelected)
+		{
+			p.fill(255,255,0);
+		}
+		else
+		{
+			if (color == null) {
+				p.noFill();
+			} else {
+				p.fill(color.getRGB());
+			}
 		}
 
 		p.rect(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
@@ -82,11 +92,11 @@ public class Tile {
 	public void addAuctioner(Player p) {
 		auctioners.add(p);
 	}
-	
+
 	public void clearAuctioner() {
 		auctioners.clear();
 	}
-	
+
 	public ArrayList<Player> getAuctioners() {
 		return auctioners;
 	}
@@ -237,6 +247,11 @@ public class Tile {
 	 */
 	public int getB() {
 		return color.getBlue();
+	}
+
+	public void setSelected(boolean selected)
+	{
+		isSelected = selected;
 	}
 
 }
