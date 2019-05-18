@@ -23,7 +23,7 @@ public class Player {
 	private int id, balance;
 	private String name;
 	private Color color;
-	private int income, auctionBonus, landBonus;
+	private int income, auctionPrice;
 	private ArrayList<Merchant> merchants;
 	private ArrayList<Tile> territory;
 
@@ -47,8 +47,6 @@ public class Player {
 		this.name = name;
 		this.color = color;
 
-		auctionBonus = 0;
-		landBonus = 0;
 
 		merchants = new ArrayList<Merchant>();
 		merchant.setColor(color);
@@ -118,12 +116,11 @@ public class Player {
 	}
 
 	/**
-	 * Sets the x-coordinate of the player's original spawn point
 	 * 
-	 * @param initX coordinate of original spawn point
+	 * @return the y-coordinate of the player's original spawn point
 	 */
-	public void setInitX(int initX) {
-		this.initX = initX;
+	public int getInitY() {
+		return initY;
 	}
 
 	/**
@@ -201,7 +198,14 @@ public class Player {
 	public void addTerritory(Tile t) {
 		territory.add(t);
 	}
+	
+	public int getAuctionPrice() {
+		return auctionPrice;
+	}
 
+	public void setAuctionPrice(int x) {
+		auctionPrice = x;
+	}
 	/**
 	 * 
 	 * @return r value of RGB value
