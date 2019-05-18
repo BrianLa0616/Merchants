@@ -238,6 +238,16 @@ public class Board extends PApplet {
 								tiles[mx][my].getMerchant().setX(mx);
 								tiles[mx][my].getMerchant().setY(my);
 								
+								for (int i = -1; i <= 1; i++) {
+									for (int j = -1; j <= 1; j++) {
+										int nx = mx + i;
+										int ny = my + j;
+										if (inRange(nx, ny)) {
+											tiles[nx][ny].setColor(null);
+										}
+									}
+								}
+								
 							} else if (x == 1) {
 								deselect();
 								auctionTiles.add(tiles[mx][my]);
