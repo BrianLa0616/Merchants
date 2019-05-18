@@ -203,7 +203,8 @@ public class Board extends PApplet {
 					int x, y;
 
 					do {
-						x = (int) (Math.random() * tiles.length);
+//						x = (int) (Math.random() * tiles.length);
+						x = (int) (Math.random() * (tiles.length-1))+1;
 						y = (int) (Math.random() * tiles[0].length);
 
 					} while (tiles[x][y].getMerchant() != null);
@@ -229,6 +230,10 @@ public class Board extends PApplet {
 					tiles[x][y].setMerchant(players.get(i).getMerchants().get(0));
 					tiles[x][y].setOwner(i);
 					players.get(i).addTerritory(tiles[x][y]);
+					
+					tiles[x-1][y].setMerchant(players.get(i).getMerchants().get(0));
+					tiles[x-1][y].setOwner(i);
+					players.get(i).addTerritory(tiles[x-1][y]);
 				}
 
 				next = new TextButton(1000, 100, 50, 50, Color.WHITE, new Color(0, 180, 255), "NEXT", 18);

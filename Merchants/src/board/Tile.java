@@ -119,6 +119,12 @@ public class Tile {
 			str = "Owner: " + (owner+1);
 			str += "\nCoordinates: " + x + ", " + y;
 			str += "\nCost: " + cost;
+			str += "\nMerchant: ";
+			if (merchant == null) {
+				str += "none";
+			} else {
+				str += "yes";
+			}
 		}
 		
 		
