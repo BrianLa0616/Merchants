@@ -1,16 +1,15 @@
 package other;
 
 import java.util.ArrayList;
-import board.Tile;
+
+import board.Tile1;
 
 public class Auction {
-	private Tile tile;
+	private Tile1 tile;
 	private ArrayList<Bid> bids;
-	private int startingPrice;
 
-	public Auction(Tile t, int startingPrice) {
+	public Auction(Tile1 t, int startingPrice) {
 		tile = t;
-		this.startingPrice = startingPrice;
 		bids = new ArrayList<Bid>();
 	}
 
@@ -37,5 +36,13 @@ public class Auction {
 		} else {
 			return winners.get((int) (Math.random() * winners.size()));
 		}
+	}
+
+	public Tile1 getTile() {
+		return tile;
+	}
+
+	public ArrayList<Bid> getBids() {
+		return bids;
 	}
 }

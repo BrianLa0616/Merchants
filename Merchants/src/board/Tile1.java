@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import other.Player1;
 import processing.core.PApplet;
+import screens.ScreenHandler;
 
 public class Tile1 {
 
@@ -49,7 +50,15 @@ public class Tile1 {
 	}
 
 	public String getCharacteristics() {
-		return "Coodrinates:\n(" + x + ", " + y + ")\nCost: " + cost;
+		String str = "Coodrinates:\n(" + x + ", " + y + ")\n";
+
+		if (owner == null) {
+			str += "Cost: " + 20;
+		} else {
+			str += "Owned\nCost: " + 30;
+		}
+
+		return str;
 	}
 
 	public int getCost() {
@@ -66,6 +75,7 @@ public class Tile1 {
 
 	public void setOwner(Player1 owner) {
 		this.owner = owner;
+		setColor(ScreenHandler.TILE_COLORS[owner.getIndex()]);
 	}
 
 	public boolean isUncovered(int player) {

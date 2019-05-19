@@ -8,10 +8,11 @@ import other.Player1;
 import processing.core.PApplet;
 import screens.Screen;
 import screens.ScreenHandler;
+import screens.TransScreen;
 
 public class Board1 extends Screen {
 	private Player1 player;
-	private ScreenHandler board;
+	private ScreenHandler handler;
 	private Tile1[][] tiles;
 
 	private Tile1 selected;
@@ -20,7 +21,7 @@ public class Board1 extends Screen {
 
 	public Board1(ScreenHandler board) {
 		super(board);
-		this.board = board;
+		this.handler = board;
 		player = null;
 		selected = null;
 
@@ -88,7 +89,15 @@ public class Board1 extends Screen {
 			p.fill(0);
 			p.textSize(14);
 			p.textAlign(PApplet.LEFT);
-			p.text(selected.getCharacteristics(), Screen.DRAWING_WIDTH - 100, 200);
+			String display = selected.getCharacteristics();
+			if (merchantAt(selected) != null) {
+				for (Player1 p1 : handler.getPlayers()) {
+					if (p1.getMerchants().contains(merchantAt(selected))) {
+						display += "\nMerchant: Player " + (p1.getIndex() + 1);
+					}
+				}
+			}
+			p.text(display, Screen.DRAWING_WIDTH - 150, 200);
 		}
 
 		endTurn.draw(p);
@@ -104,10 +113,10 @@ public class Board1 extends Screen {
 
 	public void mousePressed(PApplet p) {
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) {
-			if (player.getIndex() + 1 == board.getPlayers().size()) {
-				// Auction page
+			if (player.getIndex() + 1 == handler.getPlayers().size()) {
+				// AuctionScreen for every relevant Auction this turn round
 			} else {
-				// Next Player's turn
+				handler.proceed(new TransScreen(handler, handler.getPlayers().get(player.getIndex() + 1)));
 			}
 		} else {
 			int mx = p.mouseX / Tile1.TILE_SIZE, my = p.mouseY / Tile1.TILE_SIZE;
@@ -116,13 +125,14 @@ public class Board1 extends Screen {
 
 				if (merchantAt(selected) != null && player.getMerchants().contains(merchantAt(selected))) {
 					// highlight, move, auction, etc.
+					// if buys tile, make new auction
 				}
 			}
 		}
 	}
 
 	public Merchant1 merchantAt(Tile1 t) {
-		for (Player1 p : board.getPlayers()) {
+		for (Player1 p : handler.getPlayers()) {
 			for (Merchant1 m : p.getMerchants()) {
 				if (t.getX() == m.getX() && t.getY() == m.getY()) {
 					return m;
