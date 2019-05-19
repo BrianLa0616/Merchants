@@ -3,15 +3,16 @@ package other;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import board.Tile;
+import board.Tile1;
 import merchants.Merchant;
+import merchants.Merchant1;
 
 public class Player1 {
-	private ArrayList<Tile> territory;
-	private ArrayList<Merchant> merchants;
+	private ArrayList<Tile1> territory;
+	private ArrayList<Merchant1> merchants;
 	private Color color;
 
-	private int initX, initY;
+	private int initX, initY, index;
 
 	/**
 	 * Creates a new Player with the following characteristics:
@@ -21,23 +22,23 @@ public class Player1 {
 	 * @param color the player's color, to be used for marking all of its territory
 	 *              and merchants
 	 */
-	public Player1(int x, int y, Color color) {
+	public Player1(int x, int y, Color color, int index) {
 		initX = x;
 		initY = y;
+		this.index = index;
 
 		this.color = color;
 
-		territory = new ArrayList<Tile>();
-		merchants = new ArrayList<Merchant>();
-		merchants.add(new Merchant(initX, initY));
-		merchants.get(0).setColor(color);
+		territory = new ArrayList<Tile1>();
+		merchants = new ArrayList<Merchant1>();
+		merchants.add(new Merchant1(initX, initY, color));
 	}
 
 	/**
 	 * Adds a regular Merchant at the player's starting tile.
 	 */
 	public void addMerchant() {
-		Merchant m = new Merchant(initX, initY);
+		Merchant1 m = new Merchant1(initX, initY, color);
 		m.setColor(color);
 		merchants.add(m);
 	}
@@ -48,9 +49,14 @@ public class Player1 {
 	 * 
 	 * @param m the Merchant to be added, containing the location and type.
 	 */
-	public void addMerchant(Merchant m) {
+	public void addMerchant(Merchant1 m) {
 		m.setColor(color);
 		merchants.add(m);
+	}
+
+	public void addTile(Tile1 t) {
+		territory.add(t);
+		t.setOwner(this);
 	}
 
 	/**
@@ -65,11 +71,15 @@ public class Player1 {
 
 	/* ----------ACCESSORS---------- */
 
-	public ArrayList<Tile> getTerritory() {
+	public int getIndex() {
+		return index;
+	}
+
+	public ArrayList<Tile1> getTerritory() {
 		return territory;
 	}
 
-	public ArrayList<Merchant> getMerchants() {
+	public ArrayList<Merchant1> getMerchants() {
 		return merchants;
 	}
 

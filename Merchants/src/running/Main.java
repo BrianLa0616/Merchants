@@ -4,9 +4,9 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import board.Board;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
+import screens.ScreenHandler;
 
 /**
  * @author Eylam, Brian, Ansen
@@ -15,7 +15,7 @@ import processing.core.PApplet;
  */
 public class Main {
 	public static void main(String args[]) {
-		Board drawing = new Board();
+		ScreenHandler drawing = new ScreenHandler();
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();

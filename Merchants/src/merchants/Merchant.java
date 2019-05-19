@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import board.Checkpoint;
 import board.Tile;
+import board.Tile1;
 import other.Player;
 import processing.core.PApplet;
 
@@ -137,9 +138,9 @@ public class Merchant {
 	 * @param p Marker to draw things
 	 */
 	public void draw(PApplet p) {
-		p.fill(color.getRed(), color.getGreen(), color.getBlue());
-		p.rect((x + 0.25f) * Tile.TILE_SIZE, (y + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
-				0.5f * Tile.TILE_SIZE);
+		p.fill(color.getRGB());
+		p.rect((x + 0.25f) * Tile1.TILE_SIZE, (y + 0.25f) * Tile1.TILE_SIZE, 0.5f * Tile1.TILE_SIZE,
+				0.5f * Tile1.TILE_SIZE);
 	}
 
 	/**
