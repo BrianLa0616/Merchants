@@ -49,7 +49,7 @@ public class Tile1 {
 	}
 
 	public String getCharacteristics() {
-		return "Coodrinates: (" + x + ", " + y + ")\nCost: " + cost;
+		return "Coodrinates:\n(" + x + ", " + y + ")\nCost: " + cost;
 	}
 
 	public int getCost() {

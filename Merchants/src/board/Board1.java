@@ -14,12 +14,15 @@ public class Board1 extends Screen {
 	private ScreenHandler board;
 	private Tile1[][] tiles;
 
+	private Tile1 selected;
+
 	private TextButton endTurn;
 
 	public Board1(ScreenHandler board) {
 		super(board);
 		this.board = board;
 		player = null;
+		selected = null;
 
 		tiles = new Tile1[15][15];
 		for (int i = 0; i < 15; i++) {
@@ -81,6 +84,13 @@ public class Board1 extends Screen {
 			m.draw(p);
 		}
 
+		if (selected != null) {
+			p.fill(0);
+			p.textSize(14);
+			p.textAlign(PApplet.LEFT);
+			p.text(selected.getCharacteristics(), Screen.DRAWING_WIDTH - 100, 200);
+		}
+
 		endTurn.draw(p);
 	}
 
@@ -93,7 +103,34 @@ public class Board1 extends Screen {
 	}
 
 	public void mousePressed(PApplet p) {
+		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) {
+			if (player.getIndex() + 1 == board.getPlayers().size()) {
+				// Auction page
+			} else {
+				// Next Player's turn
+			}
+		} else {
+			int mx = p.mouseX / Tile1.TILE_SIZE, my = p.mouseY / Tile1.TILE_SIZE;
+			if (inRange(mx, my) && tiles[mx][my].isUncovered(player.getIndex())) {
+				selected = tiles[mx][my];
 
+				if (merchantAt(selected) != null && player.getMerchants().contains(merchantAt(selected))) {
+					// highlight, move, auction, etc.
+				}
+			}
+		}
+	}
+
+	public Merchant1 merchantAt(Tile1 t) {
+		for (Player1 p : board.getPlayers()) {
+			for (Merchant1 m : p.getMerchants()) {
+				if (t.getX() == m.getX() && t.getY() == m.getY()) {
+					return m;
+				}
+			}
+		}
+
+		return null;
 	}
 
 	public void mouseMoved(PApplet p) {
