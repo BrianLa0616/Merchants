@@ -37,6 +37,7 @@ public class IntroScreen extends Screen {
 			do {
 				input = JOptionPane.showInputDialog("Enter number of players (2-4)");
 				if (input == null || input.equals("")) {
+					return;
 				}
 			} while (!validIntegerInput(input) || Integer.parseInt(input) > 4 || Integer.parseInt(input) < 2);
 
