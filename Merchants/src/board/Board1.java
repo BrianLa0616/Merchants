@@ -16,6 +16,12 @@ import screens.Screen;
 import screens.ScreenHandler;
 import screens.TransScreen;
 
+/**
+ * Represents the game board
+ * 
+ * @author Brian
+ *
+ */
 public class Board1 extends Screen {
 	private Player1 player;
 	private ScreenHandler handler;
@@ -26,6 +32,11 @@ public class Board1 extends Screen {
 
 	private TextButton endTurn;
 
+	/**
+	 * Creates a new board
+	 * 
+	 * @param board 
+	 */
 	public Board1(ScreenHandler board) {
 		super(board);
 		this.handler = board;
@@ -38,6 +49,11 @@ public class Board1 extends Screen {
 		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, 25, 150, 75, Color.WHITE, Color.BLACK, "END\nTURN", 18);
 	}
 
+	/**
+	 * Sets the player within the board
+	 * 
+	 * @param player desired to set
+	 */
 	public void setPlayer(Player1 player) {
 		this.player = player;
 
@@ -47,6 +63,11 @@ public class Board1 extends Screen {
 		// nothing
 	}
 
+	/**
+	 * Draws the board
+	 * 
+	 * @param p PApplet used to draw
+	 */
 	public void draw(PApplet p) {
 		for (Tile1[] ts : tiles) {
 			for (Tile1 t : ts) {
@@ -76,6 +97,11 @@ public class Board1 extends Screen {
 		endTurn.draw(p);
 	}
 
+	/**
+	 * Determines actions taken after the mouse has been pressed
+	 * 
+	 * @param p PApplet used to draw
+	 */
 	public void mousePressed(PApplet p) {
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) {
 			if (player.getId() + 1 == handler.getPlayers().size()) {
@@ -218,10 +244,24 @@ public class Board1 extends Screen {
 
 	}
 
+	/**
+	 * Determines whether the specified location is within the board
+	 * 
+	 * @param x coordinate of the board
+	 * @param y coordinate of the board
+	 * @return true if the location is with the board, false otherwise
+	 */
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}
 
+	/**
+	 * Highlights where the player can move within the board
+	 * 
+	 * @param x coordinate of highlighted
+	 * @param y coordinate of highlighted
+	 * @param state of the tile, if selected or not
+	 */
 	private void switchHighlight(int x, int y, boolean state) {
 		int[] dx = { 0, 0, -1, 1 };
 		int[] dy = { 1, -1, 0, 0 };
@@ -235,6 +275,12 @@ public class Board1 extends Screen {
 		}
 	}
 
+	/**
+	 * Uncovers the specified area for the player
+	 * 
+	 * @param x coordinate desired to uncover
+	 * @param y coordinate desired to uncover
+	 */
 	private void uncover(int x, int y) {
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
