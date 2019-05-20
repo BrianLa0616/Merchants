@@ -91,7 +91,7 @@ public class AuctionScreen extends Screen {
 					
 					int bidAmount = Integer.parseInt(input);
 					if (bidAmount < auction.getBids().get(i).getAmount()) {
-						JOptionPane.showMessageDialog(null, "New bids should be larger than previous ones", "MOVE ERROR", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "New bids should be larger than previous ones", "INVALID MOVE", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					

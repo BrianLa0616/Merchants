@@ -40,7 +40,7 @@ public class Merchant1 {
 
 	public void draw(PApplet p) {
 		p.fill(color.getRGB());
-		p.rect((x + 0.25f) * Tile1.TILE_SIZE, (y + 0.25f) * Tile1.TILE_SIZE, 0.5f * Tile1.TILE_SIZE,
+		p.rect((y + 0.25f) * Tile1.TILE_SIZE, (x + 0.25f) * Tile1.TILE_SIZE, 0.5f * Tile1.TILE_SIZE,
 				0.5f * Tile1.TILE_SIZE);
 	}
 
