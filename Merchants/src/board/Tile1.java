@@ -44,13 +44,13 @@ public class Tile1 {
 				}
 			}
 
-			p.rect(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+			p.rect(y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
 			if (merchant != null) {
 				merchant.draw(p);
 			}
 		} else {
 			p.fill(Color.DARK_GRAY.getRGB());
-			p.rect(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+			p.rect(y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
 
 		}
 	}
@@ -59,9 +59,9 @@ public class Tile1 {
 		String str = "Coodrinates:\n(" + x + ", " + y + ")\n";
 
 		if (owner == null) {
-			str += "Cost: " + 20;
+			str += "Cost: " + cost;
 		} else {
-			str += "Owned\nCost: " + 30;
+			str += "Owned\nCost: " + cost;
 		}
 
 		return str;

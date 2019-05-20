@@ -28,31 +28,34 @@ public class AuctionScreen extends Screen {
 		this.handler = handler;
 
 		proceed = new TextButton(Screen.DRAWING_WIDTH - 175, 25, 150, 75, Color.WHITE, Color.BLACK, "GET WINNER", 18);
+		for (int i = 0; i < auction.getBids().size(); i++) {
+			enterBid.add(new TextButton(500, 180 + 100 * i, 200, 75, Color.WHITE, Color.BLACK, "ENTER BID", 24));
+			withdraw.add(new TextButton(750, 180 + 100 * i, 200, 75, Color.WHITE, Color.BLACK, "WITHDRAW", 24));
+		}
 	}
 
 	public void setup(PApplet p) {
 
-		for (int i = 0; i < auction.getBids().size(); i++) {
-			enterBid.add(new TextButton(200, 200 + 100 * i, 200, 75, Color.WHITE, Color.BLACK, "ENTER BID", 24));
-			withdraw.add(new TextButton(250, 200 + 100 * i, 200, 75, Color.WHITE, Color.BLACK, "WITHDRAW", 24));
-		}
+		
 	}
 
 	public void draw(PApplet p) {
 		p.textAlign(PApplet.CENTER);
 		p.textSize(60);
+		p.fill(Color.BLACK.getRGB());
 		p.text("AUCTION", Screen.DRAWING_WIDTH / 2, 100);
 
 		if (winner != -1) {
 			p.fill(Color.YELLOW.getRGB());
-			p.rect(50, 180 + 100 * winner, 150, 275 + 100 * winner);
+			p.rect(50, 180 + 100 * winner, 350, 100);
 		}
 
 		p.textAlign(PApplet.LEFT);
+		p.fill(Color.BLACK.getRGB());
 
 		for (int i = 0; i < auction.getBids().size(); i++) {
-			p.text("Player " + auction.getBids().get(i).getPlayer().getId() + ": "
-					+ auction.getBids().get(i).getAmount(), 50, 200 + 100 * i);
+			p.text("Player " + (auction.getBids().get(i).getPlayer().getId()+1) + ": "
+					+ auction.getBids().get(i).getAmount(), 50, 230 + 100 * i);
 			enterBid.get(i).draw(p);
 			withdraw.get(i).draw(p);
 		}
@@ -71,6 +74,7 @@ public class AuctionScreen extends Screen {
 						winner = i;
 					}
 				}
+				handler.getPlayers().get(winner).addTile(auction.getTile());
 				proceed.setText("EXIT AUCTION");
 			} else {
 				handler.getAuction().remove(0);
@@ -91,7 +95,7 @@ public class AuctionScreen extends Screen {
 					
 					int bidAmount = Integer.parseInt(input);
 					if (bidAmount < auction.getBids().get(i).getAmount()) {
-						JOptionPane.showMessageDialog(null, "New bids should be larger than previous ones", "MOVE ERROR", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "New bids should be larger than previous ones", "INVALID MOVE", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					

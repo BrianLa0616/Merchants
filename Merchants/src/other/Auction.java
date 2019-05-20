@@ -8,7 +8,7 @@ public class Auction {
 	private Tile1 tile;
 	private ArrayList<Bid> bids;
 
-	public Auction(Tile1 t, int startingPrice) {
+	public Auction(Tile1 t) {
 		tile = t;
 		bids = new ArrayList<Bid>();
 	}
