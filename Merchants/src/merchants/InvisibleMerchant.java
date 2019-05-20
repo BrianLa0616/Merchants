@@ -11,7 +11,7 @@ import processing.core.PApplet;
  * 
  * @author Ansen
  */
-public class InvisibleMerchant extends Merchant {
+public class InvisibleMerchant extends Merchant1 {
 	private int x, y, price;
 	private int level;
 	private boolean visible;
