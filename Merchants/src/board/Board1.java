@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import buttons.TextButton;
 import merchants.Merchant1;
 import other.Auction;
+import other.Bid;
 import other.Player1;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -125,9 +126,15 @@ public class Board1 extends Screen {
 										JOptionPane.ERROR_MESSAGE);
 								return;
 							}
-							player.placeBid(new Auction(tiles[mx][my]), tiles[mx][my].getCost());
+							
+							Auction a = new Auction(tiles[mx][my]);
+							a.addBid(new Bid(player, tiles[mx][my].getCost()));
+							handler.getAuction().add(a);
 							JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
 									JOptionPane.INFORMATION_MESSAGE);
+							switchHighlight(selectedT.getX(), selectedT.getY(), false);
+							selectedT = null;
+							selectedM = null;
 						} else {
 							switchHighlight(selectedT.getX(), selectedT.getY(), false);
 							selectedT = null;

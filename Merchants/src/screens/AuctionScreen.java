@@ -28,19 +28,21 @@ public class AuctionScreen extends Screen {
 		this.handler = handler;
 
 		proceed = new TextButton(Screen.DRAWING_WIDTH - 175, 25, 150, 75, Color.WHITE, Color.BLACK, "GET WINNER", 18);
+		for (int i = 0; i < auction.getBids().size(); i++) {
+			enterBid.add(new TextButton(200, 200 + 100 * i, 200, 75, Color.WHITE, Color.BLACK, "ENTER BID", 24));
+			withdraw.add(new TextButton(450, 200 + 100 * i, 200, 75, Color.WHITE, Color.BLACK, "WITHDRAW", 24));
+		}
 	}
 
 	public void setup(PApplet p) {
 
-		for (int i = 0; i < auction.getBids().size(); i++) {
-			enterBid.add(new TextButton(200, 200 + 100 * i, 200, 75, Color.WHITE, Color.BLACK, "ENTER BID", 24));
-			withdraw.add(new TextButton(250, 200 + 100 * i, 200, 75, Color.WHITE, Color.BLACK, "WITHDRAW", 24));
-		}
+		
 	}
 
 	public void draw(PApplet p) {
 		p.textAlign(PApplet.CENTER);
 		p.textSize(60);
+		p.fill(Color.BLACK.getRGB());
 		p.text("AUCTION", Screen.DRAWING_WIDTH / 2, 100);
 
 		if (winner != -1) {
@@ -49,6 +51,7 @@ public class AuctionScreen extends Screen {
 		}
 
 		p.textAlign(PApplet.LEFT);
+		p.fill(Color.BLACK.getRGB());
 
 		for (int i = 0; i < auction.getBids().size(); i++) {
 			p.text("Player " + auction.getBids().get(i).getPlayer().getId() + ": "

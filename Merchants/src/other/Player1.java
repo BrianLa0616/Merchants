@@ -30,7 +30,7 @@ public class Player1 {
 		initY = y;
 		this.id = index;
 
-		money = 0;
+		money = 100;
 		this.merchantColor = merchantColor;
 		this.tileColor = tileColor;
 		territory = new ArrayList<Tile1>();
