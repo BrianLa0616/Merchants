@@ -7,6 +7,12 @@ import other.Player1;
 import processing.core.PApplet;
 import screens.ScreenHandler;
 
+/**
+ * Represents a single tile in board
+ * 
+ * @author Eylam
+ *
+ */
 public class Tile1 {
 
 	public static final int TILE_SIZE = 60;
@@ -18,6 +24,13 @@ public class Tile1 {
 	private Color color;
 	private Merchant1 merchant;
 
+	/**
+	 * Constructs a new tile at (x, y) 
+	 * 
+	 * @param x coordinate of the tile
+	 * @param y coordinate of the tile
+	 * @param cost of the tile
+	 */
 	public Tile1(int x, int y, int cost) {
 		this.x = x;
 		this.y = y;
@@ -31,6 +44,12 @@ public class Tile1 {
 		}
 	}
 
+	/**
+	 * Draws the tiles
+	 * 
+	 * @param p marker used to draw the tiles
+	 * @param id of the tile
+	 */
 	public void draw(PApplet p, int id) {
 
 		if (uncovered[id]) {
@@ -55,8 +74,13 @@ public class Tile1 {
 		}
 	}
 
+	/**
+	 * Returns characteristics of tile
+	 * 
+	 * @return str string informing the coordinates, cost, and who the tile is owned by
+	 */
 	public String getCharacteristics() {
-		String str = "Coodrinates:\n(" + x + ", " + y + ")\n";
+		String str = "Coordinates:\n(" + x + ", " + y + ")\n";
 
 		if (owner == null) {
 			str += "Cost: " + cost;
@@ -67,59 +91,121 @@ public class Tile1 {
 		return str;
 	}
 
+	/**
+	 * @return the x-coordinate of the tile
+	 */
 	public int getX() {
 		return x;
 	}
 
+	/**
+	 * @return the y-coordinate of the tile
+	 */
 	public int getY() {
 		return y;
 	}
 
+	/**
+	 * Sets the merchant
+	 * 
+	 * @param m merchant desired
+	 */
 	public void setMerchant(Merchant1 m) {
 		merchant = m;
 	}
 
+	/**
+	 * 
+	 * @return merchant currently occupying the tile
+	 */
 	public Merchant1 getMerchant() {
 		return merchant;
 	}
 
+	/**
+	 * 
+	 * @return the cost to purchase the tile
+	 */
 	public int getCost() {
 		return cost;
 	}
 
+	/**
+	 * Sets the cost of the tile
+	 * 
+	 * @param cost the cost to purchase the tile
+	 */
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
 
+	/**
+	 * 
+	 * @return owner of the tile
+	 */
 	public Player1 getOwner() {
 		return owner;
 	}
 
+	/**
+	 * Sets the owner of the tile
+	 * 
+	 * @param owner of the tile
+	 */
 	public void setOwner(Player1 owner) {
 		this.owner = owner;
 		setColor(ScreenHandler.TILE_COLORS[owner.getId()]);
 	}
 
+	/**
+	 * Whether or not the tile is uncovered for that player
+	 * 
+	 * @param player desired to check
+	 * @return whether or not tile is covered for the player 
+	 */
 	public boolean isUncovered(int player) {
 		return uncovered[player];
 	}
 
+	/**
+	 * Uncovers the tile for that player
+	 * 
+	 * @param player desired
+	 */
 	public void uncover(int player) {
 		uncovered[player] = true;
 	}
 
+	/**
+	 * 
+	 * @return color of the tile
+	 */
 	public Color getColor() {
 		return color;
 	}
 
+	/**
+	 * Sets the color of the tile
+	 * 
+	 * @param color of the tile
+	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
 
+	/**
+	 * Selects the tile
+	 * 
+	 * @param selected if the tile is selected or not
+	 */
 	public void setSelected(boolean selected) {
 		isSelected = selected;
 	}
 	
+	/**
+	 * 
+	 * @return isSelected if the tile is chosen or not
+	 */
 	public boolean getSelected() {
 		return isSelected;
 	}
