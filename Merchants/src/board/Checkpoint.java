@@ -27,7 +27,7 @@ public class Checkpoint extends Tile1 {
 		//Draw the tile with checkpoint image
 	}
 	
-	public String getCharacterstics() {
+	public String getCharacteristics() {
 		return super.getCharacteristics() + "\nCheckpoint";
 	}
 }
