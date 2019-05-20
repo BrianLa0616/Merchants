@@ -96,7 +96,9 @@ public class Board1 extends Screen {
 
 					if (selectedT.getMerchant() != null) {
 						selectedM = selectedT.getMerchant();
-						switchHighlight(mx, my, true);
+						if (selectedM.getOwner() == player) {
+							switchHighlight(mx, my, true);
+						}
 					} else {
 						tiles[mx][my].setSelected(true);
 					}
@@ -116,7 +118,8 @@ public class Board1 extends Screen {
 
 							Auction a = new Auction(tiles[mx][my]);
 							a.addBid(new Bid(player, tiles[mx][my].getCost()));
-							handler.addAuction(a);;
+							handler.addAuction(a);
+							;
 							JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
 									JOptionPane.INFORMATION_MESSAGE);
 							switchHighlight(selectedT.getX(), selectedT.getY(), false);
