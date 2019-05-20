@@ -2,9 +2,8 @@ package merchants;
 
 import java.awt.Color;
 
-import board.Tile;
 import board.Tile1;
-import other.Player;
+import other.Player1;
 import processing.core.PApplet;
 
 /**
@@ -19,8 +18,8 @@ public class Merchant1 {
 	private int numMovesInEnemyLand;
 
 	private Color color;
-	private Tile t;
-	private Player p;
+	private Tile1 t;
+	private Player1 p;
 
 	/**
 	 * Constructs a new merchant
@@ -51,7 +50,7 @@ public class Merchant1 {
 		this.x += dirX;
 		this.y += dirY;
 
-		if (p.getR() != t.getR() || p.getG() != t.getG() || p.getB() != t.getB()) {
+		if (p.getTileColor().equals(t.getColor())) {
 			numMovesInEnemyLand++;
 		} else
 			numMovesInEnemyLand = 0;
@@ -64,7 +63,7 @@ public class Merchant1 {
 	 * @return true if the merchant is adjacent to the specified tile, false
 	 *         otherwise
 	 */
-	public boolean isAdjacent(Tile t) {
+	public boolean isAdjacent(Tile1 t) {
 		if ((x + 1) == t.getX() && (y + 1) == t.getY()) {
 			return true;
 		} else if ((x + 1) == t.getX() && (y - 1) == t.getY()) {
