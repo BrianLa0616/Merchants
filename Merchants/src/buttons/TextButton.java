@@ -123,4 +123,12 @@ public class TextButton extends Button {
 	public String getText() {
 		return text;
 	}
+	
+	/**
+	 * 
+	 * @param text the new text
+	 */
+	public void setText(String text) {
+		this.text = text;
+	}
 }

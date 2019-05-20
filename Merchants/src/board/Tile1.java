@@ -15,6 +15,7 @@ public class Tile1 {
 	private boolean[] uncovered;
 	private boolean isSelected;
 	private Color color;
+	
 
 	public Tile1(int x, int y, int cost) {
 		this.x = x;
@@ -75,7 +76,7 @@ public class Tile1 {
 
 	public void setOwner(Player1 owner) {
 		this.owner = owner;
-		setColor(ScreenHandler.TILE_COLORS[owner.getIndex()]);
+		setColor(ScreenHandler.TILE_COLORS[owner.getId()]);
 	}
 
 	public boolean isUncovered(int player) {

@@ -14,8 +14,15 @@ public class Auction {
 	}
 
 	public void addBid(Bid bid) {
+		for (int i = 0; i < bids.size(); i++) {
+			if (bids.get(i).getPlayer() == bid.getPlayer()) {
+				bids.set(i, bid);
+				return;
+			}
+		}
 		bids.add(bid);
 	}
+	
 
 	public Bid decideWinner() {
 		int max = 0;

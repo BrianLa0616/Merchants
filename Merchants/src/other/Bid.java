@@ -16,4 +16,9 @@ public class Bid {
 	public int getAmount() {
 		return bid;
 	}
+	
+	public void setAmount(int val) {
+		bid = val;
+	}
+	
 }

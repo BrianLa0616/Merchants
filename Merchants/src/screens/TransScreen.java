@@ -26,7 +26,7 @@ public class TransScreen extends Screen {
 		p.textAlign(PApplet.CENTER);
 		p.fill(0);
 		p.textSize(60);
-		p.text("Player " + (player.getIndex() + 1), Screen.DRAWING_WIDTH / 2, Screen.DRAWING_HEIGHT / 2 - 100);
+		p.text("Player " + (player.getId() + 1), Screen.DRAWING_WIDTH / 2, Screen.DRAWING_HEIGHT / 2 - 100);
 		p.textSize(36);
 		p.text("START TURN", Screen.DRAWING_WIDTH / 2, Screen.DRAWING_HEIGHT / 2 - 50);
 		next.draw(p);

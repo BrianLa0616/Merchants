@@ -11,8 +11,10 @@ public class Player1 {
 	private ArrayList<Tile1> territory;
 	private ArrayList<Merchant1> merchants;
 	private Color color;
+	
+	private int money;
 
-	private int initX, initY, index;
+	private int initX, initY, id;
 
 	/**
 	 * Creates a new Player with the following characteristics:
@@ -25,8 +27,9 @@ public class Player1 {
 	public Player1(int x, int y, Color color, int index) {
 		initX = x;
 		initY = y;
-		this.index = index;
+		this.id = index;
 
+		money = 0;
 		this.color = color;
 
 		territory = new ArrayList<Tile1>();
@@ -71,8 +74,16 @@ public class Player1 {
 
 	/* ----------ACCESSORS---------- */
 
-	public int getIndex() {
-		return index;
+	public void setMoney(int x) {
+		money = x;
+	}
+	
+	public int getMoney() {
+		return money;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public ArrayList<Tile1> getTerritory() {

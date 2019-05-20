@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import board.Board1;
+import board.Tile;
+import other.Auction;
 import other.Player1;
 import processing.core.PApplet;
 
@@ -15,12 +17,15 @@ public class ScreenHandler extends PApplet {
 
 	private Screen currScreen;
 	private ArrayList<Player1> players;
+	private ArrayList<Auction> auctions;
+	private Tile[][] tiles;
 	int currPlayer;
 	private Board1 board;
 
 	public ScreenHandler() {
 		currScreen = new IntroScreen(this);
 		players = new ArrayList<Player1>();
+		auctions = new ArrayList<Auction>();
 
 		currPlayer = 0;
 		board = new Board1(this);
@@ -42,7 +47,21 @@ public class ScreenHandler extends PApplet {
 	public Board1 getBoard() {
 		return board;
 	}
+	
+	public void addAuction(Auction a) {
+		for (int i = 0; i < auctions.size(); i++) {
+			if (a.getTile() == auctions.get(i).getTile()) {
+				auctions.get(i).addBid(a.getBids().get(0));
+				return;
+			}
+		}
+		
+		auctions.add(a);
+	}
 
+	public ArrayList<Auction> getAuction() {
+		return auctions;
+	}
 	public void mousePressed() {
 		currScreen.mousePressed(this);
 	}

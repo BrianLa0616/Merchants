@@ -6,6 +6,7 @@ import buttons.TextButton;
 import merchants.Merchant1;
 import other.Player1;
 import processing.core.PApplet;
+import screens.AuctionScreen;
 import screens.Screen;
 import screens.ScreenHandler;
 import screens.TransScreen;
@@ -38,8 +39,9 @@ public class Board1 extends Screen {
 	public void setPlayer(Player1 player) {
 		this.player = player;
 
-		if (player.getTerritory().size() == 0)
+		if (player.getTerritory().size() == 0) {
 			player.addTile(tiles[player.initX()][player.initY()]);
+		}
 	}
 
 	public void setup(PApplet p) {
@@ -49,13 +51,13 @@ public class Board1 extends Screen {
 	public void draw(PApplet p) {
 		for (Tile1[] ts : tiles) {
 			for (Tile1 t : ts) {
-				if (!t.isUncovered(player.getIndex())) {
+				if (!t.isUncovered(player.getId())) {
 					t.setColor(new Color(75, 75, 75));
 				} else {
 					if (t.getOwner() == null) {
 						t.setColor(null);
 					} else {
-						t.setColor(ScreenHandler.TILE_COLORS[t.getOwner().getIndex()]);
+						t.setColor(ScreenHandler.TILE_COLORS[t.getOwner().getId()]);
 					}
 				}
 
@@ -67,7 +69,7 @@ public class Board1 extends Screen {
 			for (int i = t.getX() - 1; i <= t.getX() + 1; i++) {
 				for (int j = t.getY() - 1; j <= t.getY() + 1; j++) {
 					if (inRange(i, j)) {
-						tiles[i][j].uncover(player.getIndex());
+						tiles[i][j].uncover(player.getId());
 					}
 				}
 			}
@@ -77,7 +79,7 @@ public class Board1 extends Screen {
 			for (int i = m.getX() - 1; i <= m.getX() + 1; i++) {
 				for (int j = m.getY() - 1; j <= m.getY() + 1; j++) {
 					if (inRange(i, j)) {
-						tiles[i][j].uncover(player.getIndex());
+						tiles[i][j].uncover(player.getId());
 					}
 				}
 			}
@@ -93,7 +95,7 @@ public class Board1 extends Screen {
 			if (merchantAt(selected) != null) {
 				for (Player1 p1 : handler.getPlayers()) {
 					if (p1.getMerchants().contains(merchantAt(selected))) {
-						display += "\nMerchant: Player " + (p1.getIndex() + 1);
+						display += "\nMerchant: Player " + (p1.getId() + 1);
 					}
 				}
 			}
@@ -113,14 +115,18 @@ public class Board1 extends Screen {
 
 	public void mousePressed(PApplet p) {
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) {
-			if (player.getIndex() + 1 == handler.getPlayers().size()) {
-				// AuctionScreen for every relevant Auction this turn round
+			if (player.getId() + 1 == handler.getPlayers().size()) {
+				if (handler.getAuction().size() == 0) {
+					handler.proceed(new TransScreen(handler, handler.getPlayers().get(player.getId() + 1)));
+				} else {
+					handler.proceed(new AuctionScreen(handler, handler.getAuction().get(0)));
+				}
 			} else {
-				handler.proceed(new TransScreen(handler, handler.getPlayers().get(player.getIndex() + 1)));
+				handler.proceed(new TransScreen(handler, handler.getPlayers().get(player.getId() + 1)));
 			}
 		} else {
 			int mx = p.mouseX / Tile1.TILE_SIZE, my = p.mouseY / Tile1.TILE_SIZE;
-			if (inRange(mx, my) && tiles[mx][my].isUncovered(player.getIndex())) {
+			if (inRange(mx, my) && tiles[mx][my].isUncovered(player.getId())) {
 				selected = tiles[mx][my];
 
 				if (merchantAt(selected) != null && player.getMerchants().contains(merchantAt(selected))) {
