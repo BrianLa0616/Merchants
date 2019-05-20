@@ -56,7 +56,7 @@ public class AuctionScreen extends Screen {
 		for (int i = 0; i < auction.getBids().size(); i++) {
 			p.text("Player " + (auction.getBids().get(i).getPlayer().getId()+1) + ": "
 					+ auction.getBids().get(i).getAmount(), 50, 230 + 100 * i);
-			enterBid.get(i).draw(p);
+			enterBid.get(i).draw(p);	
 			withdraw.get(i).draw(p);
 		}
 
