@@ -9,10 +9,21 @@ import buttons.TextButton;
 import other.Player1;
 import processing.core.PApplet;
 
+/**
+ * Represents the home screen when a user first enters the game
+ * 
+ * @author Eylam
+ *
+ */
 public class IntroScreen extends Screen {
 	private TextButton start;
 	private ScreenHandler handler;
 
+	/**
+	 * Creates a new intro screen
+	 * 
+	 * @param board draws the screen
+	 */
 	public IntroScreen(ScreenHandler board) {
 		super(board);
 		start = new TextButton(450, 450, 200, 75, Color.WHITE, Color.BLACK, "START", 24);
@@ -23,6 +34,11 @@ public class IntroScreen extends Screen {
 		// nothing
 	}
 
+	/**
+	 * Draws the intro screen
+	 * 
+	 * @param p PApplet used to draw the screen
+	 */
 	public void draw(PApplet p) {
 		p.textAlign(PApplet.CENTER);
 		p.textSize(60);
@@ -31,6 +47,11 @@ public class IntroScreen extends Screen {
 		start.draw(p);
 	}
 
+	/**
+	 * Determines the actions when the mouse is clicked
+	 * 
+	 * @param p PApplet used to draw
+	 */
 	public void mousePressed(PApplet p) {
 		if (start.isPointInButton(p.mouseX, p.mouseY)) {
 
@@ -99,11 +120,10 @@ public class IntroScreen extends Screen {
 		// nothing
 	}
 
-	/*
+	/**
 	 * Checks if the entered number is valid
 	 * 
 	 * @param x entered value
-	 * 
 	 * @return true if the input was valid, false otherwise
 	 */
 	private boolean validIntegerInput(String x) {
@@ -117,6 +137,13 @@ public class IntroScreen extends Screen {
 		return true;
 	}
 
+	/**
+	 * Determines whether specified location is within the board
+	 * 
+	 * @param x coordinate of the location
+	 * @param y coordinate of the location
+	 * @return true if (x, y) is within the board, false otherwise
+	 */
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < handler.getTiles().length && y >= 0 && y < handler.getTiles()[0].length;
 	}
