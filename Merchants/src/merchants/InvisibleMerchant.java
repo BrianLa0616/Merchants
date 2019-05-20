@@ -36,7 +36,7 @@ public class InvisibleMerchant extends Merchant1 {
 	 */
 	public void draw(PApplet p) {
 		if (visible == true) {
-			p.fill(getR(), getG(), getB());
+			p.fill(getColor().getRGB());
 			p.rect((x + 0.25f) * Tile.TILE_SIZE, (y + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
 					0.5f * Tile.TILE_SIZE);
 		}
@@ -48,9 +48,7 @@ public class InvisibleMerchant extends Merchant1 {
 	 * @param p Player that owns the Invisible Merchant
 	 */
 	public void setVisible(Player p) {
-		setR(p.getR());
-		setG(p.getG());
-		setB(p.getB());
+		setColor(p.getColor());
 		visible = true;
 	}
 

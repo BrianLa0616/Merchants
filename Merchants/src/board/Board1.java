@@ -103,9 +103,26 @@ public class Board1 extends Screen {
 				} else if (selectedM != null) { // if merchant and tile are selected
 
 					if (selectedT == tiles[mx][my]) { // if same tile pressed
-						selectedM = null;
-						tiles[mx][my].setSelected(true);
-						switchHighlight(mx, my, false);
+						if (p.mouseButton == PConstants.LEFT) {
+							selectedM = null;
+							tiles[mx][my].setSelected(true);
+							switchHighlight(mx, my, false);
+						} else {
+							if (player.getMoney() < tiles[mx][my].getCost()) {
+								JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE",
+										JOptionPane.ERROR_MESSAGE);
+								return;
+							}
+
+							Auction a = new Auction(tiles[mx][my]);
+							a.addBid(new Bid(player, tiles[mx][my].getCost()));
+							handler.getAuction().add(a);
+							JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
+									JOptionPane.INFORMATION_MESSAGE);
+							switchHighlight(selectedT.getX(), selectedT.getY(), false);
+							selectedT = null;
+							selectedM = null;
+						}
 					} else {
 						if (Math.abs(mx - selectedT.getX()) + Math.abs(my - selectedT.getY()) == 1
 								&& p.mouseButton == PConstants.LEFT && tiles[mx][my].getMerchant() == null) { // moving
@@ -126,7 +143,7 @@ public class Board1 extends Screen {
 										JOptionPane.ERROR_MESSAGE);
 								return;
 							}
-							
+
 							Auction a = new Auction(tiles[mx][my]);
 							a.addBid(new Bid(player, tiles[mx][my].getCost()));
 							handler.getAuction().add(a);
