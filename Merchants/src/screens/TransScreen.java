@@ -6,11 +6,23 @@ import buttons.TextButton;
 import other.Player1;
 import processing.core.PApplet;
 
+/**
+ * Represents the transition screen in between turns
+ * 
+ * @author Eylam
+ *
+ */
 public class TransScreen extends Screen {
 	private ScreenHandler handler;
 	private TextButton next;
 	private Player1 player;
 
+	/**
+	 * Creates a new transition screen
+	 * 
+	 * @param board
+	 * @param player currently on
+	 */
 	public TransScreen(ScreenHandler board, Player1 player) {
 		super(board);
 		this.player = player;
@@ -22,6 +34,11 @@ public class TransScreen extends Screen {
 		// nothing
 	}
 
+	/**
+	 * Draws the transition screen and its contents
+	 * 
+	 * @param p PApplet used to draw
+	 */
 	public void draw(PApplet p) {
 		p.textAlign(PApplet.CENTER);
 		p.fill(0);
@@ -32,6 +49,11 @@ public class TransScreen extends Screen {
 		next.draw(p);
 	}
 
+	/**
+	 * Actions taken after the mouse is pressed
+	 * 
+	 * @param p PApplet used to draw
+	 */
 	public void mousePressed(PApplet p) {
 		if (next.isPointInButton(p.mouseX, p.mouseY)) {
 			handler.getBoard().setPlayer(player);
