@@ -116,7 +116,7 @@ public class Board1 extends Screen {
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) {
 			if (player.getId() + 1 == handler.getPlayers().size()) {
 				if (handler.getAuction().size() == 0) {
-					handler.proceed(new TransScreen(handler, handler.getPlayers().get(player.getId() + 1)));
+					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
 				} else {
 					handler.proceed(new AuctionScreen(handler, handler.getAuction().get(0)));
 				}
