@@ -68,6 +68,10 @@ public class ScreenHandler extends PApplet {
 		
 		auctions.add(a);
 	}
+	
+	public int getCurrentPlayer() {
+		return currPlayer;
+	}
 
 	public ArrayList<Auction> getAuction() {
 		return auctions;

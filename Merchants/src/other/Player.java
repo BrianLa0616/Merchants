@@ -264,7 +264,8 @@ public class Player {
 	 * 
 	 * @param x coordinate of checkpoint
 	 * @param y coordinate of checkpoint
-	 */
+	 **/
+	/*
 	public void purchaseCheckpoint(int x, int y) {
 		for (int i = 0; i < territory.size(); i++) {
 			if (territory.get(i).getX() == x && territory.get(i).getY() == y) {
@@ -276,4 +277,5 @@ public class Player {
 			}
 		}
 	}
+	*/
 }

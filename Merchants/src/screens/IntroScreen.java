@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import javax.swing.JOptionPane;
 
+import board.Checkpoint;
 import buttons.TextButton;
 import other.Player1;
 import processing.core.PApplet;
@@ -46,7 +47,28 @@ public class IntroScreen extends Screen {
 			int[] xvals = { 1, 13, 13, 1 }, yvals = { 1, 13, 1, 13 };
 
 			for (int i = 0; i < numPlayers; i++) {
-				handler.getPlayers().add(new Player1(xvals[i], yvals[i], ScreenHandler.PLAYER_COLORS[i], i));
+				handler.getPlayers().add(new Player1(xvals[i], yvals[i], ScreenHandler.PLAYER_COLORS[i],
+						ScreenHandler.TILE_COLORS[i], i));
+				Player1 player = handler.getPlayers().get(i);
+
+				// adds Tile to player's territory
+				handler.getTiles()[xvals[i]][yvals[i]] = new Checkpoint(player.initX(), player.initY(),
+						player.getTerritory().size() * 10);
+
+				handler.getTiles()[xvals[i]][yvals[i]].setOwner(player);
+				handler.getPlayers().get(i).addTile(handler.getTiles()[xvals[i]][yvals[i]]);
+
+				for (int j = -1; j <= 1; j++) {
+					for (int k = -1; k <= 1; k++) {
+						int nx = xvals[i] + j;
+						int ny = yvals[i] + k;
+						if (inRange(nx, ny)) {
+							handler.getTiles()[nx][ny].uncover(player.getId());
+						}
+					}
+				}
+
+				handler.getTiles()[xvals[i]][yvals[i]].setMerchant(player.getMerchants().get(0));
 			}
 
 			handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
@@ -77,10 +99,11 @@ public class IntroScreen extends Screen {
 		// nothing
 	}
 
-	/**
+	/*
 	 * Checks if the entered number is valid
 	 * 
 	 * @param x entered value
+	 * 
 	 * @return true if the input was valid, false otherwise
 	 */
 	private boolean validIntegerInput(String x) {
@@ -92,5 +115,9 @@ public class IntroScreen extends Screen {
 			}
 		}
 		return true;
+	}
+
+	private boolean inRange(int x, int y) {
+		return x >= 0 && x < handler.getTiles().length && y >= 0 && y < handler.getTiles()[0].length;
 	}
 }

@@ -34,13 +34,6 @@ public class Board1 extends Screen {
 	public void setPlayer(Player1 player) {
 		this.player = player;
 
-		if (player.getTerritory().size() == 0) {
-			
-			handler.getTiles()[player.initX()][player.initY()] = new Checkpoint(player.initX(), player.initY(),
-					player.getTerritory().size() * 10);
-			
-			player.addTile(tiles[player.initX()][player.initY()]);
-		}
 	}
 
 	public void setup(PApplet p) {
@@ -50,41 +43,12 @@ public class Board1 extends Screen {
 	public void draw(PApplet p) {
 		for (Tile1[] ts : tiles) {
 			for (Tile1 t : ts) {
-				if (!t.isUncovered(player.getId())) {
-					t.setColor(new Color(75, 75, 75));
-				} else {
-					if (t.getOwner() == null) {
-						t.setColor(null);
-					} else {
-						t.setColor(ScreenHandler.TILE_COLORS[t.getOwner().getId()]);
-					}
-				}
-
-				t.draw(p);
+				
+				t.draw(p, player.getId());
 			}
 		}
 
-		for (Tile1 t : player.getTerritory()) {
-			for (int i = t.getX() - 1; i <= t.getX() + 1; i++) {
-				for (int j = t.getY() - 1; j <= t.getY() + 1; j++) {
-					if (inRange(i, j)) {
-						tiles[i][j].uncover(player.getId());
-					}
-				}
-			}
-		}
-
-		for (Merchant1 m : player.getMerchants()) {
-			for (int i = m.getX() - 1; i <= m.getX() + 1; i++) {
-				for (int j = m.getY() - 1; j <= m.getY() + 1; j++) {
-					if (inRange(i, j)) {
-						tiles[i][j].uncover(player.getId());
-					}
-				}
-			}
-
-			m.draw(p);
-		}
+		
 
 		if (selected != null) {
 			p.fill(0);
@@ -104,13 +68,7 @@ public class Board1 extends Screen {
 		endTurn.draw(p);
 	}
 
-	private boolean inRange(int x, int y) {
-		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
-	}
-
-	public Tile1[][] tiles() {
-		return tiles;
-	}
+	
 
 	public void mousePressed(PApplet p) {
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) {
@@ -170,5 +128,9 @@ public class Board1 extends Screen {
 
 	public void keyReleased(PApplet p) {
 
+	}
+	
+	private boolean inRange(int x, int y) {
+		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}
 }

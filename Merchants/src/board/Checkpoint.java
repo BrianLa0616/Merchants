@@ -25,8 +25,8 @@ public class Checkpoint extends Tile1 {
 		this.price = 50 * price; // proportional with player's amount of checkpts
 	}
 
-	public void draw(PApplet p) {
-		super.draw(p);
+	public void draw(PApplet p, int id) {
+		super.draw(p, id);
 		//Draw the tile with checkpoint image
 	}
 	/**

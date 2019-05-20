@@ -2,6 +2,7 @@ package board;
 
 import java.awt.Color;
 
+import merchants.Merchant1;
 import other.Player1;
 import processing.core.PApplet;
 import screens.ScreenHandler;
@@ -15,39 +16,43 @@ public class Tile1 {
 	private boolean[] uncovered;
 	private boolean isSelected;
 	private Color color;
-	
+	private Merchant1 merchant;
 
 	public Tile1(int x, int y, int cost) {
 		this.x = x;
 		this.y = y;
 		this.cost = cost;
-		color = null;
 		owner = null;
 		isSelected = false;
 
 		uncovered = new boolean[4];
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void draw(PApplet p) {
-		if (isSelected) {
-			p.fill(Color.yellow.getRGB());
-		} else {
-			if (color == null) {
-				p.noFill();
-			} else {
-				p.fill(color.getRGB());
-			}
+		for (int i = 0; i < 4; i++) {
+			uncovered[i] = false;
 		}
+	}
 
-		p.rect(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+	public void draw(PApplet p, int id) {
+
+		if (uncovered[id]) {
+			if (isSelected) {
+				p.fill(Color.yellow.getRGB());
+			} else {
+				if (owner == null) {
+					p.noFill();
+				} else {
+					p.fill(owner.getTileColor().getRGB());
+				}
+			}
+
+			p.rect(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+			if (merchant != null) {
+				merchant.draw(p);
+			}
+		} else {
+			p.fill(Color.DARK_GRAY.getRGB());
+			p.rect(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+
+		}
 	}
 
 	public String getCharacteristics() {
@@ -60,6 +65,22 @@ public class Tile1 {
 		}
 
 		return str;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setMerchant(Merchant1 m) {
+		merchant = m;
+	}
+
+	public Merchant1 getMerchant() {
+		return merchant;
 	}
 
 	public int getCost() {
