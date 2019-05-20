@@ -146,7 +146,7 @@ public class Board1 extends Screen {
 
 							Auction a = new Auction(tiles[mx][my]);
 							a.addBid(new Bid(player, tiles[mx][my].getCost()));
-							handler.getAuction().add(a);
+							handler.addAuction(a);
 							JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
 									JOptionPane.INFORMATION_MESSAGE);
 							switchHighlight(selectedT.getX(), selectedT.getY(), false);
