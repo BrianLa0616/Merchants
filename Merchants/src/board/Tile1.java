@@ -59,9 +59,9 @@ public class Tile1 {
 		String str = "Coodrinates:\n(" + x + ", " + y + ")\n";
 
 		if (owner == null) {
-			str += "Cost: " + 20;
+			str += "Cost: " + cost;
 		} else {
-			str += "Owned\nCost: " + 30;
+			str += "Owned\nCost: " + cost;
 		}
 
 		return str;
