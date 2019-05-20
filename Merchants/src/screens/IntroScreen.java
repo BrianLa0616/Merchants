@@ -90,6 +90,7 @@ public class IntroScreen extends Screen {
 				}
 
 				handler.getTiles()[xvals[i]][yvals[i]].setMerchant(player.getMerchants().get(0));
+				player.getMerchants().get(0).setOwner(player);
 			}
 
 			handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));

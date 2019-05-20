@@ -154,6 +154,22 @@ public class Merchant1 {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	
+	/**
+	 * 
+	 * @return the player that owns the merchant
+	 */
+	public Player1 getOwner() {
+		return p;
+	}
+	
+	/**
+	 * 
+	 * @param p player that becomes the owner
+	 */
+	public void setOwner(Player1 p) {
+		this.p = p;
+	}
 
 	/**
 	 * 
