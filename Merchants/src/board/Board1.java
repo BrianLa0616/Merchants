@@ -26,12 +26,7 @@ public class Board1 extends Screen {
 		player = null;
 		selected = null;
 
-		tiles = new Tile1[15][15];
-		for (int i = 0; i < 15; i++) {
-			for (int j = 0; j < 15; j++) {
-				tiles[i][j] = new Tile1(i, j, 20);
-			}
-		}
+		tiles = handler.getTiles();
 
 		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, 25, 150, 75, Color.WHITE, Color.BLACK, "END\nTURN", 18);
 	}
@@ -40,6 +35,10 @@ public class Board1 extends Screen {
 		this.player = player;
 
 		if (player.getTerritory().size() == 0) {
+			
+			handler.getTiles()[player.initX()][player.initY()] = new Checkpoint(player.initX(), player.initY(),
+					player.getTerritory().size() * 10);
+			
 			player.addTile(tiles[player.initX()][player.initY()]);
 		}
 	}

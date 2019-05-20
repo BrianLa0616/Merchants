@@ -1,5 +1,7 @@
 package board;
 
+import processing.core.PApplet;
+
 /**
  * 
  * @author Eylam
@@ -7,9 +9,8 @@ package board;
  *         Represents a Tile that a player's merchants can teleport to.
  * 
  */
-public class Checkpoint extends Tile {
+public class Checkpoint extends Tile1 {
 
-	private int id;
 	private int x, y;
 	private int price;
 
@@ -18,14 +19,16 @@ public class Checkpoint extends Tile {
 	 * 
 	 * @param x    the x-coordinate of the checkpoint
 	 * @param y    the y-coordinate of the checkpoint
-	 * @param type the tile type of the checkpoint
 	 */
-	public Checkpoint(int x, int y, int type, int id, int price) {
-		super(x, y, type);
-		this.id = id; // index in player's checkpts array
+	public Checkpoint(int x, int y, int price) {
+		super(x, y, price);
 		this.price = 50 * price; // proportional with player's amount of checkpts
 	}
 
+	public void draw(PApplet p) {
+		super.draw(p);
+		//Draw the tile with checkpoint image
+	}
 	/**
 	 * @return x coordinate of checkpoint
 	 */

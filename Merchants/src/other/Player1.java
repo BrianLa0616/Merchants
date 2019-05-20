@@ -23,6 +23,7 @@ public class Player1 {
 	 * @param y     the starting point's y-coordinate
 	 * @param color the player's color, to be used for marking all of its territory
 	 *              and merchants
+	 * @param index id of player
 	 */
 	public Player1(int x, int y, Color color, int index) {
 		initX = x;
@@ -31,7 +32,6 @@ public class Player1 {
 
 		money = 0;
 		this.color = color;
-
 		territory = new ArrayList<Tile1>();
 		merchants = new ArrayList<Merchant1>();
 		merchants.add(new Merchant1(initX, initY, color));
