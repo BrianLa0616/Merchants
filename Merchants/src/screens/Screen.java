@@ -5,6 +5,8 @@ import processing.core.PApplet;
 /**
  * Represents a screen that temporarily is run on the main PApplet of the
  * program.
+ * 
+ * @author Eylam
  */
 public abstract class Screen {
 

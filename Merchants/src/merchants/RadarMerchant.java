@@ -2,6 +2,8 @@ package merchants;
 
 import java.awt.Color;
 
+import board.Tile;
+
 /**
  * Represents a Radar Merchant
  * 
@@ -37,18 +39,14 @@ public class RadarMerchant extends Merchant1 {
 	 * merchant, as the Radar Merchant's level rises, so does the amount of revealed
 	 * tiles around them
 	 * 
-	 * @param amount of money the player currently has
-	 * @return player's new total amount
+	 * @param t Tiles revealed around them
 	 */
-	public int reveal(Tile t) {
+	public void reveal(Tile t) {
 		if (level == 2) {
-			return amount + 15;
+			
 		} else if (level == 3) {
-			return amount + 20;
 		} else if (level == 4) {
-			return amount + 25;
 		}
-		return amount + 35;
 	}
 
 }
