@@ -95,7 +95,7 @@ public class AuctionScreen extends Screen {
 						winner = i;
 					}
 				}
-				handler.getPlayers().get(winner).addTile(auction.getTile());
+				handler.getPlayers().get(auction.getBids().get(winner).getPlayer().getId()).addTile(auction.getTile());
 				proceed.setText("EXIT AUCTION");
 			} else {
 				handler.getAuction().remove(0);

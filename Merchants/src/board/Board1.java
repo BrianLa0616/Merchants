@@ -126,9 +126,9 @@ public class Board1 extends Screen {
 							selectedT = null;
 							selectedM = null;
 						}
-					} else {
+					} else { // if different tile is pressed
 						if (Math.abs(mx - selectedT.getX()) + Math.abs(my - selectedT.getY()) == 1
-								&& p.mouseButton == PConstants.LEFT && tiles[mx][my].getMerchant() == null) { // moving
+								&& p.mouseButton == PConstants.LEFT && tiles[mx][my].getMerchant() == null && selectedM.getOwner() == player) { // moving
 
 							switchHighlight(selectedM.getX(), selectedM.getY(), false);
 							selectedT.setMerchant(null);
