@@ -10,6 +10,12 @@ import other.Auction;
 import other.Bid;
 import processing.core.PApplet;
 
+/**
+ * Represents an Auction Screen where auctions take place
+ * 
+ * @author Eylam
+ *
+ */
 public class AuctionScreen extends Screen {
 	private Auction auction;
 	private int winner;
@@ -19,6 +25,12 @@ public class AuctionScreen extends Screen {
 
 	private ArrayList<TextButton> enterBid, withdraw;
 
+	/**
+	 * Creates a new Auction Screen
+	 * 
+	 * @param handler draws the screen
+	 * @param a new Auction
+	 */
 	public AuctionScreen(ScreenHandler handler, Auction a) {
 		super(handler);
 		auction = a;
@@ -36,9 +48,13 @@ public class AuctionScreen extends Screen {
 
 	public void setup(PApplet p) {
 
-		
 	}
 
+	/**
+	 * Draws the auction window
+	 * 
+	 * @param p PApplet used to draw
+	 */
 	public void draw(PApplet p) {
 		p.textAlign(PApplet.CENTER);
 		p.textSize(60);
@@ -54,9 +70,9 @@ public class AuctionScreen extends Screen {
 		p.fill(Color.BLACK.getRGB());
 
 		for (int i = 0; i < auction.getBids().size(); i++) {
-			p.text("Player " + (auction.getBids().get(i).getPlayer().getId()+1) + ": "
+			p.text("Player " + (auction.getBids().get(i).getPlayer().getId() + 1) + ": "
 					+ auction.getBids().get(i).getAmount(), 50, 230 + 100 * i);
-			enterBid.get(i).draw(p);	
+			enterBid.get(i).draw(p);
 			withdraw.get(i).draw(p);
 		}
 
@@ -65,6 +81,11 @@ public class AuctionScreen extends Screen {
 		proceed.draw(p);
 	}
 
+	/**
+	 * Determines actions when the mouse is clicked
+	 * 
+	 * @param p PApplet used to draw
+	 */
 	public void mousePressed(PApplet p) {
 		if (proceed.isPointInButton(p.mouseX, p.mouseY)) {
 			if (winner == -1) {
@@ -88,25 +109,27 @@ public class AuctionScreen extends Screen {
 			for (int i = 0; i < auction.getBids().size(); i++) {
 				if (enterBid.get(i).isPointInButton(p.mouseX, p.mouseY)) {
 					String input = JOptionPane.showInputDialog("Enter Bid Amount");
-					
+
 					if (input == null || input == "" || !validIntegerInput(input)) {
 						return;
 					}
-					
+
 					int bidAmount = Integer.parseInt(input);
 					if (bidAmount < auction.getBids().get(i).getAmount()) {
-						JOptionPane.showMessageDialog(null, "New bids should be larger than previous ones", "INVALID MOVE", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "New bids should be larger than previous ones",
+								"INVALID MOVE", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					
+
 					auction.getBids().get(i).setAmount(bidAmount);
 					return;
 				} else if (withdraw.get(i).isPointInButton(p.mouseX, p.mouseY)) {
-					int choice = JOptionPane.showConfirmDialog(null, "Withdraw from Auction?", "WITHDRAW", JOptionPane.YES_NO_OPTION);
+					int choice = JOptionPane.showConfirmDialog(null, "Withdraw from Auction?", "WITHDRAW",
+							JOptionPane.YES_NO_OPTION);
 					if (choice == 0) {
 						auction.getBids().remove(i);
-					} 
-					
+					}
+
 					return;
 				}
 			}
@@ -136,7 +159,7 @@ public class AuctionScreen extends Screen {
 	public void keyReleased(PApplet p) {
 
 	}
-	
+
 	/**
 	 * Checks if the entered number is valid
 	 * 
