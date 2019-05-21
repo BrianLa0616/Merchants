@@ -2,6 +2,7 @@ package merchants;
 
 import java.awt.Color;
 
+import board.Board1;
 import board.Tile1;
 import other.Player1;
 import processing.core.PApplet;
@@ -18,6 +19,7 @@ public class Merchant1 {
 	private int numMovesInEnemyLand;
 
 	private Color color;
+	private Board1 b;
 	private Tile1 t;
 	private Player1 p;
 
@@ -37,6 +39,7 @@ public class Merchant1 {
 		numMoves = 0;
 		numMovesInEnemyLand = 0;
 
+		b = null;
 		p = null;
 		t = null;
 	}
@@ -196,5 +199,17 @@ public class Merchant1 {
 	 */
 	protected int getNumMovesInEnemyLand() {
 		return numMovesInEnemyLand;
+	}
+
+	public Board1 getB() {
+		return b;
+	}
+
+	public Tile1 getT() {
+		return t;
+	}
+
+	public Player1 getP() {
+		return p;
 	}
 }

@@ -281,7 +281,7 @@ public class Board1 extends Screen {
 	 * @param x coordinate desired to uncover
 	 * @param y coordinate desired to uncover
 	 */
-	private void uncover(int x, int y) {
+	public void uncover(int x, int y) {
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
 				int nx = x + i;
@@ -298,4 +298,10 @@ public class Board1 extends Screen {
 			player.getMerchants().get(i).newTurn();
 		}
 	}
+
+	public Tile1[][] getTiles() {
+		return tiles;
+	}
+	
+	
 }
