@@ -10,9 +10,9 @@ import other.Player1;
 import processing.core.PApplet;
 
 public class ScreenHandler extends PApplet {
-	public static final Color[] PLAYER_COLORS = { new Color(200, 0, 0), new Color(0, 0, 200), new Color(200, 200, 50),
+	public static final Color[] PLAYER_COLORS = { new Color(200, 0, 0), new Color(0, 0, 200), new Color(200, 100, 0),
 			new Color(50, 255, 50) };
-	public static final Color[] TILE_COLORS = { new Color(255, 50, 50), new Color(50, 50, 255), new Color(255, 255, 0),
+	public static final Color[] TILE_COLORS = { new Color(255, 50, 50), new Color(50, 50, 255), new Color(255, 155, 55),
 			new Color(50, 255, 50) };
 
 	private Screen currScreen;
