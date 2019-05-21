@@ -81,7 +81,7 @@ public class Board1 extends Screen {
 			p.textSize(14);
 			p.textAlign(PApplet.LEFT);
 			String display = "Merchant: ";
-			display += "\nMoves left";
+			display += "\nMoves left: " + selectedM.getMovesLeft();
 
 			p.text(display, Screen.DRAWING_WIDTH - 150, 200);
 
@@ -104,6 +104,7 @@ public class Board1 extends Screen {
 	 */
 	public void mousePressed(PApplet p) {
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) {
+			refreshMerchants();
 			if (player.getId() + 1 == handler.getPlayers().size()) {
 				if (handler.getAuction().size() == 0) {
 					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
@@ -122,7 +123,7 @@ public class Board1 extends Screen {
 
 					if (selectedT.getMerchant() != null) {
 						selectedM = selectedT.getMerchant();
-						if (selectedM.getOwner() == player) {
+						if (selectedM.getOwner() == player && selectedM.movable()) {
 							switchHighlight(mx, my, true);
 						}
 					} else {
@@ -154,13 +155,12 @@ public class Board1 extends Screen {
 						}
 					} else { // if different tile is pressed
 						if (Math.abs(mx - selectedT.getX()) + Math.abs(my - selectedT.getY()) == 1
-								&& p.mouseButton == PConstants.LEFT && tiles[mx][my].getMerchant() == null && selectedM.getOwner() == player) { // moving
+								&& p.mouseButton == PConstants.LEFT && tiles[mx][my].getMerchant() == null && selectedM.movable() && selectedM.getOwner() == player) { // moving
 
 							switchHighlight(selectedM.getX(), selectedM.getY(), false);
 							selectedT.setMerchant(null);
 							tiles[mx][my].setMerchant(selectedM);
-							selectedM.setX(mx);
-							selectedM.setY(my);
+							selectedM.setCoordinates(mx, my);
 							selectedM = null;
 							selectedT = null;
 
@@ -290,6 +290,12 @@ public class Board1 extends Screen {
 					tiles[nx][ny].uncover(player.getId());
 				}
 			}
+		}
+	}
+	
+	private void refreshMerchants() {
+		for (int i = 0; i < player.getMerchants().size(); i++) {
+			player.getMerchants().get(i).newTurn();
 		}
 	}
 }

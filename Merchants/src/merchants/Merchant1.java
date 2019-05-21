@@ -14,7 +14,7 @@ import processing.core.PApplet;
  */
 public class Merchant1 {
 
-	private int x, y, speed;
+	private int x, y, totalMoves, numMoves;
 	private int numMovesInEnemyLand;
 
 	private Color color;
@@ -33,7 +33,8 @@ public class Merchant1 {
 		this.y = y;
 
 		this.color = color;
-		speed = 2;
+		totalMoves = 2;
+		numMoves = 0;
 		numMovesInEnemyLand = 0;
 
 		p = null;
@@ -104,21 +105,15 @@ public class Merchant1 {
 	}
 
 	/**
-	 * Sets the x coordinate of merchant
+	 * Sets the x and y coordinates of merchant
 	 * 
-	 * @param x coordinate desired for merchant
+	 * @param x x-coordinate of merchant
+	 * @param y y-coordinate of merchant
 	 */
-	public void setX(int x) {
+	public void setCoordinates(int x, int y) {
 		this.x = x;
-	}
-
-	/**
-	 * Sets the y coordinate of merchant
-	 * 
-	 * @param y coordinate desired for merchant
-	 */
-	public void setY(int y) {
 		this.y = y;
+		numMoves++;
 	}
 
 	/**
@@ -126,7 +121,7 @@ public class Merchant1 {
 	 * @return the amount of tiles the merchant can travel
 	 */
 	public int getSpeed() {
-		return speed;
+		return totalMoves;
 	}
 
 	/**
@@ -135,7 +130,30 @@ public class Merchant1 {
 	 * @param speed the desired speed of the merchant
 	 */
 	public void setSpeed(int speed) {
-		this.speed = speed;
+		totalMoves = speed;
+	}
+
+	/**
+	 * 
+	 * @return true if merchant can move more this turn. False otherwise
+	 */
+	public boolean movable() {
+		return numMoves < totalMoves;
+	}
+
+	/**
+	 * 
+	 * @return number of moves left for this turn
+	 */
+	public int getMovesLeft() {
+		return totalMoves - numMoves;
+	}
+
+	/**
+	 * Refreshes attributes of Merchant such as number of times moved
+	 */
+	public void newTurn() {
+		numMoves = 0;
 	}
 
 	/**
@@ -154,7 +172,7 @@ public class Merchant1 {
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	
+
 	/**
 	 * 
 	 * @return the player that owns the merchant
@@ -162,7 +180,7 @@ public class Merchant1 {
 	public Player1 getOwner() {
 		return p;
 	}
-	
+
 	/**
 	 * 
 	 * @param p player that becomes the owner
