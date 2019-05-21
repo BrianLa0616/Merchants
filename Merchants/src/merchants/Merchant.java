@@ -151,9 +151,7 @@ public class Merchant {
 			level++;
 	}
 
-	// _________________________________Basic setters and
-	// getters_________________________
-
+	
 	public void setTile(Tile t) {
 		this.t = t;
 	}

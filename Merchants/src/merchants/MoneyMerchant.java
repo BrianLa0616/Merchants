@@ -8,7 +8,7 @@ import java.awt.Color;
  * @author Ansen
  *
  */
-public class MoneyMerchant extends Merchant {
+public class MoneyMerchant extends Merchant1 {
 	private int x, y, price;
 	private int level;
 

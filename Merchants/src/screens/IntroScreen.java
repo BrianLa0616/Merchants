@@ -4,14 +4,26 @@ import java.awt.Color;
 
 import javax.swing.JOptionPane;
 
+import board.Checkpoint;
 import buttons.TextButton;
 import other.Player1;
 import processing.core.PApplet;
 
+/**
+ * Represents the home screen when a user first enters the game
+ * 
+ * @author Eylam
+ *
+ */
 public class IntroScreen extends Screen {
 	private TextButton start;
 	private ScreenHandler handler;
 
+	/**
+	 * Creates a new intro screen
+	 * 
+	 * @param board draws the screen
+	 */
 	public IntroScreen(ScreenHandler board) {
 		super(board);
 		start = new TextButton(450, 450, 200, 75, Color.WHITE, Color.BLACK, "START", 24);
@@ -22,6 +34,11 @@ public class IntroScreen extends Screen {
 		// nothing
 	}
 
+	/**
+	 * Draws the intro screen
+	 * 
+	 * @param p PApplet used to draw the screen
+	 */
 	public void draw(PApplet p) {
 		p.textAlign(PApplet.CENTER);
 		p.textSize(60);
@@ -30,6 +47,11 @@ public class IntroScreen extends Screen {
 		start.draw(p);
 	}
 
+	/**
+	 * Determines the actions when the mouse is clicked
+	 * 
+	 * @param p PApplet used to draw
+	 */
 	public void mousePressed(PApplet p) {
 		if (start.isPointInButton(p.mouseX, p.mouseY)) {
 
@@ -46,7 +68,29 @@ public class IntroScreen extends Screen {
 			int[] xvals = { 1, 13, 13, 1 }, yvals = { 1, 13, 1, 13 };
 
 			for (int i = 0; i < numPlayers; i++) {
-				handler.getPlayers().add(new Player1(xvals[i], yvals[i], ScreenHandler.PLAYER_COLORS[i], i));
+				handler.getPlayers().add(new Player1(xvals[i], yvals[i], ScreenHandler.PLAYER_COLORS[i],
+						ScreenHandler.TILE_COLORS[i], i));
+				Player1 player = handler.getPlayers().get(i);
+
+				// adds Tile to player's territory
+				handler.getTiles()[xvals[i]][yvals[i]] = new Checkpoint(player.initX(), player.initY(),
+						player.getTerritory().size() * 10);
+
+				handler.getTiles()[xvals[i]][yvals[i]].setOwner(player);
+				handler.getPlayers().get(i).addTile(handler.getTiles()[xvals[i]][yvals[i]]);
+
+				for (int j = -1; j <= 1; j++) {
+					for (int k = -1; k <= 1; k++) {
+						int nx = xvals[i] + j;
+						int ny = yvals[i] + k;
+						if (inRange(nx, ny)) {
+							handler.getTiles()[nx][ny].uncover(player.getId());
+						}
+					}
+				}
+
+				handler.getTiles()[xvals[i]][yvals[i]].setMerchant(player.getMerchants().get(0));
+				player.getMerchants().get(0).setOwner(player);
 			}
 
 			handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
@@ -92,5 +136,16 @@ public class IntroScreen extends Screen {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Determines whether specified location is within the board
+	 * 
+	 * @param x coordinate of the location
+	 * @param y coordinate of the location
+	 * @return true if (x, y) is within the board, false otherwise
+	 */
+	private boolean inRange(int x, int y) {
+		return x >= 0 && x < handler.getTiles().length && y >= 0 && y < handler.getTiles()[0].length;
 	}
 }

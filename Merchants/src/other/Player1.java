@@ -10,7 +10,7 @@ import merchants.Merchant1;
 public class Player1 {
 	private ArrayList<Tile1> territory;
 	private ArrayList<Merchant1> merchants;
-	private Color color;
+	private Color merchantColor, tileColor;
 	
 	private int money;
 
@@ -21,28 +21,28 @@ public class Player1 {
 	 * 
 	 * @param x     the starting point's x-coordinate
 	 * @param y     the starting point's y-coordinate
-	 * @param color the player's color, to be used for marking all of its territory
-	 *              and merchants
+	 * @param mechantColor the merchant's color, to be used for marking all of its merchants
+	 * @param tileColor the tile's color, to be used for marking all of its tiles
+	 * @param index id of player
 	 */
-	public Player1(int x, int y, Color color, int index) {
+	public Player1(int x, int y, Color merchantColor, Color tileColor, int index) {
 		initX = x;
 		initY = y;
 		this.id = index;
 
-		money = 0;
-		this.color = color;
-
+		money = 100;
+		this.merchantColor = merchantColor;
+		this.tileColor = tileColor;
 		territory = new ArrayList<Tile1>();
 		merchants = new ArrayList<Merchant1>();
-		merchants.add(new Merchant1(initX, initY, color));
+		merchants.add(new Merchant1(initX, initY, merchantColor));
 	}
 
 	/**
 	 * Adds a regular Merchant at the player's starting tile.
 	 */
 	public void addMerchant() {
-		Merchant1 m = new Merchant1(initX, initY, color);
-		m.setColor(color);
+		Merchant1 m = new Merchant1(initX, initY, merchantColor);
 		merchants.add(m);
 	}
 
@@ -53,7 +53,7 @@ public class Player1 {
 	 * @param m the Merchant to be added, containing the location and type.
 	 */
 	public void addMerchant(Merchant1 m) {
-		m.setColor(color);
+		m.setColor(merchantColor);
 		merchants.add(m);
 	}
 
@@ -102,7 +102,11 @@ public class Player1 {
 		return initY;
 	}
 
-	public Color getColor() {
-		return color;
+	public Color getMerchantColor() {
+		return merchantColor;
+	}
+	
+	public Color getTileColor() {
+		return tileColor;
 	}
 }
