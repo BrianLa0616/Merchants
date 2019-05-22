@@ -23,12 +23,13 @@ public class Tile1 {
 	private boolean isSelected;
 	private Color color;
 	private Merchant1 merchant;
+	private boolean isPicked;
 
 	/**
-	 * Constructs a new tile at (x, y) 
+	 * Constructs a new tile at (x, y)
 	 * 
-	 * @param x coordinate of the tile
-	 * @param y coordinate of the tile
+	 * @param x    coordinate of the tile
+	 * @param y    coordinate of the tile
 	 * @param cost of the tile
 	 */
 	public Tile1(int x, int y, int cost) {
@@ -37,6 +38,7 @@ public class Tile1 {
 		this.cost = cost;
 		owner = null;
 		isSelected = false;
+		isPicked = false;
 
 		uncovered = new boolean[4];
 		for (int i = 0; i < 4; i++) {
@@ -47,7 +49,7 @@ public class Tile1 {
 	/**
 	 * Draws the tiles
 	 * 
-	 * @param p marker used to draw the tiles
+	 * @param p  marker used to draw the tiles
 	 * @param id of the tile
 	 */
 	public void draw(PApplet p, int id) {
@@ -55,6 +57,8 @@ public class Tile1 {
 		if (uncovered[id]) {
 			if (isSelected) {
 				p.fill(Color.yellow.getRGB());
+			} else if (isPicked) {
+				p.fill(225, 155, 255);
 			} else {
 				if (owner == null) {
 					p.noFill();
@@ -77,7 +81,8 @@ public class Tile1 {
 	/**
 	 * Returns characteristics of tile
 	 * 
-	 * @return str string informing the coordinates, cost, and who the tile is owned by
+	 * @return str string informing the coordinates, cost, and who the tile is owned
+	 *         by
 	 */
 	public String getCharacteristics() {
 		String str = "Coordinates:\n(" + x + ", " + y + ")\n";
@@ -161,7 +166,7 @@ public class Tile1 {
 	 * Whether or not the tile is uncovered for that player
 	 * 
 	 * @param player desired to check
-	 * @return whether or not tile is covered for the player 
+	 * @return whether or not tile is covered for the player
 	 */
 	public boolean isUncovered(int player) {
 		return uncovered[player];
@@ -201,13 +206,32 @@ public class Tile1 {
 	public void setSelected(boolean selected) {
 		isSelected = selected;
 	}
-	
+
 	/**
 	 * 
 	 * @return isSelected if the tile is chosen or not
 	 */
 	public boolean getSelected() {
 		return isSelected;
+	}
+
+	/**
+	 * picks/unpicks the tile for an auction
+	 * 
+	 * @param picked if this tile is currently picked for an auction by the current
+	 *               player
+	 */
+	public void setPicked(boolean picked) {
+		isPicked = picked;
+	}
+
+	/**
+	 * 
+	 * @return true if the tile is picked for auction by the current player,
+	 *         otherwise false.
+	 */
+	public boolean isPicked() {
+		return isPicked;
 	}
 
 }

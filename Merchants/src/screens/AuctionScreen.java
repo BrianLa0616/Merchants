@@ -41,8 +41,13 @@ public class AuctionScreen extends Screen {
 
 		proceed = new TextButton(Screen.DRAWING_WIDTH - 175, 25, 150, 75, Color.WHITE, Color.BLACK, "GET WINNER", 18);
 		for (int i = 0; i < auction.getBids().size(); i++) {
-			enterBid.add(new TextButton(500, 180 + 100 * i, 200, 75, Color.WHITE, Color.BLACK, "ENTER BID", 24));
-			withdraw.add(new TextButton(750, 180 + 100 * i, 200, 75, Color.WHITE, Color.BLACK, "WITHDRAW", 24));
+			if (auction.getBids().get(i).getPlayer().getBalance() >= auction.getTile().getCost()) {
+				enterBid.add(new TextButton(500, 180 + 100 * i, 200, 75, Color.WHITE, Color.BLACK, "ENTER BID", 24));
+				withdraw.add(new TextButton(750, 180 + 100 * i, 200, 75, Color.WHITE, Color.BLACK, "WITHDRAW", 24));
+			} else {
+				enterBid.add(null);
+				withdraw.add(null);
+			}
 		}
 	}
 
@@ -72,8 +77,16 @@ public class AuctionScreen extends Screen {
 		for (int i = 0; i < auction.getBids().size(); i++) {
 			p.text("Player " + (auction.getBids().get(i).getPlayer().getId() + 1) + ": "
 					+ auction.getBids().get(i).getAmount(), 50, 230 + 100 * i);
-			enterBid.get(i).draw(p);
-			withdraw.get(i).draw(p);
+
+			if (winner == -1) {
+				if (auction.getBids().get(i).getPlayer().getBalance() >= auction.getTile().getCost()) {
+					enterBid.get(i).draw(p);
+					withdraw.get(i).draw(p);
+				} else {
+					p.textSize(36);
+					p.text("Disqualified (not enough money).", 500, 235 + 100 * i);
+				}
+			}
 		}
 
 //		p.text("AUCTION\nFor: " + auctions.get(0).getTile().getCharacteristics(), Screen.DRAWING_WIDTH - 150, 200);		
@@ -88,17 +101,27 @@ public class AuctionScreen extends Screen {
 	 */
 	public void mousePressed(PApplet p) {
 		if (proceed.isPointInButton(p.mouseX, p.mouseY)) {
-			if (winner == -1 && auction.getBids().size() >= 1) {
+			ArrayList<Bid> processedBids = new ArrayList<Bid>();
+			for (int i = 0; i < auction.getBids().size(); i++) {
+				if (auction.getBids().get(i).getPlayer().getBalance() >= auction.getTile().getCost()) {
+					processedBids.add(auction.getBids().get(i));
+				}
+			}
+			
+			auction.setBids(processedBids);
+			
+			if (winner == -1 && processedBids.size() >= 1) {
 
-					Bid bid = auction.decideWinner();
-					for (int i = 0; i < auction.getBids().size(); i++) {
-						if (bid == auction.getBids().get(i)) {
-							winner = i;
-						}
+				Bid bid = auction.decideWinner();
+				for (int i = 0; i < processedBids.size(); i++) {
+					if (bid == processedBids.get(i)) {
+						winner = i;
 					}
-					handler.getPlayers().get(auction.getBids().get(winner).getPlayer().getId())
-							.addTile(auction.getTile());
-				
+				}
+
+				bid.getPlayer().addTile(auction.getTile());
+				bid.getPlayer().setBalance(bid.getPlayer().getBalance() - bid.getAmount());
+
 				proceed.setText("EXIT AUCTION");
 			} else {
 				handler.getBoard().getAuction().remove(0);
@@ -125,6 +148,13 @@ public class AuctionScreen extends Screen {
 							return;
 						}
 
+						if (bidAmount > auction.getBids().get(i).getPlayer().getBalance()) {
+							JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE",
+									JOptionPane.ERROR_MESSAGE);
+
+							return;
+						}
+
 						auction.getBids().get(i).setAmount(bidAmount);
 						return;
 					} else if (withdraw.get(i).isPointInButton(p.mouseX, p.mouseY)) {
@@ -133,7 +163,7 @@ public class AuctionScreen extends Screen {
 						if (choice == 0) {
 							auction.getBids().remove(i);
 						}
-						
+
 						if (auction.getBids().size() == 0) {
 							proceed.setText("EXIT AUCTION");
 						}
