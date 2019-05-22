@@ -44,6 +44,7 @@ public class Player {
 	public void addMerchant() {
 		Merchant m = new Merchant(initX, initY, merchantColor);
 		merchants.add(m);
+		territory.get(0).setMerchant(m);
 	}
 
 	/**

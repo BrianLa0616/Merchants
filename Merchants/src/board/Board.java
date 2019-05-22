@@ -58,9 +58,11 @@ public class Board extends Screen {
 
 		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 275, 150, 75, Color.WHITE, Color.BLACK,
 				"UPGRADE \nMERCHANT", 18);
-		createCheckpoint = new TextButton(Screen.DRAWING_WIDTH - 175, 150, 150, 75, Color.WHITE, Color.BLACK, "CREATE MERCHANT", 18);
+		createCheckpoint = new TextButton(Screen.DRAWING_WIDTH - 175, 150, 150, 75, Color.WHITE, Color.BLACK,
+				"CREATE MERCHANT", 18);
 		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 150, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
-		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, 25, 150, 75, Color.WHITE, Color.BLACK, "END\nTURN", 18);
+		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, Screen.DRAWING_HEIGHT - 125, 150, 75, Color.WHITE,
+				Color.BLACK, "END\nTURN", 18);
 	}
 
 	/**
@@ -99,13 +101,13 @@ public class Board extends Screen {
 			String display = "Merchant: ";
 			display += "\nMoves left: " + selectedM.getMovesLeft();
 			display += "\nLevel " + selectedM.getLevel();
-			
+
 			upgradeM.draw(p);
 
 			p.text(display, Screen.DRAWING_WIDTH - 150, 400);
 
 		} else if (selectedT != null) {
-			
+
 			if (selectedT instanceof Checkpoint == false) {
 				createCheckpoint.draw(p);
 			} else if (selectedT.getX() == player.initX() && selectedT.getY() == player.initY()) {
@@ -128,6 +130,23 @@ public class Board extends Screen {
 	 * @param p PApplet used to draw
 	 */
 	public void mousePressed(PApplet p) {
+		if (buyM.isPointInButton(p.mouseX, p.mouseY)) {
+			int count = 0;
+			for (int i = 0; i < player.getMerchants().size(); i++) {
+				if (player.getMerchants().get(i).getX() == player.initX()
+						&& player.getMerchants().get(i).getY() == player.initY()) {
+					count++;
+					break;
+				}
+			}
+			if (count == 0) {
+				if (player.getBalance() >= 20) {
+					player.setBalance(player.getBalance() - 20);
+					player.addMerchant();
+				}
+			}
+		}
+
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) { // end turn
 			if (player.getId() + 1 == handler.getPlayers().size()) { // auction
 				if (auctions.size() == 0) {

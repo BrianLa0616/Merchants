@@ -15,8 +15,8 @@ public class InvisibleMerchant extends Merchant {
 	private int x, y;
 	private int level;
 
-	private int price, price2, price3, price4, price5;
-	
+	private int price[] = { 20, 25, 30, 35, 45 };
+
 	private boolean visible;
 
 	/**
@@ -30,12 +30,6 @@ public class InvisibleMerchant extends Merchant {
 		super(x, y, c);
 		level = 1;
 		visible = false;
-		
-		price = 20;
-		price2 = 25;
-		price3 = 30;
-		price4 = 35;
-		price5 = 45;
 	}
 
 	/**
@@ -71,7 +65,8 @@ public class InvisibleMerchant extends Merchant {
 	 */
 	public void invisible(Player p, Tile t) {
 		if (x == t.getX() && y == t.getY()) {
-			if (p.getTileColor() != t.getColor()) {
+
+			if (p.getTileColor().equals(t.getColor())) {
 				if (level == 1) {
 					setVisible(p);
 					visible = true;
@@ -107,39 +102,39 @@ public class InvisibleMerchant extends Merchant {
 	 * @return cost of an Invisible Merchant
 	 */
 	public int getPrice() {
-		return price;
+		return price[0];
 	}
-	
+
 	/**
 	 * 
 	 * @return price of a level 2 Invisible Merchant
 	 */
 	public int getPrice2() {
-		return price2;
+		return price[1];
 	}
-	
+
 	/**
 	 * 
 	 * @return price of a level 3 Invisible Merchant
 	 */
 	public int getPrice3() {
-		return price3;
+		return price[2];
 	}
-	
+
 	/**
 	 * 
 	 * @return price of a level 4 Invisible Merchant
 	 */
 	public int getPrice4() {
-		return price4;
+		return price[3];
 	}
-	
+
 	/**
 	 * 
 	 * @return price of a level 5 Invisible Merchant
 	 */
 	public int getPrice5() {
-		return price5;
+		return price[4];
 	}
 
 }

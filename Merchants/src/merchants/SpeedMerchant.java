@@ -12,7 +12,7 @@ public class SpeedMerchant extends Merchant {
 	private int x, y;
 	private int level;
 
-	private int price, price2, price3, price4, price5;
+	private int price[] = { 20, 30, 35, 40, 45 };
 
 	/**
 	 * Constructs a new Speed Merchant at (x, y) with Color c
@@ -24,12 +24,6 @@ public class SpeedMerchant extends Merchant {
 	public SpeedMerchant(int x, int y, Color c) {
 		super(x, y, c);
 		level = 1;
-
-		price = 20;
-		price2 = 30;
-		price3 = 35;
-		price4 = 40;
-		price5 = 45;
 	}
 
 	/**
@@ -51,7 +45,7 @@ public class SpeedMerchant extends Merchant {
 	 * @return price of a Speed Merchant
 	 */
 	public int getPrice() {
-		return price;
+		return price[0];
 	}
 
 	/**
@@ -59,7 +53,7 @@ public class SpeedMerchant extends Merchant {
 	 * @return price of a level 2 Speed Merchant
 	 */
 	public int getPrice2() {
-		return price2;
+		return price[1];
 	}
 
 	/**
@@ -67,7 +61,7 @@ public class SpeedMerchant extends Merchant {
 	 * @return price of a level 3 Speed Merchant
 	 */
 	public int getPrice3() {
-		return price3;
+		return price[2];
 	}
 
 	/**
@@ -75,7 +69,7 @@ public class SpeedMerchant extends Merchant {
 	 * @return price of a level 4 Speed Merchant
 	 */
 	public int getPrice4() {
-		return price4;
+		return price[3];
 	}
 
 	/**
@@ -83,7 +77,7 @@ public class SpeedMerchant extends Merchant {
 	 * @return price of a level 5 Speed Merchant
 	 */
 	public int getPrice5() {
-		return price5;
+		return price[4];
 	}
 
 }

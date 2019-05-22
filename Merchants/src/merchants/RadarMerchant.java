@@ -2,6 +2,10 @@ package merchants;
 
 import java.awt.Color;
 
+import board.Board;
+import board.Tile;
+import other.Player;
+
 /**
  * Represents a Radar Merchant
  * 
@@ -12,7 +16,7 @@ public class RadarMerchant extends Merchant {
 	private int x, y;
 	private int level;
 
-	private int price, price2, price3, price4, price5;
+	private int price[] = { 20, 35, 45, 60, 75 };
 
 	private int[] nx = { 0, 1, 1, 1, 0, -1, -1, -1 };
 	private int[] ny = { -1, -1, 0, 1, 1, 1, 0, -1 };
@@ -33,12 +37,6 @@ public class RadarMerchant extends Merchant {
 	public RadarMerchant(int x, int y, Color c) {
 		super(x, y, c);
 		level = 1;
-
-		price = 20;
-		price2 = 35;
-		price3 = 45;
-		price4 = 60;
-		price5 = 75;
 	}
 
 	/**
@@ -57,12 +55,6 @@ public class RadarMerchant extends Merchant {
 				}
 			}
 		} else if (level == 3) {
-			for (int i = 0; i < nx.length; i++) {
-				for (int j = 0; j < ny.length; j++) {
-					getB().uncover(nx[i], ny[j]);
-					getT().uncover(getP().getId());
-				}
-			}
 			for (int i = 0; i < nx3.length; i++) {
 				for (int j = 0; j < ny3.length; j++) {
 					getB().uncover(nx3[i], ny3[j]);
@@ -71,41 +63,11 @@ public class RadarMerchant extends Merchant {
 			}
 
 		} else if (level == 4) {
-			for (int i = 0; i < nx.length; i++) {
-				for (int j = 0; j < ny.length; j++) {
-					getB().uncover(nx[i], ny[j]);
-					getT().uncover(getP().getId());
-				}
-			}
-			for (int i = 0; i < nx3.length; i++) {
-				for (int j = 0; j < ny3.length; j++) {
-					getB().uncover(nx3[i], ny3[j]);
-					getT().uncover(getP().getId());
-				}
-			}
 			for (int i = 0; i < nx4.length; i++) {
 				for (int j = 0; j < ny4.length; j++) {
 					getB().uncover(nx4[i], ny4[j]);
 					getT().uncover(getP().getId());
 				}
-			}
-		}
-		for (int i = 0; i < nx.length; i++) {
-			for (int j = 0; j < ny.length; j++) {
-				getB().uncover(nx[i], ny[j]);
-				getT().uncover(getP().getId());
-			}
-		}
-		for (int i = 0; i < nx3.length; i++) {
-			for (int j = 0; j < ny3.length; j++) {
-				getB().uncover(nx3[i], ny3[j]);
-				getT().uncover(getP().getId());
-			}
-		}
-		for (int i = 0; i < nx4.length; i++) {
-			for (int j = 0; j < ny4.length; j++) {
-				getB().uncover(nx4[i], ny4[j]);
-				getT().uncover(getP().getId());
 			}
 		}
 
@@ -123,7 +85,7 @@ public class RadarMerchant extends Merchant {
 	 * @return price of a Radar Merchant
 	 */
 	public int getPrice() {
-		return price;
+		return price[0];
 	}
 
 	/**
@@ -131,7 +93,7 @@ public class RadarMerchant extends Merchant {
 	 * @return price of a level 2 Radar Merchant
 	 */
 	public int getPrice2() {
-		return price2;
+		return price[1];
 	}
 
 	/**
@@ -139,7 +101,7 @@ public class RadarMerchant extends Merchant {
 	 * @return price of a level 3 Radar Merchant
 	 */
 	public int getPrice3() {
-		return price3;
+		return price[2];
 	}
 
 	/**
@@ -147,7 +109,7 @@ public class RadarMerchant extends Merchant {
 	 * @return price of a level 4 Radar Merchant
 	 */
 	public int getPrice4() {
-		return price4;
+		return price[3];
 	}
 
 	/**
@@ -155,7 +117,7 @@ public class RadarMerchant extends Merchant {
 	 * @return price of a level 5 Radar Merchant
 	 */
 	public int getPrice5() {
-		return price5;
+		return price[4];
 	}
 
 }
