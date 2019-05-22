@@ -42,7 +42,7 @@ public class Merchant {
 		numMovesInEnemyLand = 0;
 		level = 0;
 		price = 20;
-		
+
 		b = null;
 		p = null;
 		t = null;
@@ -140,6 +140,10 @@ public class Merchant {
 		totalMoves = speed;
 	}
 
+	public void setNumMoves(int numMoves) {
+		this.numMoves = numMoves;
+	}
+
 	/**
 	 * 
 	 * @return true if merchant can move more this turn. False otherwise
@@ -228,7 +232,7 @@ public class Merchant {
 	public Player getP() {
 		return p;
 	}
-	
+
 	/**
 	 * 
 	 * @return level of merchant
@@ -253,6 +257,5 @@ public class Merchant {
 	public int getPrice() {
 		return price;
 	}
-	
-	
+
 }
