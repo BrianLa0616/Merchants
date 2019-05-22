@@ -137,10 +137,7 @@ public class Board1 extends Screen {
 
 					if (selectedT.getMerchant() != null) { // if merchant is selected
 						selectedM = selectedT.getMerchant();
-						if() {	//finish
-						if(selectedM.getLevel() < 5) {
-							if(player.getMoney() > selectedM.ge)
-						}
+					//TODO Ansen
 						}
 						if (selectedM.getOwner() == player && selectedM.movable()) {
 							switchHighlight(mx, my, true);
