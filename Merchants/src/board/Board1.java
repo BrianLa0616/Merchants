@@ -54,10 +54,6 @@ public class Board1 extends Screen {
 				tiles[i][j] = new Tile1(i, j, 15 + (int) (Math.random() * 10));
 			}
 		}
-		if (selectedT.getMerchant() != null) {
-			upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 75, 150, 75, Color.WHITE, Color.BLACK,
-					"UPGRADE \nMERCHANT", 18);
-		}
 
 		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 50, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
 		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, 25, 150, 75, Color.WHITE, Color.BLACK, "END\nTURN", 18);
@@ -137,8 +133,6 @@ public class Board1 extends Screen {
 
 					if (selectedT.getMerchant() != null) { // if merchant is selected
 						selectedM = selectedT.getMerchant();
-					//TODO Ansen
-						}
 						if (selectedM.getOwner() == player && selectedM.movable()) {
 							switchHighlight(mx, my, true);
 						}
@@ -224,7 +218,6 @@ public class Board1 extends Screen {
 					}
 
 				}
-
 			} else {
 				if (selectedT != null) {
 					tiles[selectedT.getX()][selectedT.getY()].setSelected(false);
@@ -237,6 +230,7 @@ public class Board1 extends Screen {
 
 			}
 		}
+
 	}
 
 	public void mouseMoved(PApplet p) {

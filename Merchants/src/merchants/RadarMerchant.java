@@ -16,7 +16,7 @@ import other.Player1;
 public class RadarMerchant extends Merchant1 {
 	private int x, y;
 	private int level;
-	
+
 	private int price, price2, price3, price4, price5;
 
 	private int[] nx = { 0, 1, 1, 1, 0, -1, -1, -1 };
@@ -38,14 +38,13 @@ public class RadarMerchant extends Merchant1 {
 	public RadarMerchant(int x, int y, Color c) {
 		super(x, y, c);
 		level = 1;
-		
+
 		price = 20;
 		price2 = 35;
 		price3 = 45;
 		price4 = 60;
 		price5 = 75;
 	}
-
 
 	/**
 	 * Ability of an Radar Merchant to reveal more tiles around them than an average
@@ -123,7 +122,7 @@ public class RadarMerchant extends Merchant1 {
 		}
 
 	}
-	
+
 	/**
 	 * 
 	 * @return price of a Radar Merchant
@@ -131,7 +130,7 @@ public class RadarMerchant extends Merchant1 {
 	public int getPrice() {
 		return price;
 	}
-	
+
 	/**
 	 * 
 	 * @return price of a level 2 Radar Merchant
@@ -139,7 +138,7 @@ public class RadarMerchant extends Merchant1 {
 	public int getPrice2() {
 		return price2;
 	}
-	
+
 	/**
 	 * 
 	 * @return price of a level 3 Radar Merchant
@@ -147,7 +146,7 @@ public class RadarMerchant extends Merchant1 {
 	public int getPrice3() {
 		return price3;
 	}
-	
+
 	/**
 	 * 
 	 * @return price of a level 4 Radar Merchant
@@ -155,7 +154,7 @@ public class RadarMerchant extends Merchant1 {
 	public int getPrice4() {
 		return price4;
 	}
-	
+
 	/**
 	 * 
 	 * @return price of a level 5 Radar Merchant
