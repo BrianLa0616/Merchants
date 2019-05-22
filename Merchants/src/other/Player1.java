@@ -4,33 +4,33 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import board.Tile1;
-import merchants.Merchant;
 import merchants.Merchant1;
 
 public class Player1 {
 	private ArrayList<Tile1> territory;
 	private ArrayList<Merchant1> merchants;
 	private Color merchantColor, tileColor;
-	
-	private int money;
+
+	private int balance;
 
 	private int initX, initY, id;
 
 	/**
 	 * Creates a new Player with the following characteristics:
 	 * 
-	 * @param x     the starting point's x-coordinate
-	 * @param y     the starting point's y-coordinate
-	 * @param mechantColor the merchant's color, to be used for marking all of its merchants
-	 * @param tileColor the tile's color, to be used for marking all of its tiles
-	 * @param index id of player
+	 * @param x            the starting point's x-coordinate
+	 * @param y            the starting point's y-coordinate
+	 * @param mechantColor the merchant's color, to be used for marking all of its
+	 *                     merchants
+	 * @param tileColor    the tile's color, to be used for marking all of its tiles
+	 * @param index        id of player
 	 */
 	public Player1(int x, int y, Color merchantColor, Color tileColor, int index) {
 		initX = x;
 		initY = y;
 		this.id = index;
 
-		money = 100;
+		balance = 100;
 		this.merchantColor = merchantColor;
 		this.tileColor = tileColor;
 		territory = new ArrayList<Tile1>();
@@ -74,14 +74,14 @@ public class Player1 {
 
 	/* ----------ACCESSORS---------- */
 
-	public void setMoney(int x) {
-		money = x;
+	public void setBalance(int x) {
+		balance = x;
 	}
-	
-	public int getMoney() {
-		return money;
+
+	public int getBalance() {
+		return balance;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -105,7 +105,7 @@ public class Player1 {
 	public Color getMerchantColor() {
 		return merchantColor;
 	}
-	
+
 	public Color getTileColor() {
 		return tileColor;
 	}

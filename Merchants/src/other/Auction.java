@@ -22,7 +22,6 @@ public class Auction {
 		}
 		bids.add(bid);
 	}
-	
 
 	public Bid decideWinner() {
 		int max = 0;
@@ -51,5 +50,9 @@ public class Auction {
 
 	public ArrayList<Bid> getBids() {
 		return bids;
+	}
+
+	public void setBids(ArrayList<Bid> bids) {
+		this.bids = bids;
 	}
 }
