@@ -17,6 +17,8 @@ public class Merchant1 {
 
 	private int x, y, totalMoves, numMoves;
 	private int numMovesInEnemyLand;
+	private int level;
+	private int price;
 
 	private Color color;
 	private Board1 b;
@@ -38,7 +40,9 @@ public class Merchant1 {
 		totalMoves = 2;
 		numMoves = 0;
 		numMovesInEnemyLand = 0;
-
+		level = 0;
+		price = 20;
+		
 		b = null;
 		p = null;
 		t = null;
@@ -201,15 +205,54 @@ public class Merchant1 {
 		return numMovesInEnemyLand;
 	}
 
+	/**
+	 * 
+	 * @return b board
+	 */
 	public Board1 getB() {
 		return b;
 	}
 
+	/**
+	 * 
+	 * @return t tile
+	 */
 	public Tile1 getT() {
 		return t;
 	}
 
+	/**
+	 * 
+	 * @return p player
+	 */
 	public Player1 getP() {
 		return p;
 	}
+	
+	/**
+	 * 
+	 * @return level of merchant
+	 */
+	public int getLevel() {
+		return level;
+	}
+
+	/**
+	 * Sets the level of the merchant
+	 * 
+	 * @param level desired of merchant
+	 */
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	/**
+	 * 
+	 * @return price of a regular merchant
+	 */
+	public int getPrice() {
+		return price;
+	}
+	
+	
 }
