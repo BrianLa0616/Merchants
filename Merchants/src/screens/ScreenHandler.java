@@ -3,10 +3,10 @@ package screens;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import board.Board1;
-import board.Tile1;
+import board.Board;
+import board.Tile;
 import other.Auction;
-import other.Player1;
+import other.Player;
 import processing.core.PApplet;
 
 /**
@@ -22,10 +22,10 @@ public class ScreenHandler extends PApplet {
 			new Color(50, 255, 50) };
 
 	private Screen currScreen;
-	private ArrayList<Player1> players;
+	private ArrayList<Player> players;
 	
 	int currPlayer;
-	private Board1 board;
+	private Board board;
 
 	/**
 	 * Creates a new ScreenHandler with the current screen as the start menu screen,
@@ -33,10 +33,10 @@ public class ScreenHandler extends PApplet {
 	 */
 	public ScreenHandler() {
 		currScreen = new IntroScreen(this);
-		players = new ArrayList<Player1>();
+		players = new ArrayList<Player>();
 
 		currPlayer = 0;
-		board = new Board1(this);
+		board = new Board(this);
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class ScreenHandler extends PApplet {
 	 * 
 	 * @return players
 	 */
-	public ArrayList<Player1> getPlayers() {
+	public ArrayList<Player> getPlayers() {
 		return players;
 	}
 
@@ -68,7 +68,7 @@ public class ScreenHandler extends PApplet {
 	 * 
 	 * @return board
 	 */
-	public Board1 getBoard() {
+	public Board getBoard() {
 		return board;
 	}
 

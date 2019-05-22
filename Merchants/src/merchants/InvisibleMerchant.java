@@ -11,7 +11,7 @@ import processing.core.PApplet;
  * 
  * @author Ansen
  */
-public class InvisibleMerchant extends Merchant1 {
+public class InvisibleMerchant extends Merchant {
 	private int x, y;
 	private int level;
 
@@ -57,7 +57,7 @@ public class InvisibleMerchant extends Merchant1 {
 	 * @param p Player that owns the Invisible Merchant
 	 */
 	public void setVisible(Player p) {
-		setColor(p.getColor());
+		setColor(p.getMerchantColor());
 		visible = true;
 	}
 
@@ -71,7 +71,7 @@ public class InvisibleMerchant extends Merchant1 {
 	 */
 	public void invisible(Player p, Tile t) {
 		if (x == t.getX() && y == t.getY()) {
-			if (p.getR() != t.getR() || p.getG() != t.getG() || p.getB() != t.getB()) {
+			if (p.getTileColor() != t.getColor()) {
 				if (level == 1) {
 					setVisible(p);
 					visible = true;

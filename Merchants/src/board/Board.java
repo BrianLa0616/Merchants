@@ -7,522 +7,379 @@ import javax.swing.JOptionPane;
 
 import buttons.TextButton;
 import merchants.Merchant;
-import merchants.SpeedMerchant;
+import other.Auction;
+import other.Bid;
 import other.Player;
 import processing.core.PApplet;
+import processing.core.PConstants;
+import screens.AuctionScreen;
+import screens.Screen;
+import screens.ScreenHandler;
+import screens.TransScreen;
 
 /**
+ * Represents the game board
  * 
  * @author Brian
  *
- *         Represents the game board on which everything happens
- *
  */
-public class Board extends PApplet {
+public class Board extends Screen {
+	private Player player;
+	private ScreenHandler handler;
+	private ArrayList<Auction> auctions;
+	private Tile[][] tiles;
+	private Tile selectedT;
+	private Merchant selectedM;
 
-	private static final int menuPage = 1, rulePage = 2, rulePage2 = 3, boardPage = 4, transPage = 5, aucPage = 6,
-			endPage = 7;
-	private final Color[] playerColors = { new Color(200, 0, 0), new Color(0, 0, 200), new Color(200, 200, 50),
-			new Color(50, 255, 50) };
-	private final Color[] tileColors = { new Color(255, 50, 50), new Color(50, 50, 255), new Color(255, 255, 0),
-			new Color(50, 255, 50) };
-
-	private int stage;
-
-	private TextButton back, next, rule, surrender;
-	private Merchant selected;
-
-	private ArrayList<Tile> auctionTiles;
-	private ArrayList<TextButton> enterBid, withdrawAuction;
-
-	// Game fields
-	private ArrayList<Player> players = new ArrayList<Player>();
-	private int numPlayers, numTurns, curPlayer;
-	private Tile[][] tiles = new Tile[15][15];
+	private TextButton upgradeM;
+	private TextButton buyM;
+	private TextButton endTurn;
+	private TextButton createCheckpoint;
 
 	/**
-	 * Initiates buttons and menu
+	 * Creates a new board
+	 * 
+	 * @param board
 	 */
-	public Board() {
-		stage = menuPage;
+	public Board(ScreenHandler board) {
+		super(board);
+		this.handler = board;
+		player = null;
+		selectedT = null;
+		selectedM = null;
 
-		back = new TextButton(25, 400, 50, 50, Color.BLACK, Color.WHITE, "BACK", 18);
-		next = new TextButton(150, 150, 200, 75, Color.WHITE, new Color(0, 180, 255), "NEXT", 18);
-		rule = new TextButton(150, 250, 200, 75, Color.WHITE, new Color(0, 180, 255), "RULE", 18);
-		surrender = new TextButton(960, 300, 100, 75, Color.WHITE, new Color(0, 180, 255), "SURRENDER", 18);
-
-		selected = null;
-		curPlayer = 0;
-
-		for (int i = 0; i < tiles.length; i++) {
-			for (int j = 0; j < tiles[0].length; j++) {
-				tiles[i][j] = new Tile(i, j, (int) (Math.random() * 10) + 10);
+		auctions = new ArrayList<Auction>();
+		tiles = new Tile[15][15];
+		for (int i = 0; i < 15; i++) {
+			for (int j = 0; j < 15; j++) {
+				tiles[i][j] = new Tile(i, j, 15 + (int) (Math.random() * 10));
 			}
 		}
-		auctionTiles = new ArrayList<Tile>();
-		enterBid = new ArrayList<TextButton>();
-		withdrawAuction = new ArrayList<TextButton>();
 
+		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 275, 150, 75, Color.WHITE, Color.BLACK,
+				"UPGRADE \nMERCHANT", 18);
+		createCheckpoint = new TextButton(Screen.DRAWING_WIDTH - 175, 150, 150, 75, Color.WHITE, Color.BLACK, "CREATE MERCHANT", 18);
+		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 150, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
+		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, 25, 150, 75, Color.WHITE, Color.BLACK, "END\nTURN", 18);
+	}
+
+	/**
+	 * Sets the player within the board
+	 * 
+	 * @param player desired to set
+	 */
+	public void setPlayer(Player player) {
+		this.player = player;
+		refresh();
+	}
+
+	public void setup(PApplet p) {
+		// nothing
 	}
 
 	/**
 	 * Draws the board
+	 * 
+	 * @param p PApplet used to draw
 	 */
-	public void draw() {
-		background(255);
-		if (stage == menuPage) {
-			next.draw(this);
-			rule.draw(this);
-		} else if (stage == rulePage) {
-			back.draw(this);
-		} else if (stage == rulePage2) {
-			back.draw(this);
-		} else if (stage == boardPage) {
-			next.draw(this);
-			rule.draw(this);
-			surrender.draw(this);
-			noFill();
+	public void draw(PApplet p) {
+		p.fill(0);
+		p.textSize(14);
+		p.textAlign(PApplet.LEFT);
 
-			// extra stuff
-			if (surrender.isPointInButton(mouseX, mouseY)) {
-
-
-				String output;
-				output = JOptionPane.showInputDialog("Type in 'YES' to Confirm Surrender ");
-
-				if (output.equals("YES")) {
-					players.remove(curPlayer);
-				}
+		for (Tile[] ts : tiles) {
+			for (Tile t : ts) {
+				t.draw(p, player.getId());
 			}
-
-			for (int i = 0; i < tiles.length; i++) {
-				for (int j = 0; j < tiles[0].length; j++) {
-					tiles[i][j].draw(this);
-				}
-			}
-
-			for (Player p : players) {
-				for (Tile t : p.getTerritory()) {
-					t.setFill(tileColors[players.indexOf(p)]);
-					t.setCover(false);
-				}
-				for (Merchant m : p.getMerchants()) {
-					m.draw(this);
-				}
-			}
-
-			for (Tile[] ts : tiles) {
-				for (Tile t : ts) {
-//					if ()
-				}
-			}
-
-			if (selected != null) {
-				int[] dx = { 1, -1, 0, 0 };
-				int[] dy = { 0, 0, -1, 1 };
-				for (int i = 0; i < 4; i++) {
-					int nx = selected.getX() + dx[i];
-					int ny = selected.getY() + dy[i];
-					if (inRange(nx, ny)) {
-						tiles[nx][ny].setSelected(true);
-					}
-				}
-
-//				if (players.get(curPlayer).getMerchants().contains(selected))
-//				highlight(selected);
-				selected.draw(this);
-			}
-
-		} else if (stage == transPage) {
-			next.draw(this);
-			textSize(50);
-			fill(0);
-
-			text("Player " + (curPlayer + 1) + " turn: " + players.get(curPlayer).getName(), 50, 50);
-		} else if (stage == aucPage) {
-
-			textSize(50);
-			fill(0);
-
-			text("AUCTION", 50, 50);
-			Tile auctionTile = auctionTiles.get(0);
-			text("Starting price: " + auctionTile.getCost(), 50, 750);
-			for (int i = 0; i < auctionTile.getAuctioners().size(); i++) {
-				enterBid.get(i).draw(this);
-				withdrawAuction.get(i).draw(this);
-			}
-			for (int i = 0; i < auctionTile.getAuctioners().size(); i++) {
-				Player p = players.get(auctionTile.getAuctioners().get(i).getId());
-				text(p.getName() + "'s bid: " + p.getAuctionPrice(), 50, 200 + 100 * i);
-			}
-
-			String input;
-
-			/*
-			for (int i = 0; i < t.getAuctioners().size(); i++) {
-				changeAuctionPrice[i] = new TextButton(125, 100 * i, 50, 50, Color.BLACK, Color.WHITE, "BID", 18);
-				do {
-					input = JOptionPane
-							.showInputDialog("Player " + players.get(i).getName() + "add money to the bid: ");
-					if (input == null || input.equals("")) {
-						continue;
-					}
-				} while (!validIntegerInput(input));
-				int playerBid = Integer.parseInt(input);
-
-				if (withdraw.isPointInButton(mouseX, mouseY)) {
-					t.getAuctioners().remove(i);
-				}
-
-			}
-			*/
-
-			next.draw(this);
-
-		} else if (stage == endPage) {
-			// show winner
-			text("THANKS FOR PLAYING!!", 50, 50);
 		}
+
+		p.fill(0);
+
+		if (selectedM != null) {
+			String display = "Merchant: ";
+			display += "\nMoves left: " + selectedM.getMovesLeft();
+			display += "\nLevel " + selectedM.getLevel();
+			
+			upgradeM.draw(p);
+
+			p.text(display, Screen.DRAWING_WIDTH - 150, 400);
+
+		} else if (selectedT != null) {
+			
+			if (selectedT instanceof Checkpoint == false) {
+				createCheckpoint.draw(p);
+			} else if (selectedT.getX() == player.initX() && selectedT.getY() == player.initY()) {
+				buyM.draw(p);
+			}
+			String display = selectedT.getCharacteristics();
+
+			p.text(display, Screen.DRAWING_WIDTH - 150, 400);
+		}
+
+		p.textSize(36);
+		p.text("Player " + (player.getId() + 1) + " (Balance: " + player.getBalance() + ")", 25,
+				Screen.DRAWING_HEIGHT - 75);
+		endTurn.draw(p);
 	}
 
 	/**
-	 * Checks for clicks and checks if it corresponds to a specific location
+	 * Determines actions taken after the mouse has been pressed
+	 * 
+	 * @param p PApplet used to draw
 	 */
-	public void mousePressed() {
-		if (stage == menuPage) {
-			if (next.isPointInButton(mouseX, mouseY)) {
-				String input;
-				do {
-					input = JOptionPane.showInputDialog("Enter number of players. 1-4 players");
-					if (input == null || input.equals("")) {
-					}
-				} while (!validIntegerInput(input)
-						|| !(input.compareTo("0") > 0 && input.compareTo("5") < 0 && input.length() == 1));
-				numPlayers = Integer.parseInt(input);
-
-				for (int i = 0; i < numPlayers; i++) {
-					input = JOptionPane.showInputDialog("Enter the name for player " + (i + 1));
-					if (input == null || input.equals("")) {
-						players.clear();
-						return;
-					}
-
-					int x, y;
-
-					do {
-						x = (int) (Math.random() * tiles.length);
-//						x = (int) (Math.random() * (tiles.length - 1)) + 1;
-						y = (int) (Math.random() * tiles[0].length);
-
-					} while (tiles[x][y].getMerchant() != null);
-//					players.add(new Player(i, 100, input, tileColors[i], new Merchant(x, y),
-//							new SpeedMerchant(x - 1, y, tileColors[i])));
-
-					players.add(new Player(i, 100, input, tileColors[i], new Merchant(x, y)));
-
-				}
-
-				do {
-					input = JOptionPane.showInputDialog("How many turns should the game last?");
-					if (input == null || input.equals("")) {
-						players.clear();
-						return;
-					}
-				} while (!validIntegerInput(input));
-
-				numTurns = Integer.parseInt(input);
-
-				// initiates players
-				for (int i = 0; i < players.size(); i++) {
-					int x = players.get(i).getMerchants().get(0).getX();
-					int y = players.get(i).getMerchants().get(0).getY();
-
-					tiles[x][y].setMerchant(players.get(i).getMerchants().get(0));
-					tiles[x][y].setOwner(i);
-					players.get(i).addTerritory(tiles[x][y]);
-
-					/*
-					 * tiles[x - 1][y].setMerchant(players.get(i).getMerchants().get(0)); tiles[x -
-					 * 1][y].setOwner(i); players.get(i).addTerritory(tiles[x - 1][y]);
-					 */
-				}
-
-				// buttons
-				next = new TextButton(1000, 100, 50, 50, Color.WHITE, new Color(0, 180, 255), "NEXT", 18);
-				rule = new TextButton(1000, 200, 50, 50, Color.WHITE, new Color(0, 180, 255), "RULE", 18);
-
-				stage = transPage;
-			} else if (rule.isPointInButton(mouseX, mouseY)) {
-				stage = rulePage;
-			}
-		} else if (stage == rulePage) {
-			if (back.isPointInButton(mouseX, mouseY)) {
-				stage = menuPage;
-			}
-		} else if (stage == rulePage2) {
-			if (back.isPointInButton(mouseX, mouseY)) {
-				stage = boardPage;
-			}
-		} else if (stage == boardPage) {
-			if (next.isPointInButton(mouseX, mouseY)) {
-				curPlayer++;
-				curPlayer %= numPlayers;
-				if (curPlayer == 0 && auctionTiles.size() != 0) {
-
-					// Sets up auctionButtons and withdraw buttons
-					for (int i = 0; i < auctionTiles.get(0).getAuctioners().size(); i++) {
-						enterBid.add(new TextButton(400, 200 + 100 * i, 100, 50, Color.WHITE, new Color(0, 180, 255),
-								"Enter Bid", 18));
-						withdrawAuction.add(new TextButton(600, 200 + 100 * i, 100, 50, Color.WHITE,
-								new Color(0, 180, 255), "Withdraw", 18));
-					}
-					
-
-					stage = aucPage;
+	public void mousePressed(PApplet p) {
+		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) { // end turn
+			if (player.getId() + 1 == handler.getPlayers().size()) { // auction
+				if (auctions.size() == 0) {
+					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
 				} else {
-					stage = transPage;
+					handler.proceed(new AuctionScreen(handler, auctions.get(0)));
 				}
-			} else if (rule.isPointInButton(mouseX, mouseY)) {
-				stage = rulePage2;
 			} else {
-				int mx = mouseX / Tile.TILE_SIZE;
-				int my = mouseY / Tile.TILE_SIZE;
-				if (inRange(mx, my)) {
+				handler.proceed(new TransScreen(handler, handler.getPlayers().get(player.getId() + 1)));
+			}
+		} else {
+			int mx = p.mouseY / Tile.TILE_SIZE, my = p.mouseX / Tile.TILE_SIZE;
 
-					for (int i = 0; i < players.size(); i++) {
-						if (tiles[players.get(i).getInitX()][players.get(i).getInitY()].getMerchant() == null
-								&& mx == players.get(i).getInitX() && my == players.get(i).getInitY()) {
-							int input = JOptionPane.showConfirmDialog(frame, "Would you like to buy a merchant?",
-									"Buy Merchant", JOptionPane.OK_CANCEL_OPTION, JOptionPane.OK_CANCEL_OPTION);
-							if (input == JOptionPane.OK_OPTION) {
-								Merchant newm = new Merchant(players.get(i).getInitX(), players.get(i).getInitY());
-								newm.setColor(playerColors[i]);
-								players.get(i).getMerchants().add(newm);
-							}
+			if (inRange(mx, my) && tiles[mx][my].isUncovered(player.getId())) {
+				if (selectedT == null) { // if nothing is selected
+					selectedT = tiles[mx][my];
+
+					if (selectedT.getMerchant() != null) { // if merchant is selected
+						selectedM = selectedT.getMerchant();
+						drawUM(p);
+						if (selectedM.getOwner() == player && selectedM.movable()) {
+							switchHighlight(mx, my, true);
 						}
-					}
-
-					if (selected == null) {
-						selected = tiles[mx][my].getMerchant();
-						if (selected == null) {
-							JOptionPane.showMessageDialog(null, tiles[mx][my].getCharacteristics());
-						}
-
 					} else {
-						if (Math.abs(mx - selected.getX()) + Math.abs(my - selected.getY()) <= 1) {
+						tiles[mx][my].setSelected(true);
+					}
+				} else if (selectedM != null) { // if merchant and tile are selected
 
-							// Check if moving or buying
-							if (tiles[mx][my].getMerchant() == null && mouseButton == LEFT) {
-								// Left click to move, right click to buy
-
-								tiles[mx][my].setMerchant(selected);
-								tiles[selected.getX()][selected.getY()].setMerchant(null);
-								deselect();
-
-								tiles[mx][my].getMerchant().setX(mx);
-								tiles[mx][my].getMerchant().setY(my);
-
-								// uncovers
-								for (int i = -1; i <= 1; i++) {
-									for (int j = -1; j <= 1; j++) {
-										int nx = mx + i;
-										int ny = my + j;
-										if (inRange(nx, ny)) {
-											tiles[nx][ny].setColor(null);
-										}
-									}
+					if (selectedT == tiles[mx][my]) { // if same tile pressed
+						if (p.mouseButton == PConstants.LEFT) {
+							selectedM = null;
+							tiles[mx][my].setSelected(true);
+							switchHighlight(mx, my, false);
+						} else {
+							if (!tiles[mx][my].isPicked()) {
+								if (player.getBalance() < tiles[mx][my].getCost()) {
+									JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE",
+											JOptionPane.ERROR_MESSAGE);
+									return;
 								}
 
-							} else if (mouseButton == RIGHT) {
-								deselect();
-								auctionTiles.add(tiles[mx][my]);
-								tiles[mx][my].addAuctioner(players.get(curPlayer));
+								Auction a = new Auction(tiles[mx][my]);
+								a.addBid(new Bid(player, tiles[mx][my].getCost()));
+								addAuction(a);
 
-								stage = aucPage;
+								JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
+										JOptionPane.INFORMATION_MESSAGE);
+								switchHighlight(selectedT.getX(), selectedT.getY(), false);
+								tiles[mx][my].setPicked(true);
+								selectedT = null;
+								selectedM = null;
+							} else {
+								JOptionPane.showMessageDialog(null, "Already entered auction", "AUCTION",
+										JOptionPane.INFORMATION_MESSAGE);
+								selectedT = null;
+								selectedM = null;
+							}
+						}
+					} else { // if different tile is pressed
+						if (Math.abs(mx - selectedT.getX()) + Math.abs(my - selectedT.getY()) == 1
+								&& p.mouseButton == PConstants.LEFT && tiles[mx][my].getMerchant() == null
+								&& selectedM.movable() && selectedM.getOwner() == player) { // moving
 
-							} else if (tiles[mx][my].getMerchant() == selected) {
-								JOptionPane.showMessageDialog(null, tiles[mx][my].getCharacteristics());
-								deselect();
+							switchHighlight(selectedM.getX(), selectedM.getY(), false);
+							selectedT.setMerchant(null);
+							tiles[mx][my].setMerchant(selectedM);
+							selectedM.setCoordinates(mx, my);
+							selectedM = null;
+							selectedT = null;
+
+							uncover(mx, my);
+						} else if (Math.abs(mx - selectedT.getX()) <= 1 && Math.abs(my - selectedT.getY()) <= 1
+								&& p.mouseButton == PConstants.RIGHT) { // auctioning
+							if (!tiles[mx][my].isPicked()) {
+								if (player.getBalance() < tiles[mx][my].getCost()) {
+									JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE",
+											JOptionPane.ERROR_MESSAGE);
+									return;
+								}
+
+								Auction a = new Auction(tiles[mx][my]);
+								a.addBid(new Bid(player, tiles[mx][my].getCost()));
+								addAuction(a);
+
+								JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
+										JOptionPane.INFORMATION_MESSAGE);
+								switchHighlight(selectedT.getX(), selectedT.getY(), false);
+								tiles[mx][my].setPicked(true);
+								selectedT = null;
+								selectedM = null;
+							} else {
+								JOptionPane.showMessageDialog(null, "Already entered auction", "AUCTION",
+										JOptionPane.INFORMATION_MESSAGE);
+
+								selectedT = null;
+								selectedM = null;
 							}
 						} else {
-							deselect();
+							switchHighlight(selectedT.getX(), selectedT.getY(), false);
+							selectedT = null;
+							selectedM = null;
 						}
+					}
 
+				} else if (selectedT != null) {
+					// if tile is only selected
+					if (selectedT == tiles[mx][my]) {
+						tiles[mx][my].setSelected(false);
+						selectedT = null;
+					} else {
+						selectedT.setSelected(false);
+						selectedT = tiles[mx][my];
+						if (selectedT.getMerchant() != null) {
+							selectedM = selectedT.getMerchant();
+							if (selectedM.movable() && selectedM.getOwner() == player) {
+								switchHighlight(mx, my, true);
+							}
+						} else {
+							selectedT.setSelected(true);
+						}
 					}
 
 				}
-			}
-		} else if (stage == transPage)
-
-		{
-			if (next.isPointInButton(mouseX, mouseY)) {
-				repaint();
-				stage = boardPage;
-			}
-
-		} else if (stage == aucPage) {
-			if (next.isPointInButton(mouseX, mouseY)) {
-
-				int winner = 0;
-				ArrayList<Player> auctioners = auctionTiles.get(0).getAuctioners();
-
-				/*
-				 * int max = -1; for (int i = 0; i < auctioners.size(); i++) { if
-				 * (auctioners.get(i).getAuctionPrice() > max) { winner =
-				 * auctioners.get(i).getId(); max = auctioners.get(i).getAuctionPrice(); } }
-				 */
-				winner = (int) (Math.random() * auctioners.size());
-
-				players.get(auctioners.get(winner).getId()).addTerritory(auctionTiles.get(0));
-				auctionTiles.get(0).setOwner(auctioners.get(winner).getId());
-				auctionTiles.remove(0);
-
-				if (auctionTiles.size() == 0) {
-					stage = transPage;
-				} else {
-					// Sets up auctionButtons and withdraw buttons
-					for (int i = 0; i < auctionTiles.get(0).getAuctioners().size(); i++) {
-						enterBid.add(new TextButton(400, 200 + 100 * i, 100, 50, Color.WHITE, new Color(0, 180, 255),
-								"Enter Bid", 18));
-						withdrawAuction.add(new TextButton(600, 200 + 100 * i, 100, 50, Color.WHITE,
-								new Color(0, 180, 255), "Withdraw", 18));
-					}
+			} else {
+				if (selectedT != null) {
+					tiles[selectedT.getX()][selectedT.getY()].setSelected(false);
 				}
-			}
-		} else if (stage == endPage) {
+				if (selectedM != null) {
+					switchHighlight(selectedM.getX(), selectedM.getY(), false);
+				}
+				selectedT = null;
+				selectedM = null;
 
+			}
 		}
+
+	}
+
+	public void mouseMoved(PApplet p) {
+
+	}
+
+	public void mouseDragged(PApplet p) {
+
+	}
+
+	public void mouseClicked(PApplet p) {
+
+	}
+
+	public void mouseReleased(PApplet p) {
+
+	}
+
+	public void keyPressed(PApplet p) {
+
+	}
+
+	public void keyReleased(PApplet p) {
+
 	}
 
 	/**
-	 * Checks if the entered number is valid
 	 * 
-	 * @param x entered value
-	 * @return true if the input was valid, false otherwise
+	 * @return tiles in the board
 	 */
-	private boolean validIntegerInput(String x) {
-		if (x.length() == 0)
-			return false;
-		for (int i = 0; i < x.length(); i++) {
-			if (!(x.charAt(i) >= '0' && x.charAt(i) <= '9')) {
-				return false;
-			}
-		}
-		return true;
+	public Tile[][] getTiles() {
+		return tiles;
 	}
 
 	/**
-	 * Checks if (x, y) is within the board
+	 * Adds a new auction
 	 * 
-	 * @param x coordinate of location
-	 * @param y coordinate of location
-	 * @return true if the specified location is within the board, false otherwise
+	 * @param a Auction desired to add
 	 */
+	public void addAuction(Auction a) {
+		for (int i = 0; i < auctions.size(); i++) {
+			if (a.getTile() == auctions.get(i).getTile()) {
+				auctions.get(i).addBid(a.getBids().get(0));
+				return;
+			}
+		}
+
+		auctions.add(a);
+	}
+
+	/**
+	 * 
+	 * @return auctions that are currently happening
+	 */
+	public ArrayList<Auction> getAuction() {
+		return auctions;
+	}
+
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}
 
+	private void drawUM(PApplet p) {
+		if (selectedM != null) {
+			upgradeM.draw(p);
+		}
+	}
+
+	private void switchHighlight(int x, int y, boolean state) {
+		int[] dx = { 0, 0, -1, 1 };
+		int[] dy = { 1, -1, 0, 0 };
+
+		for (int i = 0; i < 4; i++) {
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+			if (inRange(nx, ny)) {
+				tiles[nx][ny].setSelected(state);
+			}
+		}
+	}
+
 	/**
-	 * Deselects the merchant
+	 * Uncovers the specified area for the player
+	 * 
+	 * @param x coordinate of desired location
+	 * @param y coordinate of desired location
 	 */
-	private void deselect() {
+	public void uncover(int x, int y) {
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
-				int nx = selected.getX() + i;
-				int ny = selected.getY() + j;
-				if (inRange(nx, ny) && Math.abs(i) + Math.abs(j) < 2) {
-					tiles[nx][ny].setSelected(false);
+				int nx = x + i;
+				int ny = y + j;
+				if (inRange(nx, ny)) {
+					tiles[nx][ny].uncover(player.getId());
 				}
 			}
 		}
-
-//		unhighlight(selected);
-
-		selected = null;
 	}
 
-	/**
-	 * Covers the area that the player is unable to see with Dark Gray
-	 */
-	private void repaint() {
-
-		for (int i = 0; i < tiles.length; i++) {
-			for (int j = 0; j < tiles[0].length; j++) {
-				tiles[i][j].setFill(Color.DARK_GRAY);
-				tiles[i][j].setCover(true);
+	private void refresh() {
+		for (Tile[] ts : tiles) {
+			for (Tile t : ts) {
+				t.setPicked(false);
 			}
 		}
 
-		ArrayList<Tile> tiles = players.get(curPlayer).getTerritory();
-
-		for (int i = 0; i < tiles.size(); i++) {
-			for (int j = -1; j <= 1; j++) {
-				for (int k = -1; k <= 1; k++) {
-					int nx = tiles.get(i).getX() + j;
-					int ny = tiles.get(i).getY() + k;
-					if (inRange(nx, ny)) {
-						this.tiles[nx][ny].setFill(null);
-						this.tiles[nx][ny].setCover(false);
-					}
-				}
-			}
+		for (int i = 0; i < player.getMerchants().size(); i++) {
+			player.getMerchants().get(i).newTurn();
 		}
 
-		ArrayList<Merchant> merchants = players.get(curPlayer).getMerchants();
-		for (int i = 0; i < merchants.size(); i++) {
-			for (int j = -1; j <= 1; j++) {
-				for (int k = -1; k <= 1; k++) {
-					int nx = merchants.get(i).getX() + j;
-					int ny = merchants.get(i).getY() + k;
-					if (inRange(nx, ny)) {
-						this.tiles[nx][ny].setFill(null);
-						this.tiles[nx][ny].setCover(false);
-
-					}
-				}
-			}
+		double sum = 0;
+		for (Tile t : player.getTerritory()) {
+			sum += (double) t.getCost() * 0.4;
 		}
 
+		player.setBalance(player.getBalance() + (int) sum);
 	}
-
-//	private void highlight(Merchant m) {
-//		highlight(m.getX(), m.getY(), m.getSpeed());
-//	}
-//
-//	public void unhighlight(Merchant m) {
-//		unhighlight(m.getX(), m.getY(), m.getSpeed());
-//	}
-
-//	// yay recursion
-//	private void highlight(int x, int y, int steps) {
-//		if (steps > 0) {
-//			highlight(x, y, steps - 1);
-//			if (inRange(x - 1, y))
-//				highlight(x - 1, y, steps - 1);
-//			if (inRange(x + 1, y))
-//				highlight(x + 1, y, steps - 1);
-//			if (inRange(x, y - 1))
-//				highlight(x, y - 1, steps - 1);
-//			if (inRange(x, y + 1))
-//				highlight(x, y + 1, steps - 1);
-//		} else
-//			tiles[x][y].setFill(Color.YELLOW);
-//	}
-//
-//	// yay more recursion
-//	private void unhighlight(int x, int y, int steps) {
-//		if (steps > 0) {
-//			unhighlight(x, y, steps - 1);
-//			if (inRange(x - 1, y))
-//				unhighlight(x - 1, y, steps - 1);
-//			if (inRange(x + 1, y))
-//				unhighlight(x + 1, y, steps - 1);
-//			if (inRange(x, y - 1))
-//				unhighlight(x, y - 1, steps - 1);
-//			if (inRange(x, y + 1))
-//				unhighlight(x, y + 1, steps - 1);
-//		} else
-//			tiles[x][y].setFill(null);
-//	}
 
 }
