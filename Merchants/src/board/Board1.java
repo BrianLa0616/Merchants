@@ -34,6 +34,7 @@ public class Board1 extends Screen {
 	private TextButton upgradeM;
 	private TextButton buyM;
 	private TextButton endTurn;
+	private TextButton createCheckpoint;
 
 	/**
 	 * Creates a new board
@@ -54,8 +55,9 @@ public class Board1 extends Screen {
 				tiles[i][j] = new Tile1(i, j, 15 + (int) (Math.random() * 10));
 			}
 		}
-		
-		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 275, 150, 75, Color.WHITE, Color.BLACK, "UPGRADE \nMERCHANT", 18);
+
+		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 275, 150, 75, Color.WHITE, Color.BLACK,
+				"UPGRADE \nMERCHANT", 18);
 		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 150, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
 		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, 25, 150, 75, Color.WHITE, Color.BLACK, "END\nTURN", 18);
 	}
@@ -119,8 +121,8 @@ public class Board1 extends Screen {
 	 * @param p PApplet used to draw
 	 */
 	public void mousePressed(PApplet p) {
-		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) {
-			if (player.getId() + 1 == handler.getPlayers().size()) {
+		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) { // end turn
+			if (player.getId() + 1 == handler.getPlayers().size()) { // auction
 				if (auctions.size() == 0) {
 					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
 				} else {
@@ -316,9 +318,9 @@ public class Board1 extends Screen {
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}
-	
+
 	private void drawBM(PApplet p) {
-		if(selectedM != null) {
+		if (selectedM != null) {
 			upgradeM.draw(p);
 		}
 	}
