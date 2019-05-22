@@ -31,6 +31,8 @@ public class Board1 extends Screen {
 	private Tile1 selectedT;
 	private Merchant1 selectedM;
 
+	private TextButton upgradeM;
+	private TextButton buyM;
 	private TextButton endTurn;
 
 	/**
@@ -53,6 +55,7 @@ public class Board1 extends Screen {
 			}
 		}
 
+		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 50, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
 		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, 25, 150, 75, Color.WHITE, Color.BLACK, "END\nTURN", 18);
 	}
 
@@ -91,6 +94,7 @@ public class Board1 extends Screen {
 		if (selectedM != null) {
 			String display = "Merchant: ";
 			display += "\nMoves left: " + selectedM.getMovesLeft();
+			display += "\nLevel " + selectedM.getLevel();
 
 			p.text(display, Screen.DRAWING_WIDTH - 150, 200);
 
@@ -130,7 +134,7 @@ public class Board1 extends Screen {
 				if (selectedT == null) { // if nothing is selected
 					selectedT = tiles[mx][my];
 
-					if (selectedT.getMerchant() != null) {
+					if (selectedT.getMerchant() != null) { // if merchant is selected
 						selectedM = selectedT.getMerchant();
 						if (selectedM.getOwner() == player && selectedM.movable()) {
 							switchHighlight(mx, my, true);
@@ -219,7 +223,6 @@ public class Board1 extends Screen {
 					}
 
 				}
-
 			} else {
 				if (selectedT != null) {
 					tiles[selectedT.getX()][selectedT.getY()].setSelected(false);
@@ -232,6 +235,7 @@ public class Board1 extends Screen {
 
 			}
 		}
+
 	}
 
 	public void mouseMoved(PApplet p) {
@@ -290,19 +294,10 @@ public class Board1 extends Screen {
 		return auctions;
 	}
 
-	/*
-	 * Determines whether the specified location is within the board
-	 * 
-	 */
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}
 
-	/*
-	 * Highlights where the player can move within the board
-	 * 
-	 * 
-	 */
 	private void switchHighlight(int x, int y, boolean state) {
 		int[] dx = { 0, 0, -1, 1 };
 		int[] dy = { 1, -1, 0, 0 };
@@ -316,9 +311,11 @@ public class Board1 extends Screen {
 		}
 	}
 
-	/*
+	/**
 	 * Uncovers the specified area for the player
 	 * 
+	 * @param x coordinate of desired location
+	 * @param y coordinate of desired location
 	 */
 	public void uncover(int x, int y) {
 		for (int i = -1; i <= 1; i++) {

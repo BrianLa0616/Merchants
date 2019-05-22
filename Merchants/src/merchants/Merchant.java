@@ -19,10 +19,8 @@ public class Merchant {
 	private int x, y, speed;
 	private int level;
 	private int r, g, b;
-
+	private int cost;
 	private int numMovesInEnemyLand;
-
-	private Color color;
 
 	private Tile t;
 	private Player p;
@@ -295,5 +293,6 @@ public class Merchant {
 	protected int getNumMovesInEnemyLand() {
 		return numMovesInEnemyLand;
 	}
+	
 
 }

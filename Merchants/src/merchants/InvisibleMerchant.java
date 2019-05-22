@@ -12,8 +12,11 @@ import processing.core.PApplet;
  * @author Ansen
  */
 public class InvisibleMerchant extends Merchant1 {
-	private int x, y, price;
+	private int x, y;
 	private int level;
+
+	private int price, price2, price3, price4, price5;
+	
 	private boolean visible;
 
 	/**
@@ -27,6 +30,12 @@ public class InvisibleMerchant extends Merchant1 {
 		super(x, y, c);
 		level = 1;
 		visible = false;
+		
+		price = 20;
+		price2 = 25;
+		price3 = 30;
+		price4 = 35;
+		price5 = 45;
 	}
 
 	/**
@@ -100,4 +109,37 @@ public class InvisibleMerchant extends Merchant1 {
 	public int getPrice() {
 		return price;
 	}
+	
+	/**
+	 * 
+	 * @return price of a level 2 Invisible Merchant
+	 */
+	public int getPrice2() {
+		return price2;
+	}
+	
+	/**
+	 * 
+	 * @return price of a level 3 Invisible Merchant
+	 */
+	public int getPrice3() {
+		return price3;
+	}
+	
+	/**
+	 * 
+	 * @return price of a level 4 Invisible Merchant
+	 */
+	public int getPrice4() {
+		return price4;
+	}
+	
+	/**
+	 * 
+	 * @return price of a level 5 Invisible Merchant
+	 */
+	public int getPrice5() {
+		return price5;
+	}
+
 }
