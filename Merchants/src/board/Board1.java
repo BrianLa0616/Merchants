@@ -204,7 +204,7 @@ public class Board1 extends Screen {
 					// if tile is only selected
 					if (selectedT == tiles[mx][my]) {
 						tiles[mx][my].setSelected(false);
-						selectedT = null;
+						selectedT = null;    
 					} else {
 						selectedT.setSelected(false);
 						selectedT = tiles[mx][my];
