@@ -3,7 +3,7 @@ package screens;
 import java.awt.Color;
 
 import buttons.TextButton;
-import other.Player1;
+import other.Player;
 import processing.core.PApplet;
 
 /**
@@ -15,7 +15,7 @@ import processing.core.PApplet;
 public class TransScreen extends Screen {
 	private ScreenHandler handler;
 	private TextButton next;
-	private Player1 player;
+	private Player player;
 
 	/**
 	 * Creates a new transition screen
@@ -23,7 +23,7 @@ public class TransScreen extends Screen {
 	 * @param board
 	 * @param player currently on
 	 */
-	public TransScreen(ScreenHandler board, Player1 player) {
+	public TransScreen(ScreenHandler board, Player player) {
 		super(board);
 		this.player = player;
 		next = new TextButton(450, 500, 200, 75, Color.WHITE, Color.BLACK, "READY", 24);

@@ -1,281 +1,113 @@
 package other;
 
 import java.awt.Color;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import board.Checkpoint;
 import board.Tile;
 import merchants.Merchant;
-import merchants.MoneyMerchant;
 
-/**
- * 
- * @author Eylam Tagor
- * 
- *         Represents one of the game's Players, and manages merchants,
- *         territory and income.
- *
- */
 public class Player {
-
-	private int initX, initY;
-	private int id, balance;
-	private String name;
-	private Color color;
-	private int income, auctionPrice;
-	private ArrayList<Merchant> merchants;
 	private ArrayList<Tile> territory;
+	private ArrayList<Merchant> merchants;
+	private Color merchantColor, tileColor;
+
+	private int balance;
+
+	private int initX, initY, id;
 
 	/**
-	 * Creates a new Player object with 1 regular merchant and 1 territory.
+	 * Creates a new Player with the following characteristics:
 	 * 
-	 * @param id       the player's number in relation to other players
-	 * @param balance  the player's starting balance, used to expand territory and
-	 *                 upgrade merchants
-	 * @param name     the username of the player
-	 * @param color    the player's color
-	 * @param merchant starting merchant
+	 * @param x            the starting point's x-coordinate
+	 * @param y            the starting point's y-coordinate
+	 * @param mechantColor the merchant's color, to be used for marking all of its
+	 *                     merchants
+	 * @param tileColor    the tile's color, to be used for marking all of its tiles
+	 * @param index        id of player
 	 */
-	public Player(int id, int balance, String name, Color color, Merchant merchant) {
-		this.initX = merchant.getX();
-		this.initY = merchant.getY();
+	public Player(int x, int y, Color merchantColor, Color tileColor, int index) {
+		initX = x;
+		initY = y;
+		this.id = index;
 
-		this.id = id;
-		this.balance = balance;
-		this.name = name;
-		this.color = color;
-
-		merchants = new ArrayList<Merchant>();
-		merchant.setColor(color);
-		merchants.add(merchant);
-
+		balance = 100;
+		this.merchantColor = merchantColor;
+		this.tileColor = tileColor;
 		territory = new ArrayList<Tile>();
-	}
-
-	/**
-	 * Creates a new Player object with 1 regular merchant and 1 territory.
-	 * 
-	 * @param id       the player's number in relation to other players
-	 * @param balance  the player's starting balance, used to expand territory and
-	 *                 upgrade merchants
-	 * @param name     the username of the player
-	 * @param color    the player's color
-	 * @param merchant starting merchant
-	 * @param special  type of special merchant
-	 */
-	public Player(int id, int balance, String name, Color color, Merchant merchant, Merchant special) {
-		this.initX = merchant.getX();
-		this.initY = merchant.getY();
-
-		this.id = id;
-		this.balance = balance;
-		this.name = name;
-		this.color = color;
-
 		merchants = new ArrayList<Merchant>();
-		merchant.setColor(color);
-		merchants.add(merchant);
-		special.setColor(color);
-		merchants.add(special);
-
-		territory = new ArrayList<Tile>();
+		merchants.add(new Merchant(initX, initY, merchantColor));
 	}
 
 	/**
-	 * Increases the income of the player
-	 * 
-	 * @param x amount desired to add to the player's current income
+	 * Adds a regular Merchant at the player's starting tile.
 	 */
-	public void increaseIncome(int x) {
-		setIncome(getIncome() + x);
-	}
-
-	public void upgradeMerchant(int i, char type) {
-//		switch (type) {
-//		case 'a':
-//			AuctionMerchant am = new AuctionMerchant(merchants[i].getX(), merchants[i].getY());
-//			merchants[i] = am;
-//			break;
-//		case 's':
-//			SpeedMerchant sm = new SpeedMerchant(merchants[i].getX(), merchants[i].getY());
-//			merchants[i] = sm;
-//			break;
-//		case 'l':
-//			LandMerchant lm = new LandMerchant(merchants[i].getX(), merchants[i].getY());
-//			merchants[i] = lm;
-//			break;
-//		case 'i':
-//			InvisibleMerchant im = new InvisibleMerchant(merchants[i].getX(), merchants[i].getY());
-//			merchants[i] = im;
-//			break;
-//		case 'm':
-//			MoneyMerchant mm = new MoneyMerchant(merchants[i].getX(), merchants[i].getY());
-//			merchants[i] = mm;
-//			break;
-//		default:
-//			break;
-//		}
+	public void addMerchant() {
+		Merchant m = new Merchant(initX, initY, merchantColor);
+		merchants.add(m);
+		territory.get(0).setMerchant(m);
 	}
 
 	/**
+	 * Adds a merchant of any type and any location to the player's collection of
+	 * merchants.
 	 * 
-	 * @return the name of the player
+	 * @param m the Merchant to be added, containing the location and type.
 	 */
-	public String getName() {
-		return name;
+	public void addMerchant(Merchant m) {
+		m.setColor(merchantColor);
+		merchants.add(m);
+	}
+
+	public void addTile(Tile t) {
+		territory.add(t);
+		t.setOwner(this);
 	}
 
 	/**
+	 * Places a bid in an auction for a tile on the map.
 	 * 
-	 * @return the color of the player
+	 * @param a   the auction for the desired tile.
+	 * @param bid the amount this player is willing to pay in the auction.
 	 */
-	public Color getColor() {
-		return color;
+	public void placeBid(Auction a, int bid) {
+		a.addBid(new Bid(this, bid));
 	}
 
-	/**
-	 * 
-	 * @return the x-coordinate of the player's original spawn point
-	 */
-	public int getInitX() {
-		return initX;
+	/* ----------ACCESSORS---------- */
+
+	public void setBalance(int x) {
+		balance = x;
 	}
 
-	/**
-	 * 
-	 * @return the y-coordinate of the player's original spawn point
-	 */
-	public int getInitY() {
-		return initY;
-	}
-
-	/**
-	 * 
-	 * @return player id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * Sets the id of the player
-	 * 
-	 * @param id desired of player
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	/**
-	 * 
-	 * @return player balance
-	 */
 	public int getBalance() {
 		return balance;
 	}
 
-	/**
-	 * Sets the balance of the player
-	 * 
-	 * @param balance desired for the player
-	 */
-	public void setBalance(int balance) {
-		this.balance = balance;
+	public int getId() {
+		return id;
 	}
 
-	/**
-	 * 
-	 * @return territory that the player currently owns
-	 */
 	public ArrayList<Tile> getTerritory() {
 		return territory;
 	}
 
-	/**
-	 * 
-	 * @return current income of the player
-	 */
-	public int getIncome() {
-		return income;
-	}
-
-	/**
-	 * Sets the income of the player
-	 * 
-	 * @param income desired of the player
-	 */
-	public void setIncome(int income) {
-		this.income = income;
-	}
-
-	/**
-	 * 
-	 * @return all merchants the player owns
-	 */
 	public ArrayList<Merchant> getMerchants() {
 		return merchants;
 	}
 
-	/**
-	 * Adds land to the player's territory
-	 * 
-	 * @param t Tile being added to the player's territory
-	 */
-	public void addTerritory(Tile t) {
-		territory.add(t);
+	public int initX() {
+		return initX;
 	}
 
-	public int getAuctionPrice() {
-		return auctionPrice;
+	public int initY() {
+		return initY;
 	}
 
-	public void setAuctionPrice(int x) {
-		auctionPrice = x;
+	public Color getMerchantColor() {
+		return merchantColor;
 	}
 
-	/**
-	 * 
-	 * @return r value of RGB value
-	 */
-	public int getR() {
-		return color.getRed();
+	public Color getTileColor() {
+		return tileColor;
 	}
-
-	/**
-	 * 
-	 * @return g value of RGB value
-	 */
-	public int getG() {
-		return color.getGreen();
-	}
-
-	/**
-	 * 
-	 * @return b value of RGB value
-	 */
-	public int getB() {
-		return color.getBlue();
-	}
-
-	// TODO check validity of purchase (if player owns that tile) in Board.java
-	/**
-	 * Buys and sets a checkpoint at the desired location
-	 * 
-	 * @param x coordinate of checkpoint
-	 * @param y coordinate of checkpoint
-	 **/
-	/*
-	public void purchaseCheckpoint(int x, int y) {
-		for (int i = 0; i < territory.size(); i++) {
-			if (territory.get(i).getX() == x && territory.get(i).getY() == y) {
-				int amplifier = 0;
-				for (Tile t : territory)
-					if (t instanceof Checkpoint)
-						amplifier++;
-				territory.set(i, new Checkpoint(x, y, 0, i, amplifier));
-			}
-		}
-	}
-	*/
 }

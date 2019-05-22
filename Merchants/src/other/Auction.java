@@ -2,13 +2,13 @@ package other;
 
 import java.util.ArrayList;
 
-import board.Tile1;
+import board.Tile;
 
 public class Auction {
-	private Tile1 tile;
+	private Tile tile;
 	private ArrayList<Bid> bids;
 
-	public Auction(Tile1 t) {
+	public Auction(Tile t) {
 		tile = t;
 		bids = new ArrayList<Bid>();
 	}
@@ -44,7 +44,7 @@ public class Auction {
 		}
 	}
 
-	public Tile1 getTile() {
+	public Tile getTile() {
 		return tile;
 	}
 

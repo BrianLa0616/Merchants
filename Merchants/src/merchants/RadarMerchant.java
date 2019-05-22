@@ -2,10 +2,10 @@ package merchants;
 
 import java.awt.Color;
 
-import board.Board1;
+import board.Board;
 import board.Tile;
-import board.Tile1;
-import other.Player1;
+import board.Tile;
+import other.Player;
 
 /**
  * Represents a Radar Merchant
@@ -13,7 +13,7 @@ import other.Player1;
  * @author Ansen
  *
  */
-public class RadarMerchant extends Merchant1 {
+public class RadarMerchant extends Merchant {
 	private int x, y;
 	private int level;
 

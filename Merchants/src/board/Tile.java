@@ -1,50 +1,99 @@
 package board;
 
 import java.awt.Color;
-import java.util.ArrayList;
 
 import merchants.Merchant;
 import other.Player;
 import processing.core.PApplet;
+import screens.ScreenHandler;
 
 /**
+ * Represents a single tile in board
  * 
  * @author Eylam
- *
- *         Represents a tile on the game board, that can be purchased and made
- *         into a Checkpoint.
  *
  */
 public class Tile {
 
 	public static final int TILE_SIZE = 60;
 
-	private int x, y, cost, income, owner;
-	private Merchant merchant;
-	private boolean covered;
-	private Color color;
-	private ArrayList<Player> auctioners;
-
+	private int x, y, cost;
+	private Player owner;
+	private boolean[] uncovered;
 	private boolean isSelected;
+	private Color color;
+	private Merchant merchant;
+	private boolean isPicked;
 
 	/**
+	 * Constructs a new tile at (x, y)
 	 * 
-	 * @param x    the x-coordinate of the tile
-	 * @param y    the y-coordinate of the tile
-	 * @param cost the type of the tile (land, sea, etc.)
+	 * @param x    coordinate of the tile
+	 * @param y    coordinate of the tile
+	 * @param cost of the tile
 	 */
 	public Tile(int x, int y, int cost) {
 		this.x = x;
 		this.y = y;
 		this.cost = cost;
-		merchant = null;
-		covered = false;
-		color = null;
-		owner = -1;
-		cost = 30;
-
-		auctioners = new ArrayList<Player>();
+		owner = null;
 		isSelected = false;
+		isPicked = false;
+
+		uncovered = new boolean[4];
+		for (int i = 0; i < 4; i++) {
+			uncovered[i] = false;
+		}
+	}
+
+	/**
+	 * Draws the tiles
+	 * 
+	 * @param p  marker used to draw the tiles
+	 * @param id of the tile
+	 */
+	public void draw(PApplet p, int id) {
+
+		if (uncovered[id]) {
+			if (isSelected) {
+				p.fill(Color.yellow.getRGB());
+			} else if (isPicked) {
+				p.fill(225, 155, 255);
+			} else {
+				if (owner == null) {
+					p.noFill();
+				} else {
+					p.fill(owner.getTileColor().getRGB());
+				}
+			}
+
+			p.rect(y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+			if (merchant != null) {
+				merchant.draw(p);
+			}
+		} else {
+			p.fill(Color.DARK_GRAY.getRGB());
+			p.rect(y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+
+		}
+	}
+
+	/**
+	 * Returns characteristics of tile
+	 * 
+	 * @return str string informing the coordinates, cost, and who the tile is owned
+	 *         by
+	 */
+	public String getCharacteristics() {
+		String str = "Coordinates:\n(" + x + ", " + y + ")\n";
+
+		if (owner == null) {
+			str += "Cost: " + cost;
+		} else {
+			str += "Owned\nCost: " + cost;
+		}
+
+		return str;
 	}
 
 	/**
@@ -55,7 +104,6 @@ public class Tile {
 	}
 
 	/**
-	 * 
 	 * @return the y-coordinate of the tile
 	 */
 	public int getY() {
@@ -63,74 +111,20 @@ public class Tile {
 	}
 
 	/**
-	 * Draws the tiles
+	 * Sets the merchant
 	 * 
-	 * @param p marker used to draw the tiles
+	 * @param m merchant desired
 	 */
-	public void draw(PApplet p) {
-
-		if (merchant != null) {
-			merchant.draw(p);
-		}
-
-		if (isSelected) {
-			p.fill(Color.yellow.getRGB());
-
-		} else {
-			if (color == null) {
-				p.noFill();
-			} else {
-				p.fill(color.getRGB());
-			}
-		}
-
-		p.rect(x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
-
+	public void setMerchant(Merchant m) {
+		merchant = m;
 	}
 
 	/**
-	 * Adds a player to participate in an auction for this tile
 	 * 
-	 * @param p the player to be added to the auction
+	 * @return merchant currently occupying the tile
 	 */
-	public void addAuctioner(Player p) {
-		auctioners.add(p);
-	}
-
-	/**
-	 * Removes all participating players from an auction for this tile
-	 */
-	public void clearAuctioner() {
-		auctioners.clear();
-	}
-
-	/**
-	 * @return all players auctioning for this tile
-	 */
-	public ArrayList<Player> getAuctioners() {
-		return auctioners;
-	}
-
-	/**
-	 * Returns characteristics of tile
-	 */
-	public String getCharacteristics() {
-		String str = "";
-		if (covered) {
-			str = "Tile is covered. Characteristics are not accessible";
-		} else {
-			str = "Owner: " + (owner + 1);
-			str += "\nCoordinates: " + x + ", " + y;
-			str += "\nCost: " + cost;
-			str += "\nMerchant: ";
-			if (merchant == null) {
-				str += "none";
-			} else {
-				str += "yes";
-			}
-		}
-
-		return str;
+	public Merchant getMerchant() {
+		return merchant;
 	}
 
 	/**
@@ -142,6 +136,7 @@ public class Tile {
 	}
 
 	/**
+	 * Sets the cost of the tile
 	 * 
 	 * @param cost the cost to purchase the tile
 	 */
@@ -151,78 +146,39 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return the income the tile provides to its player
+	 * @return owner of the tile
 	 */
-	public int getIncome() {
-		return income;
-	}
-
-	/**
-	 * 
-	 * @param income the income the tile provides to its player
-	 */
-	public void setIncome(int income) {
-		this.income = income;
-	}
-
-	/**
-	 * 
-	 * @return the player who owns this tile
-	 */
-	public int getOwner() {
+	public Player getOwner() {
 		return owner;
 	}
 
 	/**
 	 * Sets the owner of the tile
 	 * 
-	 * @param owner the player who owns this tile
+	 * @param owner of the tile
 	 */
-	public void setOwner(int owner) {
+	public void setOwner(Player owner) {
 		this.owner = owner;
+		setColor(ScreenHandler.TILE_COLORS[owner.getId()]);
 	}
 
 	/**
+	 * Whether or not the tile is uncovered for that player
 	 * 
-	 * @return the merchant
+	 * @param player desired to check
+	 * @return whether or not tile is covered for the player
 	 */
-	public Merchant getMerchant() {
-		return merchant;
+	public boolean isUncovered(int player) {
+		return uncovered[player];
 	}
 
 	/**
-	 * Sets the merchant
+	 * Uncovers the tile for that player
 	 * 
-	 * @param merchant desired
+	 * @param player desired
 	 */
-	public void setMerchant(Merchant merchant) {
-		this.merchant = merchant;
-	}
-
-	/**
-	 * The player cannot see the contents of the land
-	 * 
-	 * @return covered land
-	 */
-	public boolean isCovered() {
-		return covered;
-	}
-
-	/**
-	 * Uncovers the land so the contents are visible to the player
-	 * 
-	 */
-	public void setCover(boolean b) {
-		covered = b;
-	}
-
-	/**
-	 * Sets the color of the tile
-	 * 
-	 * @param c color of the tile
-	 */
-	public void setFill(Color c) {
-		color = c;
+	public void uncover(int player) {
+		uncovered[player] = true;
 	}
 
 	/**
@@ -243,36 +199,39 @@ public class Tile {
 	}
 
 	/**
+	 * Selects the tile
 	 * 
-	 * @return r value of RGB value
-	 */
-	public int getR() {
-		return color.getRed();
-	}
-
-	/**
-	 * 
-	 * @return g value of RGB value
-	 */
-	public int getG() {
-		return color.getGreen();
-	}
-
-	/**
-	 * 
-	 * @return b value of RGB value
-	 */
-	public int getB() {
-		return color.getBlue();
-	}
-
-	/**
-	 * Sets the state of tile
-	 * 
-	 * @param selected boolean that determines if the tile is selected
+	 * @param selected if the tile is selected or not
 	 */
 	public void setSelected(boolean selected) {
 		isSelected = selected;
+	}
+
+	/**
+	 * 
+	 * @return isSelected if the tile is chosen or not
+	 */
+	public boolean getSelected() {
+		return isSelected;
+	}
+
+	/**
+	 * picks/unpicks the tile for an auction
+	 * 
+	 * @param picked if this tile is currently picked for an auction by the current
+	 *               player
+	 */
+	public void setPicked(boolean picked) {
+		isPicked = picked;
+	}
+
+	/**
+	 * 
+	 * @return true if the tile is picked for auction by the current player,
+	 *         otherwise false.
+	 */
+	public boolean isPicked() {
+		return isPicked;
 	}
 
 }

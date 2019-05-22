@@ -9,7 +9,7 @@ import processing.core.PApplet;
  *         Represents a Tile that a player's merchants can teleport to.
  * 
  */
-public class Checkpoint extends Tile1 {
+public class Checkpoint extends Tile {
 
 
 	/**
