@@ -54,8 +54,9 @@ public class Board1 extends Screen {
 				tiles[i][j] = new Tile1(i, j, 15 + (int) (Math.random() * 10));
 			}
 		}
-
-		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 50, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
+		
+		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 275, 150, 75, Color.WHITE, Color.BLACK, "UPGRADE \nMERCHANT", 18);
+		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 150, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
 		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, 25, 150, 75, Color.WHITE, Color.BLACK, "END\nTURN", 18);
 	}
 
@@ -96,18 +97,19 @@ public class Board1 extends Screen {
 			display += "\nMoves left: " + selectedM.getMovesLeft();
 			display += "\nLevel " + selectedM.getLevel();
 
-			p.text(display, Screen.DRAWING_WIDTH - 150, 200);
+			p.text(display, Screen.DRAWING_WIDTH - 150, 400);
 
 		} else if (selectedT != null) {
 			String display = selectedT.getCharacteristics();
 
-			p.text(display, Screen.DRAWING_WIDTH - 150, 200);
+			p.text(display, Screen.DRAWING_WIDTH - 150, 400);
 		}
+		drawBM(p);
+		buyM.draw(p);
 
 		p.textSize(36);
 		p.text("Player " + (player.getId() + 1) + " (Balance: " + player.getBalance() + ")", 25,
 				Screen.DRAWING_HEIGHT - 75);
-
 		endTurn.draw(p);
 	}
 
@@ -136,6 +138,7 @@ public class Board1 extends Screen {
 
 					if (selectedT.getMerchant() != null) { // if merchant is selected
 						selectedM = selectedT.getMerchant();
+						drawBM(p);
 						if (selectedM.getOwner() == player && selectedM.movable()) {
 							switchHighlight(mx, my, true);
 						}
@@ -312,6 +315,12 @@ public class Board1 extends Screen {
 
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
+	}
+	
+	private void drawBM(PApplet p) {
+		if(selectedM != null) {
+			upgradeM.draw(p);
+		}
 	}
 
 	private void switchHighlight(int x, int y, boolean state) {
