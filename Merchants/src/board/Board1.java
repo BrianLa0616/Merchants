@@ -1,6 +1,7 @@
 package board;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -25,8 +26,8 @@ import screens.TransScreen;
 public class Board1 extends Screen {
 	private Player1 player;
 	private ScreenHandler handler;
+	private ArrayList<Auction> auctions;
 	private Tile1[][] tiles;
-
 	private Tile1 selectedT;
 	private Merchant1 selectedM;
 
@@ -35,7 +36,7 @@ public class Board1 extends Screen {
 	/**
 	 * Creates a new board
 	 * 
-	 * @param board 
+	 * @param board
 	 */
 	public Board1(ScreenHandler board) {
 		super(board);
@@ -44,7 +45,13 @@ public class Board1 extends Screen {
 		selectedT = null;
 		selectedM = null;
 
-		tiles = handler.getTiles();
+		auctions = new ArrayList<Auction>();
+		tiles = new Tile1[15][15];
+		for (int i = 0; i < 15; i++) {
+			for (int j = 0; j < 15; j++) {
+				tiles[i][j] = new Tile1(i, j, 15 + (int) (Math.random() * 10));
+			}
+		}
 
 		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, 25, 150, 75, Color.WHITE, Color.BLACK, "END\nTURN", 18);
 	}
@@ -56,7 +63,6 @@ public class Board1 extends Screen {
 	 */
 	public void setPlayer(Player1 player) {
 		this.player = player;
-
 	}
 
 	public void setup(PApplet p) {
@@ -106,10 +112,10 @@ public class Board1 extends Screen {
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) {
 			refreshMerchants();
 			if (player.getId() + 1 == handler.getPlayers().size()) {
-				if (handler.getAuction().size() == 0) {
+				if (auctions.size() == 0) {
 					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
 				} else {
-					handler.proceed(new AuctionScreen(handler, handler.getAuction().get(0)));
+					handler.proceed(new AuctionScreen(handler, auctions.get(0)));
 				}
 			} else {
 				handler.proceed(new TransScreen(handler, handler.getPlayers().get(player.getId() + 1)));
@@ -145,8 +151,8 @@ public class Board1 extends Screen {
 
 							Auction a = new Auction(tiles[mx][my]);
 							a.addBid(new Bid(player, tiles[mx][my].getCost()));
-							handler.addAuction(a);
-							;
+							addAuction(a);
+							
 							JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
 									JOptionPane.INFORMATION_MESSAGE);
 							switchHighlight(selectedT.getX(), selectedT.getY(), false);
@@ -155,7 +161,8 @@ public class Board1 extends Screen {
 						}
 					} else { // if different tile is pressed
 						if (Math.abs(mx - selectedT.getX()) + Math.abs(my - selectedT.getY()) == 1
-								&& p.mouseButton == PConstants.LEFT && tiles[mx][my].getMerchant() == null && selectedM.movable() && selectedM.getOwner() == player) { // moving
+								&& p.mouseButton == PConstants.LEFT && tiles[mx][my].getMerchant() == null
+								&& selectedM.movable() && selectedM.getOwner() == player) { // moving
 
 							switchHighlight(selectedM.getX(), selectedM.getY(), false);
 							selectedT.setMerchant(null);
@@ -175,7 +182,7 @@ public class Board1 extends Screen {
 
 							Auction a = new Auction(tiles[mx][my]);
 							a.addBid(new Bid(player, tiles[mx][my].getCost()));
-							handler.addAuction(a);
+							addAuction(a);
 							JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
 									JOptionPane.INFORMATION_MESSAGE);
 							switchHighlight(selectedT.getX(), selectedT.getY(), false);
@@ -245,22 +252,49 @@ public class Board1 extends Screen {
 	}
 
 	/**
+	 * 
+	 * @return tiles in the board
+	 */
+	public Tile1[][] getTiles() {
+		return tiles;
+	}
+
+	/**
+	 * Adds a new auction
+	 * 
+	 * @param a Auction desired to add
+	 */
+	public void addAuction(Auction a) {
+		for (int i = 0; i < auctions.size(); i++) {
+			if (a.getTile() == auctions.get(i).getTile()) {
+				auctions.get(i).addBid(a.getBids().get(0));
+				return;
+			}
+		}
+
+		auctions.add(a);
+	}
+
+	/**
+	 * 
+	 * @return auctions that are currently happening
+	 */
+	public ArrayList<Auction> getAuction() {
+		return auctions;
+	}
+
+	/*
 	 * Determines whether the specified location is within the board
 	 * 
-	 * @param x coordinate of the board
-	 * @param y coordinate of the board
-	 * @return true if the location is with the board, false otherwise
 	 */
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}
 
-	/**
+	/*
 	 * Highlights where the player can move within the board
 	 * 
-	 * @param x coordinate of highlighted
-	 * @param y coordinate of highlighted
-	 * @param state of the tile, if selected or not
+	 * 
 	 */
 	private void switchHighlight(int x, int y, boolean state) {
 		int[] dx = { 0, 0, -1, 1 };
@@ -275,11 +309,9 @@ public class Board1 extends Screen {
 		}
 	}
 
-	/**
+	/*
 	 * Uncovers the specified area for the player
 	 * 
-	 * @param x coordinate desired to uncover
-	 * @param y coordinate desired to uncover
 	 */
 	public void uncover(int x, int y) {
 		for (int i = -1; i <= 1; i++) {
@@ -292,16 +324,11 @@ public class Board1 extends Screen {
 			}
 		}
 	}
-	
+
 	private void refreshMerchants() {
 		for (int i = 0; i < player.getMerchants().size(); i++) {
 			player.getMerchants().get(i).newTurn();
 		}
 	}
 
-	public Tile1[][] getTiles() {
-		return tiles;
-	}
-	
-	
 }

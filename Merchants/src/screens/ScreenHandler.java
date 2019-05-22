@@ -23,8 +23,7 @@ public class ScreenHandler extends PApplet {
 
 	private Screen currScreen;
 	private ArrayList<Player1> players;
-	private ArrayList<Auction> auctions;
-	private Tile1[][] tiles;
+	
 	int currPlayer;
 	private Board1 board;
 
@@ -35,13 +34,6 @@ public class ScreenHandler extends PApplet {
 	public ScreenHandler() {
 		currScreen = new IntroScreen(this);
 		players = new ArrayList<Player1>();
-		auctions = new ArrayList<Auction>();
-		tiles = new Tile1[15][15];
-		for (int i = 0; i < 15; i++) {
-			for (int j = 0; j < 15; j++) {
-				tiles[i][j] = new Tile1(i, j, 15 + (int) (Math.random() * 10));
-			}
-		}
 
 		currPlayer = 0;
 		board = new Board1(this);
@@ -80,30 +72,9 @@ public class ScreenHandler extends PApplet {
 		return board;
 	}
 
-	/**
-	 * 
-	 * @return tiles in the board
-	 */
-	public Tile1[][] getTiles() {
-		return tiles;
-	}
+	
 
-	/**
-	 * Adds a new auction
-	 * 
-	 * @param a Auction desired to add
-	 */
-	public void addAuction(Auction a) {
-		for (int i = 0; i < auctions.size(); i++) {
-			if (a.getTile() == auctions.get(i).getTile()) {
-				auctions.get(i).addBid(a.getBids().get(0));
-				return;
-			}
-		}
-
-		auctions.add(a);
-	}
-
+	
 	/**
 	 * 
 	 * @return currPlayer current player 
@@ -112,13 +83,7 @@ public class ScreenHandler extends PApplet {
 		return currPlayer;
 	}
 
-	/**
-	 * 
-	 * @return auctions that are currently happening
-	 */
-	public ArrayList<Auction> getAuction() {
-		return auctions;
-	}
+	
 
 	
 	public void mousePressed() {

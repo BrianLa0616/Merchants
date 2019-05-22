@@ -98,11 +98,11 @@ public class AuctionScreen extends Screen {
 				handler.getPlayers().get(auction.getBids().get(winner).getPlayer().getId()).addTile(auction.getTile());
 				proceed.setText("EXIT AUCTION");
 			} else {
-				handler.getAuction().remove(0);
-				if (handler.getAuction().size() == 0) {
+				handler.getBoard().getAuction().remove(0);
+				if (handler.getBoard().getAuction().size() == 0) {
 					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
 				} else {
-					handler.proceed(new AuctionScreen(handler, handler.getAuction().get(0)));
+					handler.proceed(new AuctionScreen(handler, handler.getBoard().getAuction().get(0)));
 				}
 			}
 		} else {

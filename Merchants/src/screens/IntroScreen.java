@@ -73,23 +73,23 @@ public class IntroScreen extends Screen {
 				Player1 player = handler.getPlayers().get(i);
 
 				// adds Tile to player's territory
-				handler.getTiles()[xvals[i]][yvals[i]] = new Checkpoint(player.initX(), player.initY(),
+				handler.getBoard().getTiles()[xvals[i]][yvals[i]] = new Checkpoint(player.initX(), player.initY(),
 						player.getTerritory().size() * 10);
 
-				handler.getTiles()[xvals[i]][yvals[i]].setOwner(player);
-				handler.getPlayers().get(i).addTile(handler.getTiles()[xvals[i]][yvals[i]]);
+				handler.getBoard().getTiles()[xvals[i]][yvals[i]].setOwner(player);
+				handler.getPlayers().get(i).addTile(handler.getBoard().getTiles()[xvals[i]][yvals[i]]);
 
 				for (int j = -1; j <= 1; j++) {
 					for (int k = -1; k <= 1; k++) {
 						int nx = xvals[i] + j;
 						int ny = yvals[i] + k;
 						if (inRange(nx, ny)) {
-							handler.getTiles()[nx][ny].uncover(player.getId());
+							handler.getBoard().getTiles()[nx][ny].uncover(player.getId());
 						}
 					}
 				}
 
-				handler.getTiles()[xvals[i]][yvals[i]].setMerchant(player.getMerchants().get(0));
+				handler.getBoard().getTiles()[xvals[i]][yvals[i]].setMerchant(player.getMerchants().get(0));
 				player.getMerchants().get(0).setOwner(player);
 			}
 
@@ -138,14 +138,10 @@ public class IntroScreen extends Screen {
 		return true;
 	}
 
-	/**
+	/*
 	 * Determines whether specified location is within the board
-	 * 
-	 * @param x coordinate of the location
-	 * @param y coordinate of the location
-	 * @return true if (x, y) is within the board, false otherwise
 	 */
 	private boolean inRange(int x, int y) {
-		return x >= 0 && x < handler.getTiles().length && y >= 0 && y < handler.getTiles()[0].length;
+		return x >= 0 && x < handler.getBoard().getTiles().length && y >= 0 && y < handler.getBoard().getTiles()[0].length;
 	}
 }
