@@ -11,8 +11,8 @@ import java.awt.Color;
 public class MoneyMerchant extends Merchant1 {
 	private int x, y;
 	private int level;
-	
-	private int price, price2, price3, price4, price5;
+
+	private int price[] = { 20, 30, 40, 50, 70 };
 
 	/**
 	 * Constructs a new Money Merchant at (x, y) with Color c
@@ -24,12 +24,6 @@ public class MoneyMerchant extends Merchant1 {
 	public MoneyMerchant(int x, int y, Color c) {
 		super(x, y, c);
 		level = 1;
-		
-		price = 20;
-		price2 = 30;
-		price3 = 40;
-		price4 = 50;
-		price5 = 70;
 	}
 
 	/**
@@ -50,46 +44,45 @@ public class MoneyMerchant extends Merchant1 {
 		}
 		return amount + 35;
 	}
-	
 
 	/**
 	 * 
 	 * @return price of a Money Merchant
 	 */
 	public int getPrice() {
-		return price;
+		return price[0];
 	}
-	
+
 	/**
 	 * 
 	 * @return price of a level 2 Money Merchant
 	 */
 	public int getPrice2() {
-		return price2;
+		return price[1];
 	}
-	
+
 	/**
 	 * 
 	 * @return price of a level 3 Money Merchant
 	 */
 	public int getPrice3() {
-		return price3;
+		return price[2];
 	}
-	
+
 	/**
 	 * 
 	 * @return price of a level 4 Money Merchant
 	 */
 	public int getPrice4() {
-		return price4;
+		return price[3];
 	}
-	
+
 	/**
 	 * 
 	 * @return price of a level 5 Money Merchant
 	 */
 	public int getPrice5() {
-		return price5;
+		return price[4];
 	}
 
 }

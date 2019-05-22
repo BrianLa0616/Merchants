@@ -54,10 +54,12 @@ public class Board1 extends Screen {
 				tiles[i][j] = new Tile1(i, j, 15 + (int) (Math.random() * 10));
 			}
 		}
-		
-		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 275, 150, 75, Color.WHITE, Color.BLACK, "UPGRADE \nMERCHANT", 18);
+
+		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 275, 150, 75, Color.WHITE, Color.BLACK,
+				"UPGRADE \nMERCHANT", 18);
 		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 150, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
-		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, 25, 150, 75, Color.WHITE, Color.BLACK, "END\nTURN", 18);
+		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, Screen.DRAWING_HEIGHT - 125, 150, 75, Color.WHITE,
+				Color.BLACK, "END\nTURN", 18);
 	}
 
 	/**
@@ -119,6 +121,22 @@ public class Board1 extends Screen {
 	 * @param p PApplet used to draw
 	 */
 	public void mousePressed(PApplet p) {
+		if (buyM.isPointInButton(p.mouseX, p.mouseY)) {
+			int count = 0;
+			for (int i = 0; i < player.getMerchants().size(); i++) {
+				if (player.getMerchants().get(i).getX() == player.initX()
+						&& player.getMerchants().get(i).getY() == player.initY()) {
+					count++;
+					break;
+				}
+			}
+			if (count == 0) {
+				if (player.getBalance() >= 20) {
+					player.setBalance(player.getBalance() - 20);
+					player.addMerchant();
+				}
+			}
+		}
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) {
 			if (player.getId() + 1 == handler.getPlayers().size()) {
 				if (auctions.size() == 0) {
@@ -211,7 +229,7 @@ public class Board1 extends Screen {
 					// if tile is only selected
 					if (selectedT == tiles[mx][my]) {
 						tiles[mx][my].setSelected(false);
-						selectedT = null;    
+						selectedT = null;
 					} else {
 						selectedT.setSelected(false);
 						selectedT = tiles[mx][my];
@@ -300,9 +318,9 @@ public class Board1 extends Screen {
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}
-	
+
 	private void drawBM(PApplet p) {
-		if(selectedM != null) {
+		if (selectedM != null) {
 			upgradeM.draw(p);
 		}
 	}
