@@ -33,6 +33,7 @@ public class Board1 extends Screen {
 
 	private TextButton upgradeM;
 	private TextButton buyM;
+	private TextButton auctionM, invisM, moneyM, radarM, speedM;
 	private TextButton endTurn;
 	private TextButton createCheckpoint;
 
@@ -56,9 +57,16 @@ public class Board1 extends Screen {
 			}
 		}
 
-		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 275, 150, 75, Color.WHITE, Color.BLACK,
+		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 145, 150, 75, Color.WHITE, Color.BLACK,
 				"UPGRADE \nMERCHANT", 18);
-		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 150, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
+		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
+		
+		auctionM = new TextButton(Screen.DRAWING_WIDTH - 175, 270, 150, 75, Color.WHITE, Color.BLACK, "BUY \nAUCTION \nMERCHANT", 18);
+		invisM = new TextButton(Screen.DRAWING_WIDTH - 175, 395, 150, 75, Color.WHITE, Color.BLACK, "BUY \nINVISIBLE \nMERCHANT", 18);
+		moneyM = new TextButton(Screen.DRAWING_WIDTH - 175, 520, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMONEY \nMERCHANT", 18);
+		radarM = new TextButton(Screen.DRAWING_WIDTH - 175, 645, 150, 75, Color.WHITE, Color.BLACK, "BUY \nRADAR \nMERCHANT", 18);
+		speedM = new TextButton(Screen.DRAWING_WIDTH - 175, 770, 150, 75, Color.WHITE, Color.BLACK, "BUY \nSPEED \nMERCHANT", 18);
+		
 		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, Screen.DRAWING_HEIGHT - 125, 150, 75, Color.WHITE,
 				Color.BLACK, "END\nTURN", 18);
 	}
@@ -100,12 +108,12 @@ public class Board1 extends Screen {
 			display += "\nMoves left: " + selectedM.getMovesLeft();
 			display += "\nLevel " + selectedM.getLevel();
 
-			p.text(display, Screen.DRAWING_WIDTH - 150, 400);
+			p.text(display, Screen.DRAWING_WIDTH - 150, 270);
 
 		} else if (selectedT != null) {
 			String display = selectedT.getCharacteristics();
 
-			p.text(display, Screen.DRAWING_WIDTH - 150, 400);
+			p.text(display, Screen.DRAWING_WIDTH - 150, 270);
 		}
 		drawBM(p);
 		buyM.draw(p);
@@ -137,6 +145,16 @@ public class Board1 extends Screen {
 					player.addMerchant();
 				}
 			}
+		}
+		
+		if(upgradeM.isPointInButton(p.mouseX, p.mouseY)) {
+			auctionM.draw(p);
+			invisM.draw(p);
+			moneyM.draw(p);
+			radarM.draw(p);
+			speedM.draw(p);
+			
+			
 		}
 
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) { // end turn
