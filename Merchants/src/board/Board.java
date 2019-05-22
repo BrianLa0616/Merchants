@@ -56,11 +56,11 @@ public class Board extends Screen {
 			}
 		}
 
-		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 275, 150, 75, Color.WHITE, Color.BLACK,
+		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK,
 				"UPGRADE \nMERCHANT", 18);
-		createCheckpoint = new TextButton(Screen.DRAWING_WIDTH - 175, 150, 150, 75, Color.WHITE, Color.BLACK,
-				"CREATE MERCHANT", 18);
-		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 150, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
+		createCheckpoint = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK,
+				"CREATE \nMERCHANT", 18);
+		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
 		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, Screen.DRAWING_HEIGHT - 125, 150, 75, Color.WHITE,
 				Color.BLACK, "END\nTURN", 18);
 	}
