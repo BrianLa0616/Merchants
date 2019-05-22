@@ -29,7 +29,7 @@ public class AuctionScreen extends Screen {
 	 * Creates a new Auction Screen
 	 * 
 	 * @param handler draws the screen
-	 * @param a new Auction
+	 * @param a       new Auction
 	 */
 	public AuctionScreen(ScreenHandler handler, Auction a) {
 		super(handler);
@@ -88,14 +88,17 @@ public class AuctionScreen extends Screen {
 	 */
 	public void mousePressed(PApplet p) {
 		if (proceed.isPointInButton(p.mouseX, p.mouseY)) {
-			if (winner == -1) {
-				Bid bid = auction.decideWinner();
-				for (int i = 0; i < auction.getBids().size(); i++) {
-					if (bid == auction.getBids().get(i)) {
-						winner = i;
+			if (winner == -1 && auction.getBids().size() >= 1) {
+
+					Bid bid = auction.decideWinner();
+					for (int i = 0; i < auction.getBids().size(); i++) {
+						if (bid == auction.getBids().get(i)) {
+							winner = i;
+						}
 					}
-				}
-				handler.getPlayers().get(auction.getBids().get(winner).getPlayer().getId()).addTile(auction.getTile());
+					handler.getPlayers().get(auction.getBids().get(winner).getPlayer().getId())
+							.addTile(auction.getTile());
+				
 				proceed.setText("EXIT AUCTION");
 			} else {
 				handler.getBoard().getAuction().remove(0);
@@ -106,31 +109,37 @@ public class AuctionScreen extends Screen {
 				}
 			}
 		} else {
-			for (int i = 0; i < auction.getBids().size(); i++) {
-				if (enterBid.get(i).isPointInButton(p.mouseX, p.mouseY)) {
-					String input = JOptionPane.showInputDialog("Enter Bid Amount");
+			if (winner == -1) {
+				for (int i = 0; i < auction.getBids().size(); i++) {
+					if (enterBid.get(i).isPointInButton(p.mouseX, p.mouseY)) {
+						String input = JOptionPane.showInputDialog("Enter Bid Amount");
 
-					if (input == null || input == "" || !validIntegerInput(input)) {
+						if (input == null || input == "" || !validIntegerInput(input)) {
+							return;
+						}
+
+						int bidAmount = Integer.parseInt(input);
+						if (bidAmount < auction.getBids().get(i).getAmount()) {
+							JOptionPane.showMessageDialog(null, "New bids should be larger than previous ones",
+									"INVALID MOVE", JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+
+						auction.getBids().get(i).setAmount(bidAmount);
+						return;
+					} else if (withdraw.get(i).isPointInButton(p.mouseX, p.mouseY)) {
+						int choice = JOptionPane.showConfirmDialog(null, "Withdraw from Auction?", "WITHDRAW",
+								JOptionPane.YES_NO_OPTION);
+						if (choice == 0) {
+							auction.getBids().remove(i);
+						}
+						
+						if (auction.getBids().size() == 0) {
+							proceed.setText("EXIT AUCTION");
+						}
+
 						return;
 					}
-
-					int bidAmount = Integer.parseInt(input);
-					if (bidAmount < auction.getBids().get(i).getAmount()) {
-						JOptionPane.showMessageDialog(null, "New bids should be larger than previous ones",
-								"INVALID MOVE", JOptionPane.ERROR_MESSAGE);
-						return;
-					}
-
-					auction.getBids().get(i).setAmount(bidAmount);
-					return;
-				} else if (withdraw.get(i).isPointInButton(p.mouseX, p.mouseY)) {
-					int choice = JOptionPane.showConfirmDialog(null, "Withdraw from Auction?", "WITHDRAW",
-							JOptionPane.YES_NO_OPTION);
-					if (choice == 0) {
-						auction.getBids().remove(i);
-					}
-
-					return;
 				}
 			}
 		}
