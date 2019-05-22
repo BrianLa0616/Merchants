@@ -11,7 +11,7 @@ import processing.core.PApplet;
 /**
  * Represents a regular merchant
  * 
- * @author Ansen
+ * @author John Cena
  *
  */
 public class Merchant {
@@ -21,6 +21,7 @@ public class Merchant {
 	private int r, g, b;
 	private int cost;
 	private int numMovesInEnemyLand;
+	private Color color;
 
 	private Tile t;
 	private Player p;
@@ -131,7 +132,7 @@ public class Merchant {
 	}
 
 	/**
-	 * Draws a new merchant
+	 * Draws a new olo
 	 * 
 	 * @param p Marker to draw things
 	 */
@@ -149,7 +150,6 @@ public class Merchant {
 			level++;
 	}
 
-	
 	public void setTile(Tile t) {
 		this.t = t;
 	}
@@ -293,6 +293,5 @@ public class Merchant {
 	protected int getNumMovesInEnemyLand() {
 		return numMovesInEnemyLand;
 	}
-	
 
 }
