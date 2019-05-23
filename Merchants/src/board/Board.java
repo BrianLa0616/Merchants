@@ -59,7 +59,7 @@ public class Board extends Screen {
 		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK,
 				"UPGRADE \nMERCHANT", 18);
 		createCheckpoint = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK,
-				"CREATE \nMERCHANT", 18);
+				"CREATE \nCHECKPOINT", 18);
 		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
 		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, Screen.DRAWING_HEIGHT - 125, 150, 75, Color.WHITE,
 				Color.BLACK, "END\nTURN", 18);
@@ -108,7 +108,7 @@ public class Board extends Screen {
 
 		} else if (selectedT != null) {
 
-			if (selectedT instanceof Checkpoint == false) {
+			if (selectedT instanceof Checkpoint == false && selectedT.getOwner() == player) {
 				createCheckpoint.draw(p);
 			} else if (selectedT.getX() == player.initX() && selectedT.getY() == player.initY()) {
 				buyM.draw(p);
@@ -130,22 +130,6 @@ public class Board extends Screen {
 	 * @param p PApplet used to draw
 	 */
 	public void mousePressed(PApplet p) {
-		if (buyM.isPointInButton(p.mouseX, p.mouseY)) {
-			int count = 0;
-			for (int i = 0; i < player.getMerchants().size(); i++) {
-				if (player.getMerchants().get(i).getX() == player.initX()
-						&& player.getMerchants().get(i).getY() == player.initY()) {
-					count++;
-					break;
-				}
-			}
-			if (count == 0) {
-				if (player.getBalance() >= 20) {
-					player.setBalance(player.getBalance() - 20);
-					player.addMerchant();
-				}
-			}
-		}
 
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) { // end turn
 			if (player.getId() + 1 == handler.getPlayers().size()) { // auction
@@ -181,29 +165,7 @@ public class Board extends Screen {
 							tiles[mx][my].setSelected(true);
 							switchHighlight(mx, my, false);
 						} else {
-							if (!tiles[mx][my].isPicked()) {
-								if (player.getBalance() < tiles[mx][my].getCost()) {
-									JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE",
-											JOptionPane.ERROR_MESSAGE);
-									return;
-								}
-
-								Auction a = new Auction(tiles[mx][my]);
-								a.addBid(new Bid(player, tiles[mx][my].getCost()));
-								addAuction(a);
-
-								JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
-										JOptionPane.INFORMATION_MESSAGE);
-								switchHighlight(selectedT.getX(), selectedT.getY(), false);
-								tiles[mx][my].setPicked(true);
-								selectedT = null;
-								selectedM = null;
-							} else {
-								JOptionPane.showMessageDialog(null, "Already entered auction", "AUCTION",
-										JOptionPane.INFORMATION_MESSAGE);
-								selectedT = null;
-								selectedM = null;
-							}
+							auction(mx, my);
 						}
 					} else { // if different tile is pressed
 						if (Math.abs(mx - selectedT.getX()) + Math.abs(my - selectedT.getY()) == 1
@@ -220,30 +182,7 @@ public class Board extends Screen {
 							uncover(mx, my);
 						} else if (Math.abs(mx - selectedT.getX()) <= 1 && Math.abs(my - selectedT.getY()) <= 1
 								&& p.mouseButton == PConstants.RIGHT) { // auctioning
-							if (!tiles[mx][my].isPicked()) {
-								if (player.getBalance() < tiles[mx][my].getCost()) {
-									JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE",
-											JOptionPane.ERROR_MESSAGE);
-									return;
-								}
-
-								Auction a = new Auction(tiles[mx][my]);
-								a.addBid(new Bid(player, tiles[mx][my].getCost()));
-								addAuction(a);
-
-								JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
-										JOptionPane.INFORMATION_MESSAGE);
-								switchHighlight(selectedT.getX(), selectedT.getY(), false);
-								tiles[mx][my].setPicked(true);
-								selectedT = null;
-								selectedM = null;
-							} else {
-								JOptionPane.showMessageDialog(null, "Already entered auction", "AUCTION",
-										JOptionPane.INFORMATION_MESSAGE);
-
-								selectedT = null;
-								selectedM = null;
-							}
+							auction(mx, my);
 						} else {
 							switchHighlight(selectedT.getX(), selectedT.getY(), false);
 							selectedT = null;
@@ -251,9 +190,15 @@ public class Board extends Screen {
 						}
 					}
 
-				} else if (selectedT != null) {
-					// if tile is only selected
-					if (selectedT == tiles[mx][my]) {
+				} else if (selectedT != null) { // if tile is only selected
+
+					if (selectedT.getX() == player.initX() && selectedT.getY() == player.initY()) {
+						if (buyM.isPointInButton(p.mouseX, p.mouseY)) {
+							buyMerchant();
+							tiles[mx][my].setSelected(false);
+						}
+					}
+					if (selectedT == tiles[mx][my]) { // same tile is pressed
 						tiles[mx][my].setSelected(false);
 						selectedT = null;
 					} else {
@@ -341,6 +286,24 @@ public class Board extends Screen {
 		return auctions;
 	}
 
+	private void buyMerchant() {
+		int count = 0;
+		for (int i = 0; i < player.getMerchants().size(); i++) {
+			if (player.getMerchants().get(i).getX() == player.initX()
+					&& player.getMerchants().get(i).getY() == player.initY()) {
+				count++;
+				break;
+			}
+		}
+		if (count == 0) {
+			if (player.getBalance() >= 20) {
+				player.setBalance(player.getBalance() - 20);
+				player.addMerchant();
+			}
+		}
+
+	}
+
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}
@@ -386,6 +349,7 @@ public class Board extends Screen {
 		for (Tile[] ts : tiles) {
 			for (Tile t : ts) {
 				t.setPicked(false);
+				t.setSelected(false);
 			}
 		}
 
@@ -399,6 +363,32 @@ public class Board extends Screen {
 		}
 
 		player.setBalance(player.getBalance() + (int) sum);
+	}
+	
+	private void auction(int mx, int my) {
+		if (!tiles[mx][my].isPicked()) {
+			if (player.getBalance() < tiles[mx][my].getCost()) {
+				JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE",
+						JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			Auction a = new Auction(tiles[mx][my]);
+			a.addBid(new Bid(player, tiles[mx][my].getCost()));
+			addAuction(a);
+
+			JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
+					JOptionPane.INFORMATION_MESSAGE);
+			switchHighlight(selectedT.getX(), selectedT.getY(), false);
+			tiles[mx][my].setPicked(true);
+			selectedT = null;
+			selectedM = null;
+		} else {
+			JOptionPane.showMessageDialog(null, "Already entered auction", "AUCTION",
+					JOptionPane.INFORMATION_MESSAGE);
+			selectedT = null;
+			selectedM = null;
+		}
 	}
 
 }
