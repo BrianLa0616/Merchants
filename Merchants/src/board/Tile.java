@@ -233,5 +233,4 @@ public class Tile {
 	public boolean isPicked() {
 		return isPicked;
 	}
-
 }

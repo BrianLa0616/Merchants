@@ -109,7 +109,6 @@ public class Board extends Screen {
 		} else if (selectedT != null) {
 
 			if (selectedT instanceof Checkpoint == false && selectedT.getOwner() == player) {
-				System.out.println("hello");
 				createCheckpoint.draw(p);
 			} else if (selectedT.getX() == player.initX() && selectedT.getY() == player.initY()) {
 				buyM.draw(p);
@@ -142,6 +141,10 @@ public class Board extends Screen {
 			} else {
 				handler.proceed(new TransScreen(handler, handler.getPlayers().get(player.getId() + 1)));
 			}
+		} else if (buyM.isPointInButton(p.mouseX, p.mouseY) && selectedT != null && player.getTerritory().get(0) == selectedT) {
+			buyMerchant();
+		} else if (createCheckpoint.isPointInButton(p.mouseX, p.mouseY) && selectedT != null && selectedT.getOwner() == player) {
+			createCheckpoint();
 		} else {
 			int mx = p.mouseY / Tile.TILE_SIZE, my = p.mouseX / Tile.TILE_SIZE;
 
@@ -193,21 +196,6 @@ public class Board extends Screen {
 
 				} else if (selectedT != null) { // if tile is only selected
 
-					if (selectedT.getX() == player.initX() && selectedT.getY() == player.initY()) { // checkpoint
-						if (buyM.isPointInButton(p.mouseX, p.mouseY)) {
-							buyMerchant();
-							tiles[mx][my].setSelected(false);
-							return;
-						}
-					}
-					if (selectedT.getOwner() == player) {
-						if (selectedT instanceof Checkpoint == false
-								&& createCheckpoint.isPointInButton(p.mouseX, p.mouseY)) {
-							createCheckpoint(mx, my);
-							tiles[mx][my].setSelected(false);
-							return;
-						}
-					}
 					if (selectedT == tiles[mx][my]) { // same tile is pressed
 						tiles[mx][my].setSelected(false);
 						selectedT = null;
@@ -296,8 +284,14 @@ public class Board extends Screen {
 		return auctions;
 	}
 
-	private void createCheckpoint(int mx, int my) {
-		if (player.getBalance() < tiles[mx][my].getCost() * 2) {
+	// selectedT is an owned tile
+	private void createCheckpoint() {
+		int mx = selectedT.getX();
+		int my = selectedT.getY();
+		if (selectedT.getCharacteristics().contains("Checkpoint")) {
+			JOptionPane.showMessageDialog(null, "Checkpoint already created", "INVALID MOVE",
+					JOptionPane.ERROR_MESSAGE);
+		} else if (player.getBalance() < tiles[mx][my].getCost() * 2) {
 			JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE", JOptionPane.ERROR_MESSAGE);
 		} else {
 			player.setBalance(player.getBalance() - tiles[mx][my].getCost() * 2);
@@ -306,7 +300,7 @@ public class Board extends Screen {
 			temp.setOwner(player);
 			for (int i = 0; i < 4; i++) {
 				if (tiles[mx][my].isUncovered(i)) {
-					temp.isUncovered(i);
+					temp.uncover(i);
 				}
 			}
 			temp.setMerchant(tiles[mx][my].getMerchant());
@@ -314,20 +308,17 @@ public class Board extends Screen {
 		}
 	}
 
+	// selectedT is checkpoint
 	private void buyMerchant() {
-		int count = 0;
-		for (int i = 0; i < player.getMerchants().size(); i++) {
-			if (player.getMerchants().get(i).getX() == player.initX()
-					&& player.getMerchants().get(i).getY() == player.initY()) {
-				count++;
-				break;
-			}
-		}
-		if (count == 0) {
+
+		if (selectedT.getMerchant() == null) {
 			if (player.getBalance() >= 20) {
 				player.setBalance(player.getBalance() - 20);
 				player.addMerchant();
+				selectedM = player.getTerritory().get(0).getMerchant();
 			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Merchant can not be created due to obstruction", "INVALID MOVE", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
