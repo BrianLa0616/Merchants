@@ -141,6 +141,8 @@ public class Board extends Screen {
 			} else {
 				handler.proceed(new TransScreen(handler, handler.getPlayers().get(player.getId() + 1)));
 			}
+		} else if (upgradeM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+			upgradeMerchant();
 		} else if (buyM.isPointInButton(p.mouseX, p.mouseY) && selectedT != null && player.getTerritory().get(0) == selectedT) {
 			buyMerchant();
 		} else if (createCheckpoint.isPointInButton(p.mouseX, p.mouseY) && selectedT != null && selectedT.getOwner() == player) {
@@ -154,7 +156,6 @@ public class Board extends Screen {
 
 					if (selectedT.getMerchant() != null) { // if merchant is selected
 						selectedM = selectedT.getMerchant();
-						drawUM(p);
 						if (selectedM.getOwner() == player && selectedM.movable()) {
 							switchHighlight(mx, my, true);
 						}
@@ -284,6 +285,9 @@ public class Board extends Screen {
 		return auctions;
 	}
 
+	private void upgradeMerchant() {
+		
+	}
 	// selectedT is an owned tile
 	private void createCheckpoint() {
 		int mx = selectedT.getX();
@@ -325,12 +329,6 @@ public class Board extends Screen {
 
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
-	}
-
-	private void drawUM(PApplet p) {
-		if (selectedM != null) {
-			upgradeM.draw(p);
-		}
 	}
 
 	private void switchHighlight(int x, int y, boolean state) {

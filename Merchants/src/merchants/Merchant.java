@@ -249,6 +249,7 @@ public class Merchant {
 	public void setLevel(int level) {
 		this.level = level;
 	}
+	
 
 	/**
 	 * 
