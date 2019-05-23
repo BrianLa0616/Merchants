@@ -109,6 +109,7 @@ public class Board extends Screen {
 		} else if (selectedT != null) {
 
 			if (selectedT instanceof Checkpoint == false && selectedT.getOwner() == player) {
+				System.out.println("hello");
 				createCheckpoint.draw(p);
 			} else if (selectedT.getX() == player.initX() && selectedT.getY() == player.initY()) {
 				buyM.draw(p);
@@ -192,10 +193,19 @@ public class Board extends Screen {
 
 				} else if (selectedT != null) { // if tile is only selected
 
-					if (selectedT.getX() == player.initX() && selectedT.getY() == player.initY()) {
+					if (selectedT.getX() == player.initX() && selectedT.getY() == player.initY()) { // checkpoint
 						if (buyM.isPointInButton(p.mouseX, p.mouseY)) {
 							buyMerchant();
 							tiles[mx][my].setSelected(false);
+							return;
+						}
+					}
+					if (selectedT.getOwner() == player) {
+						if (selectedT instanceof Checkpoint == false
+								&& createCheckpoint.isPointInButton(p.mouseX, p.mouseY)) {
+							createCheckpoint(mx, my);
+							tiles[mx][my].setSelected(false);
+							return;
 						}
 					}
 					if (selectedT == tiles[mx][my]) { // same tile is pressed
@@ -286,6 +296,24 @@ public class Board extends Screen {
 		return auctions;
 	}
 
+	private void createCheckpoint(int mx, int my) {
+		if (player.getBalance() < tiles[mx][my].getCost() * 2) {
+			JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE", JOptionPane.ERROR_MESSAGE);
+		} else {
+			player.setBalance(player.getBalance() - tiles[mx][my].getCost() * 2);
+			Checkpoint temp = new Checkpoint(mx, my, tiles[mx][my].getCost() * 2);
+			// conserving characteristics of tile
+			temp.setOwner(player);
+			for (int i = 0; i < 4; i++) {
+				if (tiles[mx][my].isUncovered(i)) {
+					temp.isUncovered(i);
+				}
+			}
+			temp.setMerchant(tiles[mx][my].getMerchant());
+			tiles[mx][my] = temp;
+		}
+	}
+
 	private void buyMerchant() {
 		int count = 0;
 		for (int i = 0; i < player.getMerchants().size(); i++) {
@@ -364,12 +392,11 @@ public class Board extends Screen {
 
 		player.setBalance(player.getBalance() + (int) sum);
 	}
-	
+
 	private void auction(int mx, int my) {
 		if (!tiles[mx][my].isPicked()) {
 			if (player.getBalance() < tiles[mx][my].getCost()) {
-				JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE",
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
@@ -384,8 +411,7 @@ public class Board extends Screen {
 			selectedT = null;
 			selectedM = null;
 		} else {
-			JOptionPane.showMessageDialog(null, "Already entered auction", "AUCTION",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Already entered auction", "AUCTION", JOptionPane.INFORMATION_MESSAGE);
 			selectedT = null;
 			selectedM = null;
 		}
