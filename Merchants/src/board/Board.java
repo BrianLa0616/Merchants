@@ -198,7 +198,7 @@ public class Board extends Screen {
 
 					if (selectedT == tiles[mx][my]) { // if same tile pressed
 						if (p.mouseButton == PConstants.LEFT) {
-							selectedM.setColor(player.getMerchantColor());
+							selectedM.setColor(selectedM.getOwner().getMerchantColor());
 							selectedM = null;
 							tiles[mx][my].setSelected(true);
 							switchHighlight(mx, my, false);
@@ -447,7 +447,7 @@ public class Board extends Screen {
 			selectedT = null;
 		}
 		if (selectedM != null) {
-			selectedM.setColor(player.getMerchantColor());
+			selectedM.setColor(selectedM.getOwner().getMerchantColor());
 			switchHighlight(selectedM.getX(), selectedM.getY(), false);
 			selectedM = null;
 		}
