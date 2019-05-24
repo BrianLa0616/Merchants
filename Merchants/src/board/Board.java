@@ -475,13 +475,11 @@ public class Board extends Screen {
 		for (Tile t : player.getTerritory()) {
 			sum += (double) t.getCost() * 0.4;
 		}
-
-		for (int i = 0; i < player.getMerchants().size(); i++) {
-			if (player.getMerchants().get(i).equals(selectedM.getMoneyM())) {
-				sum += selectedM.getMoneyM().add(player.getMerchants().get(i).getLevel());
-			}
-		}
-
+		/*
+		 * for (int i = 0; i < player.getMerchants().size(); i++) { if
+		 * (player.getMerchants().get(i).equals(selectedM.getMoneyM())) { sum +=
+		 * selectedM.getMoneyM().add(player.getMerchants().get(i).getLevel()); } }
+		 */
 		player.setBalance(player.getBalance() + (int) sum);
 	}
 
