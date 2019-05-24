@@ -44,6 +44,8 @@ public class Player {
 	public void addMerchant() {
 		Merchant m = new Merchant(initX, initY, merchantColor);
 		merchants.add(m);
+		m.setOwner(this);
+		m.setNumMoves(m.getSpeed());
 		territory.get(0).setMerchant(m);
 	}
 
@@ -56,6 +58,9 @@ public class Player {
 	public void addMerchant(Merchant m) {
 		m.setColor(merchantColor);
 		merchants.add(m);
+		m.setOwner(this);
+		m.setNumMoves(m.getSpeed());
+		territory.get(0).setMerchant(m);
 	}
 
 	public void addTile(Tile t) {

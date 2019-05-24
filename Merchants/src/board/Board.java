@@ -33,7 +33,6 @@ public class Board extends Screen {
 
 	private TextButton upgradeM;
 	private TextButton buyM;
-	private TextButton auctionM, invisM, moneyM, radarM, speedM;
 	private TextButton endTurn;
 	private TextButton createCheckpoint;
 
@@ -57,21 +56,11 @@ public class Board extends Screen {
 			}
 		}
 
-		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 145, 150, 75, Color.WHITE, Color.BLACK,
+		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK,
 				"UPGRADE \nMERCHANT", 18);
+		createCheckpoint = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK,
+				"CREATE \nCHECKPOINT", 18);
 		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
-
-		auctionM = new TextButton(Screen.DRAWING_WIDTH - 175, 270, 150, 75, Color.WHITE, Color.BLACK,
-				"BUY \nAUCTION \nMERCHANT", 18);
-		invisM = new TextButton(Screen.DRAWING_WIDTH - 175, 395, 150, 75, Color.WHITE, Color.BLACK,
-				"BUY \nINVISIBLE \nMERCHANT", 18);
-		moneyM = new TextButton(Screen.DRAWING_WIDTH - 175, 520, 150, 75, Color.WHITE, Color.BLACK,
-				"BUY \nMONEY \nMERCHANT", 18);
-		radarM = new TextButton(Screen.DRAWING_WIDTH - 175, 645, 150, 75, Color.WHITE, Color.BLACK,
-				"BUY \nRADAR \nMERCHANT", 18);
-		speedM = new TextButton(Screen.DRAWING_WIDTH - 175, 770, 150, 75, Color.WHITE, Color.BLACK,
-				"BUY \nSPEED \nMERCHANT", 18);
-
 		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, Screen.DRAWING_HEIGHT - 125, 150, 75, Color.WHITE,
 				Color.BLACK, "END\nTURN", 18);
 	}
@@ -113,15 +102,22 @@ public class Board extends Screen {
 			display += "\nMoves left: " + selectedM.getMovesLeft();
 			display += "\nLevel " + selectedM.getLevel();
 
-			p.text(display, Screen.DRAWING_WIDTH - 150, 270);
+			upgradeM.draw(p);
+
+			p.text(display, Screen.DRAWING_WIDTH - 150, 400);
 
 		} else if (selectedT != null) {
+
+			if (selectedT instanceof Checkpoint == false && selectedT.getOwner() == player) {
+				createCheckpoint.draw(p);
+			} else if (selectedT == player.getTerritory().get(0)) {
+				buyM.draw(p);
+			}
+
 			String display = selectedT.getCharacteristics();
 
-			p.text(display, Screen.DRAWING_WIDTH - 150, 270);
+			p.text(display, Screen.DRAWING_WIDTH - 150, 400);
 		}
-		drawBM(p);
-		buyM.draw(p);
 
 		p.textSize(36);
 		p.text("Player " + (player.getId() + 1) + " (Balance: " + player.getBalance() + ")", 25,
@@ -135,34 +131,6 @@ public class Board extends Screen {
 	 * @param p PApplet used to draw
 	 */
 	public void mousePressed(PApplet p) {
-		if (buyM.isPointInButton(p.mouseX, p.mouseY)) {
-			int count = 0;
-			for (int i = 0; i < player.getMerchants().size(); i++) {
-				if (player.getMerchants().get(i).getX() == player.initX()
-						&& player.getMerchants().get(i).getY() == player.initY()) {
-					count++;
-					break;
-				}
-			}
-			if (count == 0) {
-				if (player.getBalance() >= 20) {
-					player.setBalance(player.getBalance() - 20);
-					player.addMerchant();
-				}
-			}
-		}
-
-		if (upgradeM.isPointInButton(p.mouseX, p.mouseY)) {
-			auctionM.draw(p);
-			invisM.draw(p);
-			moneyM.draw(p);
-			radarM.draw(p);
-			speedM.draw(p);
-		}
-
-		if (auctionM.isPointInButton(p.mouseX, p.mouseY)) {
-
-		}
 
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) { // end turn
 			if (player.getId() + 1 == handler.getPlayers().size()) { // auction
@@ -174,6 +142,14 @@ public class Board extends Screen {
 			} else {
 				handler.proceed(new TransScreen(handler, handler.getPlayers().get(player.getId() + 1)));
 			}
+		} else if (upgradeM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+			upgradeMerchant();
+		} else if (buyM.isPointInButton(p.mouseX, p.mouseY) && selectedT != null
+				&& player.getTerritory().get(0) == selectedT) {
+			buyMerchant();
+		} else if (createCheckpoint.isPointInButton(p.mouseX, p.mouseY) && selectedT != null
+				&& selectedT.getOwner() == player) {
+			createCheckpoint();
 		} else {
 			int mx = p.mouseY / Tile.TILE_SIZE, my = p.mouseX / Tile.TILE_SIZE;
 
@@ -183,7 +159,7 @@ public class Board extends Screen {
 
 					if (selectedT.getMerchant() != null) { // if merchant is selected
 						selectedM = selectedT.getMerchant();
-						drawBM(p);
+						selectedM.setColor(Color.YELLOW);
 						if (selectedM.getOwner() == player && selectedM.movable()) {
 							switchHighlight(mx, my, true);
 						}
@@ -194,33 +170,12 @@ public class Board extends Screen {
 
 					if (selectedT == tiles[mx][my]) { // if same tile pressed
 						if (p.mouseButton == PConstants.LEFT) {
+							selectedM.setColor(player.getMerchantColor());
 							selectedM = null;
 							tiles[mx][my].setSelected(true);
 							switchHighlight(mx, my, false);
 						} else {
-							if (!tiles[mx][my].isPicked()) {
-								if (player.getBalance() < tiles[mx][my].getCost()) {
-									JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE",
-											JOptionPane.ERROR_MESSAGE);
-									return;
-								}
-
-								Auction a = new Auction(tiles[mx][my]);
-								a.addBid(new Bid(player, tiles[mx][my].getCost()));
-								addAuction(a);
-
-								JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
-										JOptionPane.INFORMATION_MESSAGE);
-								switchHighlight(selectedT.getX(), selectedT.getY(), false);
-								tiles[mx][my].setPicked(true);
-								selectedT = null;
-								selectedM = null;
-							} else {
-								JOptionPane.showMessageDialog(null, "Already entered auction", "AUCTION",
-										JOptionPane.INFORMATION_MESSAGE);
-								selectedT = null;
-								selectedM = null;
-							}
+							auction(mx, my);
 						}
 					} else { // if different tile is pressed
 						if (Math.abs(mx - selectedT.getX()) + Math.abs(my - selectedT.getY()) == 1
@@ -231,50 +186,25 @@ public class Board extends Screen {
 							selectedT.setMerchant(null);
 							tiles[mx][my].setMerchant(selectedM);
 							selectedM.setCoordinates(mx, my);
+							selectedM.setColor(player.getMerchantColor());
 							selectedM = null;
 							selectedT = null;
 
 							uncover(mx, my);
 						} else if (Math.abs(mx - selectedT.getX()) <= 1 && Math.abs(my - selectedT.getY()) <= 1
 								&& p.mouseButton == PConstants.RIGHT) { // auctioning
-							if (!tiles[mx][my].isPicked()) {
-								if (player.getBalance() < tiles[mx][my].getCost()) {
-									JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE",
-											JOptionPane.ERROR_MESSAGE);
-									return;
-								}
-
-								Auction a = new Auction(tiles[mx][my]);
-								a.addBid(new Bid(player, tiles[mx][my].getCost()));
-								addAuction(a);
-
-								JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
-										JOptionPane.INFORMATION_MESSAGE);
-								switchHighlight(selectedT.getX(), selectedT.getY(), false);
-								tiles[mx][my].setPicked(true);
-								selectedT = null;
-								selectedM = null;
-							} else {
-								JOptionPane.showMessageDialog(null, "Already entered auction", "AUCTION",
-										JOptionPane.INFORMATION_MESSAGE);
-
-								selectedT = null;
-								selectedM = null;
-							}
+							auction(mx, my);
 						} else {
-							switchHighlight(selectedT.getX(), selectedT.getY(), false);
-							selectedT = null;
-							selectedM = null;
+							unselectAll();
 						}
 					}
 
-				} else if (selectedT != null) {
-					// if tile is only selected
-					if (selectedT == tiles[mx][my]) {
-						tiles[mx][my].setSelected(false);
-						selectedT = null;
+				} else if (selectedT != null) { // if tile is only selected
+
+					if (selectedT == tiles[mx][my]) { // same tile is pressed
+						unselectAll();
 					} else {
-						selectedT.setSelected(false);
+						unselectAll();
 						selectedT = tiles[mx][my];
 						if (selectedT.getMerchant() != null) {
 							selectedM = selectedT.getMerchant();
@@ -288,21 +218,12 @@ public class Board extends Screen {
 
 				}
 			} else {
-				if (selectedT != null) {
-					tiles[selectedT.getX()][selectedT.getY()].setSelected(false);
-				}
-				if (selectedM != null) {
-					switchHighlight(selectedM.getX(), selectedM.getY(), false);
-				}
-				selectedT = null;
-				selectedM = null;
+				unselectAll();
 
 			}
-
 		}
-	}
 
-	
+	}
 
 	public void mouseMoved(PApplet p) {
 
@@ -360,14 +281,57 @@ public class Board extends Screen {
 		return auctions;
 	}
 
-	private boolean inRange(int x, int y) {
-		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
+	private void upgradeMerchant() {
+
 	}
 
-	private void drawBM(PApplet p) {
-		if (selectedM != null) {
-			upgradeM.draw(p);
+	// selectedT is an owned tile
+	private void createCheckpoint() {
+		int mx = selectedT.getX();
+		int my = selectedT.getY();
+		if (selectedT instanceof Checkpoint) {
+			JOptionPane.showMessageDialog(null, "Checkpoint already created", "INVALID MOVE",
+					JOptionPane.ERROR_MESSAGE);
+		} else if (player.getBalance() < tiles[mx][my].getCost() * 2) {
+			JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE", JOptionPane.ERROR_MESSAGE);
+		} else {
+			player.setBalance(player.getBalance() - tiles[mx][my].getCost() * 2);
+			Checkpoint temp = new Checkpoint(mx, my, tiles[mx][my].getCost() * 2);
+			// conserving characteristics of tile
+			temp.setOwner(player);
+			for (int i = 0; i < 4; i++) {
+				if (tiles[mx][my].isUncovered(i)) {
+					temp.uncover(i);
+				}
+			}
+			temp.setMerchant(tiles[mx][my].getMerchant());
+			player.getTerritory().set(player.getTerritory().indexOf(tiles[mx][my]), temp);
+			tiles[mx][my] = temp;
+
+			unselectAll();
 		}
+	}
+
+	// selectedT is checkpoint
+	private void buyMerchant() {
+
+		if (selectedT.getMerchant() == null) {
+			if (player.getBalance() >= 20) {
+				player.setBalance(player.getBalance() - 20);
+				player.addMerchant();
+				selectedM = player.getTerritory().get(0).getMerchant();
+				selectedT.setSelected(false);
+				selectedM.setColor(Color.YELLOW);
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Merchant can not be created due to obstruction", "INVALID MOVE",
+					JOptionPane.ERROR_MESSAGE);
+		}
+
+	}
+
+	private boolean inRange(int x, int y) {
+		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}
 
 	private void switchHighlight(int x, int y, boolean state) {
@@ -379,6 +343,13 @@ public class Board extends Screen {
 			int ny = y + dy[i];
 			if (inRange(nx, ny)) {
 				tiles[nx][ny].setSelected(state);
+			}
+		}
+
+		ArrayList<Tile> tiles = player.getTerritory();
+		for (int i = 0; i < tiles.size(); i++) {
+			if (tiles.get(i) instanceof Checkpoint && selectedT != tiles.get(i)) {
+				tiles.get(i).setSelected(state);
 			}
 		}
 	}
@@ -405,6 +376,7 @@ public class Board extends Screen {
 		for (Tile[] ts : tiles) {
 			for (Tile t : ts) {
 				t.setPicked(false);
+				t.setSelected(false);
 			}
 		}
 
@@ -418,6 +390,40 @@ public class Board extends Screen {
 		}
 
 		player.setBalance(player.getBalance() + (int) sum);
+	}
+
+	private void auction(int mx, int my) {
+		if (!tiles[mx][my].isPicked()) {
+			if (player.getBalance() < tiles[mx][my].getCost()) {
+				JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			Auction a = new Auction(tiles[mx][my]);
+			a.addBid(new Bid(player, tiles[mx][my].getCost()));
+			addAuction(a);
+
+			JOptionPane.showMessageDialog(null, "Successfully entered auction", "AUCTION",
+					JOptionPane.INFORMATION_MESSAGE);
+			switchHighlight(selectedT.getX(), selectedT.getY(), false);
+			tiles[mx][my].setPicked(true);
+			unselectAll();
+		} else {
+			JOptionPane.showMessageDialog(null, "Already entered auction", "AUCTION", JOptionPane.INFORMATION_MESSAGE);
+			unselectAll();
+		}
+	}
+
+	private void unselectAll() {
+		if (selectedT != null) {
+			selectedT.setSelected(false);
+			selectedT = null;
+		}
+		if (selectedM != null) {
+			selectedM.setColor(player.getMerchantColor());
+			switchHighlight(selectedM.getX(), selectedM.getY(), false);
+			selectedM = null;
+		}
 	}
 
 }

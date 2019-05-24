@@ -76,7 +76,6 @@ public class IntroScreen extends Screen {
 				handler.getBoard().getTiles()[xvals[i]][yvals[i]] = new Checkpoint(player.initX(), player.initY(),
 						player.getTerritory().size() * 10);
 
-				handler.getBoard().getTiles()[xvals[i]][yvals[i]].setOwner(player);
 				handler.getPlayers().get(i).addTile(handler.getBoard().getTiles()[xvals[i]][yvals[i]]);
 
 				for (int j = -1; j <= 1; j++) {

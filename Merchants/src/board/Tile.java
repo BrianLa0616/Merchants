@@ -56,7 +56,7 @@ public class Tile {
 
 		if (uncovered[id]) {
 			if (isSelected) {
-				p.fill(Color.yellow.getRGB());
+				p.fill(Color.YELLOW.getRGB());
 			} else if (isPicked) {
 				p.fill(225, 155, 255);
 			} else {
@@ -158,6 +158,9 @@ public class Tile {
 	 * @param owner of the tile
 	 */
 	public void setOwner(Player owner) {
+		if (this.owner != null && this.owner != owner) {
+			this.owner.getTerritory().remove(this.owner.getTerritory().indexOf(this));
+		}
 		this.owner = owner;
 		setColor(ScreenHandler.TILE_COLORS[owner.getId()]);
 	}
@@ -233,5 +236,4 @@ public class Tile {
 	public boolean isPicked() {
 		return isPicked;
 	}
-
 }

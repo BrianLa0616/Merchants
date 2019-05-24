@@ -118,7 +118,7 @@ public class AuctionScreen extends Screen {
 						winner = i;
 					}
 				}
-
+				
 				bid.getPlayer().addTile(auction.getTile());
 				bid.getPlayer().setBalance(bid.getPlayer().getBalance() - bid.getAmount());
 
