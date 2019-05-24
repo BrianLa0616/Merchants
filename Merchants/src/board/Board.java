@@ -40,7 +40,7 @@ public class Board extends Screen {
 	private TextButton speedM;
 	private TextButton endTurn;
 	private TextButton createCheckpoint;
-	
+
 	private int count;
 
 	/**
@@ -54,7 +54,7 @@ public class Board extends Screen {
 		player = null;
 		selectedT = null;
 		selectedM = null;
-		
+
 		count = 0;
 
 		auctions = new ArrayList<Auction>();
@@ -76,7 +76,7 @@ public class Board extends Screen {
 				"SPEED \nMERCHANT \n$20", 18);
 
 		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 95, Color.WHITE, Color.BLACK,
-				"UPGRADE \nMERCHANT", 18);	//+ price of merchant
+				"UPGRADE \nMERCHANT", 18); // + price of merchant
 		createCheckpoint = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK,
 				"CREATE \nCHECKPOINT", 18);
 		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
@@ -137,15 +137,15 @@ public class Board extends Screen {
 
 			p.text(display, Screen.DRAWING_WIDTH - 150, 645);
 		}
-		
-		if(count == 1) {
+
+		if (count == 1) {
 			auctionM.draw(p);
 			invisM.draw(p);
 			moneyM.draw(p);
 			radarM.draw(p);
 			speedM.draw(p);
 		}
-		
+
 		p.textSize(36);
 		p.text("Player " + (player.getId() + 1) + " (Balance: " + player.getBalance() + ")", 25,
 				Screen.DRAWING_HEIGHT - 75);
@@ -206,7 +206,8 @@ public class Board extends Screen {
 							auction(mx, my);
 						}
 					} else { // if different tile is pressed
-						if (Math.abs(mx - selectedT.getX()) + Math.abs(my - selectedT.getY()) == 1
+						if ((Math.abs(mx - selectedT.getX()) + Math.abs(my - selectedT.getY()) == 1
+								|| tiles[mx][my] instanceof Checkpoint && tiles[mx][my].getOwner() == player)
 								&& p.mouseButton == PConstants.LEFT && tiles[mx][my].getMerchant() == null
 								&& selectedM.movable() && selectedM.getOwner() == player) { // moving
 
