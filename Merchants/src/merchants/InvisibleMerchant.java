@@ -60,10 +60,11 @@ public class InvisibleMerchant extends Merchant {
 	 * the Invisible Merchant rises in levels, it will be able to go further into
 	 * other players' lands while still maintaining its invisibility
 	 * 
-	 * @param t Tile that the Invisible Merchant is currently on
-	 * @param p Player who owns the Invisible Merchant
+	 * @param level of the Invisible Merchant
+	 * @param t     Tile that the Invisible Merchant is currently on
+	 * @param p     Player who owns the Invisible Merchant
 	 */
-	public void invisible(Player p, Tile t) {
+	public void invisible(int level, Player p, Tile t) {
 		if (x == t.getX() && y == t.getY()) {
 
 			if (p.getTileColor().equals(t.getColor())) {

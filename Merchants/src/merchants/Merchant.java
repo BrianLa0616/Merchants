@@ -20,6 +20,12 @@ public class Merchant {
 	private int level;
 	private int price;
 
+	private AuctionMerchant auctionM;
+	private InvisibleMerchant invisibleM;
+	private MoneyMerchant moneyM;
+	private RadarMerchant radarM;
+	private SpeedMerchant speedM;
+
 	private Color color;
 	private Board b;
 	private Tile t;
@@ -46,6 +52,12 @@ public class Merchant {
 		b = null;
 		p = null;
 		t = null;
+
+		auctionM = null;
+		invisibleM = null;
+		moneyM = null;
+		radarM = null;
+		speedM = null;
 	}
 
 	/**
@@ -257,5 +269,26 @@ public class Merchant {
 	public int getPrice() {
 		return price;
 	}
+
+	public AuctionMerchant getAuctionM() {
+		return auctionM;
+	}
+
+	public InvisibleMerchant getInvisibleM() {
+		return invisibleM;
+	}
+
+	public MoneyMerchant getMoneyM() {
+		return moneyM;
+	}
+
+	public RadarMerchant getRadarM() {
+		return radarM;
+	}
+
+	public SpeedMerchant getSpeedM() {
+		return speedM;
+	}
+
 
 }
