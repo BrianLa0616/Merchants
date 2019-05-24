@@ -85,7 +85,8 @@ public class Board extends Screen {
 				"UPGRADE \nMERCHANT", 18); // + price of merchant
 		createCheckpoint = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK,
 				"CREATE \nCHECKPOINT", 18);
-		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "BUY\nMERCHANT ($50)", 18);
+		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "BUY\nMERCHANT ($50)",
+				18);
 		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, Screen.DRAWING_HEIGHT - 125, 150, 75, Color.WHITE,
 				Color.BLACK, "END\nTURN", 18);
 	}
@@ -489,12 +490,6 @@ public class Board extends Screen {
 		double sum = 0;
 		for (Tile t : player.getTerritory()) {
 			sum += (double) t.getCost() * 0.25;
-		}
-
-		for (int i = 0; i < player.getMerchants().size(); i++) {
-			if (player.getMerchants().get(i).equals(selectedM.getMoneyM())) {
-				sum += selectedM.getMoneyM().add(player.getMerchants().get(i).getLevel());
-			}
 		}
 
 		player.setBalance(player.getBalance() + (int) sum);
