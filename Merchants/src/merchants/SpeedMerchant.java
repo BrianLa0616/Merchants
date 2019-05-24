@@ -41,43 +41,13 @@ public class SpeedMerchant extends Merchant {
 	}
 
 	/**
+	 * Returns the price of an Speed Merchant at specified level
 	 * 
-	 * @return price of a Speed Merchant
+	 * @param level of the Speed Merchant
+	 * @return price of Speed Merchant at specified level
 	 */
-	public int getPrice() {
-		return price[0];
-	}
-
-	/**
-	 * 
-	 * @return price of a level 2 Speed Merchant
-	 */
-	public int getPrice2() {
-		return price[1];
-	}
-
-	/**
-	 * 
-	 * @return price of a level 3 Speed Merchant
-	 */
-	public int getPrice3() {
-		return price[2];
-	}
-
-	/**
-	 * 
-	 * @return price of a level 4 Speed Merchant
-	 */
-	public int getPrice4() {
-		return price[3];
-	}
-
-	/**
-	 * 
-	 * @return price of a level 5 Speed Merchant
-	 */
-	public int getPrice5() {
-		return price[4];
+	public int getPrice(int level) {
+		return price[level - 1];
 	}
 
 }

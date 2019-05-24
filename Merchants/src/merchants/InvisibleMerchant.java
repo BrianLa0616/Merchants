@@ -98,43 +98,13 @@ public class InvisibleMerchant extends Merchant {
 	}
 
 	/**
+	 * Returns the price of an Invisible Merchant at specified level
 	 * 
-	 * @return cost of an Invisible Merchant
+	 * @param level of the Invisible Merchant
+	 * @return price of Invisible Merchant at specified level
 	 */
-	public int getPrice() {
-		return price[0];
-	}
-
-	/**
-	 * 
-	 * @return price of a level 2 Invisible Merchant
-	 */
-	public int getPrice2() {
-		return price[1];
-	}
-
-	/**
-	 * 
-	 * @return price of a level 3 Invisible Merchant
-	 */
-	public int getPrice3() {
-		return price[2];
-	}
-
-	/**
-	 * 
-	 * @return price of a level 4 Invisible Merchant
-	 */
-	public int getPrice4() {
-		return price[3];
-	}
-
-	/**
-	 * 
-	 * @return price of a level 5 Invisible Merchant
-	 */
-	public int getPrice5() {
-		return price[4];
+	public int getPrice(int level) {
+		return price[level - 1];
 	}
 
 }

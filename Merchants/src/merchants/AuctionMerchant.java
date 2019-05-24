@@ -45,43 +45,14 @@ public class AuctionMerchant extends Merchant {
 	}
 
 	/**
+	 * Returns the price of an Auction Merchant at specified level
 	 * 
-	 * @return price of a level 1 Auction Merchant
+	 * @param level of the Auction Merchant
+	 * @return price of Auction Merchant at specified level
 	 */
-	public int getPrice() {
-		return price[0];
+	public int getPrice(int level) {
+		return price[level - 1];
 	}
 
-	/**
-	 * 
-	 * @return price of a level 2 Auction Merchant
-	 */
-	public int getPrice2() {
-		return price[1];
-	}
-
-	/**
-	 * 
-	 * @return price of a level 3 Auction Merchant
-	 */
-	public int getPrice3() {
-		return price[2];
-	}
-
-	/**
-	 * 
-	 * @return price of a level 4 Auction Merchant
-	 */
-	public int getPrice4() {
-		return price[3];
-	}
-
-	/**
-	 * 
-	 * @return price of a level 5 Auction Merchant
-	 */
-	public int getPrice5() {
-		return price[4];
-	}
 
 }
