@@ -167,7 +167,6 @@ public class Tile {
 			this.owner.getTerritory().remove(this.owner.getTerritory().indexOf(this));
 		}
 		this.owner = owner;
-
 	}
 
 	/**
