@@ -82,6 +82,14 @@ public class ScreenHandler extends PApplet {
 	public int getCurrentPlayer() {
 		return currPlayer;
 	}
+	
+	public void restart() {
+		players.clear();
+		board = new Board(this);
+		currPlayer = 0;
+		currScreen = new IntroScreen(this);
+
+	}
 
 	
 
