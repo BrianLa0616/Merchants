@@ -409,6 +409,9 @@ public class Board extends Screen {
 				selectedM = player.getTerritory().get(0).getMerchant();
 				selectedT.setSelected(false);
 				selectedM.setColor(Color.YELLOW);
+			} else {
+				JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE",
+						JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Merchant can not be created due to obstruction", "INVALID MOVE",
