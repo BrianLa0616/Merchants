@@ -117,7 +117,7 @@ public class Board extends Screen {
 		p.fill(0);
 
 		if (selectedM != null) {
-			String display = "Merchant: ";
+			String display = "Merchant: Player " + (1 + selectedM.getOwner().getId());
 			display += "\nMoves left: " + selectedM.getMovesLeft();
 			display += "\nLevel " + selectedM.getLevel();
 
@@ -170,7 +170,7 @@ public class Board extends Screen {
 			} else {
 				handler.proceed(new TransScreen(handler, handler.getPlayers().get(player.getId() + 1)));
 			}
-		} else if (upgradeM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+		} else if (upgradeM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null && selectedM.getOwner() == player) {
 			upgradeMerchant();
 		} else if (buyM.isPointInButton(p.mouseX, p.mouseY) && selectedT != null
 				&& player.getTerritory().get(0) == selectedT) {
@@ -194,7 +194,7 @@ public class Board extends Screen {
 					} else {
 						tiles[mx][my].setSelected(true);
 					}
-				} else if (selectedM != null) { // if merchant and tile are selected
+				} else if (selectedM != null  && selectedM.getOwner() == player) { // if merchant and tile are selected
 
 					if (selectedT == tiles[mx][my]) { // if same tile pressed
 						if (p.mouseButton == PConstants.LEFT) {
