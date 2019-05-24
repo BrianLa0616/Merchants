@@ -433,7 +433,7 @@ public class Board extends Screen {
 
 	}
 
-	private boolean inRange(int x, int y) {
+	public boolean inRange(int x, int y) {
 		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}
 

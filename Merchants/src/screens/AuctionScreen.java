@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import board.Tile;
 import buttons.TextButton;
 import other.Auction;
 import other.Bid;
@@ -22,6 +23,8 @@ public class AuctionScreen extends Screen {
 	private ScreenHandler handler;
 
 	private TextButton proceed;
+
+	private Tile[][] minimap;
 
 	private ArrayList<TextButton> enterBid, withdraw;
 
@@ -47,6 +50,17 @@ public class AuctionScreen extends Screen {
 			} else {
 				enterBid.add(null);
 				withdraw.add(null);
+			}
+		}
+
+		a.getTile().setPicked(true);
+
+		minimap = new Tile[3][3];
+		for (int i = a.getTile().getX() - 1; i <= a.getTile().getX() + 1; i++) {
+			for (int j = a.getTile().getY() - 1; j <= a.getTile().getY() + 1; j++) {
+				if (handler.getBoard().inRange(i, j)) {
+					minimap[i - a.getTile().getX() + 1][j - a.getTile().getY() + 1] = handler.getBoard().getTiles()[i][j];
+				}
 			}
 		}
 	}
@@ -91,6 +105,14 @@ public class AuctionScreen extends Screen {
 
 //		p.text("AUCTION\nFor: " + auctions.get(0).getTile().getCharacteristics(), Screen.DRAWING_WIDTH - 150, 200);		
 
+		for (Tile[] ts : minimap) {
+			for (Tile t : ts) {
+				if (t != null) {
+					t.draw(p, 4);
+				}
+			}
+		}
+
 		proceed.draw(p);
 	}
 
@@ -107,9 +129,9 @@ public class AuctionScreen extends Screen {
 					processedBids.add(auction.getBids().get(i));
 				}
 			}
-			
+
 			auction.setBids(processedBids);
-			
+
 			if (winner == -1 && processedBids.size() >= 1) {
 
 				Bid bid = auction.decideWinner();
@@ -118,12 +140,13 @@ public class AuctionScreen extends Screen {
 						winner = i;
 					}
 				}
-				
+
 				bid.getPlayer().addTile(auction.getTile());
 				bid.getPlayer().setBalance(bid.getPlayer().getBalance() - bid.getAmount());
 
 				proceed.setText("EXIT AUCTION");
 			} else {
+				auction.getTile().setPicked(false);
 				handler.getBoard().getAuction().remove(0);
 				if (handler.getBoard().getAuction().size() == 0) {
 					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));

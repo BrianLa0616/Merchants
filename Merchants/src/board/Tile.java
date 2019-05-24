@@ -40,10 +40,11 @@ public class Tile {
 		isSelected = false;
 		isPicked = false;
 
-		uncovered = new boolean[4];
+		uncovered = new boolean[5];
 		for (int i = 0; i < 4; i++) {
 			uncovered[i] = false;
 		}
+		uncovered[4] = true;
 	}
 
 	/**
