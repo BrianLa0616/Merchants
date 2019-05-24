@@ -1,15 +1,15 @@
 package other;
 
 public class Bid {
-	private Player1 player;
+	private Player player;
 	private int bid;
 
-	public Bid(Player1 p, int bid) {
+	public Bid(Player p, int bid) {
 		player = p;
 		this.bid = bid;
 	}
 
-	public Player1 getPlayer() {
+	public Player getPlayer() {
 		return player;
 	}
 

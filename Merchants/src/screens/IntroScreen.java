@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 import board.Checkpoint;
 import buttons.TextButton;
-import other.Player1;
+import other.Player;
 import processing.core.PApplet;
 
 /**
@@ -68,9 +68,9 @@ public class IntroScreen extends Screen {
 			int[] xvals = { 1, 13, 13, 1 }, yvals = { 1, 13, 1, 13 };
 
 			for (int i = 0; i < numPlayers; i++) {
-				handler.getPlayers().add(new Player1(xvals[i], yvals[i], ScreenHandler.PLAYER_COLORS[i],
+				handler.getPlayers().add(new Player(xvals[i], yvals[i], ScreenHandler.PLAYER_COLORS[i],
 						ScreenHandler.TILE_COLORS[i], i));
-				Player1 player = handler.getPlayers().get(i);
+				Player player = handler.getPlayers().get(i);
 
 				// adds Tile to player's territory
 				handler.getBoard().getTiles()[xvals[i]][yvals[i]] = new Checkpoint(player.initX(), player.initY(),
