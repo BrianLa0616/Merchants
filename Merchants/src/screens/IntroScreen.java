@@ -16,7 +16,7 @@ import processing.core.PApplet;
  *
  */
 public class IntroScreen extends Screen {
-	private TextButton start;
+	private TextButton start, instr;
 	private ScreenHandler handler;
 
 	/**
@@ -27,6 +27,7 @@ public class IntroScreen extends Screen {
 	public IntroScreen(ScreenHandler board) {
 		super(board);
 		start = new TextButton(450, 450, 200, 75, Color.WHITE, Color.BLACK, "START", 24);
+		instr = new TextButton(450, 550, 200, 75, Color.WHITE, Color.BLACK, "INSTRUCTIONS", 24);
 		this.handler = board;
 	}
 
@@ -45,6 +46,7 @@ public class IntroScreen extends Screen {
 		p.fill(0);
 		p.text("MERCHANTS", Screen.DRAWING_WIDTH / 2, Screen.DRAWING_HEIGHT / 2 - 100);
 		start.draw(p);
+		instr.draw(p);
 	}
 
 	/**
@@ -93,6 +95,8 @@ public class IntroScreen extends Screen {
 			}
 
 			handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
+		} else if (instr.isPointInButton(p.mouseX, p.mouseY)) {
+			handler.proceed(new InstructionsScreen(handler));
 		}
 	}
 
@@ -141,6 +145,7 @@ public class IntroScreen extends Screen {
 	 * Determines whether specified location is within the board
 	 */
 	private boolean inRange(int x, int y) {
-		return x >= 0 && x < handler.getBoard().getTiles().length && y >= 0 && y < handler.getBoard().getTiles()[0].length;
+		return x >= 0 && x < handler.getBoard().getTiles().length && y >= 0
+				&& y < handler.getBoard().getTiles()[0].length;
 	}
 }
