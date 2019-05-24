@@ -40,6 +40,8 @@ public class Board extends Screen {
 	private TextButton speedM;
 	private TextButton endTurn;
 	private TextButton createCheckpoint;
+	
+	private int count;
 
 	/**
 	 * Creates a new board
@@ -52,6 +54,8 @@ public class Board extends Screen {
 		player = null;
 		selectedT = null;
 		selectedM = null;
+		
+		count = 0;
 
 		auctions = new ArrayList<Auction>();
 		tiles = new Tile[15][15];
@@ -60,19 +64,19 @@ public class Board extends Screen {
 				tiles[i][j] = new Tile(i, j, 15 + (int) (Math.random() * 10));
 			}
 		}
-		auctionM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "SPEED \nMERCHANT",
-				18);
-		invisM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK,
-				"INVISIBLE \nMERCHANT", 18);
-		moneyM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "MONEY \nMERCHANT",
-				18);
-		radarM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "RADAR \nMERCHANT",
-				18);
-		speedM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK,
-				"SPEED MERCHANT \nMERCHANT", 18);
+		auctionM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 95, Color.WHITE, Color.BLACK,
+				"AUCTION \nMERCHANT \n$20", 18);
+		invisM = new TextButton(Screen.DRAWING_WIDTH - 175, 145, 150, 95, Color.WHITE, Color.BLACK,
+				"INVISIBLE \nMERCHANT \n$20", 18);
+		moneyM = new TextButton(Screen.DRAWING_WIDTH - 175, 270, 150, 95, Color.WHITE, Color.BLACK,
+				"MONEY \nMERCHANT \n$20", 18);
+		radarM = new TextButton(Screen.DRAWING_WIDTH - 175, 395, 150, 95, Color.WHITE, Color.BLACK,
+				"RADAR \nMERCHANT \n$20", 18);
+		speedM = new TextButton(Screen.DRAWING_WIDTH - 175, 520, 150, 95, Color.WHITE, Color.BLACK,
+				"SPEED \nMERCHANT \n$20", 18);
 
 		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 95, Color.WHITE, Color.BLACK,
-				"UPGRADE \nMERCHANT \n$20", 18);
+				"UPGRADE \nMERCHANT", 18);	//+ price of merchant
 		createCheckpoint = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK,
 				"CREATE \nCHECKPOINT", 18);
 		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
@@ -119,7 +123,7 @@ public class Board extends Screen {
 
 			upgradeM.draw(p);
 
-			p.text(display, Screen.DRAWING_WIDTH - 150, 400);
+			p.text(display, Screen.DRAWING_WIDTH - 150, 645);
 
 		} else if (selectedT != null) {
 
@@ -131,9 +135,17 @@ public class Board extends Screen {
 
 			String display = selectedT.getCharacteristics();
 
-			p.text(display, Screen.DRAWING_WIDTH - 150, 400);
+			p.text(display, Screen.DRAWING_WIDTH - 150, 645);
 		}
-
+		
+		if(count == 1) {
+			auctionM.draw(p);
+			invisM.draw(p);
+			moneyM.draw(p);
+			radarM.draw(p);
+			speedM.draw(p);
+		}
+		
 		p.textSize(36);
 		p.text("Player " + (player.getId() + 1) + " (Balance: " + player.getBalance() + ")", 25,
 				Screen.DRAWING_HEIGHT - 75);
@@ -297,7 +309,7 @@ public class Board extends Screen {
 	}
 
 	private void upgradeMerchant() {
-
+		count++;
 	}
 
 	// selectedT is an owned tile
