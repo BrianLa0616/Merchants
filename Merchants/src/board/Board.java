@@ -70,7 +70,7 @@ public class Board extends Screen {
 			}
 		}
 
-		auctionM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 95, Color.WHITE, Color.BLACK,
+		auctionM = new TextButton(Screen.DRAWING_WIDTH - 175, 145, 150, 95, Color.WHITE, Color.BLACK,
 				"AUCTION \nMERCHANT \n$20", 18);
 		invisM = new TextButton(Screen.DRAWING_WIDTH - 175, 270, 150, 95, Color.WHITE, Color.BLACK,
 				"INVISIBLE \nMERCHANT \n$20", 18);
