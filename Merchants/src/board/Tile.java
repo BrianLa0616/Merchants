@@ -69,8 +69,8 @@ public class Tile {
 
 			p.rect(y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
 			if (this instanceof Checkpoint && isUncovered(owner.getId())) {
-				p.image(p.loadImage("images" + System.getProperty("file.separator") + "blackflag.png"), y * TILE_SIZE + 5,
-						x * TILE_SIZE + 5);
+				p.image(p.loadImage("images" + System.getProperty("file.separator") + "blackflag.png"),
+						y * TILE_SIZE + 5, x * TILE_SIZE + 5);
 			}
 
 			if (merchant != null) {
@@ -167,7 +167,6 @@ public class Tile {
 			this.owner.getTerritory().remove(this.owner.getTerritory().indexOf(this));
 		}
 		this.owner = owner;
-		setColor(ScreenHandler.TILE_COLORS[owner.getId()]);
 	}
 
 	/**
