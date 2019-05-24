@@ -66,7 +66,7 @@ public class Board extends Screen {
 		tiles = new Tile[15][15];
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 15; j++) {
-				tiles[i][j] = new Tile(i, j, 15 + (int) (Math.random() * 10));
+				tiles[i][j] = new Tile(i, j, 15 + (int) (Math.random() * 20));
 			}
 		}
 
@@ -85,7 +85,7 @@ public class Board extends Screen {
 				"UPGRADE \nMERCHANT", 18); // + price of merchant
 		createCheckpoint = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK,
 				"CREATE \nCHECKPOINT", 18);
-		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
+		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "BUY\nMERCHANT ($50)", 18);
 		endTurn = new TextButton(Screen.DRAWING_WIDTH - 175, Screen.DRAWING_HEIGHT - 125, 150, 75, Color.WHITE,
 				Color.BLACK, "END\nTURN", 18);
 	}
@@ -416,8 +416,8 @@ public class Board extends Screen {
 	private void buyMerchant() {
 
 		if (selectedT.getMerchant() == null) {
-			if (player.getBalance() >= 20) {
-				player.setBalance(player.getBalance() - 20);
+			if (player.getBalance() >= 50) {
+				player.setBalance(player.getBalance() - 50);
 				player.addMerchant();
 				selectedM = player.getTerritory().get(0).getMerchant();
 				selectedT.setSelected(false);
@@ -488,7 +488,7 @@ public class Board extends Screen {
 
 		double sum = 0;
 		for (Tile t : player.getTerritory()) {
-			sum += (double) t.getCost() * 0.4;
+			sum += (double) t.getCost() * 0.25;
 		}
 
 		for (int i = 0; i < player.getMerchants().size(); i++) {
