@@ -226,7 +226,8 @@ public class AuctionScreen extends Screen {
 	}
 
 	private void deletePlayer(Player player) {
-		for (int i = 0; i < player.getTerritory().size(); i++) {
+		
+		while(player.getTerritory().size() != 0) {
 			player.getTerritory().get(0).setOwner(null);
 		}
 
