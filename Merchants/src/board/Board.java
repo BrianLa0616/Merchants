@@ -146,21 +146,22 @@ public class Board extends Screen {
 
 		if (selectedM != null) {
 			for (int i = 0; i < player.getMerchants().size(); i++) {
-				if (player.getMerchants().get(i).equals(selectedM.getAuctionM())) {
-					p.stroke(238, 130, 238); // purple
+				if (player.getMerchants().get(i).equals(new AuctionMerchant(player.getMerchants().get(i).getX(),
+						player.getMerchants().get(i).getY(), player.getMerchantColor()))) {
+					p.stroke(255, 215, 0); // gold
 				} else if (player.getMerchants().get(i).equals(selectedM.getInvisibleM())) {
 					p.stroke(128, 128, 128); // gray
 				} else if (player.getMerchants().get(i).equals(selectedM.getMoneyM())) {
-					p.stroke(255, 215, 0); // gold
+					p.stroke(238, 130, 238); // purple
 				} else if (player.getMerchants().get(i).equals(selectedM.getRadarM())) {
 					p.stroke(255, 105, 180); // pink
-				} else if (player.getMerchants().get(i).equals(selectedM.getSpeedM())) {
-					p.stroke(255, 255, 0); // yellow
+				} else if (player.getMerchants().get(i).equals(player.getMerchants().get(i).getSpeedM())) {
+					p.stroke(255, 0, 255); // magenta
 				}
 			}
 		}
 
-		if (count == 1) {
+		if (count == 1 && selectedM.getLevel() == 0) {
 			auctionM.draw(p);
 			invisM.draw(p);
 			moneyM.draw(p);
@@ -196,28 +197,39 @@ public class Board extends Screen {
 				&& selectedM.getOwner() == player) {
 			upgradeMerchant();
 			if (selectedM.getLevel() == 0) {
-				if (auctionM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+				System.out.println(selectedM.getLevel());
+				if (auctionM.isPointInButton(p.mouseX, p.mouseY)) {
+					System.out.println("auction");
+					player.setBalance(player.getBalance() - selectedM.getPrice());
+
 					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
 							new AuctionMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor()));
 
-				} else if (invisM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+				} else if (invisM.isPointInButton(p.mouseX, p.mouseY)) {
+					player.setBalance(player.getBalance() - selectedM.getPrice());
+
 					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
 							new InvisibleMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor()));
 
-				} else if (moneyM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+				} else if (moneyM.isPointInButton(p.mouseX, p.mouseY)) {
+					player.setBalance(player.getBalance() - selectedM.getPrice());
+
 					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
 							new MoneyMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor()));
 
-				} else if (radarM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+				} else if (radarM.isPointInButton(p.mouseX, p.mouseY)) {
+					player.setBalance(player.getBalance() - selectedM.getPrice());
+
 					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
 							new RadarMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor()));
+
 				} else if (speedM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+					player.setBalance(player.getBalance() - selectedM.getPrice());
+
 					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
 							new SpeedMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor()));
 
 				}
-
-				player.setBalance(player.getBalance() - selectedM.getPrice());
 
 			} else if (selectedM.getLevel() > 1 && selectedM.getLevel() < 5) {
 				selectedM.setLevel(selectedM.getLevel() + 1);
@@ -305,9 +317,10 @@ public class Board extends Screen {
 				}
 			} else {
 				unselectAll();
-				count = 0;
 
 			}
+			count = 0;
+
 		}
 
 	}
@@ -410,8 +423,7 @@ public class Board extends Screen {
 				selectedT.setSelected(false);
 				selectedM.setColor(Color.YELLOW);
 			} else {
-				JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE",
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Not enough money", "INVALID MOVE", JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Merchant can not be created due to obstruction", "INVALID MOVE",
@@ -478,11 +490,13 @@ public class Board extends Screen {
 		for (Tile t : player.getTerritory()) {
 			sum += (double) t.getCost() * 0.4;
 		}
-		/*
-		 * for (int i = 0; i < player.getMerchants().size(); i++) { if
-		 * (player.getMerchants().get(i).equals(selectedM.getMoneyM())) { sum +=
-		 * selectedM.getMoneyM().add(player.getMerchants().get(i).getLevel()); } }
-		 */
+
+		for (int i = 0; i < player.getMerchants().size(); i++) {
+			if (player.getMerchants().get(i).equals(selectedM.getMoneyM())) {
+				sum += selectedM.getMoneyM().add(player.getMerchants().get(i).getLevel());
+			}
+		}
+
 		player.setBalance(player.getBalance() + (int) sum);
 	}
 
