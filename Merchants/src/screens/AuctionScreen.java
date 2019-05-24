@@ -134,7 +134,7 @@ public class AuctionScreen extends Screen {
 		} else {
 			if (winner == -1) {
 				for (int i = 0; i < auction.getBids().size(); i++) {
-					if (enterBid.get(i).isPointInButton(p.mouseX, p.mouseY)) {
+					if (enterBid.get(i) != null && enterBid.get(i).isPointInButton(p.mouseX, p.mouseY)) {
 						String input = JOptionPane.showInputDialog("Enter Bid Amount");
 
 						if (input == null || input == "" || !validIntegerInput(input)) {
@@ -157,7 +157,7 @@ public class AuctionScreen extends Screen {
 
 						auction.getBids().get(i).setAmount(bidAmount);
 						return;
-					} else if (withdraw.get(i).isPointInButton(p.mouseX, p.mouseY)) {
+					} else if (withdraw.get(i) != null && withdraw.get(i).isPointInButton(p.mouseX, p.mouseY)) {
 						int choice = JOptionPane.showConfirmDialog(null, "Withdraw from Auction?", "WITHDRAW",
 								JOptionPane.YES_NO_OPTION);
 						if (choice == 0) {

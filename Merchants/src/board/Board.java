@@ -69,7 +69,8 @@ public class Board extends Screen {
 				tiles[i][j] = new Tile(i, j, 15 + (int) (Math.random() * 10));
 			}
 		}
-		auctionM = new TextButton(Screen.DRAWING_WIDTH - 175, 145, 150, 95, Color.WHITE, Color.BLACK,
+
+		auctionM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 95, Color.WHITE, Color.BLACK,
 				"AUCTION \nMERCHANT \n$20", 18);
 		invisM = new TextButton(Screen.DRAWING_WIDTH - 175, 270, 150, 95, Color.WHITE, Color.BLACK,
 				"INVISIBLE \nMERCHANT \n$20", 18);
@@ -122,7 +123,7 @@ public class Board extends Screen {
 		p.fill(0);
 
 		if (selectedM != null) {
-			String display = "Merchant: ";
+			String display = "Merchant: Player " + (1 + selectedM.getOwner().getId());
 			display += "\nMoves left: " + selectedM.getMovesLeft();
 			display += "\nLevel " + selectedM.getLevel();
 
@@ -158,6 +159,7 @@ public class Board extends Screen {
 				}
 			}
 		}
+
 		if (count == 1) {
 			auctionM.draw(p);
 			invisM.draw(p);
@@ -180,6 +182,7 @@ public class Board extends Screen {
 	public void mousePressed(PApplet p) {
 
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) { // end turn
+			unselectAll();
 			if (player.getId() + 1 == handler.getPlayers().size()) { // auction
 				if (auctions.size() == 0) {
 					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
@@ -189,7 +192,8 @@ public class Board extends Screen {
 			} else {
 				handler.proceed(new TransScreen(handler, handler.getPlayers().get(player.getId() + 1)));
 			}
-		} else if (upgradeM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+		} else if (upgradeM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null
+				&& selectedM.getOwner() == player) {
 			upgradeMerchant();
 			if (selectedM.getLevel() == 0) {
 				if (auctionM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
@@ -231,29 +235,34 @@ public class Board extends Screen {
 			if (inRange(mx, my) && tiles[mx][my].isUncovered(player.getId())) {
 				if (selectedT == null) { // if nothing is selected
 					selectedT = tiles[mx][my];
+					selectedT.setSelected(true);
 
 					if (selectedT.getMerchant() != null) { // if merchant is selected
+						selectedT.setSelected(false);
 						selectedM = selectedT.getMerchant();
 						selectedM.setColor(Color.YELLOW);
 						if (selectedM.getOwner() == player && selectedM.movable()) {
 							switchHighlight(mx, my, true);
 						}
 					} else {
-						tiles[mx][my].setSelected(true);
+						selectedT.setSelected(true);
 					}
 				} else if (selectedM != null) { // if merchant and tile are selected
 
 					if (selectedT == tiles[mx][my]) { // if same tile pressed
 						if (p.mouseButton == PConstants.LEFT) {
-							selectedM.setColor(player.getMerchantColor());
+							selectedM.setColor(selectedM.getOwner().getMerchantColor());
 							selectedM = null;
 							tiles[mx][my].setSelected(true);
 							switchHighlight(mx, my, false);
 						} else {
-							auction(mx, my);
+							if (selectedM.getOwner() == player) {
+								auction(mx, my);
+							}
 						}
 					} else { // if different tile is pressed
-						if (Math.abs(mx - selectedT.getX()) + Math.abs(my - selectedT.getY()) == 1
+						if ((Math.abs(mx - selectedT.getX()) + Math.abs(my - selectedT.getY()) == 1
+								|| tiles[mx][my] instanceof Checkpoint && tiles[mx][my].getOwner() == player)
 								&& p.mouseButton == PConstants.LEFT && tiles[mx][my].getMerchant() == null
 								&& selectedM.movable() && selectedM.getOwner() == player) { // moving
 
@@ -261,13 +270,15 @@ public class Board extends Screen {
 							selectedT.setMerchant(null);
 							tiles[mx][my].setMerchant(selectedM);
 							selectedM.setCoordinates(mx, my);
-							selectedM.setColor(player.getMerchantColor());
-							selectedM = null;
-							selectedT = null;
+							if (tiles[mx][my] instanceof Checkpoint && selectedM.getMovesLeft() >= 0) {
+								selectedM.setNumMoves(selectedM.getSpeed());
+							}
+
+							unselectAll();
 
 							uncover(mx, my);
 						} else if (Math.abs(mx - selectedT.getX()) <= 1 && Math.abs(my - selectedT.getY()) <= 1
-								&& p.mouseButton == PConstants.RIGHT) { // auctioning
+								&& p.mouseButton == PConstants.RIGHT && selectedM.getOwner() == player) { // auctioning
 							auction(mx, my);
 						} else {
 							unselectAll();
@@ -502,7 +513,7 @@ public class Board extends Screen {
 			selectedT = null;
 		}
 		if (selectedM != null) {
-			selectedM.setColor(player.getMerchantColor());
+			selectedM.setColor(selectedM.getOwner().getMerchantColor());
 			switchHighlight(selectedM.getX(), selectedM.getY(), false);
 			selectedM = null;
 		}
