@@ -30,10 +30,11 @@ public class SpeedMerchant extends Merchant {
 	 * Ability of a Speed Merchant to move extra spaces, as the level of the
 	 * merchant increases, the Speed Merchant can move further
 	 * 
+	 * @param level    of the Speed Merchant
 	 * @param movement amount of tiles a speed merchant can currently move
 	 * @return new amount of leftover moves for speed merchant
 	 */
-	public int speed(int movement) {
+	public int speed(int level, int movement) {
 		if (level < 5) {
 			return movement++;
 		}

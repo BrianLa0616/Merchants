@@ -18,8 +18,10 @@ public class RadarMerchant extends Merchant {
 
 	private int price[] = { 20, 35, 45, 60, 75 };
 
-	private int[] nx = { 0, 1, 1, 1, 0, -1, -1, -1 };
-	private int[] ny = { -1, -1, 0, 1, 1, 1, 0, -1 };
+	private int[] nx = { 0, 1, 1, 1 };
+	private int[] ny = { -1, -1, 0, 1, };
+	private int[] nx2 = { 0, -1, -1, -1 };
+	private int[] ny2 = { 1, 1, 0, -1 };
 	private int[] nx3 = { -2, -1, 0, 1, 2 };
 	private int[] ny3 = { -2, -2, -2, -2, -2 };
 	private int[] nx4 = { -2, -2, -2, 2, 2, 2 };
@@ -44,13 +46,21 @@ public class RadarMerchant extends Merchant {
 	 * merchant, as the Radar Merchant's level rises, so does the amount of revealed
 	 * tiles around them
 	 * 
-	 * @param b board revealed around them
+	 * @param level of the Radar Merchant
 	 */
-	public void reveal() {
-		if (level == 2) {
+	public void reveal(int level) {
+		if (level == 1) {
 			for (int i = 0; i < nx.length; i++) {
 				for (int j = 0; j < ny.length; j++) {
-					getB().uncover(nx[i], ny[j]);
+					getB().uncover(nx2[i], ny2[j]);
+					getT().uncover(getP().getId());
+				}
+			}
+
+		} else if (level == 2) {
+			for (int i = 0; i < nx2.length; i++) {
+				for (int j = 0; j < ny2.length; j++) {
+					getB().uncover(nx2[i], ny2[j]);
 					getT().uncover(getP().getId());
 				}
 			}

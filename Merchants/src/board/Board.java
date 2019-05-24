@@ -6,7 +6,12 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import buttons.TextButton;
+import merchants.AuctionMerchant;
+import merchants.InvisibleMerchant;
 import merchants.Merchant;
+import merchants.MoneyMerchant;
+import merchants.RadarMerchant;
+import merchants.SpeedMerchant;
 import other.Auction;
 import other.Bid;
 import other.Player;
@@ -40,7 +45,7 @@ public class Board extends Screen {
 	private TextButton speedM;
 	private TextButton endTurn;
 	private TextButton createCheckpoint;
-	
+
 	private int count;
 
 	/**
@@ -54,7 +59,7 @@ public class Board extends Screen {
 		player = null;
 		selectedT = null;
 		selectedM = null;
-		
+
 		count = 0;
 
 		auctions = new ArrayList<Auction>();
@@ -64,19 +69,19 @@ public class Board extends Screen {
 				tiles[i][j] = new Tile(i, j, 15 + (int) (Math.random() * 10));
 			}
 		}
-		auctionM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 95, Color.WHITE, Color.BLACK,
+		auctionM = new TextButton(Screen.DRAWING_WIDTH - 175, 145, 150, 95, Color.WHITE, Color.BLACK,
 				"AUCTION \nMERCHANT \n$20", 18);
-		invisM = new TextButton(Screen.DRAWING_WIDTH - 175, 145, 150, 95, Color.WHITE, Color.BLACK,
+		invisM = new TextButton(Screen.DRAWING_WIDTH - 175, 270, 150, 95, Color.WHITE, Color.BLACK,
 				"INVISIBLE \nMERCHANT \n$20", 18);
-		moneyM = new TextButton(Screen.DRAWING_WIDTH - 175, 270, 150, 95, Color.WHITE, Color.BLACK,
+		moneyM = new TextButton(Screen.DRAWING_WIDTH - 175, 395, 150, 95, Color.WHITE, Color.BLACK,
 				"MONEY \nMERCHANT \n$20", 18);
-		radarM = new TextButton(Screen.DRAWING_WIDTH - 175, 395, 150, 95, Color.WHITE, Color.BLACK,
+		radarM = new TextButton(Screen.DRAWING_WIDTH - 175, 520, 150, 95, Color.WHITE, Color.BLACK,
 				"RADAR \nMERCHANT \n$20", 18);
-		speedM = new TextButton(Screen.DRAWING_WIDTH - 175, 520, 150, 95, Color.WHITE, Color.BLACK,
+		speedM = new TextButton(Screen.DRAWING_WIDTH - 175, 645, 150, 95, Color.WHITE, Color.BLACK,
 				"SPEED \nMERCHANT \n$20", 18);
 
 		upgradeM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 95, Color.WHITE, Color.BLACK,
-				"UPGRADE \nMERCHANT", 18);	//+ price of merchant
+				"UPGRADE \nMERCHANT", 18); // + price of merchant
 		createCheckpoint = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK,
 				"CREATE \nCHECKPOINT", 18);
 		buyM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 75, Color.WHITE, Color.BLACK, "BUY \nMERCHANT", 18);
@@ -123,7 +128,7 @@ public class Board extends Screen {
 
 			upgradeM.draw(p);
 
-			p.text(display, Screen.DRAWING_WIDTH - 150, 645);
+			p.text(display, Screen.DRAWING_WIDTH - 150, 770);
 
 		} else if (selectedT != null) {
 
@@ -135,17 +140,32 @@ public class Board extends Screen {
 
 			String display = selectedT.getCharacteristics();
 
-			p.text(display, Screen.DRAWING_WIDTH - 150, 645);
+			p.text(display, Screen.DRAWING_WIDTH - 150, 770);
 		}
-		
-		if(count == 1) {
+
+		if (selectedM != null) {
+			for (int i = 0; i < player.getMerchants().size(); i++) {
+				if (player.getMerchants().get(i).equals(selectedM.getAuctionM())) {
+					p.stroke(238, 130, 238); // purple
+				} else if (player.getMerchants().get(i).equals(selectedM.getInvisibleM())) {
+					p.stroke(128, 128, 128); // gray
+				} else if (player.getMerchants().get(i).equals(selectedM.getMoneyM())) {
+					p.stroke(255, 215, 0); // gold
+				} else if (player.getMerchants().get(i).equals(selectedM.getRadarM())) {
+					p.stroke(255, 105, 180); // pink
+				} else if (player.getMerchants().get(i).equals(selectedM.getSpeedM())) {
+					p.stroke(255, 255, 0); // yellow
+				}
+			}
+		}
+		if (count == 1) {
 			auctionM.draw(p);
 			invisM.draw(p);
 			moneyM.draw(p);
 			radarM.draw(p);
 			speedM.draw(p);
 		}
-		
+
 		p.textSize(36);
 		p.text("Player " + (player.getId() + 1) + " (Balance: " + player.getBalance() + ")", 25,
 				Screen.DRAWING_HEIGHT - 75);
@@ -171,6 +191,34 @@ public class Board extends Screen {
 			}
 		} else if (upgradeM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
 			upgradeMerchant();
+			if (selectedM.getLevel() == 0) {
+				if (auctionM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
+							new AuctionMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor()));
+
+				} else if (invisM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
+							new InvisibleMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor()));
+
+				} else if (moneyM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
+							new MoneyMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor()));
+
+				} else if (radarM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
+							new RadarMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor()));
+				} else if (speedM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
+							new SpeedMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor()));
+
+				}
+
+				player.setBalance(player.getBalance() - selectedM.getPrice());
+
+			} else if (selectedM.getLevel() > 1 && selectedM.getLevel() < 5) {
+				selectedM.setLevel(selectedM.getLevel() + 1);
+			}
+
 		} else if (buyM.isPointInButton(p.mouseX, p.mouseY) && selectedT != null
 				&& player.getTerritory().get(0) == selectedT) {
 			buyMerchant();
@@ -246,6 +294,7 @@ public class Board extends Screen {
 				}
 			} else {
 				unselectAll();
+				count = 0;
 
 			}
 		}
@@ -414,6 +463,12 @@ public class Board extends Screen {
 		double sum = 0;
 		for (Tile t : player.getTerritory()) {
 			sum += (double) t.getCost() * 0.4;
+		}
+
+		for (int i = 0; i < player.getMerchants().size(); i++) {
+			if (player.getMerchants().get(i).equals(selectedM.getMoneyM())) {
+				sum += selectedM.getMoneyM().add(player.getMerchants().get(i).getLevel());
+			}
 		}
 
 		player.setBalance(player.getBalance() + (int) sum);
