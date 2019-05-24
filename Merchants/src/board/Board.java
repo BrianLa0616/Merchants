@@ -310,6 +310,7 @@ public class Board extends Screen {
 							if (selectedM.movable() && selectedM.getOwner() == player) {
 								switchHighlight(mx, my, true);
 							}
+							selectedM.setColor(Color.YELLOW);
 						} else {
 							selectedT.setSelected(true);
 						}

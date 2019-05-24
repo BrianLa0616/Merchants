@@ -128,6 +128,10 @@ public class AuctionScreen extends Screen {
 									"PLAYER LOST", JOptionPane.INFORMATION_MESSAGE);
 							deletePlayer(player);
 							handler.getPlayers().remove(i);
+							
+							if (handler.getPlayers().size() == 1) {
+								handler.proceed(new EndScreen(handler, handler.getPlayers().get(0)));
+							}
 						}
 					}
 				}

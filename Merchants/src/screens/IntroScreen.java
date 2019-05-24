@@ -67,7 +67,7 @@ public class IntroScreen extends Screen {
 
 			int numPlayers = Integer.parseInt(input);
 
-			int[] xvals = { 1, 3, 13, 1 }, yvals = { 1, 3, 1, 13 };
+			int[] xvals = { 1, 13, 13, 1 }, yvals = { 1, 13, 1, 13 };
 
 			for (int i = 0; i < numPlayers; i++) {
 				handler.getPlayers().add(new Player(xvals[i], yvals[i], ScreenHandler.PLAYER_COLORS[i],
