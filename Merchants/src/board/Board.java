@@ -183,14 +183,14 @@ public class Board extends Screen {
 
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) { // end turn
 			unselectAll();
-			if (player.getId() + 1 == handler.getPlayers().size()) { // auction
+			if (player == handler.getPlayers().get(handler.getPlayers().size()-1)) { // auction
 				if (auctions.size() == 0) {
 					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
 				} else {
 					handler.proceed(new AuctionScreen(handler, auctions.get(0)));
 				}
 			} else {
-				handler.proceed(new TransScreen(handler, handler.getPlayers().get(player.getId() + 1)));
+				handler.proceed(new TransScreen(handler, handler.getPlayers().get(handler.getPlayers().indexOf(player)+1)));
 			}
 		} else if (upgradeM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null
 				&& selectedM.getOwner() == player) {

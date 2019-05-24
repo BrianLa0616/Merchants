@@ -107,9 +107,9 @@ public class AuctionScreen extends Screen {
 					processedBids.add(auction.getBids().get(i));
 				}
 			}
-			
+
 			auction.setBids(processedBids);
-			
+
 			if (winner == -1 && processedBids.size() >= 1) {
 
 				Bid bid = auction.decideWinner();
@@ -118,12 +118,19 @@ public class AuctionScreen extends Screen {
 						winner = i;
 					}
 				}
-				
+
 				bid.getPlayer().addTile(auction.getTile());
 				bid.getPlayer().setBalance(bid.getPlayer().getBalance() - bid.getAmount());
 
 				proceed.setText("EXIT AUCTION");
 			} else {
+				for (int i = 0; i < handler.getPlayers().size(); i++) {
+					if (auction.getTile() == handler.getPlayers().get(i).getTerritory().get(0)) {
+						JOptionPane.showMessageDialog(null, "Player " + handler.getPlayers().get(i).getId(),
+								"PLAYER LOST", JOptionPane.INFORMATION_MESSAGE);
+						handler.getPlayers().remove(i);
+					}
+				}
 				handler.getBoard().getAuction().remove(0);
 				if (handler.getBoard().getAuction().size() == 0) {
 					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
