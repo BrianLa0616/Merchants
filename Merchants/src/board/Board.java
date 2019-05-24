@@ -64,6 +64,7 @@ public class Board extends Screen {
 				tiles[i][j] = new Tile(i, j, 15 + (int) (Math.random() * 10));
 			}
 		}
+
 		auctionM = new TextButton(Screen.DRAWING_WIDTH - 175, 20, 150, 95, Color.WHITE, Color.BLACK,
 				"AUCTION \nMERCHANT \n$20", 18);
 		invisM = new TextButton(Screen.DRAWING_WIDTH - 175, 145, 150, 95, Color.WHITE, Color.BLACK,
