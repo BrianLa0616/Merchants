@@ -160,6 +160,7 @@ public class Board extends Screen {
 	public void mousePressed(PApplet p) {
 
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) { // end turn
+			unselectAll();
 			if (player.getId() + 1 == handler.getPlayers().size()) { // auction
 				if (auctions.size() == 0) {
 					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
@@ -213,9 +214,7 @@ public class Board extends Screen {
 							selectedT.setMerchant(null);
 							tiles[mx][my].setMerchant(selectedM);
 							selectedM.setCoordinates(mx, my);
-							selectedM.setColor(player.getMerchantColor());
-							selectedM = null;
-							selectedT = null;
+							unselectAll();
 
 							uncover(mx, my);
 						} else if (Math.abs(mx - selectedT.getX()) <= 1 && Math.abs(my - selectedT.getY()) <= 1
