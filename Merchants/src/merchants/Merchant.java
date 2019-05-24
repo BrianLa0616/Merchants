@@ -239,14 +239,6 @@ public class Merchant {
 
 	/**
 	 * 
-	 * @return p player
-	 */
-	public Player getP() {
-		return p;
-	}
-
-	/**
-	 * 
 	 * @return level of merchant
 	 */
 	public int getLevel() {

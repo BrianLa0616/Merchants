@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import buttons.TextButton;
 import other.Auction;
 import other.Bid;
+import other.Player;
 import processing.core.PApplet;
 
 /**
@@ -119,18 +120,25 @@ public class AuctionScreen extends Screen {
 					}
 				}
 
+				for (int i = 0; i < handler.getPlayers().size(); i++) {
+					Player player = handler.getPlayers().get(i);
+					if (auction.getTile().getOwner() == player && auction.getBids().get(winner).getPlayer() != player) {
+						if (auction.getTile() == player.getTerritory().get(0)) {
+							JOptionPane.showMessageDialog(null, "Player " + (player.getId() + 1) + " has lost",
+									"PLAYER LOST", JOptionPane.INFORMATION_MESSAGE);
+							deletePlayer(player);
+							handler.getPlayers().remove(i);
+						}
+					}
+				}
+
 				bid.getPlayer().addTile(auction.getTile());
 				bid.getPlayer().setBalance(bid.getPlayer().getBalance() - bid.getAmount());
 
 				proceed.setText("EXIT AUCTION");
+
 			} else {
-				for (int i = 0; i < handler.getPlayers().size(); i++) {
-					if (auction.getTile() == handler.getPlayers().get(i).getTerritory().get(0)) {
-						JOptionPane.showMessageDialog(null, "Player " + handler.getPlayers().get(i).getId(),
-								"PLAYER LOST", JOptionPane.INFORMATION_MESSAGE);
-						handler.getPlayers().remove(i);
-					}
-				}
+
 				handler.getBoard().getAuction().remove(0);
 				if (handler.getBoard().getAuction().size() == 0) {
 					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
@@ -206,12 +214,6 @@ public class AuctionScreen extends Screen {
 
 	}
 
-	/**
-	 * Checks if the entered number is valid
-	 * 
-	 * @param x entered value
-	 * @return true if the input was valid, false otherwise
-	 */
 	private boolean validIntegerInput(String x) {
 		if (x.length() == 0)
 			return false;
@@ -221,6 +223,30 @@ public class AuctionScreen extends Screen {
 			}
 		}
 		return true;
+	}
+
+	private void deletePlayer(Player player) {
+		for (int i = 0; i < player.getTerritory().size(); i++) {
+			player.getTerritory().get(0).setOwner(null);
+		}
+
+		for (int i = 0; i < player.getMerchants().size(); i++) {
+			int x = player.getMerchants().get(i).getX();
+			int y = player.getMerchants().get(i).getY();
+			handler.getBoard().getTiles()[x][y].setMerchant(null);
+		}
+
+		for (int i = 0; i < handler.getBoard().getAuction().size(); i++) {
+			Auction a = handler.getBoard().getAuction().get(i);
+			for (int j = 0; j < a.getBids().size(); j++) {
+				if (a.getBids().get(j).getPlayer() == player) {
+					a.getBids().remove(j);
+				}
+			}
+			if (a.getBids().size() == 0) {
+				handler.getBoard().getAuction().remove(i);
+			}
+		}
 	}
 
 }
