@@ -185,17 +185,19 @@ public class Board extends Screen {
 			if (inRange(mx, my) && tiles[mx][my].isUncovered(player.getId())) {
 				if (selectedT == null) { // if nothing is selected
 					selectedT = tiles[mx][my];
+					selectedT.setSelected(true);
 
 					if (selectedT.getMerchant() != null) { // if merchant is selected
+						selectedT.setSelected(false);
 						selectedM = selectedT.getMerchant();
 						selectedM.setColor(Color.YELLOW);
 						if (selectedM.getOwner() == player && selectedM.movable()) {
 							switchHighlight(mx, my, true);
 						}
 					} else {
-						tiles[mx][my].setSelected(true);
+						selectedT.setSelected(true);
 					}
-				} else if (selectedM != null && selectedM.getOwner() == player) { // if merchant and tile are selected
+				} else if (selectedM != null) { // if merchant and tile are selected
 
 					if (selectedT == tiles[mx][my]) { // if same tile pressed
 						if (p.mouseButton == PConstants.LEFT) {
@@ -204,7 +206,9 @@ public class Board extends Screen {
 							tiles[mx][my].setSelected(true);
 							switchHighlight(mx, my, false);
 						} else {
-							auction(mx, my);
+							if (selectedM.getOwner() == player) {
+								auction(mx, my);
+							}
 						}
 					} else { // if different tile is pressed
 						if ((Math.abs(mx - selectedT.getX()) + Math.abs(my - selectedT.getY()) == 1
@@ -216,11 +220,15 @@ public class Board extends Screen {
 							selectedT.setMerchant(null);
 							tiles[mx][my].setMerchant(selectedM);
 							selectedM.setCoordinates(mx, my);
+							if (tiles[mx][my] instanceof Checkpoint && selectedM.getMovesLeft() >= 0) {
+								selectedM.setNumMoves(selectedM.getSpeed());
+							}
+
 							unselectAll();
 
 							uncover(mx, my);
 						} else if (Math.abs(mx - selectedT.getX()) <= 1 && Math.abs(my - selectedT.getY()) <= 1
-								&& p.mouseButton == PConstants.RIGHT) { // auctioning
+								&& p.mouseButton == PConstants.RIGHT && selectedM.getOwner() == player) { // auctioning
 							auction(mx, my);
 						} else {
 							unselectAll();
