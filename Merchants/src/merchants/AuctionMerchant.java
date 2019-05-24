@@ -34,7 +34,9 @@ public class AuctionMerchant extends Merchant {
 	 * @return new player bid after added money
 	 */
 	public int auction(int level) {
-		if (level == 2) {
+		if (level == 1) {
+			return 10;
+		} else if (level == 2) {
 			return 15;
 		} else if (level == 3) {
 			return 20;
@@ -53,6 +55,5 @@ public class AuctionMerchant extends Merchant {
 	public int getPrice(int level) {
 		return price[level - 1];
 	}
-
 
 }
