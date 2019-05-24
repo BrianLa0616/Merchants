@@ -12,8 +12,7 @@ public class InstructionsScreen extends Screen {
 	public InstructionsScreen(ScreenHandler board) {
 		super(board);
 		handler = board;
-		back = new TextButton(Screen.DRAWING_WIDTH - 175, 125, 150, 75, Color.WHITE,
-				Color.BLACK, "BACK", 18);
+		back = new TextButton(Screen.DRAWING_WIDTH - 175, 125, 150, 75, Color.WHITE, Color.BLACK, "BACK", 18);
 	}
 
 	public void setup(PApplet p) {
@@ -27,7 +26,7 @@ public class InstructionsScreen extends Screen {
 
 		p.text("Merchants: How to Play\r\n" + "\r\n" + "Goal:\r\n"
 				+ "Defeat all other players by acquiring their Home Tile.\r\n" + "\r\n" + "Start:\r\n"
-				+ "Each player starts with a Home Tile, a Merchant, and $100.\r\n" + "\r\n" + "Basic Mechanincs:\r\n"
+				+ "Each player starts with a Home Tile, a Merchant, and $100.\r\n" + "\r\n" + "Basic Mechanics:\r\n"
 				+ "Merchants can move around the map and acquire Tiles which provide income. Income increases the player's balance,\nwhich is used to buy Merchants and Checkpoints, upgrade Merchants, and enter Tile auctions.\r\n"
 				+ "\r\n" + "Acquiring Tiles:\r\n"
 				+ "Tiles are acquired by entering auctions. To enter an auction, select a Merchant and right-click on an adjacent\n(diagonals included) Tile to that Merchant. That will enter the player in an auction for that Tile. At the end of each turn\nround, all auctions are taken care of in Auction Rooms. In an Auction Room, all the players participating in an auction for\na speific Tile may enter bids or withdraw. Based on the bids, the winner is automatically decided and the Tile in question\nbecomes a part of the winner's territory.\r\n"
