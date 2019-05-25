@@ -30,7 +30,7 @@ import screens.TransScreen;
  *
  */
 public class Board extends Screen {
-	public static final int BOARD_SIZE = 10;
+	public static final int BOARD_SIZE = 15;
 
 	private Player player;
 	private ScreenHandler handler;
@@ -112,7 +112,6 @@ public class Board extends Screen {
 		refresh();
 	}
 
-	
 	public void setup(PApplet p) {
 	}
 
@@ -462,7 +461,6 @@ public class Board extends Screen {
 		return auctions;
 	}
 
-	
 	/**
 	 * 
 	 * @param x Length of game
