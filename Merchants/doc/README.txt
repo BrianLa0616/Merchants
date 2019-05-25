@@ -1,7 +1,7 @@
 ﻿--------------------Merchants--------------------
 
 
------General Information-----
+-----Introduction-----
 Merchants is an all-new strategy game written by famed developers Eylam Tagor, Ansen Tsan, and Brian La in May 2019.
 
 
