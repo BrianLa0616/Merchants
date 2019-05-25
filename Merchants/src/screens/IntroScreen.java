@@ -93,8 +93,12 @@ public class IntroScreen extends Screen {
 				handler.getBoard().getTiles()[xvals[i]][yvals[i]].setMerchant(player.getMerchants().get(0));
 				player.getMerchants().get(0).setOwner(player);
 				player.getMerchants().get(0).setCoordinates(xvals[i], yvals[i]);
+
 			}
 
+			String[] options = { "25", "45", "75", "100", "endless" };
+			JOptionPane.showOptionDialog(null, "Choose the duration of the game", "LENGTH", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 			handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
 		} else if (instr.isPointInButton(p.mouseX, p.mouseY)) {
 			handler.proceed(new InstructionsScreen(handler));
