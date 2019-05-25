@@ -26,7 +26,7 @@ Merchants: How to Play
 
 
 Goal:
-Defeat all other players by acquiring their Home Tile.
+Defeat all other players by acquiring their Home Tile, while defending your own!
 
 
 Start:
