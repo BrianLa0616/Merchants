@@ -62,7 +62,7 @@ public class Tile {
 				p.fill(225, 155, 255);
 			} else {
 				if (owner == null) {
-					p.noFill();
+					p.fill(Color.WHITE.getRGB());;
 				} else {
 					p.fill(owner.getTileColor().getRGB());
 				}

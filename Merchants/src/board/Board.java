@@ -122,6 +122,8 @@ public class Board extends Screen {
 	 * @param p PApplet used to draw
 	 */
 	public void draw(PApplet p) {
+		System.out.println(p.mouseX + " " + p.mouseY);
+		
 		p.fill(0);
 		p.textSize(14);
 		p.textAlign(PApplet.LEFT);
@@ -150,9 +152,12 @@ public class Board extends Screen {
 			String display = header + "Merchant: \nPlayer " + (1 + selectedM.getOwner().getId());
 			display += "\nMoves left: " + selectedM.getMovesLeft();
 			display += "\nLevel " + selectedM.getLevel();
+			p.fill(255);
+			p.rect(940, 750, 135, 120);
 
 			upgradeM.draw(p);
 
+			p.fill(0);
 			p.text(display, Screen.DRAWING_WIDTH - 150, 770);
 
 		} else if (selectedT != null) {
@@ -162,7 +167,9 @@ public class Board extends Screen {
 			} else if (selectedT == player.getTerritory().get(0)) {
 				buyM.draw(p);
 			}
-
+			p.fill(255);
+			p.rect(940, 750, 100, 135);
+			p.fill(0);
 			String display = selectedT.getCharacteristics();
 
 			p.text(display, Screen.DRAWING_WIDTH - 150, 770);
