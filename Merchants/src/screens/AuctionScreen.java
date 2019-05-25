@@ -9,6 +9,7 @@ import board.Tile;
 import buttons.TextButton;
 import other.Auction;
 import other.Bid;
+import other.Player;
 import processing.core.PApplet;
 
 /**
@@ -59,7 +60,8 @@ public class AuctionScreen extends Screen {
 		for (int i = a.getTile().getX() - 1; i <= a.getTile().getX() + 1; i++) {
 			for (int j = a.getTile().getY() - 1; j <= a.getTile().getY() + 1; j++) {
 				if (handler.getBoard().inRange(i, j)) {
-					minimap[i - a.getTile().getX() + 1][j - a.getTile().getY() + 1] = handler.getBoard().getTiles()[i][j];
+					minimap[i - a.getTile().getX() + 1][j - a.getTile().getY()
+							+ 1] = handler.getBoard().getTiles()[i][j].clone();
 				}
 			}
 		}
@@ -99,16 +101,17 @@ public class AuctionScreen extends Screen {
 				} else {
 					p.textSize(36);
 					p.text("Disqualified (not enough money).", 500, 235 + 100 * i);
+					p.textSize(60);
 				}
 			}
 		}
 
 //		p.text("AUCTION\nFor: " + auctions.get(0).getTile().getCharacteristics(), Screen.DRAWING_WIDTH - 150, 200);		
 
-		for (Tile[] ts : minimap) {
-			for (Tile t : ts) {
-				if (t != null) {
-					t.draw(p, 4);
+		for (int i = 0; i < minimap.length; i++) {
+			for (int j = 0; j < minimap[0].length; j++) {
+				if (minimap[i][j] != null) {
+					minimap[i][j].draw(p, 4);
 				}
 			}
 		}
@@ -141,12 +144,30 @@ public class AuctionScreen extends Screen {
 					}
 				}
 
+				for (int i = 0; i < handler.getPlayers().size(); i++) {
+					Player player = handler.getPlayers().get(i);
+					if (auction.getTile().getOwner() == player && auction.getBids().get(winner).getPlayer() != player) {
+						if (auction.getTile() == player.getTerritory().get(0)) {
+							JOptionPane.showMessageDialog(null, "Player " + (player.getId() + 1) + " has lost",
+									"PLAYER LOST", JOptionPane.INFORMATION_MESSAGE);
+							deletePlayer(player);
+							handler.getPlayers().remove(i);
+
+							if (handler.getPlayers().size() == 1) {
+								handler.proceed(new EndScreen(handler, handler.getPlayers().get(0)));
+							}
+						}
+					}
+				}
+
 				bid.getPlayer().addTile(auction.getTile());
 				bid.getPlayer().setBalance(bid.getPlayer().getBalance() - bid.getAmount());
 
 				proceed.setText("EXIT AUCTION");
+
 			} else {
 				auction.getTile().setPicked(false);
+
 				handler.getBoard().getAuction().remove(0);
 				if (handler.getBoard().getAuction().size() == 0) {
 					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
@@ -222,12 +243,6 @@ public class AuctionScreen extends Screen {
 
 	}
 
-	/**
-	 * Checks if the entered number is valid
-	 * 
-	 * @param x entered value
-	 * @return true if the input was valid, false otherwise
-	 */
 	private boolean validIntegerInput(String x) {
 		if (x.length() == 0)
 			return false;
@@ -237,6 +252,31 @@ public class AuctionScreen extends Screen {
 			}
 		}
 		return true;
+	}
+
+	private void deletePlayer(Player player) {
+
+		while (player.getTerritory().size() != 0) {
+			player.getTerritory().get(0).setOwner(null);
+		}
+
+		for (int i = 0; i < player.getMerchants().size(); i++) {
+			int x = player.getMerchants().get(i).getX();
+			int y = player.getMerchants().get(i).getY();
+			handler.getBoard().getTiles()[x][y].setMerchant(null);
+		}
+
+		for (int i = 0; i < handler.getBoard().getAuction().size(); i++) {
+			Auction a = handler.getBoard().getAuction().get(i);
+			for (int j = 0; j < a.getBids().size(); j++) {
+				if (a.getBids().get(j).getPlayer() == player) {
+					a.getBids().remove(j);
+				}
+			}
+			if (a.getBids().size() == 0) {
+				handler.getBoard().getAuction().remove(i);
+			}
+		}
 	}
 
 }

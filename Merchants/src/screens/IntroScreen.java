@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import javax.swing.JOptionPane;
 
+import board.Board;
 import board.Checkpoint;
 import buttons.TextButton;
 import other.Player;
@@ -67,7 +68,8 @@ public class IntroScreen extends Screen {
 
 			int numPlayers = Integer.parseInt(input);
 
-			int[] xvals = { 1, 13, 13, 1 }, yvals = { 1, 13, 1, 13 };
+			int[] xvals = { 1, Board.BOARD_SIZE - 2, Board.BOARD_SIZE - 2, 1 },
+					yvals = { 1, Board.BOARD_SIZE - 2, 1, Board.BOARD_SIZE - 2 };
 
 			for (int i = 0; i < numPlayers; i++) {
 				handler.getPlayers().add(new Player(xvals[i], yvals[i], ScreenHandler.PLAYER_COLORS[i],
@@ -92,6 +94,7 @@ public class IntroScreen extends Screen {
 
 				handler.getBoard().getTiles()[xvals[i]][yvals[i]].setMerchant(player.getMerchants().get(0));
 				player.getMerchants().get(0).setOwner(player);
+				player.getMerchants().get(0).setCoordinates(xvals[i], yvals[i]);
 			}
 
 			handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
