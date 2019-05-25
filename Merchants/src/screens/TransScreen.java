@@ -40,6 +40,7 @@ public class TransScreen extends Screen {
 	 * @param p PApplet used to draw
 	 */
 	public void draw(PApplet p) {
+
 		p.textAlign(PApplet.CENTER);
 		p.fill(0);
 		p.textSize(60);

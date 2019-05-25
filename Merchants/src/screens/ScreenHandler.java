@@ -4,10 +4,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import board.Board;
-import board.Tile;
-import other.Auction;
 import other.Player;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 /**
  * Represents a Screen Handler which draws the screens
@@ -23,8 +22,9 @@ public class ScreenHandler extends PApplet {
 
 	private Screen currScreen;
 	private ArrayList<Player> players;
+	private PImage background;
 	
-	int currPlayer;
+	private int currPlayer;
 	private Board board;
 
 	/**
@@ -39,11 +39,16 @@ public class ScreenHandler extends PApplet {
 		board = new Board(this);
 	}
 
+	public void setup() {
+		background = loadImage("images" + System.getProperty("file.separator") + "town.png");
+	}
 	/**
 	 * Draws the screen
 	 */
 	public void draw() {
 		background(255);
+		image(background, 0, 0);
+
 		currScreen.draw(this);
 	}
 

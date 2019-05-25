@@ -9,6 +9,7 @@ import board.Checkpoint;
 import buttons.TextButton;
 import other.Player;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 /**
  * Represents the home screen when a user first enters the game
@@ -19,6 +20,7 @@ import processing.core.PApplet;
 public class IntroScreen extends Screen {
 	private TextButton start, instr;
 	private ScreenHandler handler;
+	private PImage town;
 
 	/**
 	 * Creates a new intro screen
@@ -30,10 +32,10 @@ public class IntroScreen extends Screen {
 		start = new TextButton(450, 450, 200, 75, Color.WHITE, Color.BLACK, "START", 24);
 		instr = new TextButton(450, 550, 200, 75, Color.WHITE, Color.BLACK, "INSTRUCTIONS", 24);
 		this.handler = board;
+
 	}
 
 	public void setup(PApplet p) {
-		// nothing
 	}
 
 	/**
