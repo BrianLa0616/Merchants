@@ -163,12 +163,19 @@ public class Merchant {
 		totalMoves = speed;
 	}
 
+	/**
+	 * 
+	 * @param numMoves number of moves that is being set
+	 */
 	public void setNumMoves(int numMoves) {
 		this.numMoves = numMoves;
 	}
-	
-	public int getNumMoves()
-	{
+
+	/**
+	 * 
+	 * @return number of moves
+	 */
+	public int getNumMoves() {
 		return numMoves;
 	}
 
@@ -270,12 +277,15 @@ public class Merchant {
 		this.level = level;
 	}
 
+	/**
+	 * @return total number of moves
+	 */
 	public int getTotalMoves() {
 		return totalMoves;
 	}
 
 	/**
-	 * 
+	 * @param level level of merchant
 	 * @return price of a regular merchant
 	 */
 	public int getPrice(int level) {

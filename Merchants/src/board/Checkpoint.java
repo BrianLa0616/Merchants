@@ -16,6 +16,7 @@ public class Checkpoint extends Tile {
 	 * 
 	 * @param x the x-coordinate of the checkpoint
 	 * @param y the y-coordinate of the checkpoint
+	 * @param price price of checkpoint
 	 */
 	public Checkpoint(int x, int y, int price) {
 		super(x, y, price);

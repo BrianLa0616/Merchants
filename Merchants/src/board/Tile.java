@@ -84,6 +84,13 @@ public class Tile {
 		}
 	}
 
+	/**
+	 * Draws the tile
+	 * @param p Papplet used to draw
+	 * @param id id of the player that is drawing
+	 * @param x x-coordinate of tile
+	 * @param y y-coordinate of tile
+	 */
 	public void draw(PApplet p, int id, int x, int y) {
 		if (uncovered[id]) {
 			if (isSelected) {
@@ -116,7 +123,7 @@ public class Tile {
 	/**
 	 * Returns characteristics of tile
 	 * 
-	 * @return str string informing the coordinates, cost, and who the tile is owned
+	 * @return str String informing the coordinates, cost, and who the tile is owned
 	 *         by
 	 */
 	public String getCharacteristics() {
@@ -132,32 +139,32 @@ public class Tile {
 	}
 
 	/**
-	 * @return the x-coordinate of the tile
+	 * @return x-coordinate of the tile
 	 */
 	public int getX() {
 		return x;
 	}
 
 	/**
-	 * @return the y-coordinate of the tile
+	 * @return y-coordinate of the tile
 	 */
 	public int getY() {
 		return y;
 	}
 
 	/**
-	 * Sets this tile's x-coordinate
+	 * Sets tile's x-coordinate
 	 * 
-	 * @param x the new x value
+	 * @param x The new x value
 	 */
 	public void setX(int x) {
 		this.x = x;
 	}
 
 	/**
-	 * Sets this tile's x-coordinate
+	 * Sets tile's y-coordinate
 	 * 
-	 * @param x the new x value
+	 * @param y The new y value
 	 */
 	public void setY(int y) {
 		this.y = y;
@@ -166,7 +173,7 @@ public class Tile {
 	/**
 	 * Sets the merchant
 	 * 
-	 * @param m merchant desired
+	 * @param m Merchant desired
 	 */
 	public void setMerchant(Merchant m) {
 		merchant = m;
@@ -174,7 +181,7 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return merchant currently occupying the tile
+	 * @return Merchant currently occupying the tile
 	 */
 	public Merchant getMerchant() {
 		return merchant;
@@ -182,7 +189,7 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return the cost to purchase the tile
+	 * @return Cost to purchase the tile
 	 */
 	public int getCost() {
 		return cost;
@@ -191,7 +198,7 @@ public class Tile {
 	/**
 	 * Sets the cost of the tile
 	 * 
-	 * @param cost the cost to purchase the tile
+	 * @param cost Cost to purchase the tile
 	 */
 	public void setCost(int cost) {
 		this.cost = cost;
@@ -199,7 +206,7 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return owner of the tile
+	 * @return The owner of the tile
 	 */
 	public Player getOwner() {
 		return owner;
@@ -208,7 +215,7 @@ public class Tile {
 	/**
 	 * Sets the owner of the tile
 	 * 
-	 * @param owner of the tile
+	 * @param owner The owner of the tile
 	 */
 	public void setOwner(Player owner) {
 		if (this.owner != null && this.owner != owner) {
@@ -220,8 +227,8 @@ public class Tile {
 	/**
 	 * Whether or not the tile is uncovered for that player
 	 * 
-	 * @param player desired to check
-	 * @return whether or not tile is covered for the player
+	 * @param player The player that is desired to check
+	 * @return true if tile is uncovered, false otherwise
 	 */
 	public boolean isUncovered(int player) {
 		return uncovered[player];
@@ -230,7 +237,7 @@ public class Tile {
 	/**
 	 * Uncovers the tile for that player
 	 * 
-	 * @param player desired
+	 * @param player Player desired
 	 */
 	public void uncover(int player) {
 		uncovered[player] = true;
@@ -238,7 +245,7 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return color of the tile
+	 * @return Color of the tile
 	 */
 	public Color getColor() {
 		return color;
@@ -247,16 +254,16 @@ public class Tile {
 	/**
 	 * Sets the color of the tile
 	 * 
-	 * @param color of the tile
+	 * @param color Color of the tile
 	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
 
 	/**
-	 * Selects the tile
+	 * Sets the state of tile to selected
 	 * 
-	 * @param selected if the tile is selected or not
+	 * @param selected state of tile
 	 */
 	public void setSelected(boolean selected) {
 		isSelected = selected;
@@ -264,7 +271,7 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return isSelected if the tile is chosen or not
+	 * @return true if the tile is selected. false otherwise
 	 */
 	public boolean getSelected() {
 		return isSelected;
@@ -273,8 +280,7 @@ public class Tile {
 	/**
 	 * picks/unpicks the tile for an auction
 	 * 
-	 * @param picked if this tile is currently picked for an auction by the current
-	 *               player
+	 * @param picked State of the tile
 	 */
 	public void setPicked(boolean picked) {
 		isPicked = picked;

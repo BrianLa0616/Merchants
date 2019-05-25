@@ -20,7 +20,7 @@ public class TransScreen extends Screen {
 	/**
 	 * Creates a new transition screen
 	 * 
-	 * @param board
+	 * @param board PApplet that draws the window
 	 * @param player currently on
 	 */
 	public TransScreen(ScreenHandler board, Player player) {

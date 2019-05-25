@@ -65,6 +65,7 @@ public class AuctionScreen extends Screen {
 				}
 			}
 		}
+
 	}
 
 	public void setup(PApplet p) {
@@ -80,7 +81,8 @@ public class AuctionScreen extends Screen {
 		p.textAlign(PApplet.CENTER);
 		p.textSize(60);
 		p.fill(Color.BLACK.getRGB());
-		p.text("AUCTION", Screen.DRAWING_WIDTH / 2, 100);
+		p.text("AUCTION (" + auction.getTile().getX() + "," + auction.getTile().getY() + ")", Screen.DRAWING_WIDTH / 2,
+				100);
 
 		if (winner != -1) {
 			p.fill(Color.YELLOW.getRGB());
@@ -173,7 +175,7 @@ public class AuctionScreen extends Screen {
 					if (handler.getBoard().getCurrentTurn() == handler.getBoard().getTotalTurns()) {
 						handler.proceed(new EndScreen(handler, handler.getBoard().getWinner()));
 					} else {
-						handler.getBoard().setCurrentTurn(handler.getBoard().getCurrentTurn()+1);
+						handler.getBoard().setCurrentTurn(handler.getBoard().getCurrentTurn() + 1);
 						handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
 					}
 				} else {
