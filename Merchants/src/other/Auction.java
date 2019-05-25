@@ -41,7 +41,6 @@ public class Auction {
 		int bonus = 0;
 
 		for (Merchant m : bid.getPlayer().getMerchants()) {
-			m.newTurn();
 			if (m instanceof AuctionMerchant) {
 				bonus += ((AuctionMerchant) m).auction(m.getLevel());
 			}
