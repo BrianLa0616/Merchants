@@ -122,7 +122,6 @@ public class Board extends Screen {
 	 * @param p PApplet used to draw
 	 */
 	public void draw(PApplet p) {
-		System.out.println(p.mouseX + " " + p.mouseY);
 		
 		p.fill(0);
 		p.textSize(14);
@@ -168,7 +167,7 @@ public class Board extends Screen {
 				buyM.draw(p);
 			}
 			p.fill(255);
-			p.rect(940, 750, 100, 135);
+			p.rect(940, 750, 110, 135);
 			p.fill(0);
 			String display = selectedT.getCharacteristics();
 
