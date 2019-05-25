@@ -17,14 +17,8 @@ public class Merchant {
 
 	private int x, y, totalMoves, numMoves;
 	private int numMovesInEnemyLand;
-	private int level;
+	protected int level;
 	private int price;
-
-	private AuctionMerchant auctionM;
-	private InvisibleMerchant invisibleM;
-	private MoneyMerchant moneyM;
-	private RadarMerchant radarM;
-	private SpeedMerchant speedM;
 
 	private Color color;
 	private int edge;
@@ -50,18 +44,13 @@ public class Merchant {
 		numMovesInEnemyLand = 0;
 		level = 0;
 		price = 20;
-		
-		edge = 0;
+
+		this.edge = edge;
 
 		b = null;
 		p = null;
 		t = null;
 
-		auctionM = null;
-		invisibleM = null;
-		moneyM = null;
-		radarM = null;
-		speedM = null;
 	}
 
 	/**
@@ -107,9 +96,10 @@ public class Merchant {
 	 */
 	public void draw(PApplet p) {
 		p.fill(color.getRGB());
+		p.stroke(edge);
 		p.rect((y + 0.25f) * Tile.TILE_SIZE, (x + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
 				0.5f * Tile.TILE_SIZE);
-		p.stroke(edge);
+		p.stroke(0);
 	}
 
 	public boolean equals(Merchant m) {
@@ -175,6 +165,11 @@ public class Merchant {
 
 	public void setNumMoves(int numMoves) {
 		this.numMoves = numMoves;
+	}
+	
+	public int getNumMoves()
+	{
+		return numMoves;
 	}
 
 	/**
@@ -283,28 +278,8 @@ public class Merchant {
 	 * 
 	 * @return price of a regular merchant
 	 */
-	public int getPrice() {
+	public int getPrice(int level) {
 		return price;
-	}
-
-	public AuctionMerchant getAuctionM() {
-		return auctionM;
-	}
-
-	public InvisibleMerchant getInvisibleM() {
-		return invisibleM;
-	}
-
-	public MoneyMerchant getMoneyM() {
-		return moneyM;
-	}
-
-	public RadarMerchant getRadarM() {
-		return radarM;
-	}
-
-	public SpeedMerchant getSpeedM() {
-		return speedM;
 	}
 
 }

@@ -1,6 +1,7 @@
 package merchants;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import board.Board;
 import board.Tile;
@@ -14,21 +15,12 @@ import other.Player;
  */
 public class RadarMerchant extends Merchant {
 	private int x, y;
-	private int level;
 	private int edge;
 
 	private int price[] = { 20, 35, 45, 60, 75 };
-
-	private int[] nx = { 0, 1, 1, 1 };
-	private int[] ny = { -1, -1, 0, 1, };
-	private int[] nx2 = { 0, -1, -1, -1 };
-	private int[] ny2 = { 1, 1, 0, -1 };
-	private int[] nx3 = { -2, -1, 0, 1, 2 };
-	private int[] ny3 = { -2, -2, -2, -2, -2 };
-	private int[] nx4 = { -2, -2, -2, 2, 2, 2 };
-	private int[] ny4 = { -1, 0, 1, 1, 0, -1 };
-	private int[] nx5 = { -2, -1, 0, 1, 2 };
-	private int[] ny5 = { 2, 2, 2, 2, 2 };
+	
+	private ArrayList<int[]> nx;
+	private ArrayList<int[]> ny;
 
 	/**
 	 * Constructs a new Radar Merchant at (x, y) with Color c
@@ -40,6 +32,15 @@ public class RadarMerchant extends Merchant {
 	public RadarMerchant(int x, int y, Color c, int edge) {
 		super(x, y, c, edge);
 		level = 1;
+		
+		nx = new ArrayList<int[]>();
+		ny = new ArrayList<int[]>();
+		nx.add(new int[] { -1, 1, 1, -1});
+		ny.add(new int[] { -1, -1, 1, 1});
+		nx.add(new int[] { 0, 2, 0, -2});
+		ny.add(new int[] {2, 0, -2, 0});
+	
+		
 	}
 
 	/**
@@ -49,43 +50,14 @@ public class RadarMerchant extends Merchant {
 	 * 
 	 * @param level of the Radar Merchant
 	 */
-	public void reveal(int level) {
-		if (level == 1) {
-			for (int i = 0; i < nx.length; i++) {
-				for (int j = 0; j < ny.length; j++) {
-					getB().uncover(nx2[i], ny2[j]);
-					getT().uncover(getOwner().getId());
-				}
-			}
+	public void reveal(int level, Board b, Tile t) {
 
-		} else if (level == 2) {
-			for (int i = 0; i < nx2.length; i++) {
-				for (int j = 0; j < ny2.length; j++) {
-					getB().uncover(nx2[i], ny2[j]);
-					getT().uncover(getOwner().getId());
-				}
-			}
-		} else if (level == 3) {
-			for (int i = 0; i < nx3.length; i++) {
-				for (int j = 0; j < ny3.length; j++) {
-					getB().uncover(nx3[i], ny3[j]);
-					getT().uncover(getOwner().getId());
-				}
-			}
-
-		} else if (level == 4) {
-			for (int i = 0; i < nx4.length; i++) {
-				for (int j = 0; j < ny4.length; j++) {
-					getB().uncover(nx4[i], ny4[j]);
-					getT().uncover(getOwner().getId());
-				}
-			}
-		}
-
-		for (int i = 0; i < nx5.length; i++) {
-			for (int j = 0; j < ny5.length; j++) {
-				getB().uncover(nx5[i], ny5[j]);
-				getT().uncover(getOwner().getId());
+		for (int i = 0; i < level; i++)
+		{
+			for(int j = 0; j < nx.get(i).length; j++)
+			{
+				b.uncover(nx.get(i)[j], ny.get(i)[j]);
+				t.uncover(getOwner().getId());
 			}
 		}
 

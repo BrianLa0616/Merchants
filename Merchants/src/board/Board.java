@@ -49,9 +49,9 @@ public class Board extends Screen {
 	private TextButton endTurn;
 	private TextButton createCheckpoint;
 
-	private int count;
+	private boolean showUpgradeButtons;
 	private int currTurn, totalTurns;
-	
+
 	private static final int auctionEdge = Color.CYAN.getRGB();
 	private static final int invisEdge = Color.GRAY.getRGB();
 	private static final int moneyEdge = Color.PINK.getRGB();
@@ -70,7 +70,7 @@ public class Board extends Screen {
 		selectedT = null;
 		selectedM = null;
 
-		count = 0;
+		showUpgradeButtons = false;
 
 		currTurn = 1;
 		auctions = new ArrayList<Auction>();
@@ -156,7 +156,7 @@ public class Board extends Screen {
 			p.text(display, Screen.DRAWING_WIDTH - 150, 770);
 		}
 
-		if (count == 1 && selectedM.getLevel() == 0) {
+		if (showUpgradeButtons && selectedM.getLevel() == 0) {
 			auctionM.draw(p);
 			invisM.draw(p);
 			moneyM.draw(p);
@@ -199,45 +199,79 @@ public class Board extends Screen {
 			if (selectedM.getLevel() == 0) {
 				upgradeMerchant();
 
-				if (auctionM.isPointInButton(p.mouseX, p.mouseY)) {
-					player.setBalance(player.getBalance() - selectedM.getPrice());
-
-					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
-							new AuctionMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor(),
-									selectedM.setEdge(auctionEdge)));
-
-				} else if (invisM.isPointInButton(p.mouseX, p.mouseY)) {
-					player.setBalance(player.getBalance() - selectedM.getPrice());
-
-					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
-							new InvisibleMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor(),
-									selectedM.setEdge(invisEdge)));
-
-				} else if (moneyM.isPointInButton(p.mouseX, p.mouseY)) {
-					player.setBalance(player.getBalance() - selectedM.getPrice());
-
-					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
-							new MoneyMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor(),
-									selectedM.setEdge(moneyEdge)));
-
-				} else if (radarM.isPointInButton(p.mouseX, p.mouseY)) {
-					player.setBalance(player.getBalance() - selectedM.getPrice());
-
-					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
-							new RadarMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor(),
-									selectedM.setEdge(radarEdge)));
-
-				} else if (speedM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
-					player.setBalance(player.getBalance() - selectedM.getPrice());
-
-					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
-							new SpeedMerchant(selectedM.getX(), selectedM.getY(), player.getMerchantColor(),
-									selectedM.setEdge(speedEdge)));
-
-				}
-			} else if (selectedM.getLevel() > 1 && selectedM.getLevel() < 5) {
+			} else if (selectedM.getLevel() > 0 && selectedM.getLevel() < 5) {
 
 				selectedM.setLevel(selectedM.getLevel() + 1);
+				player.setBalance(player.getBalance() - selectedM.getPrice(selectedM.getLevel()));
+				showUpgradeButtons = false;
+			} else {
+				showUpgradeButtons = false;
+			}
+
+		} else if (showUpgradeButtons && selectedM.getLevel() == 0) {
+			if (auctionM.isPointInButton(p.mouseX, p.mouseY)) {
+				player.setBalance(player.getBalance() - selectedM.getPrice(1));
+
+				AuctionMerchant upgraded = new AuctionMerchant(selectedM.getX(), selectedM.getY(),
+						player.getMerchantColor(), auctionEdge);
+				upgraded.setOwner(player);
+				upgraded.setNumMoves(selectedM.getNumMoves());
+				player.getMerchants().set(player.getMerchants().indexOf(selectedM), upgraded);
+
+				selectedT.setMerchant(upgraded);
+				unselectAll();
+
+			} else if (invisM.isPointInButton(p.mouseX, p.mouseY)) {
+				player.setBalance(player.getBalance() - selectedM.getPrice(1));
+
+				InvisibleMerchant upgraded = new InvisibleMerchant(selectedM.getX(), selectedM.getY(),
+						player.getMerchantColor(), invisEdge);
+				upgraded.setOwner(player);
+				upgraded.setNumMoves(selectedM.getNumMoves());
+
+				player.getMerchants().set(player.getMerchants().indexOf(selectedM), upgraded);
+
+				selectedT.setMerchant(upgraded);
+				unselectAll();
+
+			} else if (moneyM.isPointInButton(p.mouseX, p.mouseY)) {
+				player.setBalance(player.getBalance() - selectedM.getPrice(1));
+
+				MoneyMerchant upgraded = new MoneyMerchant(selectedM.getX(), selectedM.getY(),
+						player.getMerchantColor(), moneyEdge);
+				upgraded.setOwner(player);
+				upgraded.setNumMoves(selectedM.getNumMoves());
+
+				player.getMerchants().set(player.getMerchants().indexOf(selectedM), upgraded);
+
+				selectedT.setMerchant(upgraded);
+				unselectAll();
+
+			} else if (radarM.isPointInButton(p.mouseX, p.mouseY)) {
+				player.setBalance(player.getBalance() - selectedM.getPrice(1));
+
+				RadarMerchant upgraded = new RadarMerchant(selectedM.getX(), selectedM.getY(),
+						player.getMerchantColor(), radarEdge);
+				upgraded.setOwner(player);
+				upgraded.setNumMoves(selectedM.getNumMoves());
+
+				player.getMerchants().set(player.getMerchants().indexOf(selectedM), upgraded);
+
+				selectedT.setMerchant(upgraded);
+				unselectAll();
+
+			} else if (speedM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null) {
+				player.setBalance(player.getBalance() - selectedM.getPrice(1));
+
+				SpeedMerchant upgraded = new SpeedMerchant(selectedM.getX(), selectedM.getY(),
+						player.getMerchantColor(), speedEdge);
+				upgraded.setOwner(player);
+				upgraded.setNumMoves(selectedM.getNumMoves());
+
+				player.getMerchants().set(player.getMerchants().indexOf(selectedM), upgraded);
+
+				selectedT.setMerchant(upgraded);
+				unselectAll();
 
 			}
 
@@ -264,11 +298,11 @@ public class Board extends Screen {
 						}
 
 						if (selectedM.getEdge() == speedEdge) {
-							selectedM.getSpeedM().speed(selectedM.getLevel(), selectedM.getTotalMoves());
+							((SpeedMerchant) selectedM).speed(selectedM.getLevel(), selectedM.getTotalMoves());
 						}
 
 						if (selectedM.getEdge() == radarEdge) {
-							selectedM.getRadarM().reveal(selectedM.getLevel());
+							((RadarMerchant) selectedM).reveal(selectedM.getLevel(), this, selectedT);
 						}
 					} else {
 						selectedT.setSelected(true);
@@ -334,7 +368,7 @@ public class Board extends Screen {
 				unselectAll();
 
 			}
-			count = 0;
+			showUpgradeButtons = false;
 
 		}
 
@@ -465,7 +499,7 @@ public class Board extends Screen {
 	}
 
 	private void upgradeMerchant() {
-		count++;
+		showUpgradeButtons = true;
 	}
 
 	// selectedT is an owned tile
@@ -543,20 +577,22 @@ public class Board extends Screen {
 			}
 		}
 
-		for (int i = 0; i < player.getMerchants().size(); i++) {
-			player.getMerchants().get(i).newTurn();
+		int bonus = 0;
+		for (Merchant m : player.getMerchants()) {
+			m.newTurn();
+			if(m instanceof MoneyMerchant)
+			{
+				bonus += ((MoneyMerchant) m).add(m.getLevel());
+			}
 		}
 
 		double sum = 0;
 		for (Tile t : player.getTerritory()) {
 			sum += (double) t.getCost() * 0.25;
 		}
-		/*
-		 * //System.out.println(moneyEdge); System.out.println(selectedM.getEdge()); if
-		 * (selectedM.getEdge() == moneyEdge) { player.setBalance(player.getBalance() +
-		 * (int) sum + selectedM.getMoneyM().add(selectedM.getLevel())); return; }
-		 */
-		player.setBalance(player.getBalance() + (int) sum);
+		
+		player.setBalance(player.getBalance() + (int) sum + bonus);
+		
 	}
 
 	private void auction(int mx, int my) {
@@ -591,6 +627,7 @@ public class Board extends Screen {
 			switchHighlight(selectedM.getX(), selectedM.getY(), false);
 			selectedM = null;
 		}
+		showUpgradeButtons = false;
 	}
 
 }
