@@ -54,7 +54,7 @@ public class RadarMerchant extends Merchant {
 			for (int i = 0; i < nx.length; i++) {
 				for (int j = 0; j < ny.length; j++) {
 					getB().uncover(nx2[i], ny2[j]);
-					getT().uncover(getP().getId());
+					getT().uncover(getOwner().getId());
 				}
 			}
 
@@ -62,14 +62,14 @@ public class RadarMerchant extends Merchant {
 			for (int i = 0; i < nx2.length; i++) {
 				for (int j = 0; j < ny2.length; j++) {
 					getB().uncover(nx2[i], ny2[j]);
-					getT().uncover(getP().getId());
+					getT().uncover(getOwner().getId());
 				}
 			}
 		} else if (level == 3) {
 			for (int i = 0; i < nx3.length; i++) {
 				for (int j = 0; j < ny3.length; j++) {
 					getB().uncover(nx3[i], ny3[j]);
-					getT().uncover(getP().getId());
+					getT().uncover(getOwner().getId());
 				}
 			}
 
@@ -77,7 +77,7 @@ public class RadarMerchant extends Merchant {
 			for (int i = 0; i < nx4.length; i++) {
 				for (int j = 0; j < ny4.length; j++) {
 					getB().uncover(nx4[i], ny4[j]);
-					getT().uncover(getP().getId());
+					getT().uncover(getOwner().getId());
 				}
 			}
 		}
@@ -85,7 +85,7 @@ public class RadarMerchant extends Merchant {
 		for (int i = 0; i < nx5.length; i++) {
 			for (int j = 0; j < ny5.length; j++) {
 				getB().uncover(nx5[i], ny5[j]);
-				getT().uncover(getP().getId());
+				getT().uncover(getOwner().getId());
 			}
 		}
 
