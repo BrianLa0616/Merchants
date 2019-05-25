@@ -23,7 +23,7 @@ public class ScreenHandler extends PApplet {
 	private Screen currScreen;
 	private ArrayList<Player> players;
 	private PImage background;
-	
+
 	private int currPlayer;
 	private Board board;
 
@@ -36,13 +36,13 @@ public class ScreenHandler extends PApplet {
 		players = new ArrayList<Player>();
 
 		currPlayer = 0;
-		board = new Board(this);
+		board = null;
 	}
 
 	public void setup() {
 		background = loadImage("images" + System.getProperty("file.separator") + "town.png");
 	}
-	
+
 	/**
 	 * Draws the screen
 	 */
@@ -78,28 +78,26 @@ public class ScreenHandler extends PApplet {
 		return board;
 	}
 
-	
-
-	
 	/**
 	 * 
-	 * @return currPlayer current player 
+	 * @return currPlayer current player
 	 */
 	public int getCurrentPlayer() {
 		return currPlayer;
 	}
-	
+
 	public void restart() {
 		players.clear();
-		board = new Board(this);
+		board = null;
 		currPlayer = 0;
 		currScreen = new IntroScreen(this);
 
 	}
 
-	
+	public void setBoard(Board b) {
+		board = b;
+	}
 
-	
 	public void mousePressed() {
 		currScreen.mousePressed(this);
 	}
