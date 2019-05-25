@@ -122,7 +122,6 @@ public class Board extends Screen {
 	 * @param p PApplet used to draw
 	 */
 	public void draw(PApplet p) {
-		
 		p.fill(0);
 		p.textSize(14);
 		p.textAlign(PApplet.LEFT);
@@ -182,6 +181,9 @@ public class Board extends Screen {
 			speedM.draw(p);
 		}
 
+		p.fill(255);
+		p.rect(22, 915, 450, 50);
+		p.fill(0);
 		p.textSize(36);
 		p.text("Player " + (player.getId() + 1) + " (Balance: $" + player.getBalance() + ")", 25,
 				Screen.DRAWING_HEIGHT - 75);
