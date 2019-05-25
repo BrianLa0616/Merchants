@@ -27,6 +27,7 @@ public class Merchant {
 	private SpeedMerchant speedM;
 
 	private Color color;
+	private int edge;
 	private Board b;
 	private Tile t;
 	private Player p;
@@ -37,8 +38,9 @@ public class Merchant {
 	 * @param x     coordinate of merchant
 	 * @param y     coordinate of merchant
 	 * @param color Color of the merchant
+	 * @param edge  border color of the merchant
 	 */
-	public Merchant(int x, int y, Color color) {
+	public Merchant(int x, int y, Color color, int edge) {
 		this.x = x;
 		this.y = y;
 
@@ -48,6 +50,8 @@ public class Merchant {
 		numMovesInEnemyLand = 0;
 		level = 0;
 		price = 20;
+		
+		edge = 0;
 
 		b = null;
 		p = null;
@@ -105,6 +109,23 @@ public class Merchant {
 		p.fill(color.getRGB());
 		p.rect((y + 0.25f) * Tile.TILE_SIZE, (x + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
 				0.5f * Tile.TILE_SIZE);
+		p.stroke(edge);
+	}
+
+	public boolean equals(Merchant m) {
+		if (x == m.getX() && y == m.getY() && edge == m.getEdge() && color == m.getColor()) {
+			return true;
+		}
+		return false;
+	}
+
+	public int getEdge() {
+		return edge;
+	}
+
+	public int setEdge(int edge) {
+		this.edge = edge;
+		return edge;
 	}
 
 	/**
@@ -254,6 +275,10 @@ public class Merchant {
 		this.level = level;
 	}
 
+	public int getTotalMoves() {
+		return totalMoves;
+	}
+
 	/**
 	 * 
 	 * @return price of a regular merchant
@@ -281,6 +306,5 @@ public class Merchant {
 	public SpeedMerchant getSpeedM() {
 		return speedM;
 	}
-
 
 }

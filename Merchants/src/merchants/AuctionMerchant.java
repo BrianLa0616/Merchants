@@ -11,6 +11,7 @@ import java.awt.Color;
 public class AuctionMerchant extends Merchant {
 	private int x, y;
 	private int level;
+	private int edge;
 
 	private int[] price = { 20, 30, 35, 40, 50 };
 
@@ -20,8 +21,8 @@ public class AuctionMerchant extends Merchant {
 	 * @param x coordinate of auction merchant
 	 * @param y coordinate of auction merchant
 	 */
-	public AuctionMerchant(int x, int y, Color c) {
-		super(x, y, c);
+	public AuctionMerchant(int x, int y, Color c, int edge) {
+		super(x, y, c, edge);
 		level = 1;
 	}
 

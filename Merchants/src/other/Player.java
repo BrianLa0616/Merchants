@@ -12,6 +12,7 @@ public class Player {
 	private ArrayList<Merchant> merchants;
 	private Color merchantColor, tileColor;
 
+	private int merchantEdge;
 	private int balance;
 
 	private int initX, initY, id;
@@ -30,20 +31,22 @@ public class Player {
 		initX = x;
 		initY = y;
 		this.id = index;
+		
+		merchantEdge = 0;
 
 		balance = 100;
 		this.merchantColor = merchantColor;
 		this.tileColor = tileColor;
 		territory = new ArrayList<Tile>();
 		merchants = new ArrayList<Merchant>();
-		merchants.add(new Merchant(initX, initY, merchantColor));
+		merchants.add(new Merchant(initX, initY, merchantColor, merchantEdge));
 	}
 
 	/**
 	 * Adds a regular Merchant at the player's starting tile.
 	 */
 	public void addMerchant() {
-		Merchant m = new Merchant(initX, initY, merchantColor);
+		Merchant m = new Merchant(initX, initY, merchantColor, merchantEdge);
 		merchants.add(m);
 		m.setOwner(this);
 		m.setNumMoves(m.getSpeed());
@@ -58,6 +61,7 @@ public class Player {
 	 */
 	public void addMerchant(Merchant m) {
 		m.setColor(merchantColor);
+		m.setEdge(m.getEdge());
 		merchants.add(m);
 		m.setOwner(this);
 		m.setNumMoves(m.getSpeed());
@@ -123,4 +127,9 @@ public class Player {
 	public Color getTileColor() {
 		return tileColor;
 	}
+
+	public int getMerchantEdge() {
+		return merchantEdge;
+	}
+
 }

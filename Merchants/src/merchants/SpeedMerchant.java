@@ -11,6 +11,7 @@ import java.awt.Color;
 public class SpeedMerchant extends Merchant {
 	private int x, y;
 	private int level;
+	private int edge;
 
 	private int price[] = { 20, 30, 35, 40, 45 };
 
@@ -21,8 +22,8 @@ public class SpeedMerchant extends Merchant {
 	 * @param y coordinate of the Speed Merchant
 	 * @param c Color of the Speed Merchant
 	 */
-	public SpeedMerchant(int x, int y, Color c) {
-		super(x, y, c);
+	public SpeedMerchant(int x, int y, Color c, int edge) {
+		super(x, y, c, edge);
 		level = 1;
 	}
 
