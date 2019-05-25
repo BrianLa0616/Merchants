@@ -20,7 +20,7 @@ public class EndScreen extends Screen {
 	/**
 	 * Creates a new transition screen
 	 * 
-	 * @param board draws the window
+	 * @param board  draws the window
 	 * @param player currently on
 	 */
 	public EndScreen(ScreenHandler board, Player player) {
@@ -43,7 +43,7 @@ public class EndScreen extends Screen {
 		p.textAlign(PApplet.CENTER);
 		p.fill(0);
 		p.textSize(60);
-		p.text("Player " + (player.getId() + 1) + " Won", Screen.DRAWING_WIDTH / 2, Screen.DRAWING_HEIGHT / 2 - 100);
+		p.text("Player " + (player.getId() + 1) + " Won!", Screen.DRAWING_WIDTH / 2, Screen.DRAWING_HEIGHT / 2 - 100);
 		playAgain.draw(p);
 	}
 

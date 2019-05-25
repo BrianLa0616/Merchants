@@ -110,7 +110,6 @@ public class AuctionScreen extends Screen {
 
 //		p.text("AUCTION\nFor: " + auctions.get(0).getTile().getCharacteristics(), Screen.DRAWING_WIDTH - 150, 200);		
 
-		/*
 		for (int i = 0; i < minimap.length; i++) {
 			for (int j = 0; j < minimap[0].length; j++) {
 				if (minimap[i][j] != null) {
@@ -118,7 +117,6 @@ public class AuctionScreen extends Screen {
 				}
 			}
 		}
-		*/
 
 		proceed.draw(p);
 	}
