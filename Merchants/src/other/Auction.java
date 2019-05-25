@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import board.Tile;
 import merchants.AuctionMerchant;
+import merchants.Merchant;
 
 /**
  * Represents an auction for land
@@ -20,7 +21,7 @@ public class Auction {
 	private int[] ny = { -1, -1, 0, 1, 1, 1, 0, -1 };
 
 	/**
-	 * New auction for tile 
+	 * New auction for tile
 	 * 
 	 * @param t Tile being auctioned
 	 */
@@ -37,21 +38,22 @@ public class Auction {
 	 * @param bid added to the auction
 	 */
 	public void addBid(Bid bid) {
-		for (int i = 0; i < bids.size(); i++) {
-			if (bids.get(i).getPlayer() == bid.getPlayer()) {
-				for (int j = 0; j < nx.length; j++) {
-					for (int k = 0; k < ny.length; k++) {
-						if (tile.getMerchant().getX() == j && tile.getMerchant().getY() == k
-								&& tile.getMerchant().getOwner() == bid.getPlayer()
-								&& tile.getMerchant().equals(auctionM)) {
-							//auctionM.auction()
-						}
-					}
-				}
-				bids.set(i, bid);
-				return;
+		int bonus = 0;
+
+		for (Merchant m : bid.getPlayer().getMerchants()) {
+			m.newTurn();
+			if (m instanceof AuctionMerchant) {
+				bonus += ((AuctionMerchant) m).auction(m.getLevel());
 			}
 		}
+		for (int i = 0; i < bids.size(); i++) {
+			if (bids.get(i).getPlayer() == bid.getPlayer()) {
+				bid.setAmount(bid.getAmount() + bonus);
+				bids.set(i, bid);
+
+			}
+		}
+
 		bids.add(bid);
 	}
 
