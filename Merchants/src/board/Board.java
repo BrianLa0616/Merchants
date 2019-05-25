@@ -135,7 +135,19 @@ public class Board extends Screen {
 		p.fill(0);
 
 		if (selectedM != null) {
-			String display = "Merchant: Player " + (1 + selectedM.getOwner().getId());
+			String header = "";
+			if (selectedM.getEdge() == auctionEdge) {
+				header = "Auction";
+			} else if (selectedM.getEdge() == invisEdge) {
+				header = "Invisible";
+			} else if (selectedM.getEdge() == moneyEdge) {
+				header = "Money";
+			} else if (selectedM.getEdge() == radarEdge) {
+				header = "Radar";
+			} else if (selectedM.getEdge() == speedEdge) {
+				header = "Speed";
+			}
+			String display = header + "Merchant: \nPlayer " + (1 + selectedM.getOwner().getId());
 			display += "\nMoves left: " + selectedM.getMovesLeft();
 			display += "\nLevel " + selectedM.getLevel();
 
@@ -303,6 +315,11 @@ public class Board extends Screen {
 
 						if (selectedM.getEdge() == radarEdge) {
 							((RadarMerchant) selectedM).reveal(selectedM.getLevel(), this, selectedT);
+						}
+
+						if (selectedM.getEdge() == invisEdge) {
+							((InvisibleMerchant) selectedM).invisible(selectedM.getLevel(), selectedM.getOwner(),
+									selectedT);
 						}
 					} else {
 						selectedT.setSelected(true);
@@ -580,8 +597,7 @@ public class Board extends Screen {
 		int bonus = 0;
 		for (Merchant m : player.getMerchants()) {
 			m.newTurn();
-			if(m instanceof MoneyMerchant)
-			{
+			if (m instanceof MoneyMerchant) {
 				bonus += ((MoneyMerchant) m).add(m.getLevel());
 			}
 		}
@@ -590,9 +606,9 @@ public class Board extends Screen {
 		for (Tile t : player.getTerritory()) {
 			sum += (double) t.getCost() * 0.25;
 		}
-		
+
 		player.setBalance(player.getBalance() + (int) sum + bonus);
-		
+
 	}
 
 	private void auction(int mx, int my) {

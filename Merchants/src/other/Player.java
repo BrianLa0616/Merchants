@@ -7,6 +7,12 @@ import board.Tile;
 import merchants.AuctionMerchant;
 import merchants.Merchant;
 
+/**
+ * Represents a Player in the game
+ * 
+ * @author Eylam
+ *
+ */
 public class Player {
 	private ArrayList<Tile> territory;
 	private ArrayList<Merchant> merchants;
@@ -31,7 +37,7 @@ public class Player {
 		initX = x;
 		initY = y;
 		this.id = index;
-		
+
 		merchantEdge = 0;
 
 		balance = 100;
@@ -68,6 +74,11 @@ public class Player {
 		territory.get(0).setMerchant(m);
 	}
 
+	/**
+	 * Adds a tile to the player's total territory
+	 * 
+	 * @param t Tile being added
+	 */
 	public void addTile(Tile t) {
 		territory.add(t);
 		t.setOwner(this);
@@ -90,44 +101,84 @@ public class Player {
 		a.addBid(new Bid(this, bid));
 	}
 
-	/* ----------ACCESSORS---------- */
-
+	/**
+	 * Sets the balance of the player
+	 * 
+	 * @param x amount of balance being set to
+	 */
 	public void setBalance(int x) {
 		balance = x;
 	}
 
+	/**
+	 * 
+	 * @return balance of the player
+	 */
 	public int getBalance() {
 		return balance;
 	}
 
+	/**
+	 * 
+	 * @return id of the player
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * 
+	 * @return territory ArrayList of all tiles the player owns in their territory
+	 */
 	public ArrayList<Tile> getTerritory() {
 		return territory;
 	}
 
+	/**
+	 * 
+	 * @return merchants ArrayList of all merchants the player owns
+	 */
 	public ArrayList<Merchant> getMerchants() {
 		return merchants;
 	}
 
+	/**
+	 * 
+	 * @return initX x coordinate of player spawn location
+	 */
 	public int initX() {
 		return initX;
 	}
 
+	/**
+	 * 
+	 * @return initY y coordinate of player spawn location
+	 */
 	public int initY() {
 		return initY;
 	}
 
+	/**
+	 * 
+	 * @return merchantColor of the merchant
+	 */
 	public Color getMerchantColor() {
 		return merchantColor;
 	}
 
+	/**
+	 * 
+	 * @return tileColor color of the tile
+	 */
 	public Color getTileColor() {
 		return tileColor;
 	}
 
+	/**
+	 * 
+	 * @return merchantEdge color of the border of each merchant, different colors
+	 *         represent different types of merchants
+	 */
 	public int getMerchantEdge() {
 		return merchantEdge;
 	}
