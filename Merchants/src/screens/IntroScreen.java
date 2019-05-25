@@ -99,8 +99,21 @@ public class IntroScreen extends Screen {
 			}
 
 			String[] options = { "25", "45", "75", "100", "endless" };
-			JOptionPane.showOptionDialog(null, "Choose the duration of the game", "LENGTH", JOptionPane.DEFAULT_OPTION,
-					JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			int x = -1;
+			while (x < 0 || x > 4) {
+				x = JOptionPane.showOptionDialog(null, "Choose the duration of the game", "LENGTH",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				if (x == -1) {
+					return;
+				}
+			}
+
+			if (x >= 0 && x < 4) {
+				handler.getBoard().setTotalTurns(Integer.parseInt(options[x]));
+			} else {
+				handler.getBoard().setTotalTurns(-1);
+			}
+
 			handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
 		} else if (instr.isPointInButton(p.mouseX, p.mouseY)) {
 			handler.proceed(new InstructionsScreen(handler));

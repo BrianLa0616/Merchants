@@ -18,6 +18,7 @@ import other.Player;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import screens.AuctionScreen;
+import screens.EndScreen;
 import screens.Screen;
 import screens.ScreenHandler;
 import screens.TransScreen;
@@ -49,6 +50,7 @@ public class Board extends Screen {
 	private TextButton createCheckpoint;
 
 	private int count;
+	private int currTurn, totalTurns;
 
 	/**
 	 * Creates a new board
@@ -64,6 +66,7 @@ public class Board extends Screen {
 
 		count = 0;
 
+		currTurn = 1;
 		auctions = new ArrayList<Auction>();
 		tiles = new Tile[BOARD_SIZE][BOARD_SIZE];
 		for (int i = 0; i < BOARD_SIZE; i++) {
@@ -189,7 +192,12 @@ public class Board extends Screen {
 			unselectAll();
 			if (player == handler.getPlayers().get(handler.getPlayers().size() - 1)) { // auction
 				if (auctions.size() == 0) {
-					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
+					if (currTurn == totalTurns) {
+						handler.proceed(new EndScreen(handler, getWinner()));
+					} else {
+						currTurn++;
+						handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
+					}
 				} else {
 					handler.proceed(new AuctionScreen(handler, auctions.get(0)));
 				}
@@ -384,6 +392,74 @@ public class Board extends Screen {
 		return auctions;
 	}
 
+	public void setTotalTurns(int x) {
+		totalTurns = x;
+	}
+
+	public int getTotalTurns() {
+		return totalTurns;
+	}
+
+	public void setCurrentTurn(int x) {
+		currTurn = x;
+	}
+
+	public int getCurrentTurn() {
+		return currTurn;
+	}
+
+	public Player getWinner() {
+		ArrayList<Player> winners = new ArrayList<Player>();
+		int max = 0;
+		for (int i = 0; i < handler.getPlayers().size(); i++) {
+			if (handler.getPlayers().get(i).getTerritory().size() > max) {
+				winners.clear();
+				max = handler.getPlayers().get(i).getTerritory().size();
+				winners.add(handler.getPlayers().get(i));
+			} else if (handler.getPlayers().get(i).getTerritory().size() == max) {
+				winners.add(handler.getPlayers().get(i));
+			}
+		}
+		
+		if (winners.size() == 1) {
+			return winners.get(0);
+		}
+		
+		max = 0;
+		Player winner = null;
+		for (int i = 0; i < winners.size(); i++) {
+			if (winners.get(i).getBalance() > max) {
+				max = winners.get(i).getBalance();
+				winner = winners.get(i);
+			}
+		}
+		
+		return winner;
+		
+	}
+
+	/**
+	 * Uncovers the specified area for the player
+	 * 
+	 * @param x coordinate of desired location
+	 * @param y coordinate of desired location
+	 */
+	public void uncover(int x, int y) {
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				int nx = x + i;
+				int ny = y + j;
+				if (inRange(nx, ny)) {
+					tiles[nx][ny].uncover(player.getId());
+				}
+			}
+		}
+	}
+
+	public boolean inRange(int x, int y) {
+		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
+	}
+
 	private void upgradeMerchant() {
 		count++;
 	}
@@ -435,10 +511,6 @@ public class Board extends Screen {
 
 	}
 
-	public boolean inRange(int x, int y) {
-		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
-	}
-
 	private void switchHighlight(int x, int y, boolean state) {
 		int[] dx = { 0, 0, -1, 1 };
 		int[] dy = { 1, -1, 0, 0 };
@@ -455,24 +527,6 @@ public class Board extends Screen {
 		for (int i = 0; i < tiles.size(); i++) {
 			if (tiles.get(i) instanceof Checkpoint && selectedT != tiles.get(i)) {
 				tiles.get(i).setSelected(state);
-			}
-		}
-	}
-
-	/**
-	 * Uncovers the specified area for the player
-	 * 
-	 * @param x coordinate of desired location
-	 * @param y coordinate of desired location
-	 */
-	public void uncover(int x, int y) {
-		for (int i = -1; i <= 1; i++) {
-			for (int j = -1; j <= 1; j++) {
-				int nx = x + i;
-				int ny = y + j;
-				if (inRange(nx, ny)) {
-					tiles[nx][ny].uncover(player.getId());
-				}
 			}
 		}
 	}

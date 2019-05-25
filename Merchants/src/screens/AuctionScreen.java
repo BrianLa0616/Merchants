@@ -170,7 +170,12 @@ public class AuctionScreen extends Screen {
 
 				handler.getBoard().getAuction().remove(0);
 				if (handler.getBoard().getAuction().size() == 0) {
-					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
+					if (handler.getBoard().getCurrentTurn() == handler.getBoard().getTotalTurns()) {
+						handler.proceed(new EndScreen(handler, handler.getBoard().getWinner()));
+					} else {
+						handler.getBoard().setCurrentTurn(handler.getBoard().getCurrentTurn()+1);
+						handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
+					}
 				} else {
 					handler.proceed(new AuctionScreen(handler, handler.getBoard().getAuction().get(0)));
 				}

@@ -47,6 +47,12 @@ public class TransScreen extends Screen {
 		p.textSize(36);
 		p.text("START TURN", Screen.DRAWING_WIDTH / 2, Screen.DRAWING_HEIGHT / 2 - 50);
 		next.draw(p);
+		if (handler.getBoard().getTotalTurns() != -1) {
+			p.text("Turn: " + handler.getBoard().getCurrentTurn() + "/" + handler.getBoard().getTotalTurns(),
+					Screen.DRAWING_WIDTH / 2, Screen.DRAWING_HEIGHT / 2 + 125);
+		} else {
+			p.text("ENDLESS", Screen.DRAWING_WIDTH / 2, Screen.DRAWING_HEIGHT / 2 + 125);
+		}
 	}
 
 	/**
