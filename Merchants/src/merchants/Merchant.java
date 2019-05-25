@@ -172,6 +172,10 @@ public class Merchant {
 		return numMoves;
 	}
 
+	public void setTotalMoves(int totalMoves) {
+		this.totalMoves = totalMoves;
+	}
+
 	/**
 	 * 
 	 * @return true if merchant can move more this turn. False otherwise
