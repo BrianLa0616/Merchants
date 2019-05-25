@@ -40,10 +40,11 @@ public class Tile {
 		isSelected = false;
 		isPicked = false;
 
-		uncovered = new boolean[4];
+		uncovered = new boolean[5];
 		for (int i = 0; i < 4; i++) {
 			uncovered[i] = false;
 		}
+		uncovered[4] = true;
 	}
 
 	/**
@@ -83,6 +84,35 @@ public class Tile {
 		}
 	}
 
+	public void draw(PApplet p, int id, int x, int y) {
+		if (uncovered[id]) {
+			if (isSelected) {
+				p.fill(Color.YELLOW.getRGB());
+			} else if (isPicked) {
+				p.fill(225, 155, 255);
+			} else {
+				if (owner == null) {
+					p.noFill();
+				} else {
+					p.fill(owner.getTileColor().getRGB());
+				}
+			}
+
+			p.rect(y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+			if (this instanceof Checkpoint && isUncovered(owner.getId())) {
+				p.image(p.loadImage("images" + System.getProperty("file.separator") + "blackflag.png"),
+						y * TILE_SIZE + 5, x * TILE_SIZE + 5);
+			}
+
+			if (merchant != null) {
+				merchant.draw(p);
+			}
+		} else {
+			p.fill(Color.DARK_GRAY.getRGB());
+			p.rect(y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+		}
+	}
+
 	/**
 	 * Returns characteristics of tile
 	 * 
@@ -113,6 +143,24 @@ public class Tile {
 	 */
 	public int getY() {
 		return y;
+	}
+
+	/**
+	 * Sets this tile's x-coordinate
+	 * 
+	 * @param x the new x value
+	 */
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	/**
+	 * Sets this tile's x-coordinate
+	 * 
+	 * @param x the new x value
+	 */
+	public void setY(int y) {
+		this.y = y;
 	}
 
 	/**
@@ -239,5 +287,24 @@ public class Tile {
 	 */
 	public boolean isPicked() {
 		return isPicked;
+	}
+
+	/**
+	 * @return an exact replica of this tile
+	 */
+	public Tile clone() {
+		Tile t = new Tile(x, y, cost);
+		t.setColor(getColor());
+		t.setMerchant(merchant);
+		t.setPicked(isPicked);
+		t.setOwner(owner);
+		for (int i = 0; i < uncovered.length; i++) {
+			if (isUncovered(i)) {
+				uncover(i);
+			}
+		}
+		t.setSelected(isSelected);
+
+		return t;
 	}
 }

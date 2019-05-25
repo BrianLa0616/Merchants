@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import board.Tile;
 import buttons.TextButton;
 import other.Auction;
 import other.Bid;
@@ -23,6 +24,8 @@ public class AuctionScreen extends Screen {
 	private ScreenHandler handler;
 
 	private TextButton proceed;
+
+	private Tile[][] minimap;
 
 	private ArrayList<TextButton> enterBid, withdraw;
 
@@ -48,6 +51,18 @@ public class AuctionScreen extends Screen {
 			} else {
 				enterBid.add(null);
 				withdraw.add(null);
+			}
+		}
+
+		a.getTile().setPicked(true);
+
+		minimap = new Tile[3][3];
+		for (int i = a.getTile().getX() - 1; i <= a.getTile().getX() + 1; i++) {
+			for (int j = a.getTile().getY() - 1; j <= a.getTile().getY() + 1; j++) {
+				if (handler.getBoard().inRange(i, j)) {
+					minimap[i - a.getTile().getX() + 1][j - a.getTile().getY()
+							+ 1] = handler.getBoard().getTiles()[i][j].clone();
+				}
 			}
 		}
 	}
@@ -86,11 +101,20 @@ public class AuctionScreen extends Screen {
 				} else {
 					p.textSize(36);
 					p.text("Disqualified (not enough money).", 500, 235 + 100 * i);
+					p.textSize(60);
 				}
 			}
 		}
 
 //		p.text("AUCTION\nFor: " + auctions.get(0).getTile().getCharacteristics(), Screen.DRAWING_WIDTH - 150, 200);		
+
+		for (int i = 0; i < minimap.length; i++) {
+			for (int j = 0; j < minimap[0].length; j++) {
+				if (minimap[i][j] != null) {
+					minimap[i][j].draw(p, 4);
+				}
+			}
+		}
 
 		proceed.draw(p);
 	}
@@ -128,7 +152,7 @@ public class AuctionScreen extends Screen {
 									"PLAYER LOST", JOptionPane.INFORMATION_MESSAGE);
 							deletePlayer(player);
 							handler.getPlayers().remove(i);
-							
+
 							if (handler.getPlayers().size() == 1) {
 								handler.proceed(new EndScreen(handler, handler.getPlayers().get(0)));
 							}
@@ -142,6 +166,7 @@ public class AuctionScreen extends Screen {
 				proceed.setText("EXIT AUCTION");
 
 			} else {
+				auction.getTile().setPicked(false);
 
 				handler.getBoard().getAuction().remove(0);
 				if (handler.getBoard().getAuction().size() == 0) {
@@ -230,8 +255,8 @@ public class AuctionScreen extends Screen {
 	}
 
 	private void deletePlayer(Player player) {
-		
-		while(player.getTerritory().size() != 0) {
+
+		while (player.getTerritory().size() != 0) {
 			player.getTerritory().get(0).setOwner(null);
 		}
 

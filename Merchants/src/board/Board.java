@@ -29,6 +29,8 @@ import screens.TransScreen;
  *
  */
 public class Board extends Screen {
+	public static final int BOARD_SIZE = 5;
+
 	private Player player;
 	private ScreenHandler handler;
 	private ArrayList<Auction> auctions;
@@ -63,9 +65,9 @@ public class Board extends Screen {
 		count = 0;
 
 		auctions = new ArrayList<Auction>();
-		tiles = new Tile[15][15];
-		for (int i = 0; i < 15; i++) {
-			for (int j = 0; j < 15; j++) {
+		tiles = new Tile[BOARD_SIZE][BOARD_SIZE];
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			for (int j = 0; j < BOARD_SIZE; j++) {
 				tiles[i][j] = new Tile(i, j, 15 + (int) (Math.random() * 20));
 			}
 		}
@@ -185,22 +187,21 @@ public class Board extends Screen {
 
 		if (endTurn.isPointInButton(p.mouseX, p.mouseY)) { // end turn
 			unselectAll();
-			if (player == handler.getPlayers().get(handler.getPlayers().size()-1)) { // auction
+			if (player == handler.getPlayers().get(handler.getPlayers().size() - 1)) { // auction
 				if (auctions.size() == 0) {
 					handler.proceed(new TransScreen(handler, handler.getPlayers().get(0)));
 				} else {
 					handler.proceed(new AuctionScreen(handler, auctions.get(0)));
 				}
 			} else {
-				handler.proceed(new TransScreen(handler, handler.getPlayers().get(handler.getPlayers().indexOf(player)+1)));
+				handler.proceed(
+						new TransScreen(handler, handler.getPlayers().get(handler.getPlayers().indexOf(player) + 1)));
 			}
 		} else if (upgradeM.isPointInButton(p.mouseX, p.mouseY) && selectedM != null
 				&& selectedM.getOwner() == player) {
 			upgradeMerchant();
 			if (selectedM.getLevel() == 0) {
-				System.out.println(selectedM.getLevel());
 				if (auctionM.isPointInButton(p.mouseX, p.mouseY)) {
-					System.out.println("auction");
 					player.setBalance(player.getBalance() - selectedM.getPrice());
 
 					player.getMerchants().set(player.getMerchants().indexOf(selectedM),
@@ -434,7 +435,7 @@ public class Board extends Screen {
 
 	}
 
-	private boolean inRange(int x, int y) {
+	public boolean inRange(int x, int y) {
 		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}
 

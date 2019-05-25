@@ -1,11 +1,11 @@
 ﻿--------------------Merchants--------------------
 
 
-General Information
+-----General Information-----
 Merchants is an all-new strategy game written by famed developers Eylam Tagor, Ansen Tsan, and Brian La in May 2019.
 
 
-Program Description
+-----Program Description-----
 Merchants is a unique strategy game that involves conquering land using proper management of capital and merchants to expand one’s territory, eventually peacefully invading another territory. Acquiring land will be primarily achieved through auctioning land, although favors, trade deals and forbearances can be verbally instituted between players.
 
 
@@ -21,7 +21,7 @@ Our target audience for Merchants are anyone who enjoys either managing anything
 The primary features of our program include the turn-based goal to purchase territory and expand across the world, and doing this by trading, increasing capital, and exploring with merchants.
 
 
-Instructions
+-----Instructions-----
 Merchants: How to Play
 
 
@@ -57,30 +57,30 @@ Each player has the ability to convert each of their Tiles into Checkpoints for 
 
 
 
-Features
+-----Features-----
 1. Must have
-   1. Map with land. DONE
+   1. Map with land. DONE (Board)
    2. Multiple players in a single game. DONE
-   3. Different characters with benefits that can travel around one’s territory. DONE
-   4. Interactions between players to obtain a certain piece of land. DONE
-   5. Ability to click on land to find characteristics. DONE
+   3. Different players' characters with benefits that can travel around one’s territory. DONE (Merchants of different players can interact, block and auction)
+   4. Interactions between players to obtain a certain piece of land. DONE (Auctions)
+   5. Ability to click on land to find characteristics. DONE (Coordinates, cost, etc.)
 1. Want to have
    1. Randomized map with randomized placements. NOT DONE
-   2. Different graphics for different land. DONE
-   3. Different types of land that provide extra benefits. DONE
+   2. Different graphics for different land. DONE (Checkpoints are flagged)
+   3. Different types of land that provide extra benefits. DONE (Checkpoints and Home Tile)
    4. Ability to trade land. NOT DONE
    5. Menu screen with instructions and ability to change settings. DONE
    6. Obstacles within board NOT DONE
-   7. Penalty for crossing other player’s land DONE
+   7. Penalty for crossing other player’s land DONE (InvisibleMerchant loses invisibility, etc.)
 1. Stretch feature
-   1. Ability to play over different devices.
-   2. Character animations when traveling through land.
-   3. Graphics for announcements and achievements.
-   4. Sound effects for each interaction.
-   5. Have “sets” like Monopoly.
+   1. Ability to play over different devices. NOT DONE
+   2. Character animations when traveling through land. NOT DONE
+   3. Graphics for announcements and achievements. NOT DONE
+   4. Sound effects for each interaction. NOT DONE
+   5. Have “sets” like Monopoly. NOT DONE
 
 
-Class List
+-----Class List-----
 * Board represents the board that the characters move on.
 * Merchant represents a merchant with different abilities.
 * Tile represent a piece of a grid on the board.
@@ -105,7 +105,7 @@ Class List
 * ScreenHandler represents the main PApplet that decides which screen to draw
 
 
-Credit List
+-----Credit List-----
 * Eylam
    * Screen
    * AuctionScreen (part)
@@ -138,7 +138,7 @@ Credit List
    * Google for flag icons (as in Google’s Android icons, free for use). Used for marking Checkpoints.
    * Mr. Shelby for the Screen idea, originally suggested for CGS. Used for the structure of the whole program.
                 
-Notes
+-----Notes-----
 * Auctions for surrounding lands
 * All characters have a limited amount of steps per turn
 * Starts off with a village, with everyone else being a normal person
