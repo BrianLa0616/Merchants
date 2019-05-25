@@ -61,7 +61,7 @@ public class Board extends Screen {
 	/**
 	 * Creates a new board
 	 * 
-	 * @param board
+	 * @param board Handler used for transitions
 	 */
 	public Board(ScreenHandler board) {
 		super(board);
@@ -112,8 +112,8 @@ public class Board extends Screen {
 		refresh();
 	}
 
+	
 	public void setup(PApplet p) {
-		// nothing
 	}
 
 	/**
@@ -321,7 +321,11 @@ public class Board extends Screen {
 
 						if (selectedM.getEdge() == speedEdge) {
 							if (selectedM.getTotalMoves() == 2) {
-								selectedM.setTotalMoves(selectedM.getSpeed() + ((SpeedMerchant) selectedM).speed(selectedM.getLevel()));
+								selectedM.setTotalMoves(
+										selectedM.getSpeed() + ((SpeedMerchant) selectedM).speed(selectedM.getLevel()));
+								if (selectedM.getOwner() == player && selectedM.movable()) {
+									switchHighlight(mx, my, true);
+								}
 							}
 						}
 						if (selectedM.getEdge() == radarEdge) {
@@ -458,22 +462,43 @@ public class Board extends Screen {
 		return auctions;
 	}
 
+	
+	/**
+	 * 
+	 * @param x Length of game
+	 */
 	public void setTotalTurns(int x) {
 		totalTurns = x;
 	}
 
+	/**
+	 * 
+	 * @return Length of the game
+	 */
 	public int getTotalTurns() {
 		return totalTurns;
 	}
 
+	/**
+	 * 
+	 * @param x Current turn number
+	 */
 	public void setCurrentTurn(int x) {
 		currTurn = x;
 	}
 
+	/**
+	 * 
+	 * @return Current turn number
+	 */
 	public int getCurrentTurn() {
 		return currTurn;
 	}
 
+	/**
+	 * 
+	 * @return Winner of the game based on territory and balance
+	 */
 	public Player getWinner() {
 		ArrayList<Player> winners = new ArrayList<Player>();
 		int max = 0;
@@ -507,8 +532,8 @@ public class Board extends Screen {
 	/**
 	 * Uncovers the specified area for the player
 	 * 
-	 * @param x coordinate of desired location
-	 * @param y coordinate of desired location
+	 * @param x x-coordinate of desired location
+	 * @param y y-coordinate of desired location
 	 */
 	public void uncover(int x, int y) {
 		for (int i = -1; i <= 1; i++) {
@@ -522,6 +547,11 @@ public class Board extends Screen {
 		}
 	}
 
+	/**
+	 * @param x x-coordinate being checked
+	 * @param y y-coordinate being checked
+	 * @return true if x and y are in the range, false otherwise
+	 */
 	public boolean inRange(int x, int y) {
 		return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length;
 	}

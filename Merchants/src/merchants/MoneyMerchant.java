@@ -17,9 +17,10 @@ public class MoneyMerchant extends Merchant {
 	/**
 	 * Constructs a new Money Merchant at (x, y) with Color c
 	 * 
-	 * @param x coordinate of the Money Merchant
-	 * @param y coordinate of the Money Merchant
+	 * @param x x-coordinate of the Money Merchant
+	 * @param y y-coordinate of the Money Merchant
 	 * @param c Color of the Money Merchant
+	 * @param edge border color of merchant
 	 */
 	public MoneyMerchant(int x, int y, Color c, int edge) {
 		super(x, y, c, edge);
@@ -36,15 +37,15 @@ public class MoneyMerchant extends Merchant {
 	 */
 	public int add(int level) {
 		if (level == 1) {
-			return 10;
+			return 5;
 		} else if (level == 2) {
-			return 15;
+			return 10;
 		} else if (level == 3) {
-			return 20;
+			return 15;
 		} else if (level == 4) {
-			return 25;
+			return 20;
 		}
-		return 35;
+		return 30;
 	}
 
 	/**

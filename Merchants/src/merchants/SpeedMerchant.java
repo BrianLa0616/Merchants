@@ -20,6 +20,7 @@ public class SpeedMerchant extends Merchant {
 	 * @param x coordinate of the Speed Merchant
 	 * @param y coordinate of the Speed Merchant
 	 * @param c Color of the Speed Merchant
+	 * @param edge border color of merchant
 	 */
 	public SpeedMerchant(int x, int y, Color c, int edge) {
 		super(x, y, c, edge);

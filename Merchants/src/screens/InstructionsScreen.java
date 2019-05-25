@@ -9,6 +9,10 @@ public class InstructionsScreen extends Screen {
 	private TextButton back;
 	private ScreenHandler handler;
 
+	/**
+	 * 
+	 * @param board PApplet that draws the window
+	 */
 	public InstructionsScreen(ScreenHandler board) {
 		super(board);
 		handler = board;

@@ -180,14 +180,6 @@ public class Merchant {
 	}
 
 	/**
-	 * 
-	 * @return numMoves taken
-	 */
-	public int getNumMoves() {
-		return numMoves;
-	}
-
-	/**
 	 * Sets the number of moves
 	 * 
 	 * @param numMoves taken
@@ -196,7 +188,14 @@ public class Merchant {
 		this.numMoves = numMoves;
 	}
 
-	
+	/**
+	 * 
+	 * @return number of moves
+	 */
+	public int getNumMoves() {
+		return numMoves;
+	}
+
 	/**
 	 * 
 	 * @return totalMoves merchant can take in one turn
@@ -204,7 +203,7 @@ public class Merchant {
 	public int getTotalMoves() {
 		return totalMoves;
 	}
-	
+
 	/**
 	 * Sets the total amount of moves a merchant can move in one turn
 	 * 
@@ -312,9 +311,8 @@ public class Merchant {
 		this.level = level;
 	}
 
-
 	/**
-	 * 
+	 * @param level level of merchant
 	 * @return price of a regular merchant
 	 */
 	public int getPrice(int level) {

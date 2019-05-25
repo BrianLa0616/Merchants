@@ -20,7 +20,7 @@ public class EndScreen extends Screen {
 	/**
 	 * Creates a new transition screen
 	 * 
-	 * @param board
+	 * @param board draws the window
 	 * @param player currently on
 	 */
 	public EndScreen(ScreenHandler board, Player player) {
