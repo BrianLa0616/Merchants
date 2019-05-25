@@ -14,6 +14,7 @@ import processing.core.PApplet;
 public class InvisibleMerchant extends Merchant {
 	private int x, y;
 	private int level;
+	private int edge;
 
 	private int price[] = { 20, 25, 30, 35, 45 };
 
@@ -26,8 +27,8 @@ public class InvisibleMerchant extends Merchant {
 	 * @param y coordinate of the Invisible Merchant
 	 * @param c Color of the Invisible Merchant
 	 */
-	public InvisibleMerchant(int x, int y, Color c) {
-		super(x, y, c);
+	public InvisibleMerchant(int x, int y, Color c, int edge) {
+		super(x, y, c, edge);
 		level = 1;
 		visible = false;
 	}

@@ -11,6 +11,7 @@ import java.awt.Color;
 public class MoneyMerchant extends Merchant {
 	private int x, y;
 	private int level;
+	private int edge;
 
 	private int price[] = { 20, 30, 40, 50, 70 };
 
@@ -21,8 +22,8 @@ public class MoneyMerchant extends Merchant {
 	 * @param y coordinate of the Money Merchant
 	 * @param c Color of the Money Merchant
 	 */
-	public MoneyMerchant(int x, int y, Color c) {
-		super(x, y, c);
+	public MoneyMerchant(int x, int y, Color c, int edge) {
+		super(x, y, c, edge);
 		level = 1;
 	}
 
@@ -34,7 +35,7 @@ public class MoneyMerchant extends Merchant {
 	 * @param level of the Money Merchant
 	 * @return player's new total amount
 	 */
-	public double add(int level) {
+	public int add(int level) {
 		if (level == 1) {
 			return 10;
 		} else if (level == 2) {

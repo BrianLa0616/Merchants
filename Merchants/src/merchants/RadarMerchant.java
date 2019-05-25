@@ -15,6 +15,7 @@ import other.Player;
 public class RadarMerchant extends Merchant {
 	private int x, y;
 	private int level;
+	private int edge;
 
 	private int price[] = { 20, 35, 45, 60, 75 };
 
@@ -36,8 +37,8 @@ public class RadarMerchant extends Merchant {
 	 * @param y coordinate of the Radar Merchant
 	 * @param c Color of the Radar Merchant
 	 */
-	public RadarMerchant(int x, int y, Color c) {
-		super(x, y, c);
+	public RadarMerchant(int x, int y, Color c, int edge) {
+		super(x, y, c, edge);
 		level = 1;
 	}
 
