@@ -24,6 +24,7 @@ public class InstructionsScreen extends Screen {
 	}
 
 	public void draw(PApplet p) {
+		p.background(255);
 		p.textSize(18);
 		p.fill(0);
 		p.textAlign(PApplet.LEFT);
