@@ -321,7 +321,11 @@ public class Board extends Screen {
 
 						if (selectedM.getEdge() == speedEdge) {
 							if (selectedM.getTotalMoves() == 2) {
-								selectedM.setTotalMoves(selectedM.getSpeed() + ((SpeedMerchant) selectedM).speed(selectedM.getLevel()));
+								selectedM.setTotalMoves(
+										selectedM.getSpeed() + ((SpeedMerchant) selectedM).speed(selectedM.getLevel()));
+								if (selectedM.getOwner() == player && selectedM.movable()) {
+									switchHighlight(mx, my, true);
+								}
 							}
 						}
 						if (selectedM.getEdge() == radarEdge) {
