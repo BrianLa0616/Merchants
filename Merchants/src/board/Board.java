@@ -30,7 +30,7 @@ import screens.TransScreen;
  *
  */
 public class Board extends Screen {
-	public static final int BOARD_SIZE = 5;
+	public static final int BOARD_SIZE = 15;
 
 	private Player player;
 	private ScreenHandler handler;
