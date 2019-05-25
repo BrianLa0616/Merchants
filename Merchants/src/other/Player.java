@@ -28,7 +28,7 @@ public class Player {
 	 * 
 	 * @param x            the starting point's x-coordinate
 	 * @param y            the starting point's y-coordinate
-	 * @param mechantColor the merchant's color, to be used for marking all of its
+	 * @param merchantColor the merchant's color, to be used for marking all of its
 	 *                     merchants
 	 * @param tileColor    the tile's color, to be used for marking all of its tiles
 	 * @param index        id of player

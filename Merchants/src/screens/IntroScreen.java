@@ -25,7 +25,7 @@ public class IntroScreen extends Screen {
 	/**
 	 * Creates a new intro screen
 	 * 
-	 * @param board draws the screen
+	 * @param board PApplet that draws the screen
 	 */
 	public IntroScreen(ScreenHandler board) {
 		super(board);

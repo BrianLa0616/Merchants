@@ -28,6 +28,7 @@ public class RadarMerchant extends Merchant {
 	 * @param x coordinate of the Radar Merchant
 	 * @param y coordinate of the Radar Merchant
 	 * @param c Color of the Radar Merchant
+	 * @param edge border color of merchant
 	 */
 	public RadarMerchant(int x, int y, Color c, int edge) {
 		super(x, y, c, edge);
@@ -54,6 +55,8 @@ public class RadarMerchant extends Merchant {
 	 * tiles around them
 	 * 
 	 * @param level of the Radar Merchant
+	 * @param b board that is being affected
+	 * @param t tile that is being revealed
 	 */
 	public void reveal(int level, Board b, Tile t) {
 

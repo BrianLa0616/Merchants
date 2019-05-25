@@ -25,6 +25,7 @@ public class InvisibleMerchant extends Merchant {
 	 * @param x coordinate of the Invisible Merchant
 	 * @param y coordinate of the Invisible Merchant
 	 * @param c Color of the Invisible Merchant
+	 * @param edge border color of merchant
 	 */
 	public InvisibleMerchant(int x, int y, Color c, int edge) {
 		super(x, y, c, edge);

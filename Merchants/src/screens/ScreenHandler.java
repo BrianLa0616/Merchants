@@ -42,6 +42,7 @@ public class ScreenHandler extends PApplet {
 	public void setup() {
 		background = loadImage("images" + System.getProperty("file.separator") + "town.png");
 	}
+	
 	/**
 	 * Draws the screen
 	 */

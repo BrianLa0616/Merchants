@@ -17,8 +17,10 @@ public class AuctionMerchant extends Merchant {
 	/**
 	 * Constructs a new Auction Merchant at (x, y) with color c
 	 * 
-	 * @param x coordinate of auction merchant
-	 * @param y coordinate of auction merchant
+	 * @param x x-coordinate of auction merchant
+	 * @param y y-coordinate of auction merchant
+	 * @param c Color of merchant
+	 * @param edge border color of merchant
 	 */
 	public AuctionMerchant(int x, int y, Color c, int edge) {
 		super(x, y, c, edge);

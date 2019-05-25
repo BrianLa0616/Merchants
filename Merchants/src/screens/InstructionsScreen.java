@@ -9,6 +9,10 @@ public class InstructionsScreen extends Screen {
 	private TextButton back;
 	private ScreenHandler handler;
 
+	/**
+	 * 
+	 * @param board PApplet that draws the window
+	 */
 	public InstructionsScreen(ScreenHandler board) {
 		super(board);
 		handler = board;
@@ -20,6 +24,7 @@ public class InstructionsScreen extends Screen {
 	}
 
 	public void draw(PApplet p) {
+		p.background(255);
 		p.textSize(18);
 		p.fill(0);
 		p.textAlign(PApplet.LEFT);
