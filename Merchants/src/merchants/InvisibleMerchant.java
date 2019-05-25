@@ -39,10 +39,12 @@ public class InvisibleMerchant extends Merchant {
 	 * @param p marker used to draw
 	 */
 	public void draw(PApplet p) {
-		if (visible == true) {
+		if (visible == true || (visible == false && getOwner().getId() == (getOwner().getId() + 1))) {
 			p.fill(getColor().getRGB());
-			p.rect((x + 0.25f) * Tile.TILE_SIZE, (y + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
+			p.stroke(getEdge());
+			p.rect((y + 0.25f) * Tile.TILE_SIZE, (x + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
 					0.5f * Tile.TILE_SIZE);
+			p.stroke(0);
 		}
 	}
 
@@ -52,7 +54,7 @@ public class InvisibleMerchant extends Merchant {
 	 * @param p Player that owns the Invisible Merchant
 	 */
 	public void setVisible(Player p) {
-		setColor(p.getMerchantColor());
+		// setColor(p.getMerchantColor());
 		visible = true;
 	}
 
@@ -62,13 +64,13 @@ public class InvisibleMerchant extends Merchant {
 	 * other players' lands while still maintaining its invisibility
 	 * 
 	 * @param level of the Invisible Merchant
-	 * @param t     Tile that the Invisible Merchant is currently on
 	 * @param p     Player who owns the Invisible Merchant
+	 * @param t     Tile that the Invisible Merchant is currently on
 	 */
 	public void invisible(int level, Player p, Tile t) {
 		if (x == t.getX() && y == t.getY()) {
 
-			if (p.getTileColor().equals(t.getColor())) {
+			if (t.getOwner() != p) {
 				if (level == 1) {
 					setVisible(p);
 					visible = true;

@@ -102,20 +102,36 @@ public class Merchant {
 		p.stroke(0);
 	}
 
+	/**
+	 * 
+	 * @return edge color border of the merchant
+	 */
+	public int getEdge() {
+		return edge;
+	}
+
+	/**
+	 * Sets the border color of the merchant
+	 * 
+	 * @param edge RGB value of the color desired
+	 * @return edge color
+	 */
+	public int setEdge(int edge) {
+		this.edge = edge;
+		return edge;
+	}
+
+	/**
+	 * Determines whether two merchants are the same type or not
+	 * 
+	 * @param m Merchant being compared to
+	 * @return true if the merchant classes are the same, false otherwise
+	 */
 	public boolean equals(Merchant m) {
 		if (x == m.getX() && y == m.getY() && edge == m.getEdge() && color == m.getColor()) {
 			return true;
 		}
 		return false;
-	}
-
-	public int getEdge() {
-		return edge;
-	}
-
-	public int setEdge(int edge) {
-		this.edge = edge;
-		return edge;
 	}
 
 	/**
@@ -164,8 +180,9 @@ public class Merchant {
 	}
 
 	/**
+	 * Sets the number of moves
 	 * 
-	 * @param numMoves number of moves that is being set
+	 * @param numMoves taken
 	 */
 	public void setNumMoves(int numMoves) {
 		this.numMoves = numMoves;
@@ -177,6 +194,23 @@ public class Merchant {
 	 */
 	public int getNumMoves() {
 		return numMoves;
+	}
+
+	/**
+	 * 
+	 * @return totalMoves merchant can take in one turn
+	 */
+	public int getTotalMoves() {
+		return totalMoves;
+	}
+
+	/**
+	 * Sets the total amount of moves a merchant can move in one turn
+	 * 
+	 * @param totalMoves desired for merchant to be able to move in one turn
+	 */
+	public void setTotalMoves(int totalMoves) {
+		this.totalMoves = totalMoves;
 	}
 
 	/**
@@ -275,13 +309,6 @@ public class Merchant {
 	 */
 	public void setLevel(int level) {
 		this.level = level;
-	}
-
-	/**
-	 * @return total number of moves
-	 */
-	public int getTotalMoves() {
-		return totalMoves;
 	}
 
 	/**

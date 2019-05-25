@@ -122,6 +122,7 @@ public class Board extends Screen {
 	 * @param p PApplet used to draw
 	 */
 	public void draw(PApplet p) {
+
 		p.fill(0);
 		p.textSize(14);
 		p.textAlign(PApplet.LEFT);
@@ -219,16 +220,17 @@ public class Board extends Screen {
 			if (selectedM.getLevel() == 0) {
 				upgradeMerchant();
 
-			} else if (selectedM.getLevel() > 0 && selectedM.getLevel() < 5) {
+			} else if (selectedM.getLevel() > 0 && selectedM.getLevel() < 5
+					&& player.getBalance() >= selectedM.getPrice(selectedM.getLevel() + 1)) {
 
 				selectedM.setLevel(selectedM.getLevel() + 1);
 				player.setBalance(player.getBalance() - selectedM.getPrice(selectedM.getLevel()));
 				showUpgradeButtons = false;
-			} else {
+			} else if (player.getBalance() < selectedM.getPrice(selectedM.getLevel())) {
 				showUpgradeButtons = false;
 			}
 
-		} else if (showUpgradeButtons && selectedM.getLevel() == 0) {
+		} else if (showUpgradeButtons && selectedM.getLevel() == 0 && player.getBalance() >= selectedM.getPrice(1)) {
 			if (auctionM.isPointInButton(p.mouseX, p.mouseY)) {
 				player.setBalance(player.getBalance() - selectedM.getPrice(1));
 
@@ -296,10 +298,10 @@ public class Board extends Screen {
 			}
 
 		} else if (buyM.isPointInButton(p.mouseX, p.mouseY) && selectedT != null
-				&& player.getTerritory().get(0) == selectedT) {
+				&& player.getTerritory().get(0) == selectedT && player.getBalance() >= selectedT.getCost()) {
 			buyMerchant();
 		} else if (createCheckpoint.isPointInButton(p.mouseX, p.mouseY) && selectedT != null
-				&& selectedT.getOwner() == player) {
+				&& selectedT.getOwner() == player && player.getBalance() >= selectedT.getCost()) {
 			createCheckpoint();
 		} else {
 			int mx = p.mouseY / Tile.TILE_SIZE, my = p.mouseX / Tile.TILE_SIZE;
@@ -318,9 +320,10 @@ public class Board extends Screen {
 						}
 
 						if (selectedM.getEdge() == speedEdge) {
-							((SpeedMerchant) selectedM).speed(selectedM.getLevel(), selectedM.getTotalMoves());
+							if (selectedM.getTotalMoves() == 2) {
+								selectedM.setTotalMoves(selectedM.getSpeed() + ((SpeedMerchant) selectedM).speed(selectedM.getLevel()));
+							}
 						}
-
 						if (selectedM.getEdge() == radarEdge) {
 							((RadarMerchant) selectedM).reveal(selectedM.getLevel(), this, selectedT);
 						}
