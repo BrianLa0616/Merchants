@@ -18,7 +18,7 @@ public class RadarMerchant extends Merchant {
 	private int edge;
 
 	private int price[] = { 20, 35, 45, 60, 75 };
-	
+
 	private ArrayList<int[]> nx;
 	private ArrayList<int[]> ny;
 
@@ -32,15 +32,20 @@ public class RadarMerchant extends Merchant {
 	public RadarMerchant(int x, int y, Color c, int edge) {
 		super(x, y, c, edge);
 		level = 1;
-		
+
 		nx = new ArrayList<int[]>();
 		ny = new ArrayList<int[]>();
-		nx.add(new int[] { -1, 1, 1, -1});
-		ny.add(new int[] { -1, -1, 1, 1});
-		nx.add(new int[] { 0, 2, 0, -2});
-		ny.add(new int[] {2, 0, -2, 0});
-	
-		
+		nx.add(new int[] { -1, 0, 1 });
+		ny.add(new int[] { -2, -2, -2 });
+		nx.add(new int[] { 2, 2, 2 });
+		ny.add(new int[] { -2, -2, 0 });
+		nx.add(new int[] { 2, 2, 1 });
+		ny.add(new int[] { 1, 2, 2 });
+		nx.add(new int[] { 0, -1, -2 });
+		ny.add(new int[] { 2, 2, 2 });
+		nx.add(new int[] { -2, -2, -2, -2 });
+		ny.add(new int[] { 1, 0, -1, -2 });
+
 	}
 
 	/**
@@ -52,10 +57,8 @@ public class RadarMerchant extends Merchant {
 	 */
 	public void reveal(int level, Board b, Tile t) {
 
-		for (int i = 0; i < level; i++)
-		{
-			for(int j = 0; j < nx.get(i).length; j++)
-			{
+		for (int i = 0; i < level; i++) {
+			for (int j = 0; j < nx.get(i).length; j++) {
 				b.uncover(nx.get(i)[j], ny.get(i)[j]);
 				t.uncover(getOwner().getId());
 			}
