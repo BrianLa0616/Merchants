@@ -30,7 +30,8 @@ import screens.TransScreen;
  *
  */
 public class Board extends Screen {
-	public static final int BOARD_SIZE = 5;
+	public static final int BOARD_SIZE = 15;
+	public int boardSize;
 
 	private Player player;
 	private ScreenHandler handler;
@@ -63,20 +64,22 @@ public class Board extends Screen {
 	 * 
 	 * @param board Handler used for transitions
 	 */
-	public Board(ScreenHandler board) {
+	public Board(ScreenHandler board, int size) {
 		super(board);
 		this.handler = board;
 		player = null;
 		selectedT = null;
 		selectedM = null;
 
+		boardSize = size;
+
 		showUpgradeButtons = false;
 
 		currTurn = 1;
 		auctions = new ArrayList<Auction>();
-		tiles = new Tile[BOARD_SIZE][BOARD_SIZE];
-		for (int i = 0; i < BOARD_SIZE; i++) {
-			for (int j = 0; j < BOARD_SIZE; j++) {
+		tiles = new Tile[boardSize][boardSize];
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
 				tiles[i][j] = new Tile(i, j, 15 + (int) (Math.random() * 20));
 			}
 		}
@@ -688,4 +691,11 @@ public class Board extends Screen {
 		currTurn = x;
 	}
 
+	/**
+	 * 
+	 * @return boardSize size of board
+	 */
+	public int size() {
+		return boardSize;
+	}
 }

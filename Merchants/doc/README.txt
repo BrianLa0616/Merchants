@@ -26,7 +26,7 @@ Merchants: How to Play
 
 
 Goal:
-Defeat all other players by acquiring their Home Tile.
+Defeat all other players by acquiring their Home Tile, while defending your own!
 
 
 Start:
@@ -136,6 +136,7 @@ Each player has the ability to convert each of their Tiles into Checkpoints for 
 * * Of course, all of us had at least a small part in  every class, so we decided to leave those out of the class list above for the sake of simplification, and show the big parts like this: “(part)” indicates a significant part of that class (up to 50%), and “(most)” indicates most of the class (over 50%).
 * Outside resources
    * Google for flag icons (as in Google’s Android icons, free for use). Used for marking Checkpoints.
+   * https://suwalls.com/fantasy/town-6223/ for the background image
    * Mr. Shelby for the Screen idea, originally suggested for CGS. Used for the structure of the whole program.
                 
 -----Notes-----

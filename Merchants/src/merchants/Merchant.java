@@ -94,6 +94,7 @@ public class Merchant {
 	 */
 	public void draw(PApplet p) {
 		p.fill(color.getRGB());
+		p.strokeWeight(2);
 		p.stroke(edge);
 		p.rect((y + 0.25f) * Tile.TILE_SIZE, (x + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
 				0.5f * Tile.TILE_SIZE);

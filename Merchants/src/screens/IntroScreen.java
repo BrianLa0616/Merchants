@@ -60,6 +60,26 @@ public class IntroScreen extends Screen {
 	public void mousePressed(PApplet p) {
 		if (start.isPointInButton(p.mouseX, p.mouseY)) {
 
+			String[] modes = { "Normal (15x15)", "Blitz (10x10)" };
+			int x = -1, size = 15;
+			while (x < 0 || x > 4) {
+				x = JOptionPane.showOptionDialog(null, "Choose the game mode", "MODE", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.QUESTION_MESSAGE, null, modes, modes[0]);
+				if (x == -1) {
+					return;
+				}
+			}
+
+			if (x == 0) {
+				size = 15;
+			} else if (x == 1) {
+				size = 10;
+			} else {
+				size = -1;
+			}
+
+			handler.setBoard(new Board(handler, size));
+
 			String input;
 			do {
 				input = JOptionPane.showInputDialog("Enter number of players (2-4)");
@@ -70,8 +90,8 @@ public class IntroScreen extends Screen {
 
 			int numPlayers = Integer.parseInt(input);
 
-			int[] xvals = { 1, Board.BOARD_SIZE - 2, Board.BOARD_SIZE - 2, 1 },
-					yvals = { 1, Board.BOARD_SIZE - 2, 1, Board.BOARD_SIZE - 2 };
+			int[] xvals = { 1, handler.getBoard().size() - 2, handler.getBoard().size() - 2, 1 },
+					yvals = { 1, handler.getBoard().size() - 2, 1, handler.getBoard().size() - 2 };
 
 			for (int i = 0; i < numPlayers; i++) {
 				handler.getPlayers().add(new Player(xvals[i], yvals[i], ScreenHandler.PLAYER_COLORS[i],
@@ -101,17 +121,17 @@ public class IntroScreen extends Screen {
 			}
 
 			String[] options = { "25", "45", "75", "100", "endless" };
-			int x = -1;
-			while (x < 0 || x > 4) {
-				x = JOptionPane.showOptionDialog(null, "Choose the duration of the game", "LENGTH",
+			int y = -1;
+			while (y < 0 || y > 4) {
+				y = JOptionPane.showOptionDialog(null, "Choose the duration of the game", "LENGTH",
 						JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-				if (x == -1) {
+				if (y == -1) {
 					return;
 				}
 			}
 
-			if (x >= 0 && x < 4) {
-				handler.getBoard().setTotalTurns(Integer.parseInt(options[x]));
+			if (y >= 0 && y < 4) {
+				handler.getBoard().setTotalTurns(Integer.parseInt(options[y]));
 			} else {
 				handler.getBoard().setTotalTurns(-1);
 			}
