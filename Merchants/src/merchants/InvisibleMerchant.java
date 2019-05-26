@@ -22,9 +22,9 @@ public class InvisibleMerchant extends Merchant {
 	/**
 	 * Constructs a new Invisible Merchant at (x, y) with color c
 	 * 
-	 * @param x coordinate of the Invisible Merchant
-	 * @param y coordinate of the Invisible Merchant
-	 * @param c Color of the Invisible Merchant
+	 * @param x    coordinate of the Invisible Merchant
+	 * @param y    coordinate of the Invisible Merchant
+	 * @param c    Color of the Invisible Merchant
 	 * @param edge border color of merchant
 	 */
 	public InvisibleMerchant(int x, int y, Color c, int edge) {
@@ -38,9 +38,9 @@ public class InvisibleMerchant extends Merchant {
 	 * 
 	 * @param p marker used to draw
 	 */
-	public void draw(PApplet p) {
-		if (visible == true || (visible == false && getOwner().getId() == (getOwner().getId() + 1))) {
-			p.fill(getColor().getRGB());
+	public void draw(PApplet p, Player current) {
+		if (visible == true || current.equals(getOwner())) {
+			p.noFill();
 			p.stroke(getEdge());
 			p.rect((y + 0.25f) * Tile.TILE_SIZE, (x + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
 					0.5f * Tile.TILE_SIZE);
@@ -49,56 +49,52 @@ public class InvisibleMerchant extends Merchant {
 	}
 
 	/**
-	 * Sets the Invisible Merchant visible
-	 * 
-	 * @param p Player that owns the Invisible Merchant
-	 */
-	public void setVisible(Player p) {
-		// setColor(p.getMerchantColor());
-		visible = true;
-	}
-
-	/**
 	 * Whether or not the Invisible Merchant is visible or not to other players, as
 	 * the Invisible Merchant rises in levels, it will be able to go further into
 	 * other players' lands while still maintaining its invisibility
 	 * 
 	 * @param level of the Invisible Merchant
-	 * @param p     Player who owns the Invisible Merchant
 	 * @param t     Tile that the Invisible Merchant is currently on
+	 * @return
 	 */
-	public void invisible(int level, Player p, Tile t) {
-		if (x == t.getX() && y == t.getY()) {
+	public boolean isVisible(int level, Tile t) {
+		if (t.getOwner() == null) {
+			visible = false;
+		} else if (!(t.getOwner().equals(getOwner()))) {
+			if (level == 1) {
+				visible = true;
 
-			if (t.getOwner() != p) {
-				if (level == 1) {
-					setVisible(p);
+			} else if (level == 2) {
+				if (getNumMovesInEnemyLand() > 1) {
 					visible = true;
-				} else if (level == 2) {
-					if (getNumMovesInEnemyLand() > 1) {
-						setVisible(p);
-						visible = true;
-					}
 
-				} else if (level == 3) {
-					if (getNumMovesInEnemyLand() > 2) {
-						setVisible(p);
-						visible = true;
-					}
-				} else if (level == 4) {
-					if (getNumMovesInEnemyLand() > 3) {
-						setVisible(p);
-						visible = true;
-					}
-				} else if (level == 5) {
-					if (getNumMovesInEnemyLand() > 5) {
-						setVisible(p);
-						visible = true;
-					}
 				}
+			} else if (level == 3) {
+				if (getNumMovesInEnemyLand() > 2) {
+					visible = true;
 
+				}
+			} else if (level == 4) {
+				if (getNumMovesInEnemyLand() > 3) {
+					visible = true;
+				}
+			} else if (level == 5) {
+				if (getNumMovesInEnemyLand() > 5) {
+					visible = true;
+				}
 			}
+
 		}
+		return visible;
+
+	}
+
+	/**
+	 * Sets the Invisible Merchant visible
+	 * 
+	 */
+	public void setVisible() {
+		visible = true;
 	}
 
 	/**

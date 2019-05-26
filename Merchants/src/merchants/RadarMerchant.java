@@ -63,7 +63,7 @@ public class RadarMerchant extends Merchant {
 		for (int i = 0; i < level; i++) {
 			for (int j = 0; j < nx.get(i).length; j++) {
 				b.uncover(nx.get(i)[j], ny.get(i)[j]);
-				t.uncover(getOwner().getId());
+				//t.uncover(getOwner().getId());
 			}
 		}
 

@@ -86,6 +86,7 @@ public class Tile {
 
 	/**
 	 * Draws the tile
+	 * 
 	 * @param p Papplet used to draw
 	 * @param id id of the player that is drawing
 	 * @param x x-coordinate of tile

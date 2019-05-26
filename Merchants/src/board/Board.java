@@ -30,7 +30,7 @@ import screens.TransScreen;
  *
  */
 public class Board extends Screen {
-	public static final int BOARD_SIZE = 15;
+	public static final int BOARD_SIZE = 5;
 
 	private Player player;
 	private ScreenHandler handler;
@@ -102,17 +102,6 @@ public class Board extends Screen {
 				Color.BLACK, "END\nTURN", 18);
 	}
 
-	/**
-	 * Sets the player within the board
-	 * 
-	 * @param player desired to set
-	 */
-	public void setPlayer(Player player) {
-		this.player = player;
-		refresh();
-	}
-
-	
 	public void setup(PApplet p) {
 	}
 
@@ -250,6 +239,7 @@ public class Board extends Screen {
 						player.getMerchantColor(), invisEdge);
 				upgraded.setOwner(player);
 				upgraded.setNumMoves(selectedM.getNumMoves());
+				upgraded.draw(p, player);
 
 				player.getMerchants().set(player.getMerchants().indexOf(selectedM), upgraded);
 
@@ -328,14 +318,7 @@ public class Board extends Screen {
 								}
 							}
 						}
-						if (selectedM.getEdge() == radarEdge) {
-							((RadarMerchant) selectedM).reveal(selectedM.getLevel(), this, selectedT);
-						}
 
-						if (selectedM.getEdge() == invisEdge) {
-							((InvisibleMerchant) selectedM).invisible(selectedM.getLevel(), selectedM.getOwner(),
-									selectedT);
-						}
 					} else {
 						selectedT.setSelected(true);
 					}
@@ -366,9 +349,18 @@ public class Board extends Screen {
 								selectedM.setNumMoves(selectedM.getSpeed());
 							}
 
+							if (selectedM.getEdge() == radarEdge) {
+								((RadarMerchant) selectedM).reveal(selectedM.getLevel(), this, selectedT);
+							}
+
+							if (selectedM.getEdge() == invisEdge) {
+								((InvisibleMerchant) selectedM).isVisible(selectedM.getLevel(),
+										tiles[selectedM.getX()][selectedM.getY()]);
+							}
 							unselectAll();
 
 							uncover(mx, my);
+
 						} else if (Math.abs(mx - selectedT.getX()) <= 1 && Math.abs(my - selectedT.getY()) <= 1
 								&& p.mouseButton == PConstants.RIGHT && selectedM.getOwner() == player) { // auctioning
 							auction(mx, my);
@@ -431,14 +423,6 @@ public class Board extends Screen {
 	}
 
 	/**
-	 * 
-	 * @return tiles in the board
-	 */
-	public Tile[][] getTiles() {
-		return tiles;
-	}
-
-	/**
 	 * Adds a new auction
 	 * 
 	 * @param a Auction desired to add
@@ -452,47 +436,6 @@ public class Board extends Screen {
 		}
 
 		auctions.add(a);
-	}
-
-	/**
-	 * 
-	 * @return auctions that are currently happening
-	 */
-	public ArrayList<Auction> getAuction() {
-		return auctions;
-	}
-
-	
-	/**
-	 * 
-	 * @param x Length of game
-	 */
-	public void setTotalTurns(int x) {
-		totalTurns = x;
-	}
-
-	/**
-	 * 
-	 * @return Length of the game
-	 */
-	public int getTotalTurns() {
-		return totalTurns;
-	}
-
-	/**
-	 * 
-	 * @param x Current turn number
-	 */
-	public void setCurrentTurn(int x) {
-		currTurn = x;
-	}
-
-	/**
-	 * 
-	 * @return Current turn number
-	 */
-	public int getCurrentTurn() {
-		return currTurn;
 	}
 
 	/**
@@ -685,6 +628,64 @@ public class Board extends Screen {
 			selectedM = null;
 		}
 		showUpgradeButtons = false;
+	}
+
+	/**
+	 * Sets the player within the board
+	 * 
+	 * @param player desired to set
+	 */
+	public void setPlayer(Player player) {
+		this.player = player;
+		refresh();
+	}
+
+	/**
+	 * 
+	 * @return tiles in the board
+	 */
+	public Tile[][] getTiles() {
+		return tiles;
+	}
+
+	/**
+	 * 
+	 * @return auctions that are currently happening
+	 */
+	public ArrayList<Auction> getAuction() {
+		return auctions;
+	}
+
+	/**
+	 * 
+	 * @return Length of the game
+	 */
+	public int getTotalTurns() {
+		return totalTurns;
+	}
+
+	/**
+	 * 
+	 * @param x Length of game
+	 */
+	public void setTotalTurns(int x) {
+		totalTurns = x;
+	}
+
+	/**
+	 * 
+	 * @return Current turn number
+	 */
+	public int getCurrentTurn() {
+		return currTurn;
+	}
+
+	/**
+	 * 
+	 * @param x Current turn number
+	 */
+	public void setCurrentTurn(int x) {
+		currTurn = x;
 	}
 
 }

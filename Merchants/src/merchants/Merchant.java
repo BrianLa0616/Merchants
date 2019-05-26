@@ -39,15 +39,13 @@ public class Merchant {
 		this.y = y;
 
 		this.color = color;
+		this.edge = edge;
 		totalMoves = 2;
 		numMoves = 0;
 		numMovesInEnemyLand = 0;
 		level = 0;
 		price = 20;
 
-		this.edge = edge;
-
-		b = null;
 		p = null;
 		t = null;
 
@@ -317,6 +315,19 @@ public class Merchant {
 	 */
 	public int getPrice(int level) {
 		return price;
+	}
+
+	/**
+	 * Determines whether or not the merchant is on the tile
+	 * 
+	 * @param t Tile being searched
+	 * @return true if the merchant is on the tile, false otherwise
+	 */
+	public boolean isOn(Tile t) {
+		if (x == t.getX() && y == t.getY()) {
+			return true;
+		}
+		return false;
 	}
 
 }

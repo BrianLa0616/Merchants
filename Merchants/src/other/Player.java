@@ -26,12 +26,13 @@ public class Player {
 	/**
 	 * Creates a new Player with the following characteristics:
 	 * 
-	 * @param x            the starting point's x-coordinate
-	 * @param y            the starting point's y-coordinate
+	 * @param x             the starting point's x-coordinate
+	 * @param y             the starting point's y-coordinate
 	 * @param merchantColor the merchant's color, to be used for marking all of its
-	 *                     merchants
-	 * @param tileColor    the tile's color, to be used for marking all of its tiles
-	 * @param index        id of player
+	 *                      merchants
+	 * @param tileColor     the tile's color, to be used for marking all of its
+	 *                      tiles
+	 * @param index         id of player
 	 */
 	public Player(int x, int y, Color merchantColor, Color tileColor, int index) {
 		initX = x;
@@ -99,6 +100,17 @@ public class Player {
 		}
 
 		a.addBid(new Bid(this, bid));
+	}
+
+	public boolean equals(Object other) {
+		if (!(other instanceof Player)) {
+			return false;
+
+		} else {
+			Player obj = (Player)other;
+			return obj.id == this.id;
+		}
+		
 	}
 
 	/**
