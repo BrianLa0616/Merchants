@@ -55,6 +55,7 @@ public class Tile {
 	 * 
 	 * @param p  marker used to draw the tiles
 	 * @param id of the tile
+	 * @param player who's current turn
 	 */
 	public void draw(PApplet p, int id, Player player) {
 
@@ -98,6 +99,7 @@ public class Tile {
 	 * @param id id of the player that is drawing
 	 * @param x x-coordinate of tile
 	 * @param y y-coordinate of tile
+	 * @param player who's current turn
 	 */
 	public void draw(PApplet p, int id, int x, int y, Player player) {
 		if (uncovered[id]) {
