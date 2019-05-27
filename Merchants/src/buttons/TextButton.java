@@ -3,6 +3,7 @@ package buttons;
 import java.awt.Color;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 
 /**
  * Subclass of Button. Represents an adjusted TextButton with rounded corners
@@ -47,7 +48,7 @@ public class TextButton extends Button {
 		p.rect(x, y, width, height, 25);
 		p.fill(tcol.getRed(), tcol.getGreen(), tcol.getBlue());
 		p.textSize(size);
-		p.textAlign(p.CENTER, p.CENTER);
+		p.textAlign(PConstants.CENTER, PConstants.CENTER);
 		p.text(text, x + width / 2, y + height / 2 - 10);
 		p.popMatrix();
 		p.popStyle();

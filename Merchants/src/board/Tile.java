@@ -6,7 +6,7 @@ import merchants.InvisibleMerchant;
 import merchants.Merchant;
 import other.Player;
 import processing.core.PApplet;
-import screens.ScreenHandler;
+import processing.core.PImage;
 
 /**
  * Represents a single tile in board
@@ -27,6 +27,8 @@ public class Tile {
 	private Color color;
 	private Merchant merchant;
 	private boolean isPicked;
+
+	private PImage tilePic, flagPic;
 
 	/**
 	 * Constructs a new tile at (x, y)
@@ -50,6 +52,12 @@ public class Tile {
 		uncovered[4] = true;
 	}
 
+	public void setup(PApplet p) {
+		flagPic = p.loadImage("images" + System.getProperty("file.separator") + "blackflag.png");
+		tilePic = p.loadImage("images" + System.getProperty("file.separator") + "tile.JPG");
+
+	}
+
 	/**
 	 * Draws the tiles
 	 * 
@@ -60,76 +68,76 @@ public class Tile {
 
 		if (uncovered[id]) {
 			if (isSelected) {
-				p.fill(Color.YELLOW.getRGB());
+				p.tint(Color.YELLOW.getRGB());
 			} else if (isPicked) {
-				p.fill(225, 155, 255);
+				p.tint(225, 155, 255);
 			} else {
 				if (owner == null) {
-					p.fill(Color.WHITE.getRGB());;
+					p.tint(Color.WHITE.getRGB());
 				} else {
-					p.fill(owner.getTileColor().getRGB());
+					p.tint(owner.getTileColor().getRGB());
 				}
 			}
 
-			p.rect(y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+			p.image(tilePic, y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE+1, Tile.TILE_SIZE);
 			if (this instanceof Checkpoint && isUncovered(owner.getId())) {
-				p.image(p.loadImage("images" + System.getProperty("file.separator") + "blackflag.png"),
-						y * TILE_SIZE + 5, x * TILE_SIZE + 5);
+				p.image(flagPic, y * TILE_SIZE + 5, x * TILE_SIZE + 5);
 			}
 
 			if (merchant != null) {
-				if(merchant instanceof InvisibleMerchant) {
+				if (merchant instanceof InvisibleMerchant) {
 					((InvisibleMerchant) merchant).draw(p, player);
-				}else {
+				} else {
 					merchant.draw(p);
 				}
 			}
 		} else {
-			p.fill(Color.DARK_GRAY.getRGB());
-			p.rect(y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
-
+			p.tint(20, 20, 20);
+			p.image(tilePic, y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE + 1, Tile.TILE_SIZE);
 		}
+		p.noTint();
+
 	}
 
 	/**
 	 * Draws the tile
 	 * 
-	 * @param p Papplet used to draw
+	 * @param p  Papplet used to draw
 	 * @param id id of the player that is drawing
-	 * @param x x-coordinate of tile
-	 * @param y y-coordinate of tile
+	 * @param x  x-coordinate of tile
+	 * @param y  y-coordinate of tile
 	 */
 	public void draw(PApplet p, int id, int x, int y, Player player) {
 		if (uncovered[id]) {
 			if (isSelected) {
-				p.fill(Color.YELLOW.getRGB());
+				p.tint(Color.YELLOW.getRGB());
 			} else if (isPicked) {
-				p.fill(225, 155, 255);
+				p.tint(225, 155, 255);
 			} else {
 				if (owner == null) {
-					p.noFill();
+					p.noTint();
 				} else {
-					p.fill(owner.getTileColor().getRGB());
+					p.tint(owner.getTileColor().getRGB());
 				}
 			}
 
-			p.rect(y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+			p.image(tilePic, y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE+1, Tile.TILE_SIZE);
 			if (this instanceof Checkpoint && isUncovered(owner.getId())) {
-				p.image(p.loadImage("images" + System.getProperty("file.separator") + "blackflag.png"),
-						y * TILE_SIZE + 5, x * TILE_SIZE + 5);
+				p.image(flagPic, y * TILE_SIZE + 5, x * TILE_SIZE + 5);
 			}
 
 			if (merchant != null) {
-				if(merchant instanceof InvisibleMerchant) {
+				if (merchant instanceof InvisibleMerchant) {
 					((InvisibleMerchant) merchant).draw(p, player);
-				}else {
+				} else {
 					merchant.draw(p);
 				}
 			}
 		} else {
-			p.fill(Color.DARK_GRAY.getRGB());
-			p.rect(y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
+			p.tint(Color.BLACK.getRGB());
+			p.image(tilePic, y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE+1, Tile.TILE_SIZE);
 		}
+		p.noTint();
 	}
 
 	/**

@@ -3,8 +3,6 @@ package other;
 import java.util.ArrayList;
 
 import board.Tile;
-import merchants.AuctionMerchant;
-import merchants.Merchant;
 
 /**
  * Represents an auction for land

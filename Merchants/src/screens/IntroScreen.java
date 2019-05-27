@@ -9,7 +9,6 @@ import board.Checkpoint;
 import buttons.TextButton;
 import other.Player;
 import processing.core.PApplet;
-import processing.core.PImage;
 
 /**
  * Represents the home screen when a user first enters the game
@@ -20,7 +19,6 @@ import processing.core.PImage;
 public class IntroScreen extends Screen {
 	private TextButton start, instr;
 	private ScreenHandler handler;
-	private PImage town;
 
 	/**
 	 * Creates a new intro screen
@@ -101,6 +99,7 @@ public class IntroScreen extends Screen {
 				// adds Tile to player's territory
 				handler.getBoard().getTiles()[xvals[i]][yvals[i]] = new Checkpoint(player.initX(), player.initY(),
 						player.getTerritory().size() * 10);
+				handler.getBoard().getTiles()[xvals[i]][yvals[i]].setup(p);
 
 				handler.getPlayers().get(i).addTile(handler.getBoard().getTiles()[xvals[i]][yvals[i]]);
 
