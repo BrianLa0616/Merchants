@@ -2,6 +2,7 @@ package board;
 
 import java.awt.Color;
 
+import merchants.InvisibleMerchant;
 import merchants.Merchant;
 import other.Player;
 import processing.core.PApplet;
@@ -14,7 +15,9 @@ import screens.ScreenHandler;
  *
  */
 public class Tile {
-
+	/**
+	 * The size of the tile
+	 */
 	public static final int TILE_SIZE = 60;
 
 	private int x, y, cost;
@@ -53,7 +56,7 @@ public class Tile {
 	 * @param p  marker used to draw the tiles
 	 * @param id of the tile
 	 */
-	public void draw(PApplet p, int id) {
+	public void draw(PApplet p, int id, Player player) {
 
 		if (uncovered[id]) {
 			if (isSelected) {
@@ -75,7 +78,11 @@ public class Tile {
 			}
 
 			if (merchant != null) {
-				merchant.draw(p);
+				if(merchant instanceof InvisibleMerchant) {
+					((InvisibleMerchant) merchant).draw(p, player);
+				}else {
+					merchant.draw(p);
+				}
 			}
 		} else {
 			p.fill(Color.DARK_GRAY.getRGB());
@@ -92,7 +99,7 @@ public class Tile {
 	 * @param x x-coordinate of tile
 	 * @param y y-coordinate of tile
 	 */
-	public void draw(PApplet p, int id, int x, int y) {
+	public void draw(PApplet p, int id, int x, int y, Player player) {
 		if (uncovered[id]) {
 			if (isSelected) {
 				p.fill(Color.YELLOW.getRGB());
@@ -113,7 +120,11 @@ public class Tile {
 			}
 
 			if (merchant != null) {
-				merchant.draw(p);
+				if(merchant instanceof InvisibleMerchant) {
+					((InvisibleMerchant) merchant).draw(p, player);
+				}else {
+					merchant.draw(p);
+				}
 			}
 		} else {
 			p.fill(Color.DARK_GRAY.getRGB());

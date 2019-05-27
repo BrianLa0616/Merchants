@@ -121,7 +121,7 @@ public class Board extends Screen {
 
 		for (Tile[] ts : tiles) {
 			for (Tile t : ts) {
-				t.draw(p, player.getId());
+				t.draw(p, player.getId(), player);
 			}
 		}
 
@@ -242,7 +242,7 @@ public class Board extends Screen {
 						player.getMerchantColor(), invisEdge);
 				upgraded.setOwner(player);
 				upgraded.setNumMoves(selectedM.getNumMoves());
-				upgraded.draw(p, player);
+				//upgraded.draw(p, player);
 
 				player.getMerchants().set(player.getMerchants().indexOf(selectedM), upgraded);
 

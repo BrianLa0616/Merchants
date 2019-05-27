@@ -1,5 +1,6 @@
 package board;
 
+import other.Player;
 import processing.core.PApplet;
 
 /**
@@ -22,8 +23,8 @@ public class Checkpoint extends Tile {
 		super(x, y, price);
 	}
 
-	public void draw(PApplet p, int id) {
-		super.draw(p, id);
+	public void draw(PApplet p, int id, Player player) {
+		super.draw(p, id, player);
 	}
 
 	public String getCharacteristics() {

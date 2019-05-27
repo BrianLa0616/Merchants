@@ -12,7 +12,6 @@ import processing.core.PApplet;
  * @author Ansen
  */
 public class InvisibleMerchant extends Merchant {
-	private int x, y;
 	private int edge;
 
 	private int price[] = { 20, 25, 30, 35, 45 };
@@ -37,15 +36,18 @@ public class InvisibleMerchant extends Merchant {
 	 * Draws the Invisible Merchant
 	 * 
 	 * @param p marker used to draw
+	 * @param current Player who's current turn
 	 */
 	public void draw(PApplet p, Player current) {
+
 		if (visible == true || current.equals(getOwner())) {
 			p.noFill();
 			p.stroke(getEdge());
-			p.rect((y + 0.25f) * Tile.TILE_SIZE, (x + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
+			p.rect((super.getY() + 0.25f) * Tile.TILE_SIZE, (super.getX() + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
 					0.5f * Tile.TILE_SIZE);
 			p.stroke(0);
 		}
+
 	}
 
 	/**
