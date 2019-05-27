@@ -138,7 +138,7 @@ public class Board extends Screen {
 			if (selectedM instanceof AuctionMerchant) {
 				header = "Auction";
 			} else if (selectedM instanceof InvisibleMerchant) {
-				if(((InvisibleMerchant)selectedM).getVisible()) {
+				if (((InvisibleMerchant) selectedM).getVisible()) {
 					status = "Visible";
 				} else {
 					status = "Invisible";
@@ -155,7 +155,9 @@ public class Board extends Screen {
 			String display = header + "Merchant: \nPlayer " + (1 + selectedM.getOwner().getId());
 			display += "\nMoves left: " + selectedM.getMovesLeft();
 			display += "\nLevel " + selectedM.getLevel();
-			display += "\nStatus: " + status;
+			if (status != "") {
+				display += "\nStatus: " + status;
+			}
 			p.fill(255);
 			p.rect(940, 750, 135, 120);
 
@@ -226,11 +228,21 @@ public class Board extends Screen {
 				upgradeMerchant();
 
 			} else if (selectedM.getLevel() > 0 && selectedM.getLevel() < 5
-					&& player.getBalance() >= selectedM.getPrice(selectedM.getLevel() + 1)) {
+					&& player.getBalance() >= selectedM.getPrice(selectedM.getLevel())) {
 
 				selectedM.setLevel(selectedM.getLevel() + 1);
 				player.setBalance(player.getBalance() - selectedM.getPrice(selectedM.getLevel()));
 				showUpgradeButtons = false;
+
+				if (selectedM instanceof SpeedMerchant) {
+
+					selectedM.setTotalMoves(selectedM.getTotalMoves() - selectedM.getNumMoves()
+							+ ((SpeedMerchant) selectedM).speed(selectedM.getLevel()));
+					if (selectedM.getOwner() == player && selectedM.movable()) {
+						switchHighlight(p.mouseX, p.mouseY, true);
+					}
+
+				}
 			} else if (player.getBalance() < selectedM.getPrice(selectedM.getLevel())) {
 				showUpgradeButtons = false;
 			}
@@ -295,6 +307,7 @@ public class Board extends Screen {
 						player.getMerchantColor(), speedEdge);
 				upgraded.setOwner(player);
 				upgraded.setNumMoves(selectedM.getNumMoves());
+				upgraded.setTotalMoves(selectedM.getTotalMoves()+ 1);
 
 				player.getMerchants().set(player.getMerchants().indexOf(selectedM), upgraded);
 
@@ -325,19 +338,10 @@ public class Board extends Screen {
 							switchHighlight(mx, my, true);
 						}
 
-						if (selectedM.getEdge() == speedEdge) {
-							if (selectedM.getTotalMoves() == 2) {
-								selectedM.setTotalMoves(
-										selectedM.getSpeed() + ((SpeedMerchant) selectedM).speed(selectedM.getLevel()));
-								if (selectedM.getOwner() == player && selectedM.movable()) {
-									switchHighlight(mx, my, true);
-								}
-							}
-						}
-
 					} else {
 						selectedT.setSelected(true);
 					}
+
 				} else if (selectedM != null) { // if merchant and tile are selected
 
 					if (selectedT == tiles[mx][my]) { // if same tile pressed
