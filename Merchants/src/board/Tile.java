@@ -31,10 +31,10 @@ public class Tile {
 	private PImage tilePic, flagPic;
 
 	/**
-	 * Constructs a new tile at (x, y)
+	 * Constructs a new tile at specified location
 	 * 
-	 * @param x    coordinate of the tile
-	 * @param y    coordinate of the tile
+	 * @param x    x-coordinate of the tile
+	 * @param y    y-coordinate of the tile
 	 * @param cost of the tile
 	 */
 	public Tile(int x, int y, int cost) {
@@ -53,7 +53,7 @@ public class Tile {
 	}
 
 	/**
-	 * loads the images for drawing this tile
+	 * Loads the images for drawing this tile
 	 * 
 	 * @param p the PApplet onto which this tile will be drawn
 	 */
@@ -65,9 +65,9 @@ public class Tile {
 	/**
 	 * Draws the tiles
 	 * 
-	 * @param p      marker used to draw the tiles
-	 * @param id     of the tile
-	 * @param player who's current turn
+	 * @param p      PApplet marker used to draw the tiles
+	 * @param id     id of the tile
+	 * @param player player who's current turn
 	 */
 	public void draw(PApplet p, int id, Player player) {
 
@@ -107,13 +107,11 @@ public class Tile {
 	/**
 	 * Draws the tile
 	 * 
-	 * @param p      Papplet used to draw
+	 * @param p      PApplet used to draw
 	 * @param id     id of the player that is drawing
 	 * @param x      x-coordinate of tile
 	 * @param y      y-coordinate of tile
-	 * @param player who's current turn
-	 * @param x      x-coordinate of tile
-	 * @param y      y-coordinate of tile
+	 * @param player players who's current turn
 	 */
 	public void draw(PApplet p, int id, int x, int y, Player player) {
 		if (uncovered[id]) {
@@ -183,7 +181,7 @@ public class Tile {
 	/**
 	 * Sets tile's x-coordinate
 	 * 
-	 * @param x The new x value
+	 * @param x x-coordinate desired
 	 */
 	public void setX(int x) {
 		this.x = x;
@@ -192,16 +190,16 @@ public class Tile {
 	/**
 	 * Sets tile's y-coordinate
 	 * 
-	 * @param y The new y value
+	 * @param y y-coordinate desired
 	 */
 	public void setY(int y) {
 		this.y = y;
 	}
 
 	/**
-	 * Sets the merchant
+	 * Sets the merchant to desired type
 	 * 
-	 * @param m Merchant desired
+	 * @param m merchant desired
 	 */
 	public void setMerchant(Merchant m) {
 		merchant = m;
@@ -209,7 +207,7 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return Merchant currently occupying the tile
+	 * @return merchant merchant currently occupying the tile
 	 */
 	public Merchant getMerchant() {
 		return merchant;
@@ -217,7 +215,7 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return Cost to purchase the tile
+	 * @return cost amount to purchase the tile
 	 */
 	public int getCost() {
 		return cost;
@@ -234,7 +232,7 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return The owner of the tile
+	 * @return owner owner of the tile
 	 */
 	public Player getOwner() {
 		return owner;
@@ -243,7 +241,7 @@ public class Tile {
 	/**
 	 * Sets the owner of the tile
 	 * 
-	 * @param owner The owner of the tile
+	 * @param owner owner of the tile
 	 */
 	public void setOwner(Player owner) {
 		if (this.owner != null && this.owner != owner) {
@@ -255,7 +253,7 @@ public class Tile {
 	/**
 	 * Whether or not the tile is uncovered for that player
 	 * 
-	 * @param player The player that is desired to check
+	 * @param player player that is desired to check
 	 * @return true if tile is uncovered, false otherwise
 	 */
 	public boolean isUncovered(int player) {
@@ -273,7 +271,7 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return Color of the tile
+	 * @return color color of the tile
 	 */
 	public Color getColor() {
 		return color;
@@ -282,7 +280,7 @@ public class Tile {
 	/**
 	 * Sets the color of the tile
 	 * 
-	 * @param color Color of the tile
+	 * @param color color of the tile
 	 */
 	public void setColor(Color color) {
 		this.color = color;
@@ -299,7 +297,7 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return true if the tile is selected. false otherwise
+	 * @return true if the tile is selected, false otherwise
 	 */
 	public boolean getSelected() {
 		return isSelected;
@@ -316,7 +314,7 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return true if the tile is picked for auction by the current player,
+	 * @return isPicked true if the tile is picked for auction by the current player,
 	 *         otherwise false.
 	 */
 	public boolean isPicked() {
@@ -324,7 +322,7 @@ public class Tile {
 	}
 
 	/**
-	 * @return the grassy image used to draw tiles
+	 * @return tilePic the grassy image used to draw tiles
 	 */
 	public PImage getPicture() {
 		return tilePic;
@@ -340,7 +338,7 @@ public class Tile {
 	}
 
 	/**
-	 * @return the the flag used to represent Checkpoints
+	 * @return flagPic the the flag used to represent Checkpoints
 	 */
 	public PImage getFlagPicture() {
 		return flagPic;
@@ -356,7 +354,7 @@ public class Tile {
 	}
 
 	/**
-	 * @return an exact replica of this tile
+	 * @return t exact replica of this tile
 	 */
 	public Tile clone() {
 		Tile t = new Tile(x, y, cost);

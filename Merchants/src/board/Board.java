@@ -30,7 +30,14 @@ import screens.TransScreen;
  *
  */
 public class Board extends Screen {
+	/**
+	 * BOARD_SIZE size of the board
+	 */
 	public static final int BOARD_SIZE = 15;
+	
+	/**
+	 * boardSize size of the board
+	 */
 	public int boardSize;
 
 	private Player player;
@@ -63,6 +70,8 @@ public class Board extends Screen {
 	 * Creates a new board
 	 * 
 	 * @param board Handler used for transitions
+	 * @param size  of the board
+	 * 
 	 */
 	public Board(ScreenHandler board, int size) {
 		super();
@@ -105,6 +114,11 @@ public class Board extends Screen {
 				Color.BLACK, "END\nTURN", 18);
 	}
 
+	/**
+	 * Draws the contents of a starting board
+	 * 
+	 * @param p PApplet used to draw
+	 */
 	public void setup(PApplet p) {
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[0].length; j++) {
@@ -114,7 +128,7 @@ public class Board extends Screen {
 	}
 
 	/**
-	 * Draws the board
+	 * Draws the board with players
 	 * 
 	 * @param p PApplet used to draw
 	 */
@@ -199,7 +213,7 @@ public class Board extends Screen {
 	}
 
 	/**
-	 * Determines actions taken after the mouse has been pressed
+	 * Determines actions taken after the mouse has been pressed within the board
 	 * 
 	 * @param p PApplet used to draw
 	 */
@@ -511,6 +525,12 @@ public class Board extends Screen {
 
 	}
 
+	/**
+	 * Uncovers the tile at specified location for the player
+	 * 
+	 * @param x x-coordinate being uncovered
+	 * @param y y-coordinate being uncovered
+	 */
 	public void uncoverA(int x, int y) {
 		if (inRange(x, y)) {
 			tiles[x][y].uncover(player.getId());
@@ -679,7 +699,7 @@ public class Board extends Screen {
 
 	/**
 	 * 
-	 * @return auctions that are currently happening
+	 * @return auctions ArrayList of an auction
 	 */
 	public ArrayList<Auction> getAuction() {
 		return auctions;
@@ -687,13 +707,14 @@ public class Board extends Screen {
 
 	/**
 	 * 
-	 * @return Length of the game
+	 * @return totalTurns length of the game
 	 */
 	public int getTotalTurns() {
 		return totalTurns;
 	}
 
 	/**
+	 * Sets the total amount of turns to desired amount
 	 * 
 	 * @param x Length of game
 	 */
@@ -703,13 +724,14 @@ public class Board extends Screen {
 
 	/**
 	 * 
-	 * @return Current turn number
+	 * @return currTurn current turn number
 	 */
 	public int getCurrentTurn() {
 		return currTurn;
 	}
 
 	/**
+	 * Sets the current turn to the number specified
 	 * 
 	 * @param x Current turn number
 	 */
