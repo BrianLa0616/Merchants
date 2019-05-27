@@ -137,7 +137,7 @@ public class Board extends Screen {
 			String status = "";
 			if (selectedM instanceof AuctionMerchant) {
 				header = "Auction";
-			} else if (selectedM instanceof InvisibleMerchant) {
+			} else if (selectedM instanceof InvisibleMerchant && selectedM.getOwner() == player) {
 				if (((InvisibleMerchant) selectedM).getVisible()) {
 					status = "Visible";
 				} else {
@@ -164,7 +164,8 @@ public class Board extends Screen {
 			p.fill(0);
 			p.text(display, Screen.DRAWING_WIDTH - 150, 770);
 
-		} else if (selectedT != null) {
+		} else if (selectedT != null || selectedM != null && selectedM instanceof InvisibleMerchant
+				&& !((InvisibleMerchant) selectedM).getVisible()) {
 
 			if (selectedT instanceof Checkpoint == false && selectedT.getOwner() == player) {
 				createCheckpoint.draw(p);
