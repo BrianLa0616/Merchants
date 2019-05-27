@@ -114,6 +114,11 @@ public class AuctionScreen extends Screen {
 		proceed.draw(p);
 	}
 
+	/**
+	 * Draws the minimap aspect of the AuctionScreen, with the 3x3 board snippet
+	 * 
+	 * @param p the PApplet onto which the minimap will be drawn
+	 */
 	public void drawMinimap(PApplet p) {
 		p.pushMatrix();
 		p.pushStyle();
@@ -262,6 +267,10 @@ public class AuctionScreen extends Screen {
 
 	}
 
+	/**
+	 * @param x the String to check if it is a valid integer
+	 * @return true if x is an integer, otherwise false
+	 */
 	private boolean validIntegerInput(String x) {
 		if (x.length() == 0)
 			return false;
@@ -273,6 +282,11 @@ public class AuctionScreen extends Screen {
 		return true;
 	}
 
+	/**
+	 * Deletes a player from the game, after losing
+	 * 
+	 * @param player the player to be deleted
+	 */
 	private void deletePlayer(Player player) {
 
 		while (player.getTerritory().size() != 0) {

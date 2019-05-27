@@ -236,8 +236,8 @@ public class Board extends Screen {
 
 				if (selectedM instanceof SpeedMerchant) {
 
-					selectedM.setTotalMoves(selectedM.getTotalMoves() - selectedM.getNumMoves()
-							+ ((SpeedMerchant) selectedM).speed(selectedM.getLevel()));
+					selectedM.setTotalMoves(
+							selectedM.getTotalMoves() + ((SpeedMerchant) selectedM).speed(selectedM.getLevel()));
 					if (selectedM.getOwner() == player && selectedM.movable()) {
 						switchHighlight(p.mouseX, p.mouseY, true);
 					}
@@ -307,13 +307,15 @@ public class Board extends Screen {
 						player.getMerchantColor(), speedEdge);
 				upgraded.setOwner(player);
 				upgraded.setNumMoves(selectedM.getNumMoves());
-				upgraded.setTotalMoves(selectedM.getTotalMoves()+ 1);
+				upgraded.setTotalMoves(selectedM.getTotalMoves() + 1);
 
 				player.getMerchants().set(player.getMerchants().indexOf(selectedM), upgraded);
 
 				selectedT.setMerchant(upgraded);
 				unselectAll();
 
+			} else {
+				unselectAll();
 			}
 
 		} else if (buyM.isPointInButton(p.mouseX, p.mouseY) && selectedT != null
