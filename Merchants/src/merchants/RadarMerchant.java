@@ -51,15 +51,14 @@ public class RadarMerchant extends Merchant {
 	 * tiles around them
 	 * 
 	 * @param level of the Radar Merchant
-	 * @param b     board that is being affected
-	 * @param t     tile that is being revealed
+	 * @param b board that is being affected
+	 * @param t tile that is being revealed
 	 */
 	public void reveal(int level, Board b, Tile t) {
 
 		for (int i = 0; i < level; i++) {
 			for (int j = 0; j < nx.get(i).length; j++) {
 				b.uncoverA(nx.get(i)[j] + t.getX(), ny.get(i)[j] + t.getY());
-//				t.uncover(getOwner().getId());
 			}
 		}
 

@@ -3,7 +3,7 @@ package merchants;
 import java.awt.Color;
 
 /**
- * Represents an auction merchant
+ * Represents an Auction Merchant
  * 
  * @author Ansen
  *

@@ -5,11 +5,18 @@ import java.awt.Color;
 import buttons.TextButton;
 import processing.core.PApplet;
 
+/**
+ * Represents the Instructions Screen
+ * 
+ * @author Eylam
+ *
+ */
 public class InstructionsScreen extends Screen {
 	private TextButton back;
 	private ScreenHandler handler;
 
 	/**
+	 * Represents a new Instructions Screen
 	 * 
 	 * @param board PApplet that draws the window
 	 */
@@ -23,6 +30,11 @@ public class InstructionsScreen extends Screen {
 
 	}
 
+	/**
+	 * Draws the instruction screen with instructions printed
+	 * 
+	 * @param p PApplet marker used to draw
+	 */
 	public void draw(PApplet p) {
 		p.background(255);
 		p.textSize(18);
@@ -50,6 +62,11 @@ public class InstructionsScreen extends Screen {
 		back.draw(p);
 	}
 
+	/**
+	 * Takes actions accordingly after mouse is pressed
+	 * 
+	 * @param p PApplet marker used to draw
+	 */
 	public void mousePressed(PApplet p) {
 		if (back.isPointInButton(p.mouseX, p.mouseY)) {
 			handler.proceed(new IntroScreen(handler));

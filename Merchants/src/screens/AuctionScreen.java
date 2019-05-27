@@ -268,6 +268,8 @@ public class AuctionScreen extends Screen {
 	}
 
 	/**
+	 * Checks if entered value is a valid integer
+	 * 
 	 * @param x the String to check if it is a valid integer
 	 * @return true if x is an integer, otherwise false
 	 */

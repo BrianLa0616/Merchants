@@ -7,7 +7,9 @@ import processing.core.PConstants;
 
 /**
  * Subclass of Button. Represents an adjusted TextButton with rounded corners
- * for the rectangle that is the button's clickable window.
+ * for the rectangle that is the button's clickable window
+ * 
+ * @author Eylam
  */
 public class TextButton extends Button {
 	private Color tcol, bcol;
