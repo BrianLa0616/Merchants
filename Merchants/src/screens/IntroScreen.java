@@ -165,12 +165,6 @@ public class IntroScreen extends Screen {
 		// nothing
 	}
 
-	/**
-	 * Checks if the entered number is valid
-	 * 
-	 * @param x entered value
-	 * @return true if the input was valid, false otherwise
-	 */
 	private boolean validIntegerInput(String x) {
 		if (x.length() == 0)
 			return false;
