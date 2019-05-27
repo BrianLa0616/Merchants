@@ -39,7 +39,6 @@ public class Board extends Screen {
 	private Tile[][] tiles;
 	private Tile selectedT;
 	private Merchant selectedM;
-	
 
 	private TextButton upgradeM;
 	private TextButton buyM;
@@ -135,20 +134,28 @@ public class Board extends Screen {
 
 		if (selectedM != null) {
 			String header = "";
-			if (selectedM.getEdge() == auctionEdge) {
+			String status = "";
+			if (selectedM instanceof AuctionMerchant) {
 				header = "Auction";
-			} else if (selectedM.getEdge() == invisEdge) {
+			} else if (selectedM instanceof InvisibleMerchant) {
+				if(((InvisibleMerchant)selectedM).getVisible()) {
+					status = "Visible";
+				} else {
+					status = "Invisible";
+				}
 				header = "Invisible";
-			} else if (selectedM.getEdge() == moneyEdge) {
+			} else if (selectedM instanceof MoneyMerchant) {
 				header = "Money";
-			} else if (selectedM.getEdge() == radarEdge) {
+			} else if (selectedM instanceof RadarMerchant) {
 				header = "Radar";
-			} else if (selectedM.getEdge() == speedEdge) {
+			} else if (selectedM instanceof SpeedMerchant) {
 				header = "Speed";
+
 			}
 			String display = header + "Merchant: \nPlayer " + (1 + selectedM.getOwner().getId());
 			display += "\nMoves left: " + selectedM.getMovesLeft();
 			display += "\nLevel " + selectedM.getLevel();
+			display += "\nStatus: " + status;
 			p.fill(255);
 			p.rect(940, 750, 135, 120);
 
@@ -248,7 +255,7 @@ public class Board extends Screen {
 						player.getMerchantColor(), invisEdge);
 				upgraded.setOwner(player);
 				upgraded.setNumMoves(selectedM.getNumMoves());
-				//upgraded.draw(p, player);
+				// upgraded.draw(p, player);
 
 				player.getMerchants().set(player.getMerchants().indexOf(selectedM), upgraded);
 
@@ -495,18 +502,16 @@ public class Board extends Screen {
 				uncoverA(nx, ny);
 			}
 		}
-		
-		
+
 	}
 
 	public void uncoverA(int x, int y) {
-		if(inRange(x,y)) {
+		if (inRange(x, y)) {
 			tiles[x][y].uncover(player.getId());
 
 		}
 	}
-	
-	
+
 	/**
 	 * @param x x-coordinate being checked
 	 * @param y y-coordinate being checked

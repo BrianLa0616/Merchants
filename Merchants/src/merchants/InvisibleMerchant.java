@@ -34,16 +34,16 @@ public class InvisibleMerchant extends Merchant {
 	/**
 	 * Draws the Invisible Merchant
 	 * 
-	 * @param p marker used to draw
+	 * @param p       marker used to draw
 	 * @param current Player who's current turn
 	 */
 	public void draw(PApplet p, Player current) {
 
 		if (visible == true || current.equals(getOwner())) {
-			p.noFill();
+			p.fill(getColor().getRGB());
 			p.stroke(getEdge());
-			p.rect((super.getY() + 0.25f) * Tile.TILE_SIZE, (super.getX() + 0.25f) * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE,
-					0.5f * Tile.TILE_SIZE);
+			p.rect((super.getY() + 0.25f) * Tile.TILE_SIZE, (super.getX() + 0.25f) * Tile.TILE_SIZE,
+					0.5f * Tile.TILE_SIZE, 0.5f * Tile.TILE_SIZE);
 			p.stroke(0);
 		}
 
@@ -88,6 +88,14 @@ public class InvisibleMerchant extends Merchant {
 		}
 		return visible;
 
+	}
+
+	/**
+	 * 
+	 * @return visible visibility status of Invisible Merchant
+	 */
+	public boolean getVisible() {
+		return visible;
 	}
 
 	/**

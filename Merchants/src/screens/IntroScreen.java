@@ -69,7 +69,7 @@ public class IntroScreen extends Screen {
 			}
 
 			if (x == 0) {
-				size = 15;
+				size = 5;
 			} else if (x == 1) {
 				size = 10;
 			} else {
