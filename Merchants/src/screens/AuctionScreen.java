@@ -69,7 +69,6 @@ public class AuctionScreen extends Screen {
 	}
 
 	public void setup(PApplet p) {
-
 	}
 
 	/**

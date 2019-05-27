@@ -37,6 +37,7 @@ public class ScreenHandler extends PApplet {
 
 		currPlayer = 0;
 		board = null;
+		currScreen.setup(this);
 	}
 
 	public void setup() {
