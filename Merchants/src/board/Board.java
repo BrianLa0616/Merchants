@@ -138,7 +138,7 @@ public class Board extends Screen {
 			if (selectedM instanceof AuctionMerchant) {
 				header = "Auction";
 			} else if (selectedM instanceof InvisibleMerchant) {
-				if(((InvisibleMerchant)selectedM).getVisible()) {
+				if (((InvisibleMerchant) selectedM).getVisible()) {
 					status = "Visible";
 				} else {
 					status = "Invisible";
@@ -301,6 +301,8 @@ public class Board extends Screen {
 				selectedT.setMerchant(upgraded);
 				unselectAll();
 
+			} else {
+				unselectAll();
 			}
 
 		} else if (buyM.isPointInButton(p.mouseX, p.mouseY) && selectedT != null

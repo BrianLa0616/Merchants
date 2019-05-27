@@ -52,17 +52,21 @@ public class Tile {
 		uncovered[4] = true;
 	}
 
+	/**
+	 * loads the images for drawing this tile
+	 * 
+	 * @param p the PApplet onto which this tile will be drawn
+	 */
 	public void setup(PApplet p) {
 		flagPic = p.loadImage("images" + System.getProperty("file.separator") + "blackflag.png");
 		tilePic = p.loadImage("images" + System.getProperty("file.separator") + "tile.JPG");
-
 	}
 
 	/**
 	 * Draws the tiles
 	 * 
-	 * @param p  marker used to draw the tiles
-	 * @param id of the tile
+	 * @param p      marker used to draw the tiles
+	 * @param id     of the tile
 	 * @param player who's current turn
 	 */
 	public void draw(PApplet p, int id, Player player) {
@@ -80,7 +84,7 @@ public class Tile {
 				}
 			}
 
-			p.image(tilePic, y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE+1, Tile.TILE_SIZE);
+			p.image(tilePic, y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE + 1, Tile.TILE_SIZE);
 			if (this instanceof Checkpoint && isUncovered(owner.getId())) {
 				p.image(flagPic, y * TILE_SIZE + 5, x * TILE_SIZE + 5);
 			}
@@ -103,13 +107,13 @@ public class Tile {
 	/**
 	 * Draws the tile
 	 * 
-	 * @param p  Papplet used to draw
-	 * @param id id of the player that is drawing
-	 * @param x x-coordinate of tile
-	 * @param y y-coordinate of tile
+	 * @param p      Papplet used to draw
+	 * @param id     id of the player that is drawing
+	 * @param x      x-coordinate of tile
+	 * @param y      y-coordinate of tile
 	 * @param player who's current turn
-	 * @param x  x-coordinate of tile
-	 * @param y  y-coordinate of tile
+	 * @param x      x-coordinate of tile
+	 * @param y      y-coordinate of tile
 	 */
 	public void draw(PApplet p, int id, int x, int y, Player player) {
 		if (uncovered[id]) {
@@ -125,7 +129,7 @@ public class Tile {
 				}
 			}
 
-			p.image(tilePic, y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE+1, Tile.TILE_SIZE);
+			p.image(tilePic, y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE + 1, Tile.TILE_SIZE);
 			if (this instanceof Checkpoint && isUncovered(owner.getId())) {
 				p.image(flagPic, y * TILE_SIZE + 5, x * TILE_SIZE + 5);
 			}
@@ -139,7 +143,7 @@ public class Tile {
 			}
 		} else {
 			p.tint(Color.BLACK.getRGB());
-			p.image(tilePic, y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE+1, Tile.TILE_SIZE);
+			p.image(tilePic, y * Tile.TILE_SIZE, x * Tile.TILE_SIZE, Tile.TILE_SIZE + 1, Tile.TILE_SIZE);
 		}
 		p.noTint();
 	}
@@ -320,6 +324,38 @@ public class Tile {
 	}
 
 	/**
+	 * @return the grassy image used to draw tiles
+	 */
+	public PImage getPicture() {
+		return tilePic;
+	}
+
+	/**
+	 * Sets the picture with which to draw the tile
+	 * 
+	 * @param p the new picture
+	 */
+	public void setPicture(PImage p) {
+		tilePic = p;
+	}
+
+	/**
+	 * @return the the flag used to represent Checkpoints
+	 */
+	public PImage getFlagPicture() {
+		return flagPic;
+	}
+
+	/**
+	 * Sets the picture with which to indicate a Checkpoint
+	 * 
+	 * @param p the new picture
+	 */
+	public void setFlagPicture(PImage p) {
+		flagPic = p;
+	}
+
+	/**
 	 * @return an exact replica of this tile
 	 */
 	public Tile clone() {
@@ -334,6 +370,8 @@ public class Tile {
 			}
 		}
 		t.setSelected(isSelected);
+		t.setPicture(tilePic);
+		t.setFlagPicture(flagPic);
 
 		return t;
 	}
