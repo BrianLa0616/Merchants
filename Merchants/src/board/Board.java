@@ -121,7 +121,7 @@ public class Board extends Screen {
 
 		for (Tile[] ts : tiles) {
 			for (Tile t : ts) {
-				t.draw(p, player.getId());
+				t.draw(p, player.getId(), player);
 			}
 		}
 
@@ -242,7 +242,7 @@ public class Board extends Screen {
 						player.getMerchantColor(), invisEdge);
 				upgraded.setOwner(player);
 				upgraded.setNumMoves(selectedM.getNumMoves());
-				upgraded.draw(p, player);
+				//upgraded.draw(p, player);
 
 				player.getMerchants().set(player.getMerchants().indexOf(selectedM), upgraded);
 
@@ -353,7 +353,7 @@ public class Board extends Screen {
 							}
 
 							if (selectedM.getEdge() == radarEdge) {
-								((RadarMerchant) selectedM).reveal(selectedM.getLevel(), this, selectedT);
+								((RadarMerchant) selectedM).reveal(selectedM.getLevel(), this, tiles[mx][my]);
 							}
 
 							if (selectedM.getEdge() == invisEdge) {
@@ -486,13 +486,21 @@ public class Board extends Screen {
 			for (int j = -1; j <= 1; j++) {
 				int nx = x + i;
 				int ny = y + j;
-				if (inRange(nx, ny)) {
-					tiles[nx][ny].uncover(player.getId());
-				}
+				uncoverA(nx, ny);
 			}
 		}
+		
+		
 	}
 
+	public void uncoverA(int x, int y) {
+		if(inRange(x,y)) {
+			tiles[x][y].uncover(player.getId());
+
+		}
+	}
+	
+	
 	/**
 	 * @param x x-coordinate being checked
 	 * @param y y-coordinate being checked

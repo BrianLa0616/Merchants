@@ -60,7 +60,7 @@ public class IntroScreen extends Screen {
 	public void mousePressed(PApplet p) {
 		if (start.isPointInButton(p.mouseX, p.mouseY)) {
 
-			String[] modes = { "Normal (15x15)", "Blitz (10x10)" };
+			String[] modes = { "Normal (15 x 15 Board)", "Blitz (10 x 10 Board)" };
 			int x = -1, size = 15;
 			while (x < 0 || x > 4) {
 				x = JOptionPane.showOptionDialog(null, "Choose the game mode", "MODE", JOptionPane.DEFAULT_OPTION,

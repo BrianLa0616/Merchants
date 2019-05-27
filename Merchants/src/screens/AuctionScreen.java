@@ -124,7 +124,7 @@ public class AuctionScreen extends Screen {
 		for (int i = 0; i < minimap.length; i++) {
 			for (int j = 0; j < minimap[0].length; j++) {
 				if (minimap[i][j] != null) {
-					minimap[i][j].draw(p, 4);
+					minimap[i][j].draw(p, 4, handler.getPlayers().get(4));
 				}
 			}
 		}

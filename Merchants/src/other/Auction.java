@@ -15,10 +15,6 @@ import merchants.Merchant;
 public class Auction {
 	private Tile tile;
 	private ArrayList<Bid> bids;
-	private AuctionMerchant auctionM;
-
-	private int[] nx = { 0, 1, 1, 1, 0, -1, -1, -1 };
-	private int[] ny = { -1, -1, 0, 1, 1, 1, 0, -1 };
 
 	/**
 	 * New auction for tile
@@ -28,8 +24,6 @@ public class Auction {
 	public Auction(Tile t) {
 		tile = t;
 		bids = new ArrayList<Bid>();
-
-		auctionM = null;
 	}
 
 	/**
@@ -38,16 +32,10 @@ public class Auction {
 	 * @param bid added to the auction
 	 */
 	public void addBid(Bid bid) {
-		int bonus = 0;
 
-		for (Merchant m : bid.getPlayer().getMerchants()) {
-			if (m instanceof AuctionMerchant) {
-				bonus += ((AuctionMerchant) m).auction(m.getLevel());
-			}
-		}
 		for (int i = 0; i < bids.size(); i++) {
 			if (bids.get(i).getPlayer() == bid.getPlayer()) {
-				bid.setAmount(bid.getAmount() + bonus);
+				bid.setAmount(bid.getAmount());
 				bids.set(i, bid);
 
 			}

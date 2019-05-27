@@ -1,5 +1,8 @@
 package other;
 
+import merchants.AuctionMerchant;
+import merchants.Merchant;
+
 /**
  * Represents a bid in an auction
  * 
@@ -13,12 +16,28 @@ public class Bid {
 	/**
 	 * New bid made by player
 	 * 
-	 * @param p Player making bid
+	 * @param p   Player making bid
 	 * @param bid amount put into bid
 	 */
 	public Bid(Player p, int bid) {
 		player = p;
 		this.bid = bid;
+	}
+
+	/**
+	 * 
+	 * @return bonus amount from Auction Merchant
+	 */
+	public int bonus() {
+		int bonus = 0;
+
+		for (Merchant m : player.getMerchants()) {
+			if (m instanceof AuctionMerchant) {
+				bonus += ((AuctionMerchant) m).auction(m.getLevel());
+			}
+		}
+
+		return bonus;
 	}
 
 	/**
@@ -34,9 +53,9 @@ public class Bid {
 	 * @return bid amount
 	 */
 	public int getAmount() {
-		return bid;
+		return bid + bonus();
 	}
-	
+
 	/**
 	 * Set bid amount
 	 * 
@@ -45,5 +64,5 @@ public class Bid {
 	public void setAmount(int val) {
 		bid = val;
 	}
-	
+
 }
