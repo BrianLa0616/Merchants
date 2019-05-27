@@ -39,6 +39,7 @@ public class Board extends Screen {
 	private Tile[][] tiles;
 	private Tile selectedT;
 	private Merchant selectedM;
+	
 
 	private TextButton upgradeM;
 	private TextButton buyM;
@@ -65,7 +66,7 @@ public class Board extends Screen {
 	 * @param board Handler used for transitions
 	 */
 	public Board(ScreenHandler board, int size) {
-		super(board);
+		super();
 		this.handler = board;
 		player = null;
 		selectedT = null;
@@ -106,6 +107,11 @@ public class Board extends Screen {
 	}
 
 	public void setup(PApplet p) {
+		for (int i = 0; i < tiles.length; i++) {
+			for (int j = 0; j < tiles[0].length; j++) {
+				tiles[i][j].setup(p);
+			}
+		}
 	}
 
 	/**
@@ -295,7 +301,7 @@ public class Board extends Screen {
 			buyMerchant();
 		} else if (createCheckpoint.isPointInButton(p.mouseX, p.mouseY) && selectedT != null
 				&& selectedT.getOwner() == player && player.getBalance() >= selectedT.getCost()) {
-			createCheckpoint();
+			createCheckpoint(p);
 		} else {
 			int mx = p.mouseY / Tile.TILE_SIZE, my = p.mouseX / Tile.TILE_SIZE;
 
@@ -515,7 +521,7 @@ public class Board extends Screen {
 	}
 
 	// selectedT is an owned tile
-	private void createCheckpoint() {
+	private void createCheckpoint(PApplet p) {
 		int mx = selectedT.getX();
 		int my = selectedT.getY();
 		if (selectedT instanceof Checkpoint) {
@@ -528,6 +534,7 @@ public class Board extends Screen {
 			Checkpoint temp = new Checkpoint(mx, my, tiles[mx][my].getCost() * 2);
 			// conserving characteristics of tile
 			temp.setOwner(player);
+			temp.setup(p);
 			for (int i = 0; i < 4; i++) {
 				if (tiles[mx][my].isUncovered(i)) {
 					temp.uncover(i);

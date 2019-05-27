@@ -9,8 +9,6 @@ import java.awt.Color;
  *
  */
 public class MoneyMerchant extends Merchant {
-	private int x, y;
-	private int edge;
 
 	private int price[] = { 20, 30, 40, 50, 70 };
 

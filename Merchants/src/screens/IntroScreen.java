@@ -9,7 +9,6 @@ import board.Checkpoint;
 import buttons.TextButton;
 import other.Player;
 import processing.core.PApplet;
-import processing.core.PImage;
 
 /**
  * Represents the home screen when a user first enters the game
@@ -20,7 +19,6 @@ import processing.core.PImage;
 public class IntroScreen extends Screen {
 	private TextButton start, instr;
 	private ScreenHandler handler;
-	private PImage town;
 
 	/**
 	 * Creates a new intro screen
@@ -28,7 +26,7 @@ public class IntroScreen extends Screen {
 	 * @param board PApplet that draws the screen
 	 */
 	public IntroScreen(ScreenHandler board) {
-		super(board);
+		super();
 		start = new TextButton(450, 450, 200, 75, Color.WHITE, Color.BLACK, "START", 24);
 		instr = new TextButton(450, 550, 200, 75, Color.WHITE, Color.BLACK, "INSTRUCTIONS", 24);
 		this.handler = board;
@@ -101,6 +99,7 @@ public class IntroScreen extends Screen {
 				// adds Tile to player's territory
 				handler.getBoard().getTiles()[xvals[i]][yvals[i]] = new Checkpoint(player.initX(), player.initY(),
 						player.getTerritory().size() * 10);
+				handler.getBoard().getTiles()[xvals[i]][yvals[i]].setup(p);
 
 				handler.getPlayers().get(i).addTile(handler.getBoard().getTiles()[xvals[i]][yvals[i]]);
 

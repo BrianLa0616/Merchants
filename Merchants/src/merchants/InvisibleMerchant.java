@@ -12,7 +12,6 @@ import processing.core.PApplet;
  * @author Ansen
  */
 public class InvisibleMerchant extends Merchant {
-	private int edge;
 
 	private int price[] = { 20, 25, 30, 35, 45 };
 

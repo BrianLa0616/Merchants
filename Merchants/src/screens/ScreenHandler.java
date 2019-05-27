@@ -97,6 +97,7 @@ public class ScreenHandler extends PApplet {
 
 	public void setBoard(Board b) {
 		board = b;
+		board.setup(this);
 	}
 
 	public void mousePressed() {
