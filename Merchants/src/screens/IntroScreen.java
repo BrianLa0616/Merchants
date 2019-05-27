@@ -26,7 +26,7 @@ public class IntroScreen extends Screen {
 	 * @param board PApplet that draws the screen
 	 */
 	public IntroScreen(ScreenHandler board) {
-		super(board);
+		super();
 		start = new TextButton(450, 450, 200, 75, Color.WHITE, Color.BLACK, "START", 24);
 		instr = new TextButton(450, 550, 200, 75, Color.WHITE, Color.BLACK, "INSTRUCTIONS", 24);
 		this.handler = board;

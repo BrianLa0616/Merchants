@@ -14,7 +14,7 @@ public class InstructionsScreen extends Screen {
 	 * @param board PApplet that draws the window
 	 */
 	public InstructionsScreen(ScreenHandler board) {
-		super(board);
+		super();
 		handler = board;
 		back = new TextButton(Screen.DRAWING_WIDTH - 175, 125, 150, 75, Color.WHITE, Color.BLACK, "BACK", 18);
 	}

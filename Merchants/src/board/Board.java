@@ -17,7 +17,6 @@ import other.Bid;
 import other.Player;
 import processing.core.PApplet;
 import processing.core.PConstants;
-import processing.core.PImage;
 import screens.AuctionScreen;
 import screens.EndScreen;
 import screens.Screen;
@@ -41,7 +40,6 @@ public class Board extends Screen {
 	private Tile selectedT;
 	private Merchant selectedM;
 	
-	private PImage tilePic;
 
 	private TextButton upgradeM;
 	private TextButton buyM;
@@ -68,7 +66,7 @@ public class Board extends Screen {
 	 * @param board Handler used for transitions
 	 */
 	public Board(ScreenHandler board, int size) {
-		super(board);
+		super();
 		this.handler = board;
 		player = null;
 		selectedT = null;

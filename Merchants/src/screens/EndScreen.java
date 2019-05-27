@@ -24,7 +24,7 @@ public class EndScreen extends Screen {
 	 * @param player currently on
 	 */
 	public EndScreen(ScreenHandler board, Player player) {
-		super(board);
+		super();
 		this.player = player;
 		playAgain = new TextButton(450, 500, 200, 75, Color.WHITE, Color.BLACK, "PLAY AGAIN", 24);
 		handler = board;

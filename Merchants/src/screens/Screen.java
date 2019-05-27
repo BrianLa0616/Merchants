@@ -13,14 +13,11 @@ public abstract class Screen {
 	public static final int DRAWING_WIDTH = 1100;
 	public static final int DRAWING_HEIGHT = 1030;
 
-	private ScreenHandler board;
-
 	/**
 	 * 
 	 * @param board PApplet that draws the window
 	 */
-	public Screen(ScreenHandler board) {
-		this.board = board;
+	public Screen() {
 	}
 
 	/**

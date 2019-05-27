@@ -36,7 +36,7 @@ public class AuctionScreen extends Screen {
 	 * @param a       new Auction
 	 */
 	public AuctionScreen(ScreenHandler handler, Auction a) {
-		super(handler);
+		super();
 		auction = a;
 		enterBid = new ArrayList<TextButton>();
 		withdraw = new ArrayList<TextButton>();

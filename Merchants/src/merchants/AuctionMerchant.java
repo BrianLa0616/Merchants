@@ -9,8 +9,6 @@ import java.awt.Color;
  *
  */
 public class AuctionMerchant extends Merchant {
-	private int x, y;
-	private int edge;
 
 	private int[] price = { 20, 30, 35, 40, 50 };
 

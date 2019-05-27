@@ -24,7 +24,7 @@ public class TransScreen extends Screen {
 	 * @param player currently on
 	 */
 	public TransScreen(ScreenHandler board, Player player) {
-		super(board);
+		super();
 		this.player = player;
 		next = new TextButton(450, 500, 200, 75, Color.WHITE, Color.BLACK, "READY", 24);
 		handler = board;

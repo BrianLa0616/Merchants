@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import board.Board;
 import board.Tile;
-import other.Player;
 
 /**
  * Represents a Radar Merchant
@@ -14,9 +13,6 @@ import other.Player;
  *
  */
 public class RadarMerchant extends Merchant {
-	private int x, y;
-	private int edge;
-
 	private int price[] = { 20, 35, 45, 60, 75 };
 
 	private ArrayList<int[]> nx;
