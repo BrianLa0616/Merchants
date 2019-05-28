@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 
 import board.Tile;
 import buttons.TextButton;
+import merchants.AuctionMerchant;
+import merchants.Merchant;
 import other.Auction;
 import other.Bid;
 import other.Player;
@@ -184,7 +186,16 @@ public class AuctionScreen extends Screen {
 				}
 
 				bid.getPlayer().addTile(auction.getTile());
-				bid.getPlayer().setBalance(bid.getPlayer().getBalance() - bid.getAmount());
+				
+				double percentageDeduction = 0;
+				
+				for(Merchant m : bid.getPlayer().getMerchants()) {
+					if(m instanceof AuctionMerchant) {
+						percentageDeduction = ((AuctionMerchant)m).reduce(m.getLevel());
+						break;
+					}
+				}
+				bid.getPlayer().setBalance(bid.getPlayer().getBalance() - (int)(bid.getAmount() * (1 - percentageDeduction)));
 
 				proceed.setText("EXIT AUCTION");
 

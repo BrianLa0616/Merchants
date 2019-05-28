@@ -26,22 +26,6 @@ public class Bid {
 
 	/**
 	 * 
-	 * @return bonus amount from Auction Merchant
-	 */
-	public int bonus() {
-		int bonus = 0;
-
-		for (Merchant m : player.getMerchants()) {
-			if (m instanceof AuctionMerchant) {
-				bonus += ((AuctionMerchant) m).auction(m.getLevel());
-			}
-		}
-
-		return bonus;
-	}
-
-	/**
-	 * 
 	 * @return player making bid
 	 */
 	public Player getPlayer() {
@@ -53,7 +37,7 @@ public class Bid {
 	 * @return bid amount
 	 */
 	public int getAmount() {
-		return bid + bonus();
+		return bid;
 	}
 
 	/**
