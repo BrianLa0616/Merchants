@@ -84,6 +84,11 @@ public class Player {
 		t.setOwner(this);
 	}
 
+	/**
+	 * Checks if player equals specified object
+	 * 
+	 * @param other Object player being compared to
+	 */
 	public boolean equals(Object other) {
 		if (!(other instanceof Player)) {
 			return false;

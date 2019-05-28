@@ -4,7 +4,9 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
- * Subclass of Button. Represents a button with an image inside it.
+ * Subclass of Button. Represents a button with an image inside it
+ * 
+ * @author Eylam
  */
 public class ImageButton extends Button {
 	private PImage image;

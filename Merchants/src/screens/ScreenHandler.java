@@ -40,6 +40,9 @@ public class ScreenHandler extends PApplet {
 		currScreen.setup(this);
 	}
 
+	/**
+	 * Sets the background to the town image
+	 */
 	public void setup() {
 		background = loadImage("images" + System.getProperty("file.separator") + "town.png");
 	}
@@ -87,6 +90,9 @@ public class ScreenHandler extends PApplet {
 		return currPlayer;
 	}
 
+	/**
+	 * Restarts the board
+	 */
 	public void restart() {
 		players.clear();
 		board = null;
@@ -95,6 +101,11 @@ public class ScreenHandler extends PApplet {
 
 	}
 
+	/**
+	 * Sets the board to another desired board
+	 * 
+	 * @param b board being set to
+	 */
 	public void setBoard(Board b) {
 		board = b;
 		board.setup(this);

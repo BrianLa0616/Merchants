@@ -4,7 +4,9 @@ import bla269.shapes.Rectangle;
 import processing.core.PApplet;
 
 /**
- * Represents a general button in a game or menu, to be clicked on.
+ * Represents a general button in a game or menu, to be clicked on
+ * 
+ * @author Eylam
  */
 public abstract class Button {
 	protected float x, y, width, height;
