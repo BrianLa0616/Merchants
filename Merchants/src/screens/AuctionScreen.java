@@ -96,8 +96,8 @@ public class AuctionScreen extends Screen {
 		for (int i = 0; i < auction.getBids().size(); i++) {
 			String display = "Player " + (auction.getBids().get(i).getPlayer().getId() + 1) + ": "
 					+ auction.getBids().get(i).getAmount();
-			if (winner == auction.getBids().get(i).getPlayer().getId() && auction.getBids().get(i).bonus() > 0) {
-				display += " (" + auction.getBids().get(i).bonus() + "% discount)";
+			if (winner == auction.getBids().get(i).getPlayer().getId() && auction.getBids().get(i).getReduction() > 0) {
+				display += " (" + auction.getBids().get(i).getReduction() + "% discount)";
 			}
 			p.text(display, 50, 230 + 100 * i);
 
@@ -195,7 +195,7 @@ public class AuctionScreen extends Screen {
 						break;
 					}
 				}
-				bid.getPlayer().setBalance(bid.getPlayer().getBalance() - (int)(bid.getAmount() * (1 - percentageDeduction)));
+				bid.getPlayer().setBalance(bid.getPlayer().getBalance() - (int)(bid.getAmount() * (1 - (percentageDeduction * 0.01))));
 
 				proceed.setText("EXIT AUCTION");
 

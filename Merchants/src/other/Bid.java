@@ -41,6 +41,20 @@ public class Bid {
 	}
 
 	/**
+	 * 
+	 * @return reduction amount player's bid goes down by if they own an auction
+	 *         merchant
+	 */
+	public int getReduction() {
+		for (Merchant m : player.getMerchants()) {
+			if (m instanceof AuctionMerchant) {
+				return ((AuctionMerchant) m).reduce(m.getLevel());
+			}
+		}
+		return 0;
+	}
+
+	/**
 	 * Set bid amount
 	 * 
 	 * @param val amount set into bid
