@@ -33,17 +33,17 @@ public class AuctionMerchant extends Merchant {
 	 * @param level of the Auction Merchant
 	 * @return percentage decreased
 	 */
-	public double reduce(int level) {
+	public int reduce(int level) {
 		if (level == 1) {
-			return 0.10;
+			return 10;
 		} else if (level == 2) {
-			return 0.15;
+			return 15;
 		} else if (level == 3) {
-			return 0.20;
+			return 20;
 		} else if (level == 4) {
-			return 0.25;
+			return 25;
 		}
-		return 0.35;
+		return 35;
 	}
 
 	/**
