@@ -7,7 +7,8 @@ import other.Player;
 import processing.core.PApplet;
 
 /**
- * Represents an Invisible Merchant
+ * Represents an Invisible Merchant, unseen by other players until too deep in
+ * enemy territory
  * 
  * @author Ansen
  */

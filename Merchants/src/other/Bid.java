@@ -4,7 +4,7 @@ import merchants.AuctionMerchant;
 import merchants.Merchant;
 
 /**
- * Represents a bid in an auction
+ * Represents a bid in an auction, a neat way to store data
  * 
  * @author Eylam
  *

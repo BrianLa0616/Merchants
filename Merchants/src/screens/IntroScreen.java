@@ -176,9 +176,6 @@ public class IntroScreen extends Screen {
 		return true;
 	}
 
-	/*
-	 * Determines whether specified location is within the board
-	 */
 	private boolean inRange(int x, int y) {
 		return x >= 0 && x < handler.getBoard().getTiles().length && y >= 0
 				&& y < handler.getBoard().getTiles()[0].length;

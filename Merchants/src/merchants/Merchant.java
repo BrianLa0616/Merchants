@@ -8,7 +8,7 @@ import other.Player;
 import processing.core.PApplet;
 
 /**
- * Represents a regular merchant
+ * Represents a regular merchant, with no special abilities until upgraded
  * 
  * @author Ansen
  *

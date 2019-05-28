@@ -27,7 +27,6 @@ public class InstructionsScreen extends Screen {
 	}
 
 	public void setup(PApplet p) {
-
 	}
 
 	/**

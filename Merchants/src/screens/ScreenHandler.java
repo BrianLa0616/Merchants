@@ -15,8 +15,15 @@ import processing.core.PImage;
  *
  */
 public class ScreenHandler extends PApplet {
+	/**
+	 * The colors for each player's assets
+	 */
 	public static final Color[] PLAYER_COLORS = { new Color(200, 0, 0), new Color(0, 0, 200), new Color(200, 100, 0),
 			new Color(50, 255, 50) };
+
+	/**
+	 * The colors for each player's territory
+	 */
 	public static final Color[] TILE_COLORS = { new Color(255, 50, 50), new Color(50, 50, 255), new Color(255, 155, 55),
 			new Color(50, 255, 50) };
 
@@ -111,30 +118,51 @@ public class ScreenHandler extends PApplet {
 		board.setup(this);
 	}
 
+	/**
+	 * Wrapper for the current screen's mousePressed
+	 */
 	public void mousePressed() {
 		currScreen.mousePressed(this);
 	}
 
+	/**
+	 * Wrapper for the current screen's mouseMoved
+	 */
 	public void mouseMoved(PApplet p) {
 		currScreen.mouseMoved(this);
 	}
 
+	/**
+	 * Wrapper for the current screen's mouseDragged
+	 */
 	public void mouseDragged(PApplet p) {
 		currScreen.mouseDragged(this);
 	}
 
+	/**
+	 * Wrapper for the current screen's mouseCLicked
+	 */
 	public void mouseClicked(PApplet p) {
 		currScreen.mouseClicked(this);
 	}
 
+	/**
+	 * Wrapper for the current screen's mouseReleased
+	 */
 	public void mouseReleased(PApplet p) {
 		currScreen.mouseReleased(this);
 	}
 
+	/**
+	 * Wrapper for the current screen's keyPressed
+	 */
 	public void keyPressed(PApplet p) {
 		currScreen.keyPressed(this);
 	}
 
+	/**
+	 * Wrapper for the current screen's keyReleased
+	 */
 	public void keyReleased(PApplet p) {
 		currScreen.keyReleased(this);
 	}

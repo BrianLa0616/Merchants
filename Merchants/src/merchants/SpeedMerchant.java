@@ -3,7 +3,7 @@ package merchants;
 import java.awt.Color;
 
 /**
- * Represents a Speed Merchant
+ * Represents a Speed Merchant, having more movement than other Merchants
  * 
  * @author Ansen
  *
@@ -15,9 +15,9 @@ public class SpeedMerchant extends Merchant {
 	/**
 	 * Constructs a new Speed Merchant at (x, y) with Color c
 	 * 
-	 * @param x x-coordinate of the Speed Merchant
-	 * @param y y-coordinate of the Speed Merchant
-	 * @param c Color of the Speed Merchant
+	 * @param x    x-coordinate of the Speed Merchant
+	 * @param y    y-coordinate of the Speed Merchant
+	 * @param c    Color of the Speed Merchant
 	 * @param edge border color of merchant
 	 */
 	public SpeedMerchant(int x, int y, Color c, int edge) {
@@ -30,7 +30,7 @@ public class SpeedMerchant extends Merchant {
 	 * merchant increases, the Speed Merchant can move further
 	 * 
 	 * @param level of the Speed Merchant
-	 * @return 1 extra movement 
+	 * @return 1 extra movement
 	 */
 	public int speed(int level) {
 		if (level < 5) {

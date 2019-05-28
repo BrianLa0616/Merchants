@@ -267,12 +267,6 @@ public class AuctionScreen extends Screen {
 
 	}
 
-	/**
-	 * Checks if entered value is a valid integer
-	 * 
-	 * @param x the String to check if it is a valid integer
-	 * @return true if x is an integer, otherwise false
-	 */
 	private boolean validIntegerInput(String x) {
 		if (x.length() == 0)
 			return false;
@@ -284,11 +278,6 @@ public class AuctionScreen extends Screen {
 		return true;
 	}
 
-	/**
-	 * Deletes a player from the game, after losing
-	 * 
-	 * @param player the player to be deleted
-	 */
 	private void deletePlayer(Player player) {
 
 		while (player.getTerritory().size() != 0) {

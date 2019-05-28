@@ -14,6 +14,12 @@ import screens.ScreenHandler;
  *         Runs the program from its starting point
  */
 public class Main {
+
+	/**
+	 * Called on startup to initiate the program
+	 * 
+	 * @param args the necessary arguments to this program
+	 */
 	public static void main(String args[]) {
 		ScreenHandler drawing = new ScreenHandler();
 		PApplet.runSketch(new String[] { "" }, drawing);

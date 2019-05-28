@@ -3,7 +3,8 @@ package merchants;
 import java.awt.Color;
 
 /**
- * Represents an Auction Merchant
+ * Represents an Auction Merchant, giving its player a bonus when auctioning for
+ * Tiles
  * 
  * @author Ansen
  *
@@ -15,9 +16,9 @@ public class AuctionMerchant extends Merchant {
 	/**
 	 * Constructs a new Auction Merchant at (x, y) with color c
 	 * 
-	 * @param x x-coordinate of auction merchant
-	 * @param y y-coordinate of auction merchant
-	 * @param c Color of merchant
+	 * @param x    x-coordinate of auction merchant
+	 * @param y    y-coordinate of auction merchant
+	 * @param c    Color of merchant
 	 * @param edge border color of merchant
 	 */
 	public AuctionMerchant(int x, int y, Color c, int edge) {

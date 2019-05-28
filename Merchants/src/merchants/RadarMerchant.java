@@ -7,7 +7,7 @@ import board.Board;
 import board.Tile;
 
 /**
- * Represents a Radar Merchant
+ * Represents a Radar Merchant, being able to uncover more tiles when moving
  * 
  * @author Ansen
  *
@@ -51,8 +51,8 @@ public class RadarMerchant extends Merchant {
 	 * tiles around them
 	 * 
 	 * @param level of the Radar Merchant
-	 * @param b board that is being affected
-	 * @param t tile that is being revealed
+	 * @param b     board that is being affected
+	 * @param t     tile that is being revealed
 	 */
 	public void reveal(int level, Board b, Tile t) {
 

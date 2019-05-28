@@ -24,21 +24,19 @@ import screens.ScreenHandler;
 import screens.TransScreen;
 
 /**
- * Represents the game board
+ * Represents the game board, which is the main Screen around which the entire
+ * game revolves
  * 
- * @author Brian
+ * @author Brian, Eylam
  *
  */
 public class Board extends Screen {
 	/**
-	 * BOARD_SIZE size of the board
+	 * BOARD_SIZE size of the board in Tiles (width and height)
 	 */
 	public static final int BOARD_SIZE = 15;
 
-	/**
-	 * boardSize size of the board
-	 */
-	public int boardSize;
+	private int boardSize;
 
 	private Player player;
 	private ScreenHandler handler;

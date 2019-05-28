@@ -4,7 +4,8 @@ import bla269.shapes.Rectangle;
 import processing.core.PApplet;
 
 /**
- * Represents a general button in a game or menu, to be clicked on
+ * Represents a general button in a game or menu, to be clicked on for some sort
+ * of feedback
  * 
  * @author Eylam
  */

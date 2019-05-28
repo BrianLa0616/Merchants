@@ -9,14 +9,14 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
- * Represents a single tile in board
+ * Represents a single square tile in the game's board
  * 
  * @author Eylam
  *
  */
 public class Tile {
 	/**
-	 * The size of the tile
+	 * The size of the tile (width and height)
 	 */
 	public static final int TILE_SIZE = 60;
 
@@ -31,7 +31,7 @@ public class Tile {
 	private PImage tilePic, flagPic;
 
 	/**
-	 * Constructs a new tile at specified location
+	 * Constructs a new tile at specified location with specified cost to auction
 	 * 
 	 * @param x    x-coordinate of the tile
 	 * @param y    y-coordinate of the tile
@@ -314,8 +314,8 @@ public class Tile {
 
 	/**
 	 * 
-	 * @return isPicked true if the tile is picked for auction by the current player,
-	 *         otherwise false.
+	 * @return isPicked true if the tile is picked for auction by the current
+	 *         player, otherwise false.
 	 */
 	public boolean isPicked() {
 		return isPicked;

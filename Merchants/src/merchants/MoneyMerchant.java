@@ -3,7 +3,7 @@ package merchants;
 import java.awt.Color;
 
 /**
- * Represents a Money Merchant
+ * Represents a Money Merchant, having an income bonus every turn for its player
  * 
  * @author Ansen
  *
@@ -15,9 +15,9 @@ public class MoneyMerchant extends Merchant {
 	/**
 	 * Constructs a new Money Merchant at (x, y) with Color c
 	 * 
-	 * @param x x-coordinate of the Money Merchant
-	 * @param y y-coordinate of the Money Merchant
-	 * @param c Color of the Money Merchant
+	 * @param x    x-coordinate of the Money Merchant
+	 * @param y    y-coordinate of the Money Merchant
+	 * @param c    Color of the Money Merchant
 	 * @param edge border color of merchant
 	 */
 	public MoneyMerchant(int x, int y, Color c, int edge) {
