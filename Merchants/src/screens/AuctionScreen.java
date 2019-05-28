@@ -85,15 +85,19 @@ public class AuctionScreen extends Screen {
 
 		if (winner != -1) {
 			p.fill(Color.YELLOW.getRGB());
-			p.rect(50, 180 + 100 * winner, 350, 100);
+			p.rect(50, 180 + 100 * winner, 950, 100);
 		}
 
 		p.textAlign(PApplet.LEFT);
 		p.fill(Color.BLACK.getRGB());
 
 		for (int i = 0; i < auction.getBids().size(); i++) {
-			p.text("Player " + (auction.getBids().get(i).getPlayer().getId() + 1) + ": "
-					+ auction.getBids().get(i).getAmount(), 50, 230 + 100 * i);
+			String display = "Player " + (auction.getBids().get(i).getPlayer().getId() + 1) + ": "
+					+ auction.getBids().get(i).getAmount();
+			if (winner == auction.getBids().get(i).getPlayer().getId() && auction.getBids().get(i).bonus() > 0) {
+				display += " (" + auction.getBids().get(i).bonus() + "% discount)";
+			}
+			p.text(display, 50, 230 + 100 * i);
 
 			if (winner == -1) {
 				if (auction.getBids().get(i).getPlayer().getBalance() >= auction.getTile().getCost()) {
