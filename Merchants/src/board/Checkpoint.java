@@ -4,10 +4,9 @@ import other.Player;
 import processing.core.PApplet;
 
 /**
- * Represents a Tile that a player's merchants can teleport to.
+ * Represents a Tile that the owner's Merchants can teleport to
  * 
  * @author Eylam
- * 
  */
 public class Checkpoint extends Tile {
 

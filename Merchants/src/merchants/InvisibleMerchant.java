@@ -57,7 +57,7 @@ public class InvisibleMerchant extends Merchant {
 	 * 
 	 * @param level of the Invisible Merchant
 	 * @param t     Tile that the Invisible Merchant is currently on
-	 * @return
+	 * @return if this InvisibleMerchant is visible on Tile t, at the given level
 	 */
 	public boolean isVisible(int level, Tile t) {
 		if (t.getOwner() == null) {

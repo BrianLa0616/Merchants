@@ -128,42 +128,42 @@ public class ScreenHandler extends PApplet {
 	/**
 	 * Wrapper for the current screen's mouseMoved
 	 */
-	public void mouseMoved(PApplet p) {
+	public void mouseMoved() {
 		currScreen.mouseMoved(this);
 	}
 
 	/**
 	 * Wrapper for the current screen's mouseDragged
 	 */
-	public void mouseDragged(PApplet p) {
+	public void mouseDragged() {
 		currScreen.mouseDragged(this);
 	}
 
 	/**
 	 * Wrapper for the current screen's mouseCLicked
 	 */
-	public void mouseClicked(PApplet p) {
+	public void mouseClicked() {
 		currScreen.mouseClicked(this);
 	}
 
 	/**
 	 * Wrapper for the current screen's mouseReleased
 	 */
-	public void mouseReleased(PApplet p) {
+	public void mouseReleased() {
 		currScreen.mouseReleased(this);
 	}
 
 	/**
 	 * Wrapper for the current screen's keyPressed
 	 */
-	public void keyPressed(PApplet p) {
+	public void keyPressed() {
 		currScreen.keyPressed(this);
 	}
 
 	/**
 	 * Wrapper for the current screen's keyReleased
 	 */
-	public void keyReleased(PApplet p) {
+	public void keyReleased() {
 		currScreen.keyReleased(this);
 	}
 }
