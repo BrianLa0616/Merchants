@@ -17,7 +17,7 @@ import processing.core.PApplet;
 /**
  * Represents an Auction Screen where auctions take place
  * 
- * @author Eylam
+ * @author Eylam, Brian
  *
  */
 public class AuctionScreen extends Screen {
@@ -96,9 +96,20 @@ public class AuctionScreen extends Screen {
 		for (int i = 0; i < auction.getBids().size(); i++) {
 			String display = "Player " + (auction.getBids().get(i).getPlayer().getId() + 1) + ": "
 					+ auction.getBids().get(i).getAmount();
-			if (winner == auction.getBids().get(i).getPlayer().getId() && auction.getBids().get(i).bonus() > 0) {
-				display += " (" + auction.getBids().get(i).bonus() + "% discount)";
+
+			double percentageDeduction = 0;
+
+			for (Merchant m : auction.getBids().get(i).getPlayer().getMerchants()) {
+				if (m instanceof AuctionMerchant) {
+					percentageDeduction = ((AuctionMerchant) m).reduce(m.getLevel());
+					break;
+				}
 			}
+
+			if (winner == i) {
+				display += " (" + (int) (percentageDeduction * 100) + "% discount)";
+			}
+
 			p.text(display, 50, 230 + 100 * i);
 
 			if (winner == -1) {
@@ -186,16 +197,17 @@ public class AuctionScreen extends Screen {
 				}
 
 				bid.getPlayer().addTile(auction.getTile());
-				
+
 				double percentageDeduction = 0;
-				
-				for(Merchant m : bid.getPlayer().getMerchants()) {
-					if(m instanceof AuctionMerchant) {
-						percentageDeduction = ((AuctionMerchant)m).reduce(m.getLevel());
+
+				for (Merchant m : bid.getPlayer().getMerchants()) {
+					if (m instanceof AuctionMerchant) {
+						percentageDeduction = ((AuctionMerchant) m).reduce(m.getLevel());
 						break;
 					}
 				}
-				bid.getPlayer().setBalance(bid.getPlayer().getBalance() - (int)(bid.getAmount() * (1 - percentageDeduction)));
+				bid.getPlayer()
+						.setBalance(bid.getPlayer().getBalance() - (int) (bid.getAmount() * (1 - percentageDeduction)));
 
 				proceed.setText("EXIT AUCTION");
 
