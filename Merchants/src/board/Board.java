@@ -34,7 +34,7 @@ public class Board extends Screen {
 	 * BOARD_SIZE size of the board
 	 */
 	public static final int BOARD_SIZE = 15;
-	
+
 	/**
 	 * boardSize size of the board
 	 */
@@ -205,11 +205,11 @@ public class Board extends Screen {
 		}
 
 		p.fill(255);
-		p.rect(22, 915, 450, 50);
+		p.rect(22, 915, 725, 50);
 		p.fill(0);
 		p.textSize(36);
-		p.text("Player " + (player.getId() + 1) + " (Balance: $" + player.getBalance() + ")", 25,
-				Screen.DRAWING_HEIGHT - 75);
+		p.text("Player " + (player.getId() + 1) + " (Balance: $" + player.getBalance() + ", Income: $"
+				+ player.getIncome() + ")", 25, Screen.DRAWING_HEIGHT - 75);
 		endTurn.draw(p);
 	}
 
@@ -641,7 +641,9 @@ public class Board extends Screen {
 			sum += (double) t.getCost() * 0.25;
 		}
 
-		player.setBalance(player.getBalance() + (int) sum + bonus);
+		player.setIncome((int) sum + bonus);
+
+		player.setBalance(player.getBalance() + player.getIncome());
 
 	}
 

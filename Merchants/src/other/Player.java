@@ -18,7 +18,7 @@ public class Player {
 	private Color merchantColor, tileColor;
 
 	private int merchantEdge;
-	private int balance;
+	private int balance, income;
 
 	private int initX, initY, id;
 
@@ -41,6 +41,7 @@ public class Player {
 		merchantEdge = 0;
 
 		balance = 100;
+		income = 0;
 		this.merchantColor = merchantColor;
 		this.tileColor = tileColor;
 		territory = new ArrayList<Tile>();
@@ -94,10 +95,10 @@ public class Player {
 			return false;
 
 		} else {
-			Player obj = (Player)other;
+			Player obj = (Player) other;
 			return obj.id == this.id;
 		}
-		
+
 	}
 
 	/**
@@ -182,4 +183,20 @@ public class Player {
 		return merchantEdge;
 	}
 
+	/**
+	 * 
+	 * @return the player's turn-based income from tiles
+	 */
+	public int getIncome() {
+		return income;
+	}
+
+	/**
+	 * Sets the turn-based income from tiles
+	 * 
+	 * @param income the new income value
+	 */
+	public void setIncome(int income) {
+		this.income = income;
+	}
 }
